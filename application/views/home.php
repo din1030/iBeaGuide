@@ -15,16 +15,22 @@
 </div>
 <hr>
 <div id="manage-block-list" class="row">
-    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6 manage-block">
-        <a class="btn btn-block btn-lg btn-success list-group" href="/iBeaGuide/exhibitions">展覽管理</a>
+    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6 manage-block">
+        <a class="btn btn-block btn-lg btn-danger list-group" href="/iBeaGuide/exhibition">展覽管理</a>
     </div>
-    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6 manage-block">
-        <a class="btn btn-block btn-lg btn-info list-group" href="/iBeaGuide/items">展品管理</a>
+    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6 manage-block">
+        <a class="btn btn-block btn-lg btn-info list-group" href="/iBeaGuide/item">展品管理</a>
     </div>
-    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6 manage-block">
-        <a class="btn btn-block btn-lg btn-primary list-group" href="/iBeaGuide/facilities">設施管理</a>
+    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6 manage-block">
+        <a class="btn btn-block btn-lg btn-success list-group" href="/iBeaGuide/facility">設施管理</a>
     </div>
-    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6 manage-block">
-        <a class="btn btn-block btn-lg btn-warning list-group" href="/iBeaGuide/ibeacons">iBeacon 管理</a>
+    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6 manage-block">
+        <a class="btn btn-block btn-lg btn-warning list-group" href="/iBeaGuide/route">路線管理</a>
+    </div>
+    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6 manage-block">
+        <a class="btn btn-block btn-lg btn-primary list-group" href="/iBeaGuide/comment">留言管理</a>
+    </div>
+    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6 manage-block">
+        <a class="btn btn-block btn-lg btn-default list-group" href="/iBeaGuide/ibeacon">iBeacon管理</a>
     </div>
 </div>
