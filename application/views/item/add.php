@@ -1,124 +1,117 @@
+<form class="form-horizontal">
+<fieldset>
 
-  <form class="form-horizontal">
-    <fieldset>
-      <div id="legend" class="">
-        <legend class="">新增展覽</legend>
-      </div>
-    <div class="form-group">
+<!-- Form Name -->
+<legend>新增展品資訊</legend>
 
-          <!-- Text input-->
-          <label class="control-label col-sm-2 col-md-2" for="input01">標題</label>
-          <div class="col-sm-8 col-md-8">
-            <input type="text" placeholder="請輸入標題" class="form-control">
-<!--            <p class="help-block">Supporting help text</p>-->
-          </div>
-        </div>
+<!-- Text input-->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="item_title">展品標題</label>
+  <div class="col-md-6">
+  <input id="item_title" name="item_title" type="text" placeholder="" class="form-control input-md" required="">
 
-    <div class="form-group">
+  </div>
+</div>
 
-          <!-- Text input-->
-          <label class="control-label col-sm-2 col-md-2" for="input01">副標</label>
-          <div class="col-sm-8 col-md-8">
-            <input type="text" placeholder="請輸入副標" class="form-control">
-<!--            <p class="help-block">Supporting help text</p>-->
-          </div>
-        </div>
+<!-- Text input-->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="item_subtitle">展品副標</label>
+  <div class="col-md-6">
+  <input id="item_subtitle" name="item_subtitle" type="text" placeholder="" class="form-control input-md">
 
-    <div class="form-group">
+  </div>
+</div>
 
-          <!-- Text input-->
-          <label class="control-label col-sm-2 col-md-2" for="input01">展場</label>
-          <div class="col-sm-8 col-md-8">
-            <input type="text" placeholder="請輸入展場" class="form-control">
-<!--            <p class="help-block">Supporting help text</p>-->
-          </div>
-        </div>
+<!-- Text input-->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="item_creator">展品創作者</label>
+  <div class="col-md-6">
+  <input id="item_creator" name="item_creator" type="text" placeholder="" class="form-control input-md" required="">
 
-    
+  </div>
+</div>
 
-    
+<!-- Select Basic -->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="item_section">展區</label>
+  <div class="col-md-6">
+    <select id="item_section" name="item_section" class="form-control">
+      <option value="1">展區 A</option>
+      <option value="2">展區 B</option>
+    </select>
+  </div>
+</div>
 
-    <div class="form-group">
+<!-- Textarea -->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="item_brief">展品簡介</label>
+  <div class="col-md-4">
+    <textarea class="form-control" id="item_brief" name="item_brief"></textarea>
+  </div>
+</div>
 
-          <!-- Text input-->
-          <label class="control-label col-sm-2 col-md-2" for="input01">官網連結</label>
-          <div class="col-sm-8 col-md-8">
-            <input type="text" placeholder="" class="form-control">
-            <p class="help-block">Supporting help text</p>
-          </div>
-        </div>
+<!-- File Button -->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="item_main_pic">主要圖片</label>
+  <div class="col-md-4">
+    <input id="item_main_pic" name="item_main_pic" class="input-file" type="file">
+  </div>
+</div>
 
-    <div class="form-group">
-          <label class="control-label col-sm-2 col-md-2">封面照片</label>
+<!-- File Button -->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="item_audioguide">導覽語音</label>
+  <div class="col-md-4">
+    <input id="item_audioguide" name="item_audioguide" class="input-file" type="file">
+  </div>
+</div>
 
-          <!-- File Upload -->
-          <div class="col-sm-8 col-md-8">
-            <input class="input-file" id="fileInput" type="file">
-          </div>
-        </div><div class="form-group">
+<!-- Textarea -->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="item_detail">展品詳細說明</label>
+  <div class="col-md-4">
+    <textarea class="form-control" id="item_detail" name="item_detail"></textarea>
+  </div>
+</div>
 
-          <!-- Textarea -->
-          <label class="control-label col-sm-2 col-md-2">展覽介紹</label>
-          <div class="col-sm-8 col-md-8">
-            <div class="textarea">
-                  <textarea type="" class="form-control"> </textarea>
-            </div>
-          </div>
-        </div><div class="form-group">
+<!-- File Button -->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="item_more_pics">其他圖片</label>
+  <div class="col-md-4">
+    <input id="item_more_pics" name="item_more_pics" class="input-file" type="file">
+  </div>
+</div>
 
-          <!-- Textarea -->
-          <label class="control-label col-sm-2 col-md-2">推播文字</label>
-          <div class="col-sm-8 col-md-8">
-            <div class="textarea">
-                  <textarea type="" class="form-control"> </textarea>
-            </div>
-          </div>
-        </div>
+<!-- Text input-->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="item_finished_time">展品完成時間</label>
+  <div class="col-md-6">
+  <input id="item_finished_time" name="item_finished_time" type="text" placeholder="日期或文字描述（如：2015 夏末）" class="form-control input-md">
 
-    <div class="form-group">
+  </div>
+</div>
 
-          <!-- Select Basic -->
-          <label class="control-label col-sm-2 col-md-2">連結 iBeacon</label>
-          <div class="col-sm-8 col-md-8">
-            <select class="form-control">
-      <option>1</option>
-      <option>2</option>
-      <option>3</option>
-      <option>4</option>
-      <option>5</option></select>
-          </div>
+<!-- Select Basic -->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="item_ibeacon">連結 iBeacon</label>
+  <div class="col-md-6">
+    <select id="item_ibeacon" name="item_ibeacon" class="form-control">
+      <option value="null">請選擇</option>
+      <option value="1">A</option>
+      <option value="2">B</option>
+      <option value="3">C</option>
+    </select>
+  </div>
+</div>
 
-        </div>
+<!-- Button (Double) -->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="submit"></label>
+  <div class="col-md-8">
+    <button id="submit" name="submit" class="btn btn-primary">送出展品資訊</button>
+    <button id="cancel" name="cancel" class="btn btn-default">取消</button>
+  </div>
+</div>
 
-    <div class="form-group">
-          <label class="control-label col-sm-2 col-md-2"></label>
-
-          <!-- Button -->
-          <div class="col-sm-8 col-md-8">
-            <button class="btn btn-info">建立展區</button>
-          </div>
-        </div><div class="form-group">
-          <label class="control-label col-sm-2 col-md-2"></label>
-
-          <!-- Button -->
-          <div class="col-sm-8 col-md-8">
-            <button class="btn btn-info">連結出口 iBeacon</button>
-          </div>
-        </div><div class="form-group">
-          <label class="control-label col-sm-2 col-md-2"></label>
-
-          <!-- Button -->
-          <div class="col-sm-8 col-md-8">
-            <button class="btn btn-default">預覽</button>
-          </div>
-        </div>
-
-    <div class="form-group">
-          <label class="control-label col-sm-2 col-md-2"></label>
-          <!-- Button -->
-          <div class="col-sm-8 col-md-8">
-            <button class="btn btn-primary">送出</button>
-          </div>
-        </div>
-    </fieldset>
-  </form>
+</fieldset>
+</form>
