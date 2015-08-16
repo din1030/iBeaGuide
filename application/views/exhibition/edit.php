@@ -1,10 +1,9 @@
 <form class="form-horizontal">
     <fieldset>
-        <div id="legend" class="">
-            <legend class="">新增展覽</legend>
-        </div>
-        <div class="form-group">
 
+        <legend >新增展覽資訊</legend>
+
+        <div class="form-group">
             <!-- Text input-->
             <label class="control-label col-sm-2 col-md-2" for="input01">標題</label>
             <div class="col-sm-8 col-md-8">
@@ -33,7 +32,6 @@
             <label class="control-label col-sm-2 col-md-2" for="input01">官網連結</label>
             <div class="col-sm-8 col-md-8">
                 <input type="text" placeholder="" class="form-control">
-                <p class="help-block">Supporting help text</p>
             </div>
         </div>
 

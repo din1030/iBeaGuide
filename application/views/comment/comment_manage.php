@@ -1,6 +1,6 @@
-<h4>
+<legend>
     留言管理
-</h4>
+</legend>
 <table id="item_list" data-toggle="table" data-striped="true">
     <thead>
         <tr>

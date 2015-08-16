@@ -5,6 +5,7 @@ class Facility extends CI_Controller
     public function index()
     {
         $this->load->view('header');
+        $this->load->view('breadcrumb');
         $this->load->view('facility/fac_manage');
         $this->load->view('footer');
     }
@@ -12,6 +13,7 @@ class Facility extends CI_Controller
     public function add()
     {
         $this->load->view('header');
+        $this->load->view('breadcrumb');
         $this->load->view('facility/add');
         $this->load->view('footer');
     }
@@ -21,6 +23,7 @@ class Facility extends CI_Controller
         $data['id'] = $id;
 
         $this->load->view('header');
+        $this->load->view('breadcrumb');
         $this->load->view('facility/edit', $data);
         $this->load->view('footer');
     }

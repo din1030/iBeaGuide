@@ -1,7 +1,7 @@
-<h4>
+<legend>
     路線管理
     <a href="/iBeaGuide/route/add" class="btn btn-primary btn-xs pull-right">新增路線</a>
-</h4>
+</legend>
 <hr>
 <table id="route_list" data-toggle="table" data-striped="true">
     <thead>

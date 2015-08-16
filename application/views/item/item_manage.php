@@ -1,7 +1,7 @@
-<h4>
-    展品列表
+<legend>
+    展品管理
     <a href="/iBeaGuide/item/add" class="btn btn-primary btn-xs pull-right">新增展品</a>
-</h4>
+</legend>
 <table id="item_list" data-toggle="table" data-striped="true">
     <thead>
         <tr>

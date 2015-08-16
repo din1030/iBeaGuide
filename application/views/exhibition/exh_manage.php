@@ -1,7 +1,7 @@
-<h4>
-    展覽列表
+<legend>
+    展覽管理
     <a href="/iBeaGuide/exhibition/add" class="btn btn-primary btn-xs pull-right">新增展覽</a>
-</h4>
+</legend>
 <table id="exh_list" data-toggle="table" data-striped="true">
     <thead>
         <tr>

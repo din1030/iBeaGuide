@@ -1,16 +1,16 @@
 <div id="active-exh" class="row" style="padding-bottom: 15px;">
-	<h4>進行中展覽：</h4>
+	<legend>進行中展覽：</legend>
     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-center">
     	<img class="img-responsive" src="https://placeimg.com/320/240/arch">
-    	<h4>建築藝術特展</h4>
+    	<legend>建築藝術特展</legend>
     </div>
     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-center">
     	<img class="img-responsive" src="https://placeimg.com/320/240/nature">
-    	<h4>《大自然洗禮》巡展</h4>
+    	<legend>《大自然洗禮》巡展</legend>
     </div>
     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-center">
     	<img class="img-responsive" src="https://placeimg.com/320/240/animals">	
-    	<h4>「關懷動物」聯展</h4>
+    	<legend>「關懷動物」聯展</legend>
     </div>
 </div>
 <hr>

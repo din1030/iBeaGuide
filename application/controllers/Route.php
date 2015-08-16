@@ -4,30 +4,33 @@ class Route extends CI_Controller {
 	public function index()
 	{
 		$this->load->view('header');
+        $this->load->view('breadcrumb');
 		$this->load->view('route/route_manage');
 		$this->load->view('footer');
 
 	}
-    
+
 	public function add()
 	{
 		$this->load->view('header');
+        $this->load->view('breadcrumb');
 		$this->load->view('route/add');
 		$this->load->view('footer');
 
 	}
-    
+
 	public function edit($id = 1)
 	{
         $data['id'] = $id;
-		
+
 		$this->load->view('header');
+        $this->load->view('breadcrumb');
 		$this->load->view('route/edit', $data);
 		$this->load->view('footer');
 
 	}
-    
-    
+
+
 //    public function edit($manage_type = 'home',$op = 'edit', $id)
 //	{
 //		if ( ! file_exists('application/views/'.$manage_type.'/'.$op.'.php'))
@@ -38,7 +41,7 @@ class Route extends CI_Controller {
 //        }
 //
 //		$data['id'] = $id;
-//        
+//
 //		$this->load->view('header');
 //		$this->load->view($manage_type.'/'.$op, $data);
 //		$this->load->view('footer');

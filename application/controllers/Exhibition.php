@@ -5,6 +5,7 @@ class Exhibition extends CI_Controller
     public function index()
     {
         $this->load->view('header');
+        $this->load->view('breadcrumb');
         $this->load->view('exhibition/exh_manage');
         $this->load->view('footer');
     }
@@ -12,6 +13,7 @@ class Exhibition extends CI_Controller
     public function add()
     {
         $this->load->view('header');
+        $this->load->view('breadcrumb');
         $this->load->view('exhibition/add');
         $this->load->view('footer');
     }
@@ -21,6 +23,7 @@ class Exhibition extends CI_Controller
         $data['id'] = $id;
 
         $this->load->view('header');
+        $this->load->view('breadcrumb');
         $this->load->view('exhibition/edit', $data);
         $this->load->view('footer');
     }

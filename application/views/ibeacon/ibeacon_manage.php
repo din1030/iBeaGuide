@@ -1,6 +1,7 @@
-<h4>
-    iBeacon 列表
-</h4>
+<legend>
+    iBeacon 管理
+    <a href="/iBeaGuide/ibeacon/add" class="btn btn-primary btn-xs pull-right">新增 iBeacon</a>
+</legend>
 <table id="ibeacon_list" data-toggle="table" data-striped="true">
     <thead>
         <tr>

@@ -1,6 +1,6 @@
 <div class="center-block">
     <div class="center-block" style="width: 30%;">
-        <h4>Welcome!</h4>
+        <legend>Welcome!</legend>
         <div class="well">
             <div class="form-group">
                 <label class="control-label">

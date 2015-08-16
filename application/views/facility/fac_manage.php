@@ -1,7 +1,7 @@
-<h4>
-    設施列表
+<legend>
+    設施管理
     <a href="/iBeaGuide/facility/add" class="btn btn-primary btn-xs pull-right">新增設施</a>
-</h4>
+</legend>
 <hr>
 <table id="fac_list" data-toggle="table" data-striped="true">
     <thead>

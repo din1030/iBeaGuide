@@ -52,8 +52,8 @@
                             <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu pull-right">
-                            <li><a href="#">變更</a></li>
-                            <li><a href="#">刪除</a></li>
+                            <li><button id="link_modify" class="btn btn-link">變更</button></li>
+                            <li><button id="link_remove" class="btn btn-link">刪除</button></li>
                         </ul>
                     </div>
                 </div>
