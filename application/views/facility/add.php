@@ -1,124 +1,56 @@
-
-  <form class="form-horizontal">
+<form class="form-horizontal">
     <fieldset>
-      <div id="legend" class="">
-        <legend class="">新增展覽</legend>
-      </div>
-    <div class="form-group">
 
-          <!-- Text input-->
-          <label class="control-label col-sm-2 col-md-2" for="input01">標題</label>
-          <div class="col-sm-8 col-md-8">
-            <input type="text" placeholder="請輸入標題" class="form-control">
-<!--            <p class="help-block">Supporting help text</p>-->
-          </div>
-        </div>
+        <!-- Form Name -->
+        <legend>新增設施資訊</legend>
 
-    <div class="form-group">
+        <!-- Text input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="fac_title">設施名稱</label>
+            <div class="col-md-6">
+                <input id="fac_title" name="fac_title" type="text" placeholder="" class="form-control input-md" required="">
 
-          <!-- Text input-->
-          <label class="control-label col-sm-2 col-md-2" for="input01">副標</label>
-          <div class="col-sm-8 col-md-8">
-            <input type="text" placeholder="請輸入副標" class="form-control">
-<!--            <p class="help-block">Supporting help text</p>-->
-          </div>
-        </div>
-
-    <div class="form-group">
-
-          <!-- Text input-->
-          <label class="control-label col-sm-2 col-md-2" for="input01">展場</label>
-          <div class="col-sm-8 col-md-8">
-            <input type="text" placeholder="請輸入展場" class="form-control">
-<!--            <p class="help-block">Supporting help text</p>-->
-          </div>
-        </div>
-
-    
-
-    
-
-    <div class="form-group">
-
-          <!-- Text input-->
-          <label class="control-label col-sm-2 col-md-2" for="input01">官網連結</label>
-          <div class="col-sm-8 col-md-8">
-            <input type="text" placeholder="" class="form-control">
-            <p class="help-block">Supporting help text</p>
-          </div>
-        </div>
-
-    <div class="form-group">
-          <label class="control-label col-sm-2 col-md-2">封面照片</label>
-
-          <!-- File Upload -->
-          <div class="col-sm-8 col-md-8">
-            <input class="input-file" id="fileInput" type="file">
-          </div>
-        </div><div class="form-group">
-
-          <!-- Textarea -->
-          <label class="control-label col-sm-2 col-md-2">展覽介紹</label>
-          <div class="col-sm-8 col-md-8">
-            <div class="textarea">
-                  <textarea type="" class="form-control"> </textarea>
             </div>
-          </div>
-        </div><div class="form-group">
+        </div>
 
-          <!-- Textarea -->
-          <label class="control-label col-sm-2 col-md-2">推播文字</label>
-          <div class="col-sm-8 col-md-8">
-            <div class="textarea">
-                  <textarea type="" class="form-control"> </textarea>
+        <!-- File Button -->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="fac_icon">設施圖示</label>
+            <div class="col-md-4">
+                <input id="fac_icon" name="fac_icon" class="input-file" type="file">
             </div>
-          </div>
         </div>
 
-    <div class="form-group">
-
-          <!-- Select Basic -->
-          <label class="control-label col-sm-2 col-md-2">連結 iBeacon</label>
-          <div class="col-sm-8 col-md-8">
-            <select class="form-control">
-      <option>1</option>
-      <option>2</option>
-      <option>3</option>
-      <option>4</option>
-      <option>5</option></select>
-          </div>
-
+        <!-- Textarea -->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="fac_description">設施說明</label>
+            <div class="col-md-4">
+                <textarea class="form-control" id="fac_description" name="fac_description"></textarea>
+            </div>
         </div>
 
-    <div class="form-group">
-          <label class="control-label col-sm-2 col-md-2"></label>
-
-          <!-- Button -->
-          <div class="col-sm-8 col-md-8">
-            <button class="btn btn-info">建立展區</button>
-          </div>
-        </div><div class="form-group">
-          <label class="control-label col-sm-2 col-md-2"></label>
-
-          <!-- Button -->
-          <div class="col-sm-8 col-md-8">
-            <button class="btn btn-info">連結出口 iBeacon</button>
-          </div>
-        </div><div class="form-group">
-          <label class="control-label col-sm-2 col-md-2"></label>
-
-          <!-- Button -->
-          <div class="col-sm-8 col-md-8">
-            <button class="btn btn-default">預覽</button>
-          </div>
+        <!-- File Button -->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="fac_main_pic">主要圖片</label>
+            <div class="col-md-4">
+                <input id="fac_main_pic" name="fac_main_pic" class="input-file" type="file">
+            </div>
         </div>
 
-    <div class="form-group">
-          <label class="control-label col-sm-2 col-md-2"></label>
-          <!-- Button -->
-          <div class="col-sm-8 col-md-8">
-            <button class="btn btn-primary">送出</button>
-          </div>
+        <!-- Textarea -->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="fac_push">推播文字</label>
+            <div class="col-md-4">
+                <textarea class="form-control" id="fac_push" name="fac_push"></textarea>
+            </div>
         </div>
+
+        <!-- Button Group -->
+        <div class="form-group text-center">
+            <button id="preview" name="preview" class="btn btn-default">預覽</button>
+            <button id="submit" name="submit" class="btn btn-primary">送出設施資訊</button>
+            <button id="cancel" name="cancel" class="btn btn-default">取消</button>
+        </div>
+
     </fieldset>
-  </form>
+</form>

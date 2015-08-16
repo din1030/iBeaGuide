@@ -1,124 +1,69 @@
-
-  <form class="form-horizontal">
+<form class="form-horizontal">
     <fieldset>
-      <div id="legend" class="">
-        <legend class="">新增展覽</legend>
-      </div>
-    <div class="form-group">
 
-          <!-- Text input-->
-          <label class="control-label col-sm-2 col-md-2" for="input01">標題</label>
-          <div class="col-sm-8 col-md-8">
-            <input type="text" placeholder="請輸入標題" class="form-control">
-<!--            <p class="help-block">Supporting help text</p>-->
-          </div>
-        </div>
+        <!-- Form Name -->
+        <legend>新增 iBeacon 裝置</legend>
 
-    <div class="form-group">
+        <!-- Text input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="ibeacon_title">iBeacon 名稱</label>
+            <div class="col-md-6">
+                <input id="ibeacon_title" name="ibeacon_title" type="text" placeholder="" class="form-control input-md" required="">
 
-          <!-- Text input-->
-          <label class="control-label col-sm-2 col-md-2" for="input01">副標</label>
-          <div class="col-sm-8 col-md-8">
-            <input type="text" placeholder="請輸入副標" class="form-control">
-<!--            <p class="help-block">Supporting help text</p>-->
-          </div>
-        </div>
-
-    <div class="form-group">
-
-          <!-- Text input-->
-          <label class="control-label col-sm-2 col-md-2" for="input01">展場</label>
-          <div class="col-sm-8 col-md-8">
-            <input type="text" placeholder="請輸入展場" class="form-control">
-<!--            <p class="help-block">Supporting help text</p>-->
-          </div>
-        </div>
-
-    
-
-    
-
-    <div class="form-group">
-
-          <!-- Text input-->
-          <label class="control-label col-sm-2 col-md-2" for="input01">官網連結</label>
-          <div class="col-sm-8 col-md-8">
-            <input type="text" placeholder="" class="form-control">
-            <p class="help-block">Supporting help text</p>
-          </div>
-        </div>
-
-    <div class="form-group">
-          <label class="control-label col-sm-2 col-md-2">封面照片</label>
-
-          <!-- File Upload -->
-          <div class="col-sm-8 col-md-8">
-            <input class="input-file" id="fileInput" type="file">
-          </div>
-        </div><div class="form-group">
-
-          <!-- Textarea -->
-          <label class="control-label col-sm-2 col-md-2">展覽介紹</label>
-          <div class="col-sm-8 col-md-8">
-            <div class="textarea">
-                  <textarea type="" class="form-control"> </textarea>
             </div>
-          </div>
-        </div><div class="form-group">
+        </div>
 
-          <!-- Textarea -->
-          <label class="control-label col-sm-2 col-md-2">推播文字</label>
-          <div class="col-sm-8 col-md-8">
-            <div class="textarea">
-                  <textarea type="" class="form-control"> </textarea>
+        <!-- Text input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="ibeacon_uuid">UUID</label>
+            <div class="col-md-6">
+                <input id="ibeacon_uuid" name="ibeacon_uuid" type="text" placeholder="" class="form-control input-md" required="">
+
             </div>
-          </div>
         </div>
 
-    <div class="form-group">
+        <!-- Text input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="ibeacon_major">Major</label>
+            <div class="col-md-6">
+                <input id="ibeacon_major" name="ibeacon_major" type="text" placeholder="" class="form-control input-md" required="">
 
-          <!-- Select Basic -->
-          <label class="control-label col-sm-2 col-md-2">連結 iBeacon</label>
-          <div class="col-sm-8 col-md-8">
-            <select class="form-control">
-      <option>1</option>
-      <option>2</option>
-      <option>3</option>
-      <option>4</option>
-      <option>5</option></select>
-          </div>
-
+            </div>
         </div>
 
-    <div class="form-group">
-          <label class="control-label col-sm-2 col-md-2"></label>
+        <!-- Text input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="ibeacon_minor">Minor</label>
+            <div class="col-md-6">
+                <input id="ibeacon_minor" name="ibeacon_minor" type="text" placeholder="" class="form-control input-md" required="">
 
-          <!-- Button -->
-          <div class="col-sm-8 col-md-8">
-            <button class="btn btn-info">建立展區</button>
-          </div>
-        </div><div class="form-group">
-          <label class="control-label col-sm-2 col-md-2"></label>
-
-          <!-- Button -->
-          <div class="col-sm-8 col-md-8">
-            <button class="btn btn-info">連結出口 iBeacon</button>
-          </div>
-        </div><div class="form-group">
-          <label class="control-label col-sm-2 col-md-2"></label>
-
-          <!-- Button -->
-          <div class="col-sm-8 col-md-8">
-            <button class="btn btn-default">預覽</button>
-          </div>
+            </div>
         </div>
 
-    <div class="form-group">
-          <label class="control-label col-sm-2 col-md-2"></label>
-          <!-- Button -->
-          <div class="col-sm-8 col-md-8">
-            <button class="btn btn-primary">送出</button>
-          </div>
+        <!-- Button Drop Down -->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="ibeacon_link">連結中物件</label>
+            <div class="col-md-6">
+                <div class="input-group">
+                    <input id="ibeacon_link" name="ibeacon_link" class="form-control" placeholder="" type="text">
+                    <div class="input-group-btn">
+                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                            管理
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu pull-right">
+                            <li><a href="#">變更</a></li>
+                            <li><a href="#">刪除</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
         </div>
+        <!-- Button Group -->
+        <div class="form-group text-center">
+            <button id="submit" name="submit" class="btn btn-primary">送出 iBeacon 資訊</button>
+            <button id="cancel" name="cancel" class="btn btn-default">取消</button>
+        </div>
+
     </fieldset>
-  </form>
+</form>

@@ -38,9 +38,3 @@
         </tr>
     </tbody>
 </table>
-<!--
-<script>
-    $(document).ready( function () {
-        $('#exh_list').DataTable();
-    } );
-</script> -->

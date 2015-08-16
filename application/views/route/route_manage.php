@@ -1,6 +1,6 @@
 <h4>
     路線管理
-    <button class="btn btn-primary btn-xs pull-right">新增路線</button>
+    <a href="/iBeaGuide/route/add" class="btn btn-primary btn-xs pull-right">新增路線</a>
 </h4>
 <hr>
 <table id="route_list" data-toggle="table" data-striped="true">

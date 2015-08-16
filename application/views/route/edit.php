@@ -1,124 +1,51 @@
-
-  <form class="form-horizontal">
+<form class="form-horizontal">
     <fieldset>
-      <div id="legend" class="">
-          <legend class="">編輯展覽資訊（ID: <?php echo $id ?>）</legend>
-      </div>
-    <div class="control-group">
 
-          <!-- Text input-->
-          <label class="control-label" for="input01">標題</label>
-          <div class="controls">
-            <input type="text" placeholder="請輸入標題" class="input-xlarge">
-            <p class="help-block">Supporting help text</p>
-          </div>
-        </div>
+        <!-- Form Name -->
+        <legend>新增推薦路線</legend>
 
-    <div class="control-group">
+        <!-- Text input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="route_title">路線標題</label>
+            <div class="col-md-6">
+                <input id="route_title" name="route_title" type="text" placeholder="" class="form-control input-md" required="">
 
-          <!-- Text input-->
-          <label class="control-label" for="input01">副標</label>
-          <div class="controls">
-            <input type="text" placeholder="請輸入副標" class="input-xlarge">
-            <p class="help-block">Supporting help text</p>
-          </div>
-        </div>
-
-    <div class="control-group">
-
-          <!-- Text input-->
-          <label class="control-label" for="input01">展場</label>
-          <div class="controls">
-            <input type="text" placeholder="請輸入展場" class="input-xlarge">
-            <p class="help-block">Supporting help text</p>
-          </div>
-        </div>
-
-    
-
-    
-
-    <div class="control-group">
-
-          <!-- Text input-->
-          <label class="control-label" for="input01">官網連結</label>
-          <div class="controls">
-            <input type="text" placeholder="" class="input-xlarge">
-            <p class="help-block">Supporting help text</p>
-          </div>
-        </div>
-
-    <div class="control-group">
-          <label class="control-label">封面照片</label>
-
-          <!-- File Upload -->
-          <div class="controls">
-            <input class="input-file" id="fileInput" type="file">
-          </div>
-        </div><div class="control-group">
-
-          <!-- Textarea -->
-          <label class="control-label">展覽介紹</label>
-          <div class="controls">
-            <div class="textarea">
-                  <textarea type="" class=""> </textarea>
             </div>
-          </div>
-        </div><div class="control-group">
+        </div>
 
-          <!-- Textarea -->
-          <label class="control-label">推播文字</label>
-          <div class="controls">
-            <div class="textarea">
-                  <textarea type="" class=""> </textarea>
+        <!-- Select Basic -->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="route_exh">所屬展覽</label>
+            <div class="col-md-6">
+                <select id="route_exh" name="route_exh" class="form-control">
+                    <option value="1">展覽 A</option>
+                    <option value="2">展覽 B</option>
+                </select>
             </div>
-          </div>
         </div>
 
-    <div class="control-group">
-
-          <!-- Select Basic -->
-          <label class="control-label">連結 iBeacon</label>
-          <div class="controls">
-            <select class="input-xlarge">
-      <option>1</option>
-      <option>2</option>
-      <option>3</option>
-      <option>4</option>
-      <option>5</option></select>
-          </div>
-
+        <!-- File Button -->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="route_main_pic">主要圖片</label>
+            <div class="col-md-4">
+                <input id="route_main_pic" name="route_main_pic" class="input-file" type="file">
+            </div>
         </div>
 
-    <div class="control-group">
-          <label class="control-label"></label>
-
-          <!-- Button -->
-          <div class="controls">
-            <button class="btn btn-info">建立展區</button>
-          </div>
-        </div><div class="control-group">
-          <label class="control-label"></label>
-
-          <!-- Button -->
-          <div class="controls">
-            <button class="btn btn-info">連結出口 iBeacon</button>
-          </div>
-        </div><div class="control-group">
-          <label class="control-label"></label>
-
-          <!-- Button -->
-          <div class="controls">
-            <button class="btn btn-default">預覽</button>
-          </div>
+        <!-- Textarea -->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="route_description">路線說明</label>
+            <div class="col-md-4">
+                <textarea class="form-control" id="route_description" name="route_description"></textarea>
+            </div>
         </div>
 
-    <div class="control-group">
-          <label class="control-label"></label>
-          <!-- Button -->
-          <div class="controls">
-            <button class="btn btn-primary">送出</button>
-          </div>
+        <!-- Button Group -->
+        <div class="form-group text-center">
+            <button id="preview" name="preview" class="btn btn-default">預覽</button>
+            <button id="submit" name="submit" class="btn btn-primary">送出路線資訊</button>
+            <button id="cancel" name="cancel" class="btn btn-default">取消</button>
         </div>
+
     </fieldset>
-  </form>
+</form>
