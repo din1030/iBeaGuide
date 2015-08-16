@@ -1,5 +1,6 @@
 <form class="form-horizontal">
     <fieldset>
+
         <!-- Form Name -->
         <legend>新增設施資訊</legend>
 
@@ -33,6 +34,19 @@
             <label class="col-md-4 control-label" for="fac_main_pic">主要圖片</label>
             <div class="col-md-4">
                 <input id="fac_main_pic" name="fac_main_pic" class="input-file" type="file">
+            </div>
+        </div>
+
+        <!-- Select Basic -->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="item_ibeacon">連結 iBeacon</label>
+            <div class="col-md-6">
+                <select id="item_ibeacon" name="item_ibeacon" class="form-control">
+                    <option value="null">請選擇</option>
+                    <option value="1">A</option>
+                    <option value="2">B</option>
+                    <option value="3">C</option>
+                </select>
             </div>
         </div>
 

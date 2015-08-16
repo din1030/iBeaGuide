@@ -37,6 +37,19 @@
             </div>
         </div>
 
+        <!-- Select Basic -->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="item_ibeacon">連結 iBeacon</label>
+            <div class="col-md-6">
+                <select id="item_ibeacon" name="item_ibeacon" class="form-control">
+                    <option value="null">請選擇</option>
+                    <option value="1">A</option>
+                    <option value="2">B</option>
+                    <option value="3">C</option>
+                </select>
+            </div>
+        </div>
+
         <!-- Textarea -->
         <div class="form-group">
             <label class="col-md-4 control-label" for="fac_push">推播文字</label>
