@@ -1,11 +1,11 @@
 <?php
-class Route extends CI_Controller {
+class Items extends CI_Controller {
 
 	public function index()
 	{
 		$this->load->view('header');
         $this->load->view('breadcrumb');
-		$this->load->view('route/route_manage');
+		$this->load->view('item/item_manage');
 		$this->load->view('footer');
 
 	}
@@ -14,7 +14,7 @@ class Route extends CI_Controller {
 	{
 		$this->load->view('header');
         $this->load->view('breadcrumb');
-		$this->load->view('route/add');
+		$this->load->view('item/add');
 		$this->load->view('footer');
 
 	}
@@ -25,7 +25,7 @@ class Route extends CI_Controller {
 
 		$this->load->view('header');
         $this->load->view('breadcrumb');
-		$this->load->view('route/edit', $data);
+		$this->load->view('item/edit', $data);
 		$this->load->view('footer');
 
 	}

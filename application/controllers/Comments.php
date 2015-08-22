@@ -1,5 +1,5 @@
 <?php
-class Comment extends CI_Controller {
+class Comments extends CI_Controller {
 
 	public function index()
 	{

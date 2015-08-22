@@ -1,8 +1,23 @@
-<form class="form-horizontal">
+<?php echo validation_errors(); ?>
+
+<form class="form-horizontal" action="fac_submit" method="post">
     <fieldset>
 
         <!-- Form Name -->
         <legend>新增設施資訊</legend>
+
+        <!-- Select Basic -->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="item_ibeacon">所屬展覽</label>
+            <div class="col-md-6">
+                <select id="fac_exh" name="fac_exh" class="form-control">
+                    <option value="null">請選擇</option>
+                    <option value="1">展覽 A</option>
+                    <option value="2">展覽 B</option>
+                    <option value="3">展覽 C</option>
+                </select>
+            </div>
+        </div>
 
         <!-- Text input-->
         <div class="form-group">

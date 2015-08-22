@@ -1,6 +1,6 @@
 <legend>
     iBeacon 管理
-    <a href="/iBeaGuide/ibeacon/add" class="btn btn-primary btn-xs pull-right">新增 iBeacon</a>
+    <a href="/iBeaGuide/ibeacons/add" class="btn btn-primary btn-xs pull-right">新增 iBeacon</a>
 </legend>
 <table id="ibeacon_list" data-toggle="table" data-striped="true">
     <thead>
@@ -21,8 +21,8 @@
             <td>12</td>
             <td>與「清院本清明上河圖」展品連結中</td>
             <td>
-                <a href="/iBeaGuide/ibeacon/edit" class="btn btn-default">編輯</a>
-                <a href="/iBeaGuide/ibeacon/delete" class="btn btn-default">刪除</a>
+                <a href="/iBeaGuide/ibeacons/edit" class="btn btn-default">編輯</a>
+                <a href="/iBeaGuide/ibeacons/delete" class="btn btn-default">刪除</a>
             </td>
         </tr>
         <tr>
@@ -33,7 +33,7 @@
             <td>與「菜單塗鴉餐」展品連結中</td>
             <td>
                 <a href="/iBeaGuide/ibeacon/edit" class="btn btn-default">編輯</a>
-                <a href="/iBeaGuide/ibeacon/delete" class="btn btn-default">刪除</a>
+                <a href="/iBeaGuide/ibeacons/delete" class="btn btn-default">刪除</a>
             </td>
         </tr>
         <tr>
@@ -43,8 +43,8 @@
             <td>20</td>
             <td>位於「古畫動漫：清院本清明上河圖」入口推播歡迎訊息</td>
             <td>
-                <a href="/iBeaGuide/ibeacon/edit" class="btn btn-default">編輯</a>
-                <a href="/iBeaGuide/ibeacon/delete" class="btn btn-default">刪除</a>
+                <a href="/iBeaGuide/ibeacons/edit" class="btn btn-default">編輯</a>
+                <a href="/iBeaGuide/ibeacons/delete" class="btn btn-default">刪除</a>
             </td>
         </tr>
     </tbody>

@@ -185,9 +185,16 @@ class ActiveRecord extends CI_Model {
     function save()
     {
         $data = array();
+        // foreach ($this->_columns as $column)
+        // {
+        //     if ($column->Field != 'id') eval('$data["' . $column->Field . '"] = $this->' . $column->Field . ';');
+        // }
         foreach ($this->_columns as $column)
         {
-            if ($column->Field != 'id') eval('$data["' . $column->Field . '"] = $this->' . $column->Field . ';');
+            if ($column->Field != 'id' && property_exists($this,$column->Field))
+            {
+                $data[$column->Field] = $this->{$column->Field};
+            }
         }
         if ($this->db->insert($this->_table, $data))
         {
@@ -211,9 +218,16 @@ class ActiveRecord extends CI_Model {
 	function update()
 	{
 		$data = array();
+        // foreach ($this->_columns as $column)
+        // {
+        //     if ($column->Field != 'id') eval('$data["' . $column->Field . '"] = $this->' . $column->Field . ';');
+        // }
         foreach ($this->_columns as $column)
         {
-            if ($column->Field != 'id') eval('$data["' . $column->Field . '"] = $this->' . $column->Field . ';');
+            if ($column->Field != 'id' && property_exists($this,$column->Field))
+            {
+                $data[$column->Field] = $this->{$column->Field};
+            }
         }
 		$this->db->where('id', $this->id);
         if (!$this->db->update($this->_table, $data))

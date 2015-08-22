@@ -1,6 +1,6 @@
 <?php
 
-class Exhibition extends CI_Controller
+class Exhibitions extends CI_Controller
 {
     public function index()
     {

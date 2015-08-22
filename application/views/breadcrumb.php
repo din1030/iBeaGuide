@@ -11,7 +11,7 @@
             case '':
                 break;
 
-            case 'exhibition':
+            case 'exhibitions':
                 ?>
                 <li>
                     展覽管理
@@ -19,10 +19,10 @@
                 <?php
                 break;
 
-            case 'exhibition/add':
+            case 'exhibitions/add':
                 ?>
                 <li>
-                    <a href="<?php echo base_url() ?>exhibition">展覽管理</a>
+                    <a href="<?php echo base_url() ?>exhibitions">展覽管理</a>
                     <span class="glyphicon glyphicon-menu-right"></span>
                 </li>
                 <li>
@@ -31,7 +31,7 @@
                 <?php
                 break;
 
-            case 'item':
+            case 'items':
                 ?>
                 <li>
                     展品管理
@@ -39,10 +39,10 @@
                 <?php
                 break;
 
-            case 'item/add':
+            case 'items/add':
                 ?>
                 <li>
-                    <a href="<?php echo base_url(); ?>item">展品管理</a>
+                    <a href="<?php echo base_url(); ?>items">展品管理</a>
                     <span class="glyphicon glyphicon-menu-right"></span>
                 </li>
                 <li>
@@ -51,7 +51,7 @@
                 <?php
                 break;
 
-            case 'facility':
+            case 'facilities':
                 ?>
                 <li>
                     展品管理
@@ -59,10 +59,10 @@
                 <?php
                 break;
 
-            case 'facility/add':
+            case 'facilities/add':
                 ?>
                 <li>
-                    <a href="<?php echo base_url(); ?>facility">設施管理</a>
+                    <a href="<?php echo base_url(); ?>facilities">設施管理</a>
                     <span class="glyphicon glyphicon-menu-right"></span>
                 </li>
                 <li>
@@ -71,7 +71,7 @@
                 <?php
                 break;
 
-            case 'route':
+            case 'routes':
                 ?>
                 <li>
                     路線管理
@@ -79,10 +79,10 @@
                 <?php
                 break;
 
-            case 'route/add':
+            case 'routes/add':
                 ?>
                 <li>
-                    <a href="<?php echo base_url(); ?>route">路線管理</a>
+                    <a href="<?php echo base_url(); ?>routes">路線管理</a>
                     <span class="glyphicon glyphicon-menu-right"></span>
                 </li>
                 <li>

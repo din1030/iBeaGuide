@@ -1,8 +1,7 @@
 <legend>
     設施管理
-    <a href="/iBeaGuide/facility/add" class="btn btn-primary btn-xs pull-right">新增設施</a>
+    <a href="/iBeaGuide/facilities/add" class="btn btn-primary btn-xs pull-right">新增設施</a>
 </legend>
-<hr>
 <table id="fac_list" data-toggle="table" data-striped="true">
     <thead>
         <tr>
@@ -20,8 +19,8 @@
             <td>政大奇觀特展</td>
             <td>Y</td>
             <td>
-                <a href="/iBeaGuide/facility/edit" class="btn btn-default">編輯</a>
-                <a href="/iBeaGuide/facility/delete" class="btn btn-default">刪除</a>
+                <a href="/iBeaGuide/facilities/edit" class="btn btn-default">編輯</a>
+                <a href="/iBeaGuide/facilities/delete" class="btn btn-default">刪除</a>
             </td>
         </tr>
         <tr>
@@ -30,8 +29,8 @@
             <td>政大奇觀特展</td>
             <td>Y</td>
             <td>
-                <a href="/iBeaGuide/facility/edit" class="btn btn-default">編輯</a>
-                <a href="/iBeaGuide/facility/delete" class="btn btn-default">刪除</a>
+                <a href="/iBeaGuide/facilities/edit" class="btn btn-default">編輯</a>
+                <a href="/iBeaGuide/facilities/delete" class="btn btn-default">刪除</a>
             </td>
         </tr>
     </tbody>

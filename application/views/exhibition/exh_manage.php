@@ -1,6 +1,6 @@
 <legend>
     展覽管理
-    <a href="/iBeaGuide/exhibition/add" class="btn btn-primary btn-xs pull-right">新增展覽</a>
+    <a href="/iBeaGuide/exhibitions/add" class="btn btn-primary btn-xs pull-right">新增展覽</a>
 </legend>
 <table id="exh_list" data-toggle="table" data-striped="true">
     <thead>
@@ -21,8 +21,8 @@
             <td>2015/01/01</td>
             <td>2015/04/30</td>
             <td>
-                <a href="/iBeaGuide/exhibition/edit" class="btn btn-default">編輯</a>
-                <a href="/iBeaGuide/exhibition/delete" class="btn btn-default">刪除</a>
+                <a href="/iBeaGuide/exhibitions/edit" class="btn btn-default">編輯</a>
+                <a href="/iBeaGuide/exhibitions/delete" class="btn btn-default">刪除</a>
             </td>
         </tr>
         <tr>
@@ -32,8 +32,8 @@
             <td>2015/02/07</td>
             <td>2015/05/03</td>
             <td>
-                <a href="/iBeaGuide/exhibition/edit" class="btn btn-default">編輯</a>
-                <a href="/iBeaGuide/exhibition/delete" class="btn btn-default">刪除</a>
+                <a href="/iBeaGuide/exhibitions/edit" class="btn btn-default">編輯</a>
+                <a href="/iBeaGuide/exhibitions/delete" class="btn btn-default">刪除</a>
             </td>
         </tr>
     </tbody>

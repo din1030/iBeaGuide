@@ -1,12 +1,12 @@
 <?php
 
-class Facility extends CI_Controller
-{
+class Ibeacons extends CI_Controller {
+
     public function index()
     {
         $this->load->view('header');
         $this->load->view('breadcrumb');
-        $this->load->view('facility/fac_manage');
+        $this->load->view('ibeacon/ibeacon_manage');
         $this->load->view('footer');
     }
 
@@ -14,7 +14,7 @@ class Facility extends CI_Controller
     {
         $this->load->view('header');
         $this->load->view('breadcrumb');
-        $this->load->view('facility/add');
+        $this->load->view('ibeacon/add');
         $this->load->view('footer');
     }
 
@@ -24,9 +24,10 @@ class Facility extends CI_Controller
 
         $this->load->view('header');
         $this->load->view('breadcrumb');
-        $this->load->view('facility/edit', $data);
+        $this->load->view('ibeacon/edit', $data);
         $this->load->view('footer');
     }
+
 }
 
 ?>

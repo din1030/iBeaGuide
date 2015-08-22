@@ -1,8 +1,7 @@
 <legend>
     路線管理
-    <a href="/iBeaGuide/route/add" class="btn btn-primary btn-xs pull-right">新增路線</a>
+    <a href="/iBeaGuide/routes/add" class="btn btn-primary btn-xs pull-right">新增路線</a>
 </legend>
-<hr>
 <table id="route_list" data-toggle="table" data-striped="true">
     <thead>
         <tr>
@@ -20,8 +19,8 @@
             <td>政大奇觀特展</td>
             <td>5</td>
             <td>
-                <a href="/iBeaGuide/route/edit" class="btn btn-default">編輯</a>
-                <a href="/iBeaGuide/route/delete" class="btn btn-default">刪除</a>
+                <a href="/iBeaGuide/routes/edit" class="btn btn-default">編輯</a>
+                <a href="/iBeaGuide/routes/delete" class="btn btn-default">刪除</a>
             </td>
         </tr>
         <tr>
@@ -31,7 +30,7 @@
             <td>10</td>
             <td>
                 <a href="/iBeaGuide/route/edit" class="btn btn-default">編輯</a>
-                <a href="/iBeaGuide/route/delete" class="btn btn-default">刪除</a>
+                <a href="/iBeaGuide/routes/delete" class="btn btn-default">刪除</a>
             </td>
         </tr>
     </tbody>
