@@ -6,7 +6,7 @@
  */
 
 global $application_folder;
-require (BASEPATH . '/libraries/Model.php');
+require BASEPATH.'core/Model.php';
 
 /**
  * CodeIgniter ActiveRecord Class
@@ -27,16 +27,16 @@ if (!defined('ALL')) define('ALL', 'all');
 if (!defined('IS_NULL')) define ('IS_NULL', ' is null');
 if (!defined('NOT_NULL')) define ('NOT_NULL', ' <> ""');
 
-class ActiveRecord extends Model {
+class ActiveRecord extends CI_Model {
 
 	/**
 	 * Constructor
 	 *
 	 * @access public
 	 */
-    function ActiveRecord()
+    public function __construct()
     {
-    	parent::Model();
+    	parent::__construct();
         log_message('debug', "ActiveRecord Class Initialized");
     }
 
@@ -53,7 +53,7 @@ class ActiveRecord extends Model {
 	 * @param	array
 	 * @return	function || void
 	 * @link	http://uk.php.net/manual/en/language.oop5.overloading.php
-	 */	
+	 */
     public function __call($method, $args)
     {
         if (stristr($method, 'find_by_')) return $this->_find_by(str_replace('find_by_', '', $method), $args);
@@ -62,7 +62,7 @@ class ActiveRecord extends Model {
         if ( ! isset($args) ) eval('return $this->' . $method . ';');
         eval('$this->' . $method . ' = "' . $args[0] . '";');
     }
-    
+
 	/**
 	 * discover_table_columns
 	 *
@@ -74,7 +74,7 @@ class ActiveRecord extends Model {
 	 *
 	 * @access	public
 	 * @return	object
-	 */	
+	 */
     function discover_table_columns()
     {
     	if ($this->config->item($this->_table . '_table_columns'))
@@ -88,7 +88,7 @@ class ActiveRecord extends Model {
 	        return $columns;
 		}
     }
-    
+
 	/**
 	 * exists
 	 *
@@ -96,12 +96,12 @@ class ActiveRecord extends Model {
 	 *
 	 * @access	public
 	 * @return	bool
-	 */	
+	 */
     function exists()
     {
         return isset($this->id);
     }
-    
+
 	/**
 	 * create
 	 *
@@ -112,7 +112,7 @@ class ActiveRecord extends Model {
 	 * @access	public
 	 * @param	array
 	 * @return	object
-	 */	
+	 */
     function create($args)
     {
         if ($this->db->insert($this->_table, $args))
@@ -130,7 +130,7 @@ class ActiveRecord extends Model {
             log_message('error', $this->db->last_query());
         }
     }
-    
+
 	/**
 	 * delete
 	 *
@@ -138,7 +138,7 @@ class ActiveRecord extends Model {
 	 *
 	 * @access	public
 	 * @return	void
-	 */	
+	 */
     function delete()
     {
         if ($this->db->delete($this->_table, array('id' => $this->id)))
@@ -150,7 +150,7 @@ class ActiveRecord extends Model {
             log_message('error', $this->db->last_query());
         }
     }
-    
+
 	/**
 	 * delete_all
 	 *
@@ -159,7 +159,7 @@ class ActiveRecord extends Model {
 	 *
 	 * @access	public
 	 * @return	void
-	 */	
+	 */
     function delete_all()
     {
         if ($this->db->query('DELETE FROM ' . $this->_table))
@@ -171,7 +171,7 @@ class ActiveRecord extends Model {
             log_message('error', $this->db->last_query());
         }
     }
-    
+
 	/**
 	 * save
 	 *
@@ -181,7 +181,7 @@ class ActiveRecord extends Model {
 	 *
 	 * @access	public
 	 * @return	object
-	 */	
+	 */
     function save()
     {
         $data = array();
@@ -207,7 +207,7 @@ class ActiveRecord extends Model {
 	 *
 	 * @access	public
 	 * @return	void
-	 */	
+	 */
 	function update()
 	{
 		$data = array();
@@ -226,7 +226,7 @@ class ActiveRecord extends Model {
 	 * find
 	 *
 	 * Basic find function. Either pass in a numeric id to find that table row,
-	 * or an array of key/values for a more complex search. Note that passing in 
+	 * or an array of key/values for a more complex search. Note that passing in
 	 * an array of 1 is stupid, as you can use find_by_fieldname() instead.
 	 *
 	 * To simply return all records, use the ALL constant: $myobj->find(ALL);
@@ -234,7 +234,7 @@ class ActiveRecord extends Model {
 	 * @access	public
 	 * @param	int || array
 	 * @return	object || array
-	 */	
+	 */
     function find($args)
     {
         if (is_array($args))
@@ -291,7 +291,7 @@ class ActiveRecord extends Model {
 			}
         }
     }
-    
+
 	/**
 	 * _find_by
 	 *
@@ -305,7 +305,7 @@ class ActiveRecord extends Model {
 	 * @param	string
 	 * @param	array
 	 * @return	object
-	 */	
+	 */
     function _find_by($column, $query)
     {
         $this->db->where($column, $query[0]);
@@ -340,7 +340,7 @@ class ActiveRecord extends Model {
 			return false;
 		}
     }
-    
+
 	/**
 	 * _find_all_by
 	 *
@@ -350,7 +350,7 @@ class ActiveRecord extends Model {
 	 * IS_NULL to find null or empty fields
 	 * NOT_NULL to find fields that aren't empty or null
 	 *
-	 * By passing in a second parameter of an array of key/value pairs, you 
+	 * By passing in a second parameter of an array of key/value pairs, you
 	 * can build more complex queries (of course, if it's getting too complex,
 	 * consider creating your own function in the actual model class).
 	 *
@@ -358,7 +358,7 @@ class ActiveRecord extends Model {
 	 * @param	string
 	 * @param	array
 	 * @return	array
-	 */	
+	 */
     function _find_all_by($column, $query)
     {
         $return = array();
@@ -401,7 +401,7 @@ class ActiveRecord extends Model {
         }
         return $return;
     }
-	
+
 	/**
 	 * find_and_limit_by
 	 *
@@ -416,7 +416,7 @@ class ActiveRecord extends Model {
 	 * @param	int
 	 * @param	array
 	 * @return	array
-	 */	
+	 */
 	function find_and_limit_by($num, $start, $query = array())
 	{
 		$return = array();
@@ -449,7 +449,7 @@ class ActiveRecord extends Model {
         }
         return $return;
 	}
-    
+
 	/**
 	 * create_relationship
 	 *
@@ -461,16 +461,16 @@ class ActiveRecord extends Model {
 	 * @param	object
 	 * @param	object
 	 * @return	void
-	 */	
+	 */
     function create_relationship($a, $b = '')
     {
     	if ($b == '')
 		{
 			$relationship_table = ($this->_table < $a->_table) ? $this->_table . '_' . $a->_table : $a->_table . '_' . $this->_table;
 	        $this->db->query('
-				INSERT INTO ' . $relationship_table . ' 
-					(' . $this->_class_name . '_id, ' . $a->_class_name . '_id) 
-				VALUES 
+				INSERT INTO ' . $relationship_table . '
+					(' . $this->_class_name . '_id, ' . $a->_class_name . '_id)
+				VALUES
 					(' . $this->id . ', ' . $a->id . ')
 			');
 		}
@@ -478,20 +478,20 @@ class ActiveRecord extends Model {
 		{
 			$relationship_table = ($a->_table < $b->_table) ? $a->_table . '_' . $b->_table : $b->_table . '_' . $a->_table;
 	        $this->db->query('
-				INSERT INTO ' . $relationship_table . ' 
-					(' . $a->_class_name . '_id, ' . $b->_class_name . '_id) 
-				VALUES 
+				INSERT INTO ' . $relationship_table . '
+					(' . $a->_class_name . '_id, ' . $b->_class_name . '_id)
+				VALUES
 					(' . $a->id . ', ' . $b->id . ')
 			');
 		}
     }
-	
+
 	/**
 	 * _fetch_related
 	 *
 	 * Fetch all related records using the relationship table to establish
 	 * relationships. Results are stored as an array of objects in a
-	 * property corresponding to the name of the related objects. If the 
+	 * property corresponding to the name of the related objects. If the
 	 * singular of the related object isn't logical, pass it in as the
 	 * first argument, e.g. $woman->fetch_related_men('man');
 	 *
@@ -499,30 +499,30 @@ class ActiveRecord extends Model {
 	 * @param	string
 	 * @param	string
 	 * @return	void
-	 */	
+	 */
 	function _fetch_related($plural, $singular)
 	{
 		$singular = ($singular) ? $singular[0] : substr($plural, 0, -1);
 		$relationship_table = ($this->_table < $plural) ? $this->_table . '_' . $plural : $plural . '_' . $this->_table;
 		$query = $this->db->query('
-			SELECT 
-				' . $plural . '.* 
-			FROM 
-				' . $plural . ' 
-			LEFT JOIN 
-				' . $relationship_table . ' 
-			ON 
-				' . $plural . '.id = ' . $singular . '_id 
-			LEFT JOIN 
-				' . $this->_table . ' 
-			ON 
-				' . $this->_table . '.id = ' . $this->_class_name . '_id 
-			WHERE 
+			SELECT
+				' . $plural . '.*
+			FROM
+				' . $plural . '
+			LEFT JOIN
+				' . $relationship_table . '
+			ON
+				' . $plural . '.id = ' . $singular . '_id
+			LEFT JOIN
+				' . $this->_table . '
+			ON
+				' . $this->_table . '.id = ' . $this->_class_name . '_id
+			WHERE
 				' . $this->_table . '.id = ' . $this->id
 		);
-		eval('$this->' . $plural . ' = $query->result();');	
+		eval('$this->' . $plural . ' = $query->result();');
 	}
-    
+
 }
 
 ?>
