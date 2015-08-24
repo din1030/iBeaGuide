@@ -1,4 +1,6 @@
-<form class="form-horizontal">
+<?php echo validation_errors(); ?>
+
+<form class="form-horizontal" action="EditExhibitionAction" method="post">
     <fieldset>
 
         <legend >新增展覽資訊</legend>

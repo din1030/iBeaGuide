@@ -1,4 +1,6 @@
-<form class="form-horizontal">
+<?php echo validation_errors(); ?>
+
+<form class="form-horizontal" action="AddIbeaconAction" method="post">
     <fieldset>
 
         <!-- Form Name -->
@@ -42,7 +44,7 @@
 
         <!-- Button Drop Down -->
         <div class="form-group">
-            <label class="col-md-4 control-label" for="ibeacon_link">連結中物件</label>
+            <label class="col-md-4 control-label" for="ibeacon_link">連結物件</label>
             <div class="col-md-6">
                 <div class="input-group">
                     <input id="ibeacon_link" name="ibeacon_link" class="form-control" placeholder="" type="text">

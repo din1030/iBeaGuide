@@ -22,12 +22,11 @@
         <script src="/iBeaGuide/assets/bootstrap-table/src/extensions/export/bootstrap-table-export.js"></script>
         <script src="//rawgit.com/hhurz/tableExport.jquery.plugin/master/tableExport.js"></script>
 
+        <!-- bootstrap-datetimepicker -->
+        <link rel="stylesheet" href="/iBeaGuide/assets/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css" media="screen">
+        <script src="/iBeaGuide/assets/moment/min/moment.min.js"></script>
+        <script src="/iBeaGuide/assets/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
 
-
-        <!-- DataTables CSS -->
-        <!-- <link rel="stylesheet" type="text/css" href="/iBeaGuide/assets/DataTables/css/jquery.dataTables.css"> -->
-        <!-- Data Tables   -->
-        <!-- <script type="text/javascript" src="/iBeaGuide/assets/DataTables/js/jquery.dataTables.min.js"></script> -->
     </head>
 
     <body>

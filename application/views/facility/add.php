@@ -1,6 +1,6 @@
 <?php echo validation_errors(); ?>
 
-<form class="form-horizontal" action="fac_submit" method="post">
+<form class="form-horizontal" action="AddFacilityAction" method="post">
     <fieldset>
 
         <!-- Form Name -->
@@ -8,7 +8,7 @@
 
         <!-- Select Basic -->
         <div class="form-group">
-            <label class="col-md-4 control-label" for="item_ibeacon">所屬展覽</label>
+            <label class="col-md-4 control-label" for="fac_exh">所屬展覽</label>
             <div class="col-md-6">
                 <select id="fac_exh" name="fac_exh" class="form-control">
                     <option value="null">請選擇</option>
@@ -24,22 +24,13 @@
             <label class="col-md-4 control-label" for="fac_title">設施名稱</label>
             <div class="col-md-6">
                 <input id="fac_title" name="fac_title" type="text" placeholder="" class="form-control input-md" required="">
-
-            </div>
-        </div>
-
-        <!-- File Button -->
-        <div class="form-group">
-            <label class="col-md-4 control-label" for="fac_icon">設施圖示</label>
-            <div class="col-md-4">
-                <input id="fac_icon" name="fac_icon" class="input-file" type="file">
             </div>
         </div>
 
         <!-- Textarea -->
         <div class="form-group">
             <label class="col-md-4 control-label" for="fac_description">設施說明</label>
-            <div class="col-md-4">
+            <div class="col-md-6">
                 <textarea class="form-control" id="fac_description" name="fac_description"></textarea>
             </div>
         </div>
@@ -54,9 +45,9 @@
 
         <!-- Select Basic -->
         <div class="form-group">
-            <label class="col-md-4 control-label" for="item_ibeacon">連結 iBeacon</label>
+            <label class="col-md-4 control-label" for="fac_ibeacon">連結 iBeacon</label>
             <div class="col-md-6">
-                <select id="item_ibeacon" name="item_ibeacon" class="form-control">
+                <select id="fac_ibeacon" name="fac_ibeacon" class="form-control">
                     <option value="null">請選擇</option>
                     <option value="1">A</option>
                     <option value="2">B</option>
@@ -68,7 +59,7 @@
         <!-- Textarea -->
         <div class="form-group">
             <label class="col-md-4 control-label" for="fac_push">推播文字</label>
-            <div class="col-md-4">
+            <div class="col-md-6">
                 <textarea class="form-control" id="fac_push" name="fac_push"></textarea>
             </div>
         </div>

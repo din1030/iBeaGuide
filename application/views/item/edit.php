@@ -1,4 +1,6 @@
-<form class="form-horizontal">
+<?php echo validation_errors(); ?>
+
+<form class="form-horizontal" action="EditItemAction" method="post">
     <fieldset>
 
         <!-- Form Name -->

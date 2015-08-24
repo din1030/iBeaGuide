@@ -1,6 +1,13 @@
 <?php
 class Comments extends CI_Controller {
 
+	public function __construct()
+    {
+        parent::__construct();
+        $this->load->model('Comment');
+        log_message('debug', "Comments Controller Initialized");
+    }
+
 	public function index()
 	{
 		$this->load->view('header');

@@ -1,5 +1,12 @@
 <?php
-class Routes extends CI_Controller {
+class Routes extends CI_Controller
+{
+    public function __construct()
+    {
+        parent::__construct();
+        $this->load->model('Route');
+        log_message('debug', "Routes Controller Initialized");
+    }
 
 	public function index()
 	{
@@ -30,22 +37,28 @@ class Routes extends CI_Controller {
 
 	}
 
+	public function AddRouteAction()
+    {
+        if ($this->form_validation->run() != FALSE)
+        {
+            $this->load->view('routes/add');
+        }
+        else
+        {
+            $data = array(
+                'exh_id' => $this->input->post('route_exh'),
+                'title' => $this->input->post('route_title'),
+                'description' => $this->input->post('route_description'),
+                // 'main_pic' => $this->input->post('route_main_pic')
+            );
+            $this->Route->create($data);
 
-//    public function edit($manage_type = 'home',$op = 'edit', $id)
-//	{
-//		if ( ! file_exists('application/views/'.$manage_type.'/'.$op.'.php'))
-//		{
-//            show_404();
-//        } else if ($id === NULL || $id = '') {
-//            echo "ID 未輸入！";
-//        }
-//
-//		$data['id'] = $id;
-//
-//		$this->load->view('header');
-//		$this->load->view($manage_type.'/'.$op, $data);
-//		$this->load->view('footer');
-//
-//	}
+            $this->load->view('header');
+            $this->load->view('breadcrumb');
+            $this->load->view('routes/submit');
+            $this->load->view('footer');
+        }
+    }
+
 }
 ?>

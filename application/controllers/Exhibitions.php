@@ -2,6 +2,13 @@
 
 class Exhibitions extends CI_Controller
 {
+    public function __construct()
+    {
+        parent::__construct();
+        $this->load->model('Exhibition');
+        log_message('debug', "Exhibitions Controller Initialized");
+    }
+
     public function index()
     {
         $this->load->view('header');
@@ -28,20 +35,37 @@ class Exhibitions extends CI_Controller
         $this->load->view('footer');
     }
 
-//    public function edit($manage_type = 'home',$op = 'edit', $id)
-//	{
-//		if ( ! file_exists('application/views/'.$manage_type.'/'.$op.'.php'))
-//		{
-//            show_404();
-//        } else if ($id === NULL || $id = '') {
-//            echo "ID 未輸入！";
-//        }
-//
-//		$data['id'] = $id;
-//
-//		$this->load->view('header');
-//		$this->load->view($manage_type.'/'.$op, $data);
-//		$this->load->view('footer');
-//
-//	}
+    public function AddExhibitionAction()
+    {
+        if ($this->form_validation->run() != FALSE)
+        {
+            $this->load->view('exhibition/add');
+        }
+        else
+        {
+            $data = array(
+                // 'curator_id' => 抓目前 user,
+                'title' => $this->input->post('exh_title'),
+                'subtitle' => $this->input->post('exh_subtitle'),
+                'venue' => $this->input->post('exh_venue'),
+                'description' => $this->input->post('exh_description'),
+                'start_date' => $this->input->post('exh_start_date'),
+                'end_date' => $this->input->post('exh_end_date'),
+                'daily_open_time' => $this->input->post('exh_daily_open_time'), 表單建立 picker
+                'daily_close_time' => $this->input->post('exh_daily_close_time'),
+                'web_link' => $this->input->post('exh_web_link'),
+                // 'main_pic' => $this->input->post('exh_main_pic'),
+                'push_content' => $this->input->post('exh_push'),
+                'ibeacon_id' => $this->input->post('exh_ibeacon')
+            );
+            $this->Exhibition->create($data);
+
+            $this->load->view('header');
+            $this->load->view('breadcrumb');
+            $this->load->view('facility/submit');
+            $this->load->view('footer');
+        }
+    }
+
 }
+?>
