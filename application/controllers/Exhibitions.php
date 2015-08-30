@@ -51,7 +51,7 @@ class Exhibitions extends CI_Controller
                 'description' => $this->input->post('exh_description'),
                 'start_date' => $this->input->post('exh_start_date'),
                 'end_date' => $this->input->post('exh_end_date'),
-                'daily_open_time' => $this->input->post('exh_daily_open_time'), 表單建立 picker
+                'daily_open_time' => $this->input->post('exh_daily_open_time'),
                 'daily_close_time' => $this->input->post('exh_daily_close_time'),
                 'web_link' => $this->input->post('exh_web_link'),
                 // 'main_pic' => $this->input->post('exh_main_pic'),

@@ -3,7 +3,7 @@
 <form class="form-horizontal" action="AddExhibitionAction" method="post">
     <fieldset>
 
-        <legend >新增展覽資訊</legend>
+        <legend>新增展覽資訊</legend>
 
         <div class="form-group">
             <!-- Text input-->
@@ -30,6 +30,59 @@
         </div>
 
         <div class="form-group">
+            <label class="col-md-4 control-label" for="exh_start_date">開展日期</label>
+            <div class="col-md-6">
+                <div class='input-group date' id='exh_start_date'>
+                    <input type='text' class="form-control" />
+                    <span class="input-group-addon">
+                    <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="exh_end_date">閉展日期</label>
+            <div class="col-md-6">
+                <div class='input-group date' id='exh_end_date'>
+                    <input type='text' class="form-control" />
+                    <span class="input-group-addon">
+                    <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="exh_daily_open_time">每日開展時間</label>
+            <div class="col-md-6">
+                <div class='input-group date' id='exh_daily_open_time'>
+                    <input type='text' class="form-control" />
+                    <span class="input-group-addon">
+                    <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="exh_daily_close_time">每日閉展時間</label>
+            <div class="col-md-6">
+                <div class='input-group date' id='exh_daily_close_time'>
+                    <input type='text' class="form-control" />
+                    <span class="input-group-addon">
+                    <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <!-- Textarea -->
+            <label class="col-md-4 control-label" for="exh_description">展覽介紹</label>
+            <div class="col-md-6">
+                <textarea class="form-control" id="exh_description" name="exh_description"></textarea>
+            </div>
+        </div>
+
+        <div class="form-group">
             <!-- Text input-->
             <label class="col-md-4 control-label" for="exh_web_link">官網連結</label>
             <div class="col-sm-6 col-md-6">
@@ -44,88 +97,6 @@
                 <input id="exh_main_pic" name="exh_main_pic" class="input-file" type="file">
             </div>
         </div>
-
-        <div class="form-group">
-            <!-- Textarea -->
-            <label class="col-md-4 control-label" for="exh_description">展覽介紹</label>
-            <div class="col-md-6">
-                <textarea class="form-control" id="exh_description" name="exh_description"></textarea>
-            </div>
-        </div>
-
-
-        <div class="form-group">
-            <label class="col-md-4 control-label" for="exh_start_date">開展日期</label>
-            <div class="col-md-6">
-                <div class='input-group date' id='exh_start_date'>
-                    <input type='text' class="form-control" />
-                    <span class="input-group-addon">
-                        <span class="glyphicon glyphicon-calendar"></span>
-                    </span>
-                </div>
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="col-md-4 control-label" for="exh_end_date">閉展日期</label>
-            <div class="col-md-6">
-                <div class='input-group date' id='exh_end_date'>
-                    <input type='text' class="form-control" />
-                    <span class="input-group-addon">
-                        <span class="glyphicon glyphicon-calendar"></span>
-                    </span>
-                </div>
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="col-md-4 control-label" for="exh_daily_open_time">每日開展時間</label>
-            <div class="col-md-6">
-                <div class='input-group date' id='exh_daily_open_time'>
-                    <input type='text' class="form-control" />
-                    <span class="input-group-addon">
-                        <span class="glyphicon glyphicon-calendar"></span>
-                    </span>
-                </div>
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="col-md-4 control-label" for="exh_daily_close_time">每日閉展時間</label>
-            <div class="col-md-6">
-                <div class='input-group date' id='exh_daily_close_time'>
-                    <input type='text' class="form-control" />
-                    <span class="input-group-addon">
-                        <span class="glyphicon glyphicon-calendar"></span>
-                    </span>
-                </div>
-            </div>
-        </div>
-        <script type="text/javascript">
-            $(function () {
-                $('#exh_start_date').datetimepicker({
-                    format: 'YYYY-MM-DD'
-                });
-
-                $('#exh_end_date').datetimepicker({
-                    useCurrent: false, //Important! See issue #1075
-                    format: 'YYYY-MM-DD'
-                });
-
-                $("#exh_start_date").on("dp.change", function (e) {
-                    $('#exh_end_date').data("DateTimePicker").minDate(e.date);
-                });
-
-                $("#exh_end_date").on("dp.change", function (e) {
-                    $('#exh_start_date').data("DateTimePicker").maxDate(e.date);
-                });
-
-                $('#exh_daily_open_time').datetimepicker({
-                    format: 'HH:mm'
-                });
-
-                $('#exh_daily_close_time').datetimepicker({
-                    format: 'HH:mm'
-                });
-            });
-        </script>
 
         <div class="form-group">
             <!-- Textarea -->
@@ -174,3 +145,40 @@
 
     </fieldset>
 </form>
+
+<script type="text/javascript">
+    $(function() {
+        $('#exh_start_date').datetimepicker({
+            format: 'YYYY-MM-DD'
+        });
+
+        $('#exh_end_date').datetimepicker({
+            useCurrent: false, //Important! See issue #1075
+            format: 'YYYY-MM-DD'
+        });
+
+        $("#exh_start_date").on("dp.change", function(e) {
+            $('#exh_end_date').data("DateTimePicker").minDate(e.date);
+        });
+
+        $("#exh_end_date").on("dp.change", function(e) {
+            $('#exh_start_date').data("DateTimePicker").maxDate(e.date);
+        });
+
+        $('#exh_daily_open_time').datetimepicker({
+            format: 'HH:mm'
+        });
+
+        $('#exh_daily_close_time').datetimepicker({
+            useCurrent: false,
+            format: 'HH:mm'
+        });
+        $("#exh_daily_open_time").on("dp.change", function(e) {
+            $('#exh_daily_close_time').data("DateTimePicker").minDate(e.date);
+        });
+
+        $("#exh_daily_close_time").on("dp.change", function(e) {
+            $('#exh_daily_open_time').data("DateTimePicker").maxDate(e.date);
+        });
+    });
+</script>

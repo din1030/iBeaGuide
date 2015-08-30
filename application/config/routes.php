@@ -41,8 +41,8 @@
 $route['default_controller'] = 'pages/view';
 
 //$route['(:any)/(:any)/([1-9][0-9]*$)'] = 'pages/$1/$2/$3';
-//$route['(:any)/(:any)'] = 'pages/operation/$1/$2';
-//$route['(:any)'] = 'pages/view/$1';
+// $route['(:any)/(:any)'] = '$1/$2';
+$route['test/(:any)'] = 'pages/view/$1';
 
 $route['404_override'] = '';
 

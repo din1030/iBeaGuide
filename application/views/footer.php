@@ -1,6 +1,9 @@
-	</div> <!-- end .container  -->
-	<div class="text-center footer navbar-fixed-bottom bg-warning">
-		<p class="" style="padding:15px; font-size:15px">Copyright © 2015 Cheng Chia Ting in DCT, NCCU. All rights reserved</p>
-	</div>
+		</div> <!-- end .container  -->
+	</div> <!-- end #wrap  -->
+	<footer class="footer text-center">
+		<span>
+			Copyright © 2015 Cheng Chia Ting in DCT, NCCU. All rights reserved.
+		</span>
+	</footer>
 </body>
 </html>

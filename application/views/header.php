@@ -3,13 +3,17 @@
     <head>
         <title>iBeaGuide - 數位導覽內容管理系統</title>
         <!-- Latest compiled and minified CSS -->
-        <link rel="stylesheet" href="/iBeaGuide/assets/Bootstrap/css/bootstrap.min.css" />
-        <link rel="stylesheet" href="/iBeaGuide/assets/Bootstrap/css/main.css" />
+        <link rel="stylesheet" href="/iBeaGuide/assets/Bootstrap/css/bootstrap-flatly.css" />
+        <link rel="stylesheet" href="/iBeaGuide/assets//main.css" />
 
         <!-- Optional theme -->
-        <link rel="stylesheet" href="/iBeaGuide/assets/Bootstrap/css/bootstrap-theme.min.css">
 
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <!-- <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/redmond/jquery-ui.css"> -->
+        <link rel="stylesheet" href="/iBeaGuide/assets/jquery-ui-1.11.4/jquery-ui.css">
+        <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+
         <!-- Latest compiled and minified JavaScript -->
         <script type="text/javascript" src="/iBeaGuide/assets/Bootstrap/js/bootstrap.js"></script>
 
@@ -30,11 +34,8 @@
     </head>
 
     <body>
-        <div>
-            <a href="/iBeaGuide/">
-                <p class="bg-success" style="padding:15px; font-size:26px; color: #179;">
-                    iBeaGuide - 數位導覽內容管理系統
-                </p>
-            </a>
-        </div>
-        <div class="container">
+        <div id="wrap">
+            <div class="header">
+                <span><a href="/iBeaGuide/">iBeaGuide - 數位導覽內容管理系統</a></span>
+            </div>
+            <div class="container">

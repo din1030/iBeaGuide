@@ -2,7 +2,6 @@
     <ol class="breadcrumb">
         <li>
             <a href="<?php echo base_url(); ?>" class="">首頁</a>
-            <span class="glyphicon glyphicon-menu-right"></span>
         </li>
 
         <?php
@@ -23,7 +22,6 @@
                 ?>
                 <li>
                     <a href="<?php echo base_url() ?>exhibitions">展覽管理</a>
-                    <span class="glyphicon glyphicon-menu-right"></span>
                 </li>
                 <li>
                     新增展覽資訊
@@ -43,7 +41,6 @@
                 ?>
                 <li>
                     <a href="<?php echo base_url(); ?>items">展品管理</a>
-                    <span class="glyphicon glyphicon-menu-right"></span>
                 </li>
                 <li>
                     新增展品資訊
@@ -63,7 +60,6 @@
                 ?>
                 <li>
                     <a href="<?php echo base_url(); ?>facilities">設施管理</a>
-                    <span class="glyphicon glyphicon-menu-right"></span>
                 </li>
                 <li>
                     新增設施資訊
@@ -83,7 +79,6 @@
                 ?>
                 <li>
                     <a href="<?php echo base_url(); ?>routes">路線管理</a>
-                    <span class="glyphicon glyphicon-menu-right"></span>
                 </li>
                 <li>
                     新增路線
@@ -91,7 +86,7 @@
                 <?php
                 break;
 
-            case 'comment':
+            case 'comments':
                 ?>
                 <li>
                     留言管理
@@ -99,11 +94,10 @@
                 <?php
                 break;
 
-            case 'comment/exh':
+            case 'comments/exh':
                 ?>
                 <li>
-                    <a href="<?php echo base_url(); ?>comment">留言管理</a>
-                    <span class="glyphicon glyphicon-menu-right"></span>
+                    <a href="<?php echo base_url(); ?>comments">留言管理</a>
                 </li>
                 <li>
                     展覽留言管理
@@ -111,11 +105,10 @@
                 <?php
                 break;
 
-            case 'comment/item':
+            case 'comments/item':
                 ?>
                 <li>
-                    <a href="<?php echo base_url(); ?>comment">留言管理</a>
-                    <span class="glyphicon glyphicon-menu-right"></span>
+                    <a href="<?php echo base_url(); ?>comments">留言管理</a>
                 </li>
                 <li>
                     展品留言管理
@@ -123,19 +116,18 @@
                 <?php
                 break;
 
-            case 'ibeacon':
+            case 'ibeacons':
                 ?>
                 <li>
-                    留言管理
+                    iBeacon管理
                 </li>
                 <?php
                 break;
 
-            case 'ibeacon/add':
+            case 'ibeacons/add':
                 ?>
                 <li>
-                    <a href="<?php echo base_url(); ?>ibeacon">留言管理</a>
-                    <span class="glyphicon glyphicon-menu-right"></span>
+                    <a href="<?php echo base_url(); ?>ibeacon">iBeacon管理</a>
                 </li>
                 <li>
                     新增 iBeacon
