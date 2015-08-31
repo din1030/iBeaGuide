@@ -32,9 +32,39 @@
             <td>2015/02/07</td>
             <td>2015/05/03</td>
             <td>
+                <button id="add-section-btn" type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal">建立展區</button>
                 <a href="/iBeaGuide/exhibitions/edit" class="btn btn-default">編輯</a>
                 <a href="/iBeaGuide/exhibitions/delete" class="btn btn-default">刪除</a>
             </td>
         </tr>
     </tbody>
 </table>
+<script>
+    // $(document).ready(function() {
+
+        $(document.body).off('click.add_section', '#add-section-btn');
+        $(document.body).on('click.add_section', '#add-section-btn', function() {
+
+            $.ajax({
+                url: 'exhibitions/getCreateSectionModalFormAction',
+                type: "GET",
+                data: {
+                    // user_id: $('#user-id').val()
+                },
+                dataType: "html",
+                beforeSend: function(xhr) {
+                    $('#system-message').html('處理中...');
+                    $('#system-message').show();
+                },
+                success: function(html_block) {
+                    // $(html_block).appendTo("body").modal('show');
+                    $('#iBeaGuide-modal-block').html(html_block);
+                    $('#iBeaGuide-modal').modal('show');
+                    $('#system-message').html('完成');
+                    $('#system-message').fadeOut();
+                }
+            });
+
+        });
+    // });
+</script>

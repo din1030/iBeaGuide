@@ -119,28 +119,19 @@
             </div>
         </div>
 
-        <!-- Textarea -->
-        <div class="form-group">
-            <label class="col-md-4 control-label" for="fac_push">推播文字</label>
-            <div class="col-md-6">
-                <textarea class="form-control" id="fac_push" name="fac_push"></textarea>
-            </div>
-        </div>
-
         <div class="form-group">
             <label class="col-md-4 control-label"></label>
             <!-- Button -->
             <div class="col-sm-6 col-md-6">
-                <button class="btn btn-info">建立展區</button>
-                <button class="btn btn-info">連結出口 iBeacon</button>
+                <button type="button" class="btn btn-info">連結出口 iBeacon</button>
             </div>
         </div>
 
         <!-- Button Group -->
         <div class="form-group text-center">
-            <button id="preview" name="preview" class="btn btn-default">預覽</button>
-            <button id="submit" name="submit" class="btn btn-primary">送出展覽資訊</button>
-            <button id="cancel" name="cancel" class="btn btn-default">取消</button>
+            <button type="button" id="preview" name="preview" class="btn btn-default">預覽</button>
+            <button type="submit" id="submit" name="submit" class="btn btn-primary">送出展覽資訊</button>
+            <button type="button" id="cancel" name="cancel" class="btn btn-default">取消</button>
         </div>
 
     </fieldset>

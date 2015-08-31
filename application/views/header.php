@@ -3,6 +3,7 @@
     <head>
         <title>iBeaGuide - 數位導覽內容管理系統</title>
         <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
         <link rel="stylesheet" href="/iBeaGuide/assets/Bootstrap/css/bootstrap-flatly.css" />
         <link rel="stylesheet" href="/iBeaGuide/assets//main.css" />
 
@@ -15,7 +16,7 @@
         <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 
         <!-- Latest compiled and minified JavaScript -->
-        <script type="text/javascript" src="/iBeaGuide/assets/Bootstrap/js/bootstrap.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 
         <!-- bootstrap-table -->
         <link rel="stylesheet" href="/iBeaGuide/assets/bootstrap-table/src/bootstrap-table.css">
@@ -38,4 +39,9 @@
             <div class="header">
                 <span><a href="/iBeaGuide/">iBeaGuide - 數位導覽內容管理系統</a></span>
             </div>
+
+            <div id="system-message-block" class="container">
+                <div id="system-message"></div>
+            </div>
+
             <div class="container">

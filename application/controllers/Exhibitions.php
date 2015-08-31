@@ -62,10 +62,14 @@ class Exhibitions extends CI_Controller
 
             $this->load->view('header');
             $this->load->view('breadcrumb');
-            $this->load->view('facility/submit');
+            $this->load->view('exhibition/submit');
             $this->load->view('footer');
         }
     }
 
+    public function getCreateSectionModalFormAction()
+    {
+        $this->load->view('exhibition/create_section_modal_form');
+    }
 }
 ?>

@@ -5,6 +5,7 @@
     margin: 0 auto -50px;
     padding: 0 0 100px 0;
 }
+
 .header, .header a {
 	padding:15px;
 	margin-bottom: 20px;
@@ -12,12 +13,25 @@
 	color: #FFF;
 	background-color:#41B3D3;
 }
+
 .footer {
 	color: #FFF;
 	background-color: #444444;
 	padding:15px 0;
 	font-size:15px;
 	height: 50px;
+}
+
+#system-message {
+  position: fixed;
+  z-index: 1051;
+  top: 58px;
+  right: 25px;
+  background: #d40000;
+  color: #fff;
+  padding: 8px 15px;
+  border-radius: 4px;
+  display: none;
 }
 
 #items_list {
