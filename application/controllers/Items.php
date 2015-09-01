@@ -39,7 +39,7 @@ class Items extends CI_Controller {
 
 	public function AddItemAction()
     {
-        if ($this->form_validation->run() != FALSE)
+        if ($this->form_validation->run() == FALSE)
         {
             $this->load->view('item/add');
         }

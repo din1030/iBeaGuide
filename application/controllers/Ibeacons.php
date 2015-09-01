@@ -37,7 +37,7 @@ class Ibeacons extends CI_Controller {
 
     public function AddIbeaconAction()
     {
-        if ($this->form_validation->run() != FALSE)
+        if ($this->form_validation->run() == FALSE)
         {
             $this->load->view('ibeacon/add');
         }

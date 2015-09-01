@@ -1,19 +1,19 @@
 <?php
 
-class Facilities extends CI_Controller
+class Sections extends CI_Controller
 {
     public function __construct()
     {
     	parent::__construct();
-        $this->load->model('Facility');
-        log_message('debug', "Facilities Controller Initialized");
+        $this->load->model('Section');
+        log_message('debug', "Sections Controller Initialized");
     }
 
     public function index()
     {
         $this->load->view('header');
         $this->load->view('breadcrumb');
-        $this->load->view('facility/fac_manage');
+        $this->load->view('section/fac_manage');
         $this->load->view('footer');
     }
 
@@ -21,7 +21,7 @@ class Facilities extends CI_Controller
     {
         $this->load->view('header');
         $this->load->view('breadcrumb');
-        $this->load->view('facility/add');
+        $this->load->view('section/add');
         $this->load->view('footer');
     }
 
@@ -31,7 +31,7 @@ class Facilities extends CI_Controller
 
         $this->load->view('header');
         $this->load->view('breadcrumb');
-        $this->load->view('facility/edit', $data);
+        $this->load->view('section/edit', $data);
         $this->load->view('footer');
     }
 
@@ -55,7 +55,7 @@ class Facilities extends CI_Controller
 
             $this->load->view('header');
             $this->load->view('breadcrumb');
-            $this->load->view('facility/submit');
+            $this->load->view('section/submit');
             $this->load->view('footer');
         }
     }

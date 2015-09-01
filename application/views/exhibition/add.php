@@ -3,7 +3,7 @@
 <form class="form-horizontal" action="AddExhibitionAction" method="post">
     <fieldset>
 
-        <legend>新增展覽資訊</legend>
+        <legend>新增展覽</legend>
 
         <div class="form-group">
             <!-- Text input-->

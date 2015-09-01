@@ -56,9 +56,20 @@ class ActiveRecord extends CI_Model {
 	 */
     public function __call($method, $args)
     {
-        if (stristr($method, 'find_by_')) return $this->_find_by(str_replace('find_by_', '', $method), $args);
-        if (stristr($method, 'find_all_by_')) return $this->_find_all_by(str_replace('find_all_by_', '', $method), $args);
-		if (stristr($method, 'fetch_related_')) return $this->_fetch_related(str_replace('fetch_related_', '', $method), $args);
+        if (stristr($method, 'find_by_'))
+            return $this->_find_by(str_replace('find_by_', '', $method), $args);
+
+        if (stristr($method, 'find_all_by_'))
+            return $this->_find_all_by(str_replace('find_all_by_', '', $method), $args);
+
+        if (stristr($method, 'prepare_for_table_by_'))
+            return $this->_prepare_for_table_by(str_replace('prepare_for_table_by_', '', $method), $args);
+
+
+        if (stristr($method, 'fetch_related_'))
+            return $this->_fetch_related(str_replace('fetch_related_', '', $method), $args);
+
+
         if ( ! isset($args) ) eval('return $this->' . $method . ';');
         eval('$this->' . $method . ' = "' . $args[0] . '";');
     }
@@ -370,10 +381,11 @@ class ActiveRecord extends CI_Model {
 	 *
 	 * @access	private
 	 * @param	string
+     * @param	array
 	 * @param	array
 	 * @return	array
 	 */
-    function _find_all_by($column, $query)
+    function _find_all_by($column, $query, $select_cols = NULL)
     {
         $return = array();
 		switch ($query[0])
@@ -402,6 +414,11 @@ class ActiveRecord extends CI_Model {
 		{
 			$this->db->from($this->_table . ' ' . $query[2]);
 		}
+
+        if (!is_null($select_cols)) {
+            $this->db->select($select_cols);
+        }
+
         $query = $this->db->get();
         foreach ($query->result() as $row)
         {
@@ -536,6 +553,42 @@ class ActiveRecord extends CI_Model {
 		);
 		eval('$this->' . $plural . ' = $query->result();');
 	}
+
+    public function _prepare_for_table_by($column, $query)
+    {
+		switch ($query[0])
+		{
+			case IS_NULL:
+				$this->db->where($column . IS_NULL);
+				break;
+			case NOT_NULL:
+				$this->db->where($column . NOT_NULL);
+				break;
+			default:
+				$this->db->where($column, $query[0]);
+		}
+        if (isset($query[1])){
+            $this->db->select($query[1]);
+        }
+        if (isset($query[2]))
+        {
+            foreach ($query[2] as $key => $value)
+            {
+                $this->db->where($key, $value);
+            }
+        }
+		if (!isset($query[3]))
+		{
+			$this->db->from($this->_table);
+		}
+		else
+		{
+			$this->db->from($this->_table . ' ' . $query[2]);
+		}
+
+        $query = $this->db->get();
+        return $query;
+    }
 
 }
 
