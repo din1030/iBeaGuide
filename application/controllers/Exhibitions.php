@@ -81,8 +81,8 @@ class Exhibitions extends CI_Controller
         $result_array = $query->result_array();
         $sections = array();
         foreach ($result_array as $sec_row) {
-            $manage_btns = "<button id='edit-section-btn' type='button' class='btn btn-default' data-toggle='modal' data-id='".$sec_row['id']."'>編輯</button> &nbsp;";
-            $manage_btns .= "<button id='del-section-btn' type='button' class='btn btn-default' data-toggle='modal' data-id='".$sec_row['id']."'>刪除</button>";
+            $manage_btns = "<button id='edit-section-btn-".$sec_row['id']."' type='button' class='btn btn-default edit-section-btn' data-toggle='modal' data-id='".$sec_row['id']."'>編輯</button> &nbsp;";
+            $manage_btns .= "<button id='del-section-btn-".$sec_row['id']."' type='button' class='btn btn-default del-section-btn' data-toggle='modal' data-id='".$sec_row['id']."'>刪除</button>";
             array_push($sec_row, $manage_btns);
             $sections[] = $sec_row;
             $sec_row = null;
@@ -105,9 +105,18 @@ class Exhibitions extends CI_Controller
         $this->load->view('exhibition/create_section_modal_form');
     }
 
+    public function getEditSectionModalFormAction()
+    {
+        $sec_id = $_GET['sec_id'];
+        $this->load->model('Section');
+        $data['sec'] = $this->Section->find($sec_id);
+        $this->load->view('exhibition/edit_section_modal_form', $data);
+    }
+
     public function AddSectionAction()
     {
         $this->form_validation->set_rules('sec_title', '標題', 'required');
+        $this->form_validation->set_rules('sec_description', '說明', 'required');
 
         if ($this->form_validation->run() == FALSE)
         {
@@ -129,5 +138,28 @@ class Exhibitions extends CI_Controller
         }
     }
 
+    public function EditSectionAction()
+    {
+        $this->form_validation->set_rules('sec_title', '標題', 'required');
+        $this->form_validation->set_rules('sec_description', '說明', 'required');
+
+        if ($this->form_validation->run() == FALSE)
+        {
+            redirect('exhibitions');
+        }
+        else
+        {
+            $this->load->model('Section');
+            $sec_obj = $this->Section->find($this->input->post('sec_id'));
+
+            $sec_obj->title = $this->input->post('sec_title');
+            $sec_obj->description = $this->input->post('sec_description');
+            $sec_obj->main_pic = $this->input->post('sec_main_pic');
+
+            $sec_obj->update();
+
+            redirect('exhibitions/sections');
+        }
+    }
 }
 ?>

@@ -62,5 +62,29 @@
             });
 
         });
+        $(document.body).off('click.edit_section', '.edit-section-btn');
+        $(document.body).on('click.edit_section', '.edit-section-btn', function() {
+
+            $.ajax({
+                url: 'getEditSectionModalFormAction',
+                type: "GET",
+                data: {
+                    sec_id: $(this).attr('data-id')
+                },
+                dataType: "html",
+                beforeSend: function(xhr) {
+                    $('#system-message').html('處理中...');
+                    $('#system-message').show();
+                },
+                success: function(html_block) {
+                    // $(html_block).appendTo("body").modal('show');
+                    $('#iBeaGuide-modal-block').html(html_block);
+                    $('#iBeaGuide-modal').modal('show');
+                    $('#system-message').html('完成');
+                    $('#system-message').fadeOut();
+                }
+            });
+
+        });
     // });
 </script>
