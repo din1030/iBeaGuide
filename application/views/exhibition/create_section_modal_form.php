@@ -8,7 +8,7 @@
     <form class="form-horizontal" action="AddSectionAction" method="post">
         <fieldset>
             <div class="modal-body">
-
+                <input id="exh_id" type="hidden" name="exh_id" value="<?= $exh_id ?>">
                 <!-- Text input-->
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="sec_title">展區標題</label>

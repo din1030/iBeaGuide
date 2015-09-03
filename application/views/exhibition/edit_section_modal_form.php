@@ -9,6 +9,7 @@
         <fieldset>
             <div class="modal-body">
                 <input id="sec_id" type="hidden" name="sec_id" value="<?= $sec->id ?>">
+                <input id="exh_id" type="hidden" name="exh_id" value="<?= $sec->exh_id ?>">
                 <!-- Text input-->
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="sec_title">展區標題</label>
@@ -35,7 +36,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                <button type="submit" class="btn btn-primary">新增展區</button>
+                <button type="submit" class="btn btn-primary">確認編輯展區</button>
             </div>
         </fieldset>
     </form>

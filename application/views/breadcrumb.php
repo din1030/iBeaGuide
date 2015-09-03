@@ -24,7 +24,29 @@
                     <a href="<?php echo base_url() ?>exhibitions">展覽管理</a>
                 </li>
                 <li>
-                    新增展覽資訊
+                    新增展覽
+                </li>
+                <?php
+                break;
+
+            case 'exhibitions/edit':
+                ?>
+                <li>
+                    <a href="<?php echo base_url() ?>exhibitions">展覽管理</a>
+                </li>
+                <li>
+                    編輯展覽資訊
+                </li>
+                <?php
+                break;
+
+            case 'exhibitions/sections':
+                ?>
+                <li>
+                    <a href="<?php echo base_url() ?>exhibitions">展覽管理</a>
+                </li>
+                <li>
+                    展區資訊
                 </li>
                 <?php
                 break;
