@@ -19,7 +19,7 @@
                     <!-- Text input-->
                     <label class="col-md-2 control-label" for="exh_subtitle">副標</label>
                     <div class="col-sm-8 col-md-8">
-                        <input id="exh_subtitle" name="exh_subtitle" type="text" placeholder="" class="form-control input-md" required="">
+                        <input id="exh_subtitle" name="exh_subtitle" type="text" placeholder="" class="form-control input-md">
                     </div>
                 </div>
 
@@ -112,12 +112,7 @@
                 <div class="form-group">
                     <label class="col-md-2 control-label" for="exh_ibeacon">連結 iBeacon</label>
                     <div class="col-md-8">
-                        <select id="exh_ibeacon" name="exh_ibeacon" class="form-control">
-                            <option value="null">請選擇</option>
-                            <option value="1">A</option>
-                            <option value="2">B</option>
-                            <option value="3">C</option>
-                        </select>
+                        <?= form_dropdown('exh_ibeacon', $ibeacons,'',"id='exh_ibeacon' class='form-control'") ?>
                     </div>
                 </div>
 
@@ -125,7 +120,7 @@
                     <label class="col-md-2 control-label"></label>
                     <!-- Button -->
                     <div class="col-sm-8 col-md-8">
-                        <button type="button" class="btn btn-info">連結出口 iBeacon</button>
+                        <button type="button" class="btn btn-info">連結出口iBeacon</button>
                     </div>
                 </div>
 

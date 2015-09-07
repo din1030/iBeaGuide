@@ -39,13 +39,20 @@ class Exhibitions extends CI_Controller
 
     public function add()
     {
-        $this->load->view('exhibition/add');
+        $this->load->model('Ibeacon');
+        $data['ibeacons'] = $this->Ibeacon->prepare_for_dropdwon();
+
+        $this->load->view('exhibition/add', $data);
     }
 
     public function edit()
     {
+        $this->load->model('Ibeacon');
+        $data['ibeacons'] = $this->Ibeacon->prepare_for_dropdwon();
+
         $exh_id = $_GET['exh_id'];
         $data['exhibition'] = $this->Exhibition->find($exh_id);
+
         $this->load->view('exhibition/edit', $data);
     }
 
@@ -84,36 +91,35 @@ class Exhibitions extends CI_Controller
         }
     }
 
-    public function editExhibitionAction($exh_id)
+    public function editExhibitionAction()
     {
         $this->form_validation->set_rules('exh_title', '標題', 'required');
         if ($this->form_validation->run() == FALSE)
         {
-            $this->load->view('exhibition/add');
+            $this->load->view('exhibition/edit'); // 應該要改成沒過就不會送出
         }
         else
         {
-            $exd_obj = $this->Section->find($this->input->post('sec_id'));
+            $exh_obj = $this->Exhibition->find($this->input->post('exh_id'));
 
-            $exd_obj->title = $this->input->post('sec_title');
-            $exd_obj->description = $this->input->post('sec_description');
-            $exd_obj->main_pic = $this->input->post('sec_main_pic');
-            $exd_obj->title = $this->input->post('exh_title');
-            $exd_obj->subtitle = $this->input->post('exh_subtitle');
-            $exd_obj->venue = $this->input->post('exh_venue');
-            $exd_obj->description = $this->input->post('exh_description');
-            $exd_obj->start_date = $this->input->post('exh_start_date');
-            $exd_obj->end_date = $this->input->post('exh_end_date');
-            $exd_obj->daily_open_time = $this->input->post('exh_daily_open_time');
-            $exd_obj->daily_close_time = $this->input->post('exh_daily_close_time');
-            $exd_obj->web_link = $this->input->post('exh_web_link');
-            $exd_obj->main_pic = $this->input->post('exh_main_pic');
-            $exd_obj->push_content = $this->input->post('exh_push');
-            $exd_obj->ibeacon_id = $this->input->post('exh_ibeacon');
+            $exh_obj->title = $this->input->post('exh_title');
+            $exh_obj->description = $this->input->post('exh_description');
+            $exh_obj->main_pic = $this->input->post('exh_main_pic');
+            $exh_obj->title = $this->input->post('exh_title');
+            $exh_obj->subtitle = $this->input->post('exh_subtitle');
+            $exh_obj->venue = $this->input->post('exh_venue');
+            $exh_obj->description = $this->input->post('exh_description');
+            $exh_obj->start_date = $this->input->post('exh_start_date');
+            $exh_obj->end_date = $this->input->post('exh_end_date');
+            $exh_obj->daily_open_time = $this->input->post('exh_daily_open_time');
+            $exh_obj->daily_close_time = $this->input->post('exh_daily_close_time');
+            $exh_obj->web_link = $this->input->post('exh_web_link');
+            $exh_obj->main_pic = $this->input->post('exh_main_pic');
+            $exh_obj->push_content = $this->input->post('exh_push');
+            $exh_obj->ibeacon_id = $this->input->post('exh_ibeacon');
+            $exh_obj->update();
 
-            $exd_obj->update();
-
-            redirect('exhibitions/sections');
+            redirect('exhibitions');
         }
     }
 

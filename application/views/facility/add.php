@@ -9,48 +9,48 @@
 
                 <!-- Select Basic -->
                 <div class="form-group">
-                    <label class="col-md-4 control-label" for="fac_exh">所屬展覽</label>
-                    <div class="col-md-6">
+                    <label class="col-md-2 control-label" for="fac_exh">所屬展覽</label>
+                    <div class="col-md-8">
                         <?= form_dropdown('fac_exh', $exhibitions,'',"id='fac_exh' class='form-control'") ?>
                     </div>
                 </div>
 
                 <!-- Text input-->
                 <div class="form-group">
-                    <label class="col-md-4 control-label" for="fac_title">設施名稱</label>
-                    <div class="col-md-6">
+                    <label class="col-md-2 control-label" for="fac_title">設施名稱</label>
+                    <div class="col-md-8">
                         <input id="fac_title" name="fac_title" type="text" placeholder="" class="form-control input-md" required="">
                     </div>
                 </div>
 
                 <!-- Textarea -->
                 <div class="form-group">
-                    <label class="col-md-4 control-label" for="fac_description">設施說明</label>
-                    <div class="col-md-6">
+                    <label class="col-md-2 control-label" for="fac_description">設施說明</label>
+                    <div class="col-md-8">
                         <textarea class="form-control" id="fac_description" name="fac_description"></textarea>
                     </div>
                 </div>
 
                 <!-- File Button -->
                 <div class="form-group">
-                    <label class="col-md-4 control-label" for="fac_main_pic">主要圖片</label>
-                    <div class="col-md-6">
+                    <label class="col-md-2 control-label" for="fac_main_pic">主要圖片</label>
+                    <div class="col-md-8">
                         <input id="fac_main_pic" name="fac_main_pic" class="input-file" type="file">
                     </div>
                 </div>
 
                 <!-- Select Basic -->
                 <div class="form-group">
-                    <label class="col-md-4 control-label" for="fac_ibeacon">連結 iBeacon</label>
-                    <div class="col-md-6">
+                    <label class="col-md-2 control-label" for="fac_ibeacon">連結 iBeacon</label>
+                    <div class="col-md-8">
                         <?= form_dropdown('fac_ibeacon', $ibeacons,'',"id='fac_ibeacon' class='form-control'") ?>
                     </div>
                 </div>
 
                 <!-- Textarea -->
                 <div class="form-group">
-                    <label class="col-md-4 control-label" for="fac_push">推播文字</label>
-                    <div class="col-md-6">
+                    <label class="col-md-2 control-label" for="fac_push">推播文字</label>
+                    <div class="col-md-8">
                         <textarea class="form-control" id="fac_push" name="fac_push"></textarea>
                     </div>
                 </div>

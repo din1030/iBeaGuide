@@ -44,65 +44,22 @@ class Facilities extends CI_Controller
 
     public function add()
     {
-        ;
         $this->load->model('Exhibition');
-        $query = $this->Exhibition->prepare_for_table_by_curator_id($this->config->item('login_user_id'), 'id, title');
-        $exh_array = $query->result_array();
-        $exhibitions = array();
-        $exhibitions[0] = "請選擇";
-        foreach ($exh_array as $exh_row)
-        {
-            $exhibitions[$exh_row['id']] = $exh_row['title'];
-            $exh_row = null;
-        }
-        $data['exhibitions'] = $exhibitions;
+        $data['exhibitions'] = $this->Exhibition->prepare_for_dropdwon();;
 
         $this->load->model('Ibeacon');
-        $query = $this->Ibeacon->prepare_for_table_by_owner_id($this->config->item('login_user_id'), 'id, title');
-        $ibeacon_array = $query->result_array();
-        $ibeacons = array();
-        $ibeacons[0] = "請選擇";
-        foreach ($ibeacon_array as $ibeacon_row)
-        {
-            $ibeacons[$ibeacon_row['id']] = $ibeacon_row['title'];
-            $exh_row = null;
-        }
-        $data['ibeacons'] = $ibeacons;
+        $data['ibeacons'] = $this->Ibeacon->prepare_for_dropdwon();
 
-        unset($exh_array);
-        unset($ibeacon_array);
         $this->load->view('facility/add', $data);
     }
 
     public function edit()
     {
-        $current_user_id = 1; // 判斷目前 user
         $this->load->model('Exhibition');
-        $query = $this->Exhibition->prepare_for_table_by_curator_id($current_user_id, 'id, title');
-        $exh_array = $query->result_array();
-        $exhibitions = array();
-        $exhibitions[0] = "請選擇";
-        foreach ($exh_array as $exh_row)
-        {
-            $exhibitions[$exh_row['id']] = $exh_row['title'];
-            $exh_row = null;
-        }
-        $data['exhibitions'] = $exhibitions;
+        $data['exhibitions'] = $this->Exhibition->prepare_for_dropdwon();;
 
         $this->load->model('Ibeacon');
-        $query = $this->Ibeacon->prepare_for_table_by_owner_id($current_user_id, 'id, title');
-        $ibeacon_array = $query->result_array();
-        $ibeacons = array();
-        $ibeacons[0] = "請選擇";
-        foreach ($ibeacon_array as $ibeacon_row)
-        {
-            $ibeacons[$ibeacon_row['id']] = $ibeacon_row['title'];
-            $exh_row = null;
-        }
-        $data['ibeacons'] = $ibeacons;
-
-        unset($exh_array);
-        unset($ibeacon_array);
+        $data['ibeacons'] = $this->Ibeacon->prepare_for_dropdwon();
 
         $data['facility'] = $this->Facility->find_by_id($_GET['fac_id']);
         $this->load->view('facility/edit', $data);
@@ -114,7 +71,7 @@ class Facilities extends CI_Controller
 
         if ($this->form_validation->run() == FALSE)
         {
-            $this->load->view('facility/add');
+            redirect('ibeacons');
         }
         else
         {
@@ -138,7 +95,7 @@ class Facilities extends CI_Controller
         $this->form_validation->set_rules('fac_title', '標題', 'required');
         if ($this->form_validation->run() == FALSE)
         {
-            $this->load->view('facilities');
+            redirect('facilities');
         }
         else
         {
@@ -149,7 +106,7 @@ class Facilities extends CI_Controller
             $fac_obj->main_pic = $this->input->post('fac_main_pic');
             $fac_obj->push_content = $this->input->post('fac_push');
             $fac_obj->ibeacon_id = $this->input->post('fac_ibeacon');
-            $fac_obj->save();
+            $fac_obj->update();
 
             redirect('facilities');
         }
