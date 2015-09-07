@@ -5,7 +5,7 @@
     </div>
     <div class="panel-body">
 
-        <form id="edit_exh_form" class="form-horizontal" action="EditExhibitionAction" method="post">
+        <form id="edit_exh_form" class="form-horizontal" action="/iBeaGuide/exhibitions/editExhibitionAction" method="post">
             <fieldset>
 
                 <div class="form-group">

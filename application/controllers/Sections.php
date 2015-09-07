@@ -35,7 +35,7 @@ class Sections extends CI_Controller
         $this->load->view('footer');
     }
 
-    public function AddFacilityAction()
+    public function addFacilityAction()
     {
         if ($this->form_validation->run() == FALSE)
         {

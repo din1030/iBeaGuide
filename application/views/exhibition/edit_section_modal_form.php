@@ -5,7 +5,7 @@
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title" id="myModalLabel">編輯展區</h4>
     </div>
-    <form class="form-horizontal" action="EditSectionAction" method="post">
+    <form class="form-horizontal" action="editSectionAction" method="post">
         <fieldset>
             <div class="modal-body">
                 <input id="sec_id" type="hidden" name="sec_id" value="<?= $sec->id ?>">

@@ -18,35 +18,13 @@
                 <?php
                 break;
 
-            case 'exhibitions/add':
-                ?>
-                <li>
-                    <a href="<?php echo base_url() ?>exhibitions">展覽管理</a>
-                </li>
-                <li>
-                    新增展覽
-                </li>
-                <?php
-                break;
-
-            case 'exhibitions/edit':
-                ?>
-                <li>
-                    <a href="<?php echo base_url() ?>exhibitions">展覽管理</a>
-                </li>
-                <li>
-                    編輯展覽資訊
-                </li>
-                <?php
-                break;
-
             case 'exhibitions/sections':
                 ?>
                 <li>
                     <a href="<?php echo base_url() ?>exhibitions">展覽管理</a>
                 </li>
                 <li>
-                    展區資訊
+                    展區管理
                 </li>
                 <?php
                 break;
@@ -73,7 +51,7 @@
             case 'facilities':
                 ?>
                 <li>
-                    展品管理
+                    設施管理
                 </li>
                 <?php
                 break;

@@ -62,13 +62,15 @@ class ActiveRecord extends CI_Model {
         if (stristr($method, 'find_all_by_'))
             return $this->_find_all_by(str_replace('find_all_by_', '', $method), $args);
 
+        // clear query without needless columns
         if (stristr($method, 'prepare_for_table_by_'))
             return $this->_prepare_for_table_by(str_replace('prepare_for_table_by_', '', $method), $args);
-
 
         if (stristr($method, 'fetch_related_'))
             return $this->_fetch_related(str_replace('fetch_related_', '', $method), $args);
 
+        if (stristr($method, 'left_join_on_'))
+            return $this->_left_join_on(str_replace('left_join_on_', '', $method), $args);
 
         if ( ! isset($args) ) eval('return $this->' . $method . ';');
         eval('$this->' . $method . ' = "' . $args[0] . '";');
@@ -554,7 +556,7 @@ class ActiveRecord extends CI_Model {
 		eval('$this->' . $plural . ' = $query->result();');
 	}
 
-    public function _prepare_for_table_by($column, $query)
+    function _prepare_for_table_by($column, $query)
     {
 		switch ($query[0])
 		{
@@ -590,6 +592,44 @@ class ActiveRecord extends CI_Model {
         return $query;
     }
 
+    /**
+    * left_join_on_tablename($this.col, $where_clause(), $append_query_string);
+    */
+    function _left_join_on($join_table, $query)
+	{
+        $query_string = '
+			SELECT
+				'.$this->_table.'.*
+			FROM
+				'. $this->_table .'
+			LEFT JOIN
+				' . $join_table . '
+			ON
+				'. $this->_table .'.'.$query[0].' = '.$join_table.'.id';
+
+        if (isset($query[1]))
+			$query_string .= ' WHERE';
+            foreach ($query[1] as $key => $value) {
+                $query_string .= ' '.$this->_table.'.'.$key.$value;
+            }
+
+        if (isset($query[2]))
+            $query_string .= ' '.$query[2];
+
+        $query = $this->db->query($query_string);
+        log_message('debug', "Facilities Controller Initialized 4");
+		return $query;
+	}
+
+    function join_exh_title($select_string)
+    {
+        $this->db->select($select_string);
+        $this->db->from($this->_table);
+        $this->db->join('exhibitions', 'exhibitions.id = '.$this->_table.'.exh_id','left');
+        $this->db->where('exhibitions.curator_id', '1');
+        $query = $this->db->get();
+        return $query;
+    }
 }
 
 ?>

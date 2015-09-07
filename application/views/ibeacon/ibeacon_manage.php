@@ -1,7 +1,12 @@
 <legend>
     iBeacon 管理
-    <a href="/iBeaGuide/ibeacons/add" class="btn btn-primary btn-xs pull-right">新增 iBeacon</a>
+    <button id="add_ibeacon_btn" type="button" class="btn btn-primary btn-xs pull-right" data-toggle="modal">新增iBeacon</button>
 </legend>
+<div id="sec_list_block">
+<?= $this->table->generate($ibeacons); ?>
+</div>
+<?php $this->table->clear(); ?>
+
 <table id="ibeacon_list" data-toggle="table" data-striped="true">
     <thead>
         <tr>
@@ -49,3 +54,29 @@
         </tr>
     </tbody>
 </table>
+
+<script type="text/javascript">
+    $(document.body).off('click.add_ibeacon', '#add_ibeacon_btn');
+    $(document.body).on('click.add_ibeacon', '#add_ibeacon_btn', function() {
+
+        $.ajax({
+            url: 'getCreateIbeaconModalFormAction',
+            type: "GET",
+            data: {
+                // exh_id: $(this).attr('data-exh-id')
+            },
+            dataType: "html",
+            beforeSend: function(xhr) {
+                $('#system-message').html('處理中...');
+                $('#system-message').show();
+            },
+            success: function(html_block) {
+                $('#iBeaGuide-modal-block').html(html_block);
+                $('#iBeaGuide-modal').modal('show');
+                $('#system-message').html('完成');
+                $('#system-message').fadeOut();
+            }
+        });
+
+    });
+</script>

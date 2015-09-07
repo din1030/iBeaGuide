@@ -19,23 +19,17 @@ class Ibeacons extends CI_Controller {
 
     public function add()
     {
-        $this->load->view('header');
-        $this->load->view('breadcrumb');
         $this->load->view('ibeacon/add');
-        $this->load->view('footer');
     }
 
     public function edit($id = 1)
     {
-        $data['id'] = $id;
-
-        $this->load->view('header');
-        $this->load->view('breadcrumb');
-        $this->load->view('ibeacon/edit', $data);
-        $this->load->view('footer');
+        $ibeacon_id = $_GET['ibeacon_id'];
+        $data['ibeacon'] = $this->Exhibition->find($ibeacon_id);
+        $this->load->view('ibeacons/edit', $data);
     }
 
-    public function AddIbeaconAction()
+    public function addIbeaconAction()
     {
         if ($this->form_validation->run() == FALSE)
         {
@@ -43,8 +37,9 @@ class Ibeacons extends CI_Controller {
         }
         else
         {
+            ;
             $data = array(
-                // 'owner_id' => 目前 user
+                'owner_id' => $this->config->item('login_user_id'),
                 'title' => $this->input->post('ibeacon_title'),
                 'uuid' => $this->input->post('ibeacon_uuid'),
                 'major' => $this->input->post('ibeacon_major'),

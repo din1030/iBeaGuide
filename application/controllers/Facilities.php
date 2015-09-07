@@ -13,30 +13,105 @@ class Facilities extends CI_Controller
     {
         $this->load->view('header');
         $this->load->view('breadcrumb');
-        $this->load->view('facility/fac_manage');
+        $data['facilities'] = $this->get_fac_list();
+        $this->load->view('facility/fac_manage', $data);
         $this->load->view('footer');
     }
+
+    public function get_fac_list()
+    {
+        $query = $this->Facility->join_exh_title('facilities.id, facilities.title as fac_title, exhibitions.title as exh_title, facilities.ibeacon_id');
+        $result_array = $query->result_array();
+        $facilities = array();
+        foreach ($result_array as $fac_row)
+        {
+            $manage_ctrl = "<button id='edit_fac_btn_".$fac_row['id']."' type='button' class='btn btn-primary edit_fac_btn' data-toggle='modal' data-fac-id='".$fac_row['id']."'>編輯</button>&nbsp;";
+            $manage_ctrl .= "<button id='del_fac_btn_".$fac_row['id']."' type='button' class='btn btn-danger del_fac_btn' data-toggle='modal' data-fac-id='".$fac_row['id']."'>刪除</button>";
+            array_push($fac_row, $manage_ctrl);
+            $facilities[] = $fac_row;
+            $fac_row = null;
+        }
+        unset($result_array);
+
+        $this->table->clear();
+        $this->table->set_heading(array('ID', '設施名稱', '所屬展覽', '連結iBeacon', '管理'));
+        $tmpl = array ( 'table_open'  => '<table id="fac_list" data-toggle="table" data-striped="true">' );
+        $this->table->set_template($tmpl);
+
+        return $facilities;
+    }
+
 
     public function add()
     {
-        $this->load->view('header');
-        $this->load->view('breadcrumb');
-        $this->load->view('facility/add');
-        $this->load->view('footer');
+        ;
+        $this->load->model('Exhibition');
+        $query = $this->Exhibition->prepare_for_table_by_curator_id($this->config->item('login_user_id'), 'id, title');
+        $exh_array = $query->result_array();
+        $exhibitions = array();
+        $exhibitions[0] = "請選擇";
+        foreach ($exh_array as $exh_row)
+        {
+            $exhibitions[$exh_row['id']] = $exh_row['title'];
+            $exh_row = null;
+        }
+        $data['exhibitions'] = $exhibitions;
+
+        $this->load->model('Ibeacon');
+        $query = $this->Ibeacon->prepare_for_table_by_owner_id($this->config->item('login_user_id'), 'id, title');
+        $ibeacon_array = $query->result_array();
+        $ibeacons = array();
+        $ibeacons[0] = "請選擇";
+        foreach ($ibeacon_array as $ibeacon_row)
+        {
+            $ibeacons[$ibeacon_row['id']] = $ibeacon_row['title'];
+            $exh_row = null;
+        }
+        $data['ibeacons'] = $ibeacons;
+
+        unset($exh_array);
+        unset($ibeacon_array);
+        $this->load->view('facility/add', $data);
     }
 
-    public function edit($id = 1)
+    public function edit()
     {
-        $data['id'] = $id;
+        $current_user_id = 1; // 判斷目前 user
+        $this->load->model('Exhibition');
+        $query = $this->Exhibition->prepare_for_table_by_curator_id($current_user_id, 'id, title');
+        $exh_array = $query->result_array();
+        $exhibitions = array();
+        $exhibitions[0] = "請選擇";
+        foreach ($exh_array as $exh_row)
+        {
+            $exhibitions[$exh_row['id']] = $exh_row['title'];
+            $exh_row = null;
+        }
+        $data['exhibitions'] = $exhibitions;
 
-        $this->load->view('header');
-        $this->load->view('breadcrumb');
+        $this->load->model('Ibeacon');
+        $query = $this->Ibeacon->prepare_for_table_by_owner_id($current_user_id, 'id, title');
+        $ibeacon_array = $query->result_array();
+        $ibeacons = array();
+        $ibeacons[0] = "請選擇";
+        foreach ($ibeacon_array as $ibeacon_row)
+        {
+            $ibeacons[$ibeacon_row['id']] = $ibeacon_row['title'];
+            $exh_row = null;
+        }
+        $data['ibeacons'] = $ibeacons;
+
+        unset($exh_array);
+        unset($ibeacon_array);
+
+        $data['facility'] = $this->Facility->find_by_id($_GET['fac_id']);
         $this->load->view('facility/edit', $data);
-        $this->load->view('footer');
     }
 
-    public function AddFacilityAction()
+    public function addFacilityAction()
     {
+        $this->form_validation->set_rules('fac_title', '名稱', 'required');
+
         if ($this->form_validation->run() == FALSE)
         {
             $this->load->view('facility/add');
@@ -44,21 +119,47 @@ class Facilities extends CI_Controller
         else
         {
             $data = array(
+                'owner_id' => $this->input->post('fac_owner'),
                 'exh_id' => $this->input->post('fac_exh'),
                 'title' => $this->input->post('fac_title'),
                 'description' => $this->input->post('fac_description'),
-                // 'main_pic' => $this->input->post('fac_main_pic'),
+                'main_pic' => $this->input->post('fac_main_pic'),
                 'push_content' => $this->input->post('fac_push'),
                 'ibeacon_id' => $this->input->post('fac_ibeacon')
             );
             $this->Facility->create($data);
 
-            $this->load->view('header');
-            $this->load->view('breadcrumb');
-            $this->load->view('facility/submit');
-            $this->load->view('footer');
+            redirect('facilities');
         }
     }
 
+    public function editFacilityAction()
+    {
+        $this->form_validation->set_rules('fac_title', '標題', 'required');
+        if ($this->form_validation->run() == FALSE)
+        {
+            $this->load->view('facilities');
+        }
+        else
+        {
+            $fac_obj = $this->Facility->find($this->input->post('fac_id'));
+            $fac_obj->exh_id = $this->input->post('fac_exh');
+            $fac_obj->title = $this->input->post('fac_title');
+            $fac_obj->description = $this->input->post('fac_description');
+            $fac_obj->main_pic = $this->input->post('fac_main_pic');
+            $fac_obj->push_content = $this->input->post('fac_push');
+            $fac_obj->ibeacon_id = $this->input->post('fac_ibeacon');
+            $fac_obj->save();
+
+            redirect('facilities');
+        }
+    }
+
+    public function deleteFacilityAction()
+    {
+        $fac_obj = $this->Facility->find($_POST['fac_id']);
+        $fac_obj->delete();
+        echo $this->table->generate($this->get_fac_list());
+    }
 }
 ?>

@@ -1,6 +1,6 @@
 <?php echo validation_errors(); ?>
 
-<form class="form-horizontal" action="AddIbeaconAction" method="post">
+<form class="form-horizontal" action="/iBeaGuide/exhibitions/addIbeaconAction" method="post">
     <fieldset>
 
         <!-- Form Name -->

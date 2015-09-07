@@ -37,7 +37,7 @@ class Items extends CI_Controller {
 
 	}
 
-	public function AddItemAction()
+	public function addItemAction()
     {
         if ($this->form_validation->run() == FALSE)
         {

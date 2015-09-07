@@ -37,7 +37,7 @@ class Routes extends CI_Controller
 
 	}
 
-	public function AddRouteAction()
+	public function addRouteAction()
     {
         if ($this->form_validation->run() == FALSE)
         {
