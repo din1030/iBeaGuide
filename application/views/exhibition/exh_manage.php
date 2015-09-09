@@ -1,19 +1,20 @@
 <legend>
     展覽管理
-    <button id="add_exh_btn" type="button" class="btn btn-primary btn-xs pull-right">
+    <button id="add-exh-btn" type="button" class="btn btn-primary btn-xs pull-right">
         新增展覽
     </button>
 </legend>
 <div id="exh_form_block"></div>
-
-<?= $this->table->generate($exhibitions); ?>
+<div id="exh_list_block">
+    <?= $this->table->generate($exhibitions); ?>
+</div>
 <?php $this->table->clear(); ?>
 
 <script type="text/javascript">
-    $(document.body).off('click.add_exh_form', '#add_exh_btn');
-    $(document.body).on('click.add_exh_form', '#add_exh_btn', function() {
+    $(document.body).off('click.add_exh_form', '#add-exh-btn');
+    $(document.body).on('click.add_exh_form', '#add-exh-btn', function() {
         $.ajax({
-            url: '/iBeaGuide/exhibitions/add',
+            url: 'exhibitions/get_exh_add_form',
             type: "GET",
             //cache: false,
             data: {},
@@ -30,10 +31,10 @@
         });
     });
 
-    $(document.body).off('click.edit_exh_form', '.edit_exh_btn');
-    $(document.body).on('click.edit_exh_form', '.edit_exh_btn', function() {
+    $(document.body).off('click.edit_exh_form', '.edit-exh-btn');
+    $(document.body).on('click.edit_exh_form', '.edit-exh-btn', function() {
         $.ajax({
-            url: '/iBeaGuide/exhibitions/edit',
+            url: '/iBeaGuide/exhibitions/get_exh_edit_form',
             type: "GET",
             //cache: false,
             data: {
@@ -46,10 +47,51 @@
             },
             success: function(html_block) {
                 $('#exh_form_block').html(html_block);
-                $.scrollTo($('#add_exh_btn'), 500, {offset: -10});
+                $.scrollTo($('#add-exh-btn'), 500, {offset: -10});
                 $('#system-message').html('完成');
                 $('#system-message').fadeOut();
             }
+        });
+    });
+
+    $(document.body).off('click.delete_exh', '.del-exh-btn');
+    $(document.body).on('click.delete_exh', '.del-exh-btn', function() {
+        var this_exh_id = $(this).attr('data-exh-id');
+        BootstrapDialog.show({
+            title: '注意！',
+            message: '是否刪除此展區？',
+            buttons: [{
+                label: '取消',
+                action: function(dialogRef){
+                    dialogRef.close();
+                }
+            }, {
+                label: '確認',
+                cssClass: 'btn-danger',
+                action: function(dialogRef) {
+                    $.ajax({
+                        url: '/iBeaGuide/exhibitions/delete_exhibition_action',
+                        type: "POST",
+                        //cache: false,
+                        data: {
+                            exh_id: this_exh_id
+                        },
+                        dataType: "html",
+                        beforeSend: function(xhr) {
+                            dialogRef.close();
+                            $('#system-message').html('處理中...');
+                            $('#system-message').show();
+                        },
+                        success: function(html_block) {
+                            $('#exh_list_block').html(html_block);
+                            // $.scrollTo($('#add_exh_btn'), 500, {offset: -10});
+                            $('#system-message').html('完成');
+                            $('#system-message').fadeOut();
+                            $('[data-toggle="table"]').bootstrapTable();
+                        }
+                    });
+                }
+            }]
         });
     });
 </script>

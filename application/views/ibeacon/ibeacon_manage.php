@@ -12,7 +12,7 @@
     $(document.body).on('click.add_ibeacon', '#add_ibeacon_btn', function() {
 
         $.ajax({
-            url: '/iBeaGuide/ibeacons/add',
+            url: '/iBeaGuide/ibeacons/get_ibeacon_add_modal_form',
             type: "GET",
             data: {
                 // exh_id: $(this).attr('data-exh-id')
@@ -36,7 +36,7 @@
     $(document.body).on('click.edit_ibeacon', '.edit_ibeacon_btn', function() {
 
         $.ajax({
-            url: '/iBeaGuide/ibeacons/edit',
+            url: '/iBeaGuide/ibeacons/get_ibeacon_edit_modal_form',
             type: "GET",
             data: {
                 ibeacon_id: $(this).attr('data-ibeacon-id')
@@ -72,7 +72,7 @@
                 cssClass: 'btn-danger',
                 action: function(dialogRef) {
                     $.ajax({
-                        url: '/iBeaGuide/ibeacons/deleteIbeaconAction',
+                        url: '/iBeaGuide/ibeacons/delete_ibeacon_action',
                         type: "POST",
                         //cache: false,
                         data: {

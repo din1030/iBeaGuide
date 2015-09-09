@@ -4,7 +4,7 @@
         <span class="h4">新增設施資訊</span>
     </div>
     <div class="panel-body">
-        <form class="form-horizontal" action="/iBeaGuide/exhibitions/addFacilityAction" method="post">
+        <form class="form-horizontal" action="/iBeaGuide/exhibitions/add_facility_action" method="post">
             <fieldset>
 
                 <!-- Select Basic -->

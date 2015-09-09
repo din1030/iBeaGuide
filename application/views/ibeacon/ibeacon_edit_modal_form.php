@@ -2,18 +2,18 @@
 <div class="modal-content">
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">新增iBeacon裝置</h4>
+        <h4 class="modal-title" id="myModalLabel">編輯iBeacon裝置資訊</h4>
     </div>
-    <form class="form-horizontal" action="/iBeaGuide/ibeacons/addIbeaconAction" method="post">
+    <form class="form-horizontal" action="ibeacons/edit_ibeacon_action" method="post">
         <fieldset>
             <div class="modal-body">
+                <input id="ibeacon_id" type="hidden" name="ibeacon_id" value="<?= $ibeacon->id ?>">
 
                 <!-- Text input-->
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="ibeacon_title">iBeacon名稱</label>
                     <div class="col-md-6">
-                        <input id="ibeacon_title" name="ibeacon_title" type="text" placeholder="" class="form-control input-md" required="">
-
+                        <input id="ibeacon_title" name="ibeacon_title" type="text" placeholder="" class="form-control input-md" required="" value="<?= $ibeacon->title ?>">
                     </div>
                 </div>
 
@@ -21,7 +21,7 @@
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="ibeacon_uuid">UUID</label>
                     <div class="col-md-6">
-                        <input id="ibeacon_uuid" name="ibeacon_uuid" type="text" placeholder="" class="form-control input-md" required="">
+                        <input id="ibeacon_uuid" name="ibeacon_uuid" type="text" placeholder="" class="form-control input-md" required="" value="<?= $ibeacon->uuid ?>">
 
                     </div>
                 </div>
@@ -30,7 +30,7 @@
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="ibeacon_major">Major</label>
                     <div class="col-md-6">
-                        <input id="ibeacon_major" name="ibeacon_major" type="text" placeholder="" class="form-control input-md" required="">
+                        <input id="ibeacon_major" name="ibeacon_major" type="text" placeholder="" class="form-control input-md" required="" value="<?= $ibeacon->major ?>">
 
                     </div>
                 </div>
@@ -39,7 +39,7 @@
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="ibeacon_minor">Minor</label>
                     <div class="col-md-6">
-                        <input id="ibeacon_minor" name="ibeacon_minor" type="text" placeholder="" class="form-control input-md" required="">
+                        <input id="ibeacon_minor" name="ibeacon_minor" type="text" placeholder="" class="form-control input-md" required="" value="<?= $ibeacon->minor ?>">
 
                     </div>
                 </div>
@@ -71,7 +71,7 @@
             <!-- Button Group -->
             <div class="modal-footer">
                 <button type="button" id="ibeacon_cancel_btn" name="ibeacon_cancel_btn" class="btn btn-default" data-dismiss="modal">取消</button>
-                <button type="submit" id="ibeacon_submit_btn" name="ibeacon_submit_btn" class="btn btn-primary">送出 iBeacon 資訊</button>
+                <button type="submit" id="ibeacon_submit_btn" name="ibeacon_submit_btn" class="btn btn-primary">送出iBeacon資訊</button>
             </div>
 
         </fieldset>

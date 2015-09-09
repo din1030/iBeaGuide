@@ -12,40 +12,46 @@ class Exhibitions extends CI_Controller
 
     public function index()
     {
+        $this->load->view('header');
+        $this->load->view('breadcrumb');
+        $data['exhibitions'] = $this->get_exh_list();
+        $this->load->view('exhibition/exh_manage', $data);
+        $this->load->view('footer');
+    }
+
+    public function get_exh_list()
+    {
         $query = $this->Exhibition->prepare_for_table_by_curator_id($this->config->item('login_user_id'), 'id, title, venue, start_date, end_date, ibeacon_id');
         $result_array = $query->result_array();
         $exhibitions = array();
 
         foreach ($result_array as $exh_row) {
             $manage_ctrl = "<a href='/iBeaGuide/exhibitions/sections?exh_id=".$exh_row['id']."' class='btn btn-default'>展區管理</a>&nbsp;";
-            $manage_ctrl .= "<button id='edit_exh_btn_".$exh_row['id']."' type='button' class='btn btn-primary edit_exh_btn' data-toggle='modal' data-exh-id='".$exh_row['id']."'>編輯</button>&nbsp;";
-            $manage_ctrl .= "<button id='del_exh_btn_".$exh_row['id']."' type='button' class='btn btn-danger del_exh_btn' data-toggle='modal' data-exh-id='".$exh_row['id']."'>刪除</button>";
+            $manage_ctrl .= "<button id='edit-exh-btn_".$exh_row['id']."' type='button' class='btn btn-primary edit-exh-btn' data-toggle='modal' data-exh-id='".$exh_row['id']."'>編輯</button>&nbsp;";
+            $manage_ctrl .= "<button id='del-exh-btn_".$exh_row['id']."' type='button' class='btn btn-danger del-exh-btn' data-toggle='modal' data-exh-id='".$exh_row['id']."'>刪除</button>";
             array_push($exh_row, $manage_ctrl);
             $exhibitions[] = $exh_row;
             $exh_row = null;
         }
         unset($result_array);
 
-        $data['exhibitions'] = $exhibitions;
+        $this->table->clear();
         $this->table->set_heading(array('ID', '展覽名稱', '展場','開始日期','結束日期', '連結iBeacon', '管理'));
         $tmpl = array ( 'table_open'  => '<table id="exh_list" data-toggle="table" data-striped="true">' );
         $this->table->set_template($tmpl);
 
-        $this->load->view('header');
-        $this->load->view('breadcrumb');
-        $this->load->view('exhibition/exh_manage', $data);
-        $this->load->view('footer');
+        return $exhibitions;
     }
 
-    public function add()
+    public function get_exh_add_form()
     {
         $this->load->model('Ibeacon');
         $data['ibeacons'] = $this->Ibeacon->prepare_for_dropdwon();
 
-        $this->load->view('exhibition/add', $data);
+        $this->load->view('exhibition/exh_add_form', $data);
     }
 
-    public function edit()
+    public function get_exh_edit_form()
     {
         $this->load->model('Ibeacon');
         $data['ibeacons'] = $this->Ibeacon->prepare_for_dropdwon();
@@ -53,10 +59,10 @@ class Exhibitions extends CI_Controller
         $exh_id = $_GET['exh_id'];
         $data['exhibition'] = $this->Exhibition->find($exh_id);
 
-        $this->load->view('exhibition/edit', $data);
+        $this->load->view('exhibition/exh_edit_form', $data);
     }
 
-    public function addExhibitionAction()
+    public function add_exhibition_action()
     {
         $this->form_validation->set_rules('exh_title', '標題', 'required');
 
@@ -91,7 +97,7 @@ class Exhibitions extends CI_Controller
         }
     }
 
-    public function editExhibitionAction()
+    public function edit_exhibition_action()
     {
         $this->form_validation->set_rules('exh_title', '標題', 'required');
         if ($this->form_validation->run() == FALSE)
@@ -117,10 +123,17 @@ class Exhibitions extends CI_Controller
             $exh_obj->main_pic = $this->input->post('exh_main_pic');
             $exh_obj->push_content = $this->input->post('exh_push');
             $exh_obj->ibeacon_id = $this->input->post('exh_ibeacon');
-            $exh_obj->update();
+            $exh_obj->save();
 
             redirect('exhibitions');
         }
+    }
+
+    public function delete_exhibition_action()
+    {
+        $exh_obj = $this->Exhibition->find($_POST['exh_id']);
+        $exh_obj->delete();
+        echo $this->table->generate($this->get_exh_list());
     }
 
     public function sections()
@@ -161,20 +174,20 @@ class Exhibitions extends CI_Controller
         return $sections;
     }
 
-    public function getCreateSectionModalFormAction()
+    public function get_section_add_modal_form()
     {
         $data['exh_id'] = $_GET['exh_id'];
-        $this->load->view('exhibition/create_section_modal_form', $data);
+        $this->load->view('exhibition/section_add_modal_form', $data);
     }
 
-    public function getEditSectionModalFormAction()
+    public function get_section_edit_modal_form()
     {
         $sec_id = $_GET['sec_id'];
         $data['sec'] = $this->Section->find($sec_id);
-        $this->load->view('exhibition/edit_section_modal_form', $data);
+        $this->load->view('exhibition/section_edit_modal_form', $data);
     }
 
-    public function addSectionAction()
+    public function add_section_action()
     {
         $this->form_validation->set_rules('sec_title', '標題', 'required');
         $this->form_validation->set_rules('sec_description', '說明', 'required');
@@ -199,7 +212,7 @@ class Exhibitions extends CI_Controller
         }
     }
 
-    public function editSectionAction()
+    public function edit_section_action()
     {
         $this->form_validation->set_rules('sec_title', '標題', 'required');
         $this->form_validation->set_rules('sec_description', '說明', 'required');
@@ -220,7 +233,7 @@ class Exhibitions extends CI_Controller
         }
     }
 
-    public function deleteSectionAction()
+    public function delete_section_action()
     {
         $sec_obj = $this->Section->find($_POST['sec_id']);
         $sec_obj->delete();
@@ -228,4 +241,6 @@ class Exhibitions extends CI_Controller
     }
 
 }
-?>
+
+/* End of file Exhibitions.php */
+/* Location: ./application/controller/Exhibitions.php */

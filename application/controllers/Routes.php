@@ -61,4 +61,6 @@ class Routes extends CI_Controller
     }
 
 }
-?>
+
+/* End of file Routes.php */
+/* Location: ./application/controller/Routes.php */

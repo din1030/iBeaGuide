@@ -13,7 +13,7 @@
     $(document.body).off('click.add_fac_form', '#add_fac_btn');
     $(document.body).on('click.add_fac_form', '#add_fac_btn', function() {
         $.ajax({
-            url: '/iBeaGuide/facilities/add',
+            url: '/iBeaGuide/facilities/get_fac_add_form',
             type: "GET",
             //cache: false,
             data: {},
@@ -33,7 +33,7 @@
     $(document.body).off('click.edit_fac_form', '.edit_fac_btn');
     $(document.body).on('click.edit_fac_form', '.edit_fac_btn', function() {
         $.ajax({
-            url: '/iBeaGuide/facilities/edit',
+            url: '/iBeaGuide/facilities/get_fac_edit_form',
             type: "GET",
             //cache: false,
             data: {
@@ -70,7 +70,7 @@
                 cssClass: 'btn-danger',
                 action: function(dialogRef) {
                     $.ajax({
-                        url: '/iBeaGuide/facilities/deleteFacilityAction',
+                        url: '/iBeaGuide/facilities/delete_facility_action',
                         type: "POST",
                         //cache: false,
                         data: {

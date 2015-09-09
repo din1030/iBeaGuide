@@ -1,5 +1,4 @@
 <?php
-
 class Sections extends CI_Controller
 {
     public function __construct()
@@ -61,4 +60,6 @@ class Sections extends CI_Controller
     }
 
 }
-?>
+
+/* End of file Sections.php */
+/* Location: ./application/controller/Sections.php */

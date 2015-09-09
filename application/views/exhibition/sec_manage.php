@@ -12,7 +12,7 @@
     $(document.body).on('click.add_section', '#add_section_btn', function() {
 
         $.ajax({
-            url: 'getCreateSectionModalFormAction',
+            url: 'get_section_add_modal_form',
             type: "GET",
             data: {
                 exh_id: $(this).attr('data-exh-id')
@@ -35,7 +35,7 @@
     $(document.body).on('click.edit_section', '.edit-section-btn', function() {
 
         $.ajax({
-            url: 'getEditSectionModalFormAction',
+            url: 'get_section_edit_modal_form',
             type: "GET",
             data: {
                 sec_id: $(this).attr('data-sec-id')
@@ -71,7 +71,7 @@
                 cssClass: 'btn-danger',
                 action: function(dialogRef) {
                     $.ajax({
-                        url: '/iBeaGuide/exhibitions/deleteSectionAction',
+                        url: '/iBeaGuide/exhibitions/delete_section_action',
                         type: "POST",
                         //cache: false,
                         data: {

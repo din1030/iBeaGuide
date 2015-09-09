@@ -4,7 +4,7 @@
         <span class="h4">編輯設施資訊</span>
     </div>
     <div class="panel-body">
-        <form class="form-horizontal" action="/iBeaGuide/facilities/editFacilityAction" method="post">
+        <form class="form-horizontal" action="/iBeaGuide/facilities/edit_facility_action" method="post">
             <fieldset>
                 <input id="fac_id" type="hidden" name="fac_id" value="<?= $facility->id ?>">
 

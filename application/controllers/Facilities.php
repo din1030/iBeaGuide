@@ -42,7 +42,7 @@ class Facilities extends CI_Controller
     }
 
 
-    public function add()
+    public function get_fac_add_form()
     {
         $this->load->model('Exhibition');
         $data['exhibitions'] = $this->Exhibition->prepare_for_dropdwon();;
@@ -53,7 +53,7 @@ class Facilities extends CI_Controller
         $this->load->view('facility/add', $data);
     }
 
-    public function edit()
+    public function get_fac_edit_form()
     {
         $this->load->model('Exhibition');
         $data['exhibitions'] = $this->Exhibition->prepare_for_dropdwon();;
@@ -65,13 +65,13 @@ class Facilities extends CI_Controller
         $this->load->view('facility/edit', $data);
     }
 
-    public function addFacilityAction()
+    public function add_facility_action()
     {
         $this->form_validation->set_rules('fac_title', '名稱', 'required');
 
         if ($this->form_validation->run() == FALSE)
         {
-            redirect('ibeacons');
+            $this->load->view('facility/add');
         }
         else
         {
@@ -90,12 +90,12 @@ class Facilities extends CI_Controller
         }
     }
 
-    public function editFacilityAction()
+    public function edit_facility_action()
     {
         $this->form_validation->set_rules('fac_title', '標題', 'required');
         if ($this->form_validation->run() == FALSE)
         {
-            redirect('facilities');
+            $this->load->view('facility/edit');  // 應該要改成沒過就不會送出
         }
         else
         {
@@ -112,11 +112,13 @@ class Facilities extends CI_Controller
         }
     }
 
-    public function deleteFacilityAction()
+    public function delete_facility_action()
     {
         $fac_obj = $this->Facility->find($_POST['fac_id']);
         $fac_obj->delete();
         echo $this->table->generate($this->get_fac_list());
     }
 }
-?>
+
+/* End of file Facilities.php */
+/* Location: ./application/controller/Facilities.php */

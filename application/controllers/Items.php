@@ -17,27 +17,26 @@ class Items extends CI_Controller {
 
 	}
 
-	public function add()
+	public function get_add_edit_form()
 	{
 		$this->load->view('header');
         $this->load->view('breadcrumb');
-		$this->load->view('item/add');
+		$this->load->view('item/item_add_form');
 		$this->load->view('footer');
 
 	}
 
-	public function edit($id = 1)
+	public function get_item_edit_form()
 	{
         $data['id'] = $id;
-
 		$this->load->view('header');
         $this->load->view('breadcrumb');
-		$this->load->view('item/edit', $data);
+		$this->load->view('item/item_edit_form', $data);
 		$this->load->view('footer');
 
 	}
 
-	public function addItemAction()
+	public function add_item_action()
     {
         if ($this->form_validation->run() == FALSE)
         {
@@ -63,4 +62,6 @@ class Items extends CI_Controller {
     }
 
 }
-?>
+
+/* End of file Items.php */
+/* Location: ./application/controller/Items.php */

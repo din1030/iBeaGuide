@@ -43,19 +43,19 @@ class Ibeacons extends CI_Controller {
         return $ibeacons;
     }
 
-    public function add()
+    public function get_ibeacon_add_modal_form()
     {
-        $this->load->view('ibeacon/add');
+        $this->load->view('ibeacon/ibeacon_add_modal_form');
     }
 
-    public function edit()
+    public function get_ibeacon_edit_modal_form()
     {
         $ibeacon_id = $_GET['ibeacon_id'];
         $data['ibeacon'] = $this->Ibeacon->find($ibeacon_id);
-        $this->load->view('ibeacon/edit', $data);
+        $this->load->view('ibeacon/ibeacon_edit_modal_form', $data);
     }
 
-    public function addIbeaconAction()
+    public function add_ibeacon_action()
     {
         $this->form_validation->set_rules('ibeacon_uuid', 'UUID', 'required');
         $this->form_validation->set_rules('ibeacon_major', 'Major', 'required');
@@ -80,7 +80,7 @@ class Ibeacons extends CI_Controller {
             redirect('ibeacons');
         }
     }
-    public function editIbeaconAction()
+    public function edit_ibeacon_action()
     {
         $this->form_validation->set_rules('ibeacon_uuid', 'UUID', 'required');
         $this->form_validation->set_rules('ibeacon_major', 'Major', 'required');
@@ -105,11 +105,13 @@ class Ibeacons extends CI_Controller {
         }
     }
 
-    public function deleteIbeaconAction()
+    public function delete_ibeacon_action()
     {
         $ibeacon_obj = $this->Ibeacon->find($_POST['ibeacon_id']);
         $ibeacon_obj->delete();
         echo $this->table->generate($this->get_ibeacon_list());
     }
 }
-?>
+
+/* End of file Ibeacons.php */
+/* Location: ./application/controller/Ibeacons.php */
