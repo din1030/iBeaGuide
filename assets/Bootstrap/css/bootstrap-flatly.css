@@ -2508,7 +2508,7 @@ legend {
   line-height: inherit;
   color: #2c3e50;
   border: 0;
-  border-bottom: 1px solid transparent;
+  border-bottom: 1px solid #AAA;
 }
 label {
   display: inline-block;
