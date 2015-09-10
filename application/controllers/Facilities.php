@@ -25,8 +25,8 @@ class Facilities extends CI_Controller
         $facilities = array();
         foreach ($result_array as $fac_row)
         {
-            $manage_ctrl = "<button id='edit_fac_btn_".$fac_row['id']."' type='button' class='btn btn-primary edit_fac_btn' data-toggle='modal' data-fac-id='".$fac_row['id']."'>編輯</button>&nbsp;";
-            $manage_ctrl .= "<button id='del_fac_btn_".$fac_row['id']."' type='button' class='btn btn-danger del_fac_btn' data-toggle='modal' data-fac-id='".$fac_row['id']."'>刪除</button>";
+            $manage_ctrl = "<button id='edit_fac_btn_".$fac_row['id']."' type='button' class='btn btn-primary edit-fac-btn' data-toggle='modal' data-fac-id='".$fac_row['id']."'>編輯</button>&nbsp;";
+            $manage_ctrl .= "<button id='del_fac_btn_".$fac_row['id']."' type='button' class='btn btn-danger del-fac-btn' data-toggle='modal' data-fac-id='".$fac_row['id']."'>刪除</button>";
             array_push($fac_row, $manage_ctrl);
             $facilities[] = $fac_row;
             $fac_row = null;
@@ -50,7 +50,7 @@ class Facilities extends CI_Controller
         $this->load->model('Ibeacon');
         $data['ibeacons'] = $this->Ibeacon->prepare_for_dropdwon();
 
-        $this->load->view('facility/add', $data);
+        $this->load->view('facility/fac_add_form', $data);
     }
 
     public function get_fac_edit_form()
@@ -62,7 +62,7 @@ class Facilities extends CI_Controller
         $data['ibeacons'] = $this->Ibeacon->prepare_for_dropdwon();
 
         $data['facility'] = $this->Facility->find_by_id($_GET['fac_id']);
-        $this->load->view('facility/edit', $data);
+        $this->load->view('facility/fac_edit_form', $data);
     }
 
     public function add_facility_action()

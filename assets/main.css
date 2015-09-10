@@ -49,21 +49,26 @@
     /*border: 1px solid #eee;*/
     width: 100%;
     /*min-height: 20px;*/
-    list-style-type: none;
+    /*list-style-type: none;*/
     margin: 0;
-    padding: 5px 0;
+    /*padding: 5px 5px 0 25px;*/
     float: left;
     /*margin-right: 10px;*/
 }
 
 #items_list li,
 #in_route_list li {
-    margin: 0 5px 5px 5px;
+    margin: 5px 0 10px 0;
     padding: 5px;
     font-size: 1.2em;
     width: auto;
 }
-
+.in-route-label {
+    display: block;
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.2em;
+}
 .panel-form {
     width: 90%;
     display: block;

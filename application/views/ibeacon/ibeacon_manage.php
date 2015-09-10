@@ -32,8 +32,8 @@
 
     });
 
-    $(document.body).off('click.edit_ibeacon', '.edit_ibeacon_btn');
-    $(document.body).on('click.edit_ibeacon', '.edit_ibeacon_btn', function() {
+    $(document.body).off('click.edit_ibeacon', '.edit-ibeacon-btn');
+    $(document.body).on('click.edit_ibeacon', '.edit-ibeacon-btn', function() {
 
         $.ajax({
             url: '/iBeaGuide/ibeacons/get_ibeacon_edit_modal_form',
@@ -56,8 +56,8 @@
 
     });
 
-    $(document.body).off('click.delete_ibeacon', '.del_ibeacon_btn');
-    $(document.body).on('click.delete_ibeacon', '.del_ibeacon_btn', function() {
+    $(document.body).off('click.delete_ibeacon', '.del-ibeacon-btn');
+    $(document.body).on('click.delete_ibeacon', '.del-ibeacon-btn', function() {
         var this_ibeacon_id = $(this).attr('data-ibeacon-id');
         BootstrapDialog.show({
             title: '注意！',

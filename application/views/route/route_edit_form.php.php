@@ -1,6 +1,6 @@
 <?php echo validation_errors(); ?>
 
-<form class="form-horizontal" action="/iBeaGuide/exhibitions/editRouteAction" method="post">
+<form class="form-horizontal" action="/exhibitions/edit_route_action" method="post">
     <fieldset>
 
         <!-- Form Name -->

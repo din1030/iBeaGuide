@@ -12,32 +12,56 @@ class Routes extends CI_Controller
 	{
 		$this->load->view('header');
         $this->load->view('breadcrumb');
-		$this->load->view('route/route_manage');
+        $data['routes'] = $this->get_route_list();
+		$this->load->view('route/route_manage', $data);
 		$this->load->view('footer');
 
 	}
 
-	public function add()
+    public function get_route_list()
+    {
+        $query = $this->Route->prepare_for_table();
+        $result_array = $query->result_array();
+        $routes = array();
+        foreach ($result_array as $route_row)
+        {
+            $manage_ctrl = "<button id='edit_route_btn_".$route_row['id']."' type='button' class='btn btn-primary edit-route-btn' data-toggle='modal' data-route-id='".$route_row['id']."'>編輯</button>&nbsp;";
+            $manage_ctrl .= "<button id='del_route_btn_".$route_row['id']."' type='button' class='btn btn-danger del-route-btn' data-toggle='modal' data-route-id='".$route_row['id']."'>刪除</button>";
+            array_push($route_row, $manage_ctrl);
+            $routes[] = $route_row;
+            $route_row = null;
+        }
+        unset($result_array);
+
+        $this->table->clear();
+        $this->table->set_heading(array('ID', '路線名稱', '所屬展覽', '展品數量', '管理'));
+        $tmpl = array ( 'table_open'  => '<table id="route_list" data-toggle="table" data-striped="true">' );
+        $this->table->set_template($tmpl);
+
+        return $routes;
+    }
+
+	public function get_route_add_form()
 	{
-		$this->load->view('header');
-        $this->load->view('breadcrumb');
-		$this->load->view('route/add');
-		$this->load->view('footer');
+		// $this->load->view('header');
+        // $this->load->view('breadcrumb');
+		$this->load->view('route/route_add_form');
+		// $this->load->view('footer');
 
 	}
 
-	public function edit($id = 1)
+	public function get_route_edit_form()
 	{
         $data['id'] = $id;
 
 		$this->load->view('header');
         $this->load->view('breadcrumb');
-		$this->load->view('route/edit', $data);
+		$this->load->view('route/route_edit_form', $data);
 		$this->load->view('footer');
 
 	}
 
-	public function addRouteAction()
+	public function add_route_action()
     {
         if ($this->form_validation->run() == FALSE)
         {

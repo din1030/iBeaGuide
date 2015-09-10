@@ -22,7 +22,6 @@
                     <label class="col-md-4 control-label" for="ibeacon_uuid">UUID</label>
                     <div class="col-md-6">
                         <input id="ibeacon_uuid" name="ibeacon_uuid" type="text" placeholder="" class="form-control input-md" required="" value="<?= $ibeacon->uuid ?>">
-
                     </div>
                 </div>
 
@@ -31,7 +30,6 @@
                     <label class="col-md-4 control-label" for="ibeacon_major">Major</label>
                     <div class="col-md-6">
                         <input id="ibeacon_major" name="ibeacon_major" type="text" placeholder="" class="form-control input-md" required="" value="<?= $ibeacon->major ?>">
-
                     </div>
                 </div>
 
@@ -40,7 +38,6 @@
                     <label class="col-md-4 control-label" for="ibeacon_minor">Minor</label>
                     <div class="col-md-6">
                         <input id="ibeacon_minor" name="ibeacon_minor" type="text" placeholder="" class="form-control input-md" required="" value="<?= $ibeacon->minor ?>">
-
                     </div>
                 </div>
 

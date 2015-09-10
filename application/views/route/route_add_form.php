@@ -1,6 +1,6 @@
 <?php echo validation_errors(); ?>
 
-<form class="form-horizontal" action="/iBeaGuide/exhibitions/addRouteAction" method="post">
+<form class="form-horizontal" action="exhibitions/add_route_action" method="post">
     <fieldset>
 
         <!-- Form Name -->
@@ -45,34 +45,53 @@
         <!--  路線排序 -->
         <div id="route_order_block" class="col-md-6">
             <legend>展覽品列表</legend>
-            <ul id="items_list" class="connectedSortable">
+            <ol id="items_list" class="connectedSortable">
                 <li class="ui-state-default">Item 1</li>
                 <li class="ui-state-default">Item 2</li>
                 <li class="ui-state-default">Item 3</li>
                 <li class="ui-state-default">Item 4</li>
                 <li class="ui-state-default">Item 5</li>
-            </ul>
+            </ol>
         </div>
         <div class="col-md-6">
             <legend>路線排序</legend>
             <div class="well">
                 <div class="clearfix" style="">
-                    <ul id="in_route_list" class="connectedSortable">
-                        <li class="ui-state-highlight">Item 1</li>
-                        <li class="ui-state-highlight">Item 2</li>
-                        <li class="ui-state-highlight">Item 3</li>
-                        <li class="ui-state-highlight">Item 4</li>
-                        <li class="ui-state-highlight">Item 5</li>
-                    </ul>
+                    <p id="route_start_label" class="in-route-label">
+                        路線開始
+                    </p>
+                    <p class='text-center'><span class='glyphicon glyphicon-arrow-down'></span></p>
+                    <ol id="in_route_list" class="connectedSortable">
+                        <li class="ui-state-highlight in-route-item">Item 1</li>
+                        <li class="ui-state-highlight in-route-item">Item 2</li>
+                        <li class="ui-state-highlight in-route-item">Item 3</li>
+                        <li class="ui-state-highlight in-route-item">Item 4</li>
+                        <li class="ui-state-highlight in-route-item">Item 5</li>
+                    </ol>
+                    <p class='text-center'><span class='glyphicon glyphicon-arrow-down'></span></p>
+                    <p id="route_start_label" class="in-route-label">
+                        路線結束
+                    </p>
                 </div>
             </div>
         </div>
         <script>
-            $(function() {
+            // $(function() {
+            // $('in-route-item').after("<p class='text-center'><span class='glyphicon glyphicon-arrow-down'></span></p>");
+            // $('#in_route_list li:first-child').before("<p class='text-center'><span class='glyphicon glyphicon-arrow-down'></span></p>");
+
                 $("#items_list, #in_route_list").sortable({
-                    connectWith: ".connectedSortable"
+                    connectWith: ".connectedSortable",
+                    dropOnEmpty: false,
+                    cursor: "move",
+                    start: function( event, ui ){
+                        $('#in_route_list').css('list-style-type', 'none');
+                    },
+                    stop: function( event, ui ){
+                        $('#in_route_list').css('list-style-type', 'decimal');
+                    }
                 }).disableSelection();
-            });
+            // });
         </script>
 
         <!-- Button Group -->

@@ -30,8 +30,8 @@
         });
     });
 
-    $(document.body).off('click.edit_fac_form', '.edit_fac_btn');
-    $(document.body).on('click.edit_fac_form', '.edit_fac_btn', function() {
+    $(document.body).off('click.edit_fac_form', '.edit-fac-btn');
+    $(document.body).on('click.edit_fac_form', '.edit-fac-btn', function() {
         $.ajax({
             url: '/iBeaGuide/facilities/get_fac_edit_form',
             type: "GET",
@@ -54,8 +54,8 @@
     });
 
 
-    $(document.body).off('click.delete_fac', '.del_fac_btn');
-    $(document.body).on('click.delete_fac', '.del_fac_btn', function() {
+    $(document.body).off('click.delete_fac', '.del-fac-btn');
+    $(document.body).on('click.delete_fac', '.del-fac-btn', function() {
         var this_fac_id = $(this).attr('data-fac-id');
         BootstrapDialog.show({
             title: '注意！',

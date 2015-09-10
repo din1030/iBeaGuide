@@ -27,8 +27,8 @@ class Ibeacons extends CI_Controller {
         $ibeacons = array();
         foreach ($result_array as $ibeacon_row)
         {
-            $manage_ctrl = "<button id='edit_ibeacons_btn_".$ibeacon_row['id']."' type='button' class='btn btn-primary edit_ibeacon_btn' data-toggle='modal' data-ibeacon-id='".$ibeacon_row['id']."'>編輯</button>&nbsp;";
-            $manage_ctrl .= "<button id='del_ibeacons_btn_".$ibeacon_row['id']."' type='button' class='btn btn-danger del_ibeacon_btn' data-toggle='modal' data-ibeacon-id='".$ibeacon_row['id']."'>刪除</button>";
+            $manage_ctrl = "<button id='edit_ibeacon_btn_".$ibeacon_row['id']."' type='button' class='btn btn-primary edit-ibeacon-btn' data-toggle='modal' data-ibeacon-id='".$ibeacon_row['id']."'>編輯</button>&nbsp;";
+            $manage_ctrl .= "<button id='del_ibeacon_btn_".$ibeacon_row['id']."' type='button' class='btn btn-danger del-ibeacon-btn' data-toggle='modal' data-ibeacon-id='".$ibeacon_row['id']."'>刪除</button>";
             array_push($ibeacon_row, $manage_ctrl);
             $ibeacons[] = $ibeacon_row;
             $fac_row = null;

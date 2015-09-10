@@ -555,7 +555,11 @@ class ActiveRecord extends CI_Model {
 		);
 		eval('$this->' . $plural . ' = $query->result();');
 	}
-
+    /**
+    *
+    * prepare_for_table_by_fieldname(, $select_string, $where_array,)
+    *
+    */
     function _prepare_for_table_by($column, $query)
     {
 		switch ($query[0])
@@ -626,7 +630,7 @@ class ActiveRecord extends CI_Model {
         $this->db->select($select_string);
         $this->db->from($this->_table);
         $this->db->join('exhibitions', 'exhibitions.id = '.$this->_table.'.exh_id','left');
-        $this->db->where('exhibitions.curator_id', '1');
+        $this->db->where('exhibitions.curator_id', $this->config->item('login_user_id'));
         $query = $this->db->get();
         return $query;
     }

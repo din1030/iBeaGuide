@@ -1,37 +1,93 @@
 <legend>
     路線管理
-    <a href="/iBeaGuide/routes/add" class="btn btn-primary btn-xs pull-right">新增路線</a>
+    <button id="add_route_btn" type="button" class="btn btn-primary btn-xs pull-right" data-toggle="modal">新增路線</button>
 </legend>
-<table id="route_list" data-toggle="table" data-striped="true">
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>路線名稱</th>
-            <th>所屬展覽</th>
-            <th>展品數量</th>
-            <th>管理</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>1</td>
-            <td>重點展品推薦</td>
-            <td>政大奇觀特展</td>
-            <td>5</td>
-            <td>
-                <a href="/iBeaGuide/routes/edit" class="btn btn-default">編輯</a>
-                <a href="/iBeaGuide/routes/delete" class="btn btn-default">刪除</a>
-            </td>
-        </tr>
-        <tr>
-            <td>2</td>
-            <td>歷史典藏</td>
-            <td>政大奇觀特展</td>
-            <td>10</td>
-            <td>
-                <a href="/iBeaGuide/route/edit" class="btn btn-default">編輯</a>
-                <a href="/iBeaGuide/routes/delete" class="btn btn-default">刪除</a>
-            </td>
-        </tr>
-    </tbody>
-</table>
+<div id="route_form_block"></div>
+<div id="route_list_block">
+<?= $this->table->generate($routes); ?>
+</div>
+<?php $this->table->clear(); ?>
+<script type="text/javascript">
+    $(document.body).off('click.add_route_form', '#add_route_btn');
+    $(document.body).on('click.add_route_form', '#add_route_btn', function() {
+        $.ajax({
+            url: 'routes/get_route_add_form',
+            type: "GET",
+            //cache: false,
+            data: {},
+            dataType: "html",
+            beforeSend: function(xhr) {
+                $('#system-message').html('處理中...');
+                $('#system-message').show();
+            },
+            success: function(html_block) {
+                $('#route_form_block').html(html_block);
+                $('#system-message').html('完成');
+                $('#system-message').fadeOut();
+            }
+        });
+    });
+
+    $(document.body).off('click.edit_route_form', '.edit-route-btn');
+    $(document.body).on('click.edit_route_form', '.edit-route-btn', function() {
+        $.ajax({
+            url: 'routes/get_route_edit_form',
+            type: "GET",
+            //cache: false,
+            data: {
+                route_id: $(this).attr('data-route-id')
+            },
+            dataType: "html",
+            beforeSend: function(xhr) {
+                $('#system-message').html('處理中...');
+                $('#system-message').show();
+            },
+            success: function(html_block) {
+                $('#route_form_block').html(html_block);
+                $.scrollTo($('#add-route-btn'), 500, {offset: -10});
+                $('#system-message').html('完成');
+                $('#system-message').fadeOut();
+            }
+        });
+    });
+    $(document.body).off('click.delete_route', '.del-route-btn');
+    $(document.body).on('click.delete_route', '.del-route-btn', function() {
+        var this_route_id = $(this).attr('data-route-id');
+        BootstrapDialog.show({
+            title: '注意！',
+            message: '是否刪除此iBeacon裝置？',
+            buttons: [{
+                label: '取消',
+                action: function(dialogRef){
+                    dialogRef.close();
+                }
+            }, {
+                label: '確認',
+                cssClass: 'btn-danger',
+                action: function(dialogRef) {
+                    $.ajax({
+                        url: '/iBeaGuide/routes/delete_route_action',
+                        type: "POST",
+                        //cache: false,
+                        data: {
+                            route_id: this_route_id
+                        },
+                        dataType: "html",
+                        beforeSend: function(xhr) {
+                            dialogRef.close();
+                            $('#system-message').html('處理中...');
+                            $('#system-message').show();
+                        },
+                        success: function(html_block) {
+                            $('#route_list_block').html(html_block);
+                            // $.scrollTo($('#add_sec_btn'), 500, {offset: -10});
+                            $('#system-message').html('完成');
+                            $('#system-message').fadeOut();
+                            $('[data-toggle="table"]').bootstrapTable();
+                        }
+                    });
+                }
+            }]
+        });
+    });
+</script>
