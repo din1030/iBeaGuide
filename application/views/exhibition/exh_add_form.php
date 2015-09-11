@@ -4,7 +4,7 @@
         <span class="h4">新增展覽</span>
     </div>
     <div class="panel-body">
-        <form id="add_exh_form" class="form-horizontal" action="/iBeaGuide/exhibitions/add_exhibition_action" method="post">
+        <form id="add_exh_form" class="form-horizontal" action="exhibitions/add_exhibition_action" method="post">
             <fieldset>
 
                 <div class="form-group">

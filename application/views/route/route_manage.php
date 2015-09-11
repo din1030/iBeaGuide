@@ -8,6 +8,10 @@
 </div>
 <?php $this->table->clear(); ?>
 <script type="text/javascript">
+    $("#route_list").bootstrapTable({
+        sortName: "1"
+    });
+
     $(document.body).off('click.add_route_form', '#add_route_btn');
     $(document.body).on('click.add_route_form', '#add_route_btn', function() {
         $.ajax({

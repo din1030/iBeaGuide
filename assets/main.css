@@ -62,6 +62,7 @@
     padding: 5px;
     font-size: 1.2em;
     width: auto;
+    cursor: move;
 }
 .in-route-label {
     display: block;

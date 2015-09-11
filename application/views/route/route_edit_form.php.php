@@ -4,7 +4,7 @@
         <span class="h4">編輯路線資訊</span>
     </div>
     <div class="panel-body">
-        <form class="form-horizontal" action="exhibitions/add_route_action" method="post">
+        <form class="form-horizontal" action="routes/add_route_action" method="post">
             <fieldset>
 
                 <!-- Text input-->

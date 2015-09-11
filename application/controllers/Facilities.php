@@ -35,7 +35,8 @@ class Facilities extends CI_Controller
 
         $this->table->clear();
         $this->table->set_heading(array('ID', '設施名稱', '所屬展覽', '連結iBeacon', '管理'));
-        $tmpl = array ( 'table_open'  => '<table id="fac_list" data-toggle="table" data-striped="true">' );
+        $tmpl = array ( 'table_open'  => '<table id="fac_list" data-toggle="table" data-striped="true">',
+                        'heading_cell_start'  => '<th data-sortable="true">');
         $this->table->set_template($tmpl);
 
         return $facilities;

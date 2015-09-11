@@ -46,13 +46,15 @@
                 <!--  路線排序 -->
                 <div class="col-md-5">
                     <legend>已連結iBeacon展品</legend>
-                    <ol id="items_list" class="connectedSortable">
-                        <li class="ui-state-default">Item 1</li>
-                        <li class="ui-state-default">Item 2</li>
-                        <li class="ui-state-default">Item 3</li>
-                        <li class="ui-state-default">Item 4</li>
-                        <li class="ui-state-default">Item 5</li>
-                    </ol>
+                    <div class="well clearfix">
+                        <ol id="items_list" class="connectedSortable">
+                            <li class="ui-state-default">Item 1</li>
+                            <li class="ui-state-default">Item 2</li>
+                            <li class="ui-state-default">Item 3</li>
+                            <li class="ui-state-default">Item 4</li>
+                            <li class="ui-state-default">Item 5</li>
+                        </ol>
+                    </div>
                 </div>
                 <div class="col-md-2" style="margin-top: 100px;">
                     <p class="text-center">
@@ -61,29 +63,27 @@
                         <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
                     </p>
                     <p class="text-center">
-                        拖曳展品排序
+                        請拖曳展品以排序或新增/移出路線項目
                     </p>
                 </div>
                 <div class="col-md-5">
                     <legend>路線排序</legend>
-                    <div class="well">
-                        <div class="clearfix" style="">
-                            <p id="route_start_label" class="in-route-label">
-                                路線開始
-                            </p>
-                            <p class='text-center'><span class='glyphicon glyphicon-arrow-down'></span></p>
-                            <ol id="in_route_list" class="connectedSortable">
-                                <li class="ui-state-highlight in-route-item">Item 1</li>
-                                <li class="ui-state-highlight in-route-item">Item 2</li>
-                                <li class="ui-state-highlight in-route-item">Item 3</li>
-                                <li class="ui-state-highlight in-route-item">Item 4</li>
-                                <li class="ui-state-highlight in-route-item">Item 5</li>
-                            </ol>
-                            <p class='text-center'><span class='glyphicon glyphicon-arrow-down'></span></p>
-                            <p id="route_start_label" class="in-route-label">
-                                路線結束
-                            </p>
-                        </div>
+                    <div class="well clearfix">
+                        <p id="route_start_label" class="in-route-label">
+                            路線開始
+                        </p>
+                        <p class='text-center'><span class='glyphicon glyphicon-arrow-down'></span></p>
+                        <ol id="in_route_list" class="connectedSortable">
+                            <li class="ui-state-highlight in-route-item">Item 1</li>
+                            <li class="ui-state-highlight in-route-item">Item 2</li>
+                            <li class="ui-state-highlight in-route-item">Item 3</li>
+                            <li class="ui-state-highlight in-route-item">Item 4</li>
+                            <li class="ui-state-highlight in-route-item">Item 5</li>
+                        </ol>
+                        <p class='text-center'><span class='glyphicon glyphicon-arrow-down'></span></p>
+                        <p id="route_start_label" class="in-route-label">
+                            路線結束
+                        </p>
                     </div>
                 </div>
                 <script>

@@ -424,7 +424,9 @@
         }
     };
 
+    $.extend(BootstrapTable.DEFAULTS, BootstrapTable.LOCALES['en-US']);
     $.extend(BootstrapTable.DEFAULTS, BootstrapTable.LOCALES['zh-TW']);
+    // $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['zh-TW']);
 
     BootstrapTable.COLUMN_DEFAULTS = {
         radio: false,

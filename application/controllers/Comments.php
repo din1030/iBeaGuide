@@ -1,4 +1,5 @@
-<?php
+<?php  if (!defined('BASEPATH')) exit('No direct script access allowed');
+
 class Comments extends CI_Controller {
 
 	public function __construct()
@@ -10,6 +11,7 @@ class Comments extends CI_Controller {
 
 	public function index()
 	{
+		log_message('debug', "1234");
 		$this->load->view('header');
         $this->load->view('breadcrumb');
 		$this->load->view('comment/comment_manage');

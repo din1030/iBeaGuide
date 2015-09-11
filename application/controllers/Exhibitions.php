@@ -37,7 +37,8 @@ class Exhibitions extends CI_Controller
 
         $this->table->clear();
         $this->table->set_heading(array('ID', '展覽名稱', '展場','開始日期','結束日期', '連結iBeacon', '管理'));
-        $tmpl = array ( 'table_open'  => '<table id="exh_list" data-toggle="table" data-striped="true">' );
+        $tmpl = array ( 'table_open'  => '<table id="exh_list" data-toggle="table" data-striped="true">',
+                        'heading_cell_start'  => '<th data-sortable="true">');
         $this->table->set_template($tmpl);
 
         return $exhibitions;

@@ -35,7 +35,8 @@ class Routes extends CI_Controller
 
         $this->table->clear();
         $this->table->set_heading(array('ID', '路線名稱', '所屬展覽', '展品數量', '管理'));
-        $tmpl = array ( 'table_open'  => '<table id="route_list" data-toggle="table" data-striped="true">' );
+        $tmpl = array ( 'table_open'  => '<table id="route_list" data-toggle="table" data-striped="true">',
+                        'heading_cell_start'  => '<th data-sortable="true">');
         $this->table->set_template($tmpl);
 
         return $routes;

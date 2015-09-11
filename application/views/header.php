@@ -18,7 +18,7 @@
 
         <!-- bootstrap-table -->
         <link rel="stylesheet" href="/iBeaGuide/assets/bootstrap-table/src/bootstrap-table.css">
-        <script type="text/javascript" src="/iBeaGuide/assets/bootstrap-table/src/bootstrap-table.js"></script>
+        <script src="/iBeaGuide/assets/bootstrap-table/src/bootstrap-table.js"></script>
         <!-- put your locale files after bootstrap-table.js -->
         <script src="/iBeaGuide/assets/bootstrap-table/src/locale/bootstrap-table-zh-TW.js"></script>
         <script src="/iBeaGuide/assets/bootstrap-table/src/extensions/export/bootstrap-table-export.js"></script>

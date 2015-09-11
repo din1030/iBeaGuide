@@ -6,7 +6,7 @@ class Comment extends ActiveRecord {
     {
         parent::__construct();
         $this->_class_name = strtolower(get_class($this));
-        $this->_table = '$this->_class_name . 's'';
+        $this->_table = $this->_class_name . 's';
         $this->_columns = $this->discover_table_columns();
     }
 
