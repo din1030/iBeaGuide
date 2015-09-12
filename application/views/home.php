@@ -2,15 +2,15 @@
     <h4>進行中展覽：</h4>
     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-center">
         <img class="img-responsive" src="https://placeimg.com/320/240/arch">
-        <h4>建築藝術特展</h4>
+        <h4><?= $exhibitions[0]['title']; ?></h4>
     </div>
     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-center">
         <img class="img-responsive" src="https://placeimg.com/320/240/nature">
-        <h4>《大自然洗禮》巡展</h4>
+        <h4><?= $exhibitions[1]['title']; ?></h4>
     </div>
     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-center">
         <img class="img-responsive" src="https://placeimg.com/320/240/animals">
-        <h4>「關懷動物」聯展</h4>
+        <h4><?= $exhibitions[2]['title']; ?></h4>
     </div>
 </div>
 <hr>

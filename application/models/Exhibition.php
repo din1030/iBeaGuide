@@ -25,6 +25,18 @@ class Exhibition extends ActiveRecord {
         }
         return $exhibitions;
     }
+
+    // 要改成判斷日期！
+    public function get_latest_exh()
+    {
+        $this->db->select('id, title, main_pic');
+        $this->db->where('curator_id', $this->config->item('login_user_id'));
+        $query = $this->db->get($this->_table, 3, 0);
+        $exhibitions = $query->result_array();
+
+        return $exhibitions;
+    }
+
 }
 
 ?>

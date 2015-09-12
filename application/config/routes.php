@@ -38,7 +38,7 @@
 |
 */
 
-$route['default_controller'] = 'pages/view';
+$route['default_controller'] = 'pages';
 
 //$route['(:any)/(:any)/([1-9][0-9]*$)'] = 'pages/$1/$2/$3';
 // $route['(:any)/(:any)'] = '$1/$2';
