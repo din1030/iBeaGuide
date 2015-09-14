@@ -48,9 +48,9 @@
             },
             success: function(html_block) {
                 $('#route_form_block').html(html_block);
-                $.scrollTo($('#add-route-btn'), 500, {offset: -10});
                 $('#system-message').html('完成');
                 $('#system-message').fadeOut();
+                $.scrollTo($('#add-route-btn'), 500, {offset: -10});
             }
         });
     });

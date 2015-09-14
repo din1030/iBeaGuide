@@ -11,6 +11,7 @@
 <?php $this->table->clear(); ?>
 
 <script type="text/javascript">
+
     $(document.body).off('click.add_exh_form', '#add-exh-btn');
     $(document.body).on('click.add_exh_form', '#add-exh-btn', function() {
         $.ajax({
@@ -47,9 +48,9 @@
             },
             success: function(html_block) {
                 $('#exh_form_block').html(html_block);
-                $.scrollTo($('#add-exh-btn'), 500, {offset: -10});
                 $('#system-message').html('完成');
                 $('#system-message').fadeOut();
+                $.scrollTo($('#add-exh-btn'), 500, {offset: -10});
             }
         });
     });

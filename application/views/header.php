@@ -4,7 +4,7 @@
         <!-- Latest compiled and minified CSS -->
         <link rel="stylesheet" href="/iBeaGuide/assets/Bootstrap/css/bootstrap.min.css" />
         <link rel="stylesheet" href="/iBeaGuide/assets/Bootstrap/css/bootstrap-flatly.css" />
-        <link rel="stylesheet" href="/iBeaGuide/assets//main.css" />
+        <link rel="stylesheet" href="/iBeaGuide/assets/main.css" />
 
         <script src="/iBeaGuide/assets/jquery-1.11.3.min.js"></script>
         <link rel="stylesheet" href="/iBeaGuide/assets/jquery-ui-1.11.4/jquery-ui.css">
@@ -34,6 +34,12 @@
 
         <!-- bootstrap-dialog -->
         <script src="/iBeaGuide/assets/bootstrap3-dialog/src/js/bootstrap-dialog.js"></script>
+
+        <!-- kartik-v-bootstrap-fileinput -->
+        <link rel="stylesheet" href="/iBeaGuide/assets/kartik-v-bootstrap-fileinput/css/fileinput.min.css" />
+        <script src="/iBeaGuide/assets/kartik-v-bootstrap-fileinput/js/plugins/canvas-to-blob.min.js" type="text/javascript"></script>
+        <script src="/iBeaGuide/assets/kartik-v-bootstrap-fileinput/js/fileinput.min.js" type="text/javascript"></script>
+        <script src="/iBeaGuide/assets/kartik-v-bootstrap-fileinput/js/fileinput_locale_zh-TW.js"></script>
 
     </head>
     <body>

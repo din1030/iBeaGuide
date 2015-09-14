@@ -1,4 +1,5 @@
 <?php
+
 class Exhibitions extends CI_Controller
 {
     public function __construct()
@@ -6,7 +7,7 @@ class Exhibitions extends CI_Controller
         parent::__construct();
         $this->load->model('Exhibition');
         $this->load->model('Section');
-        log_message('debug', "Exhibitions Controller Initialized");
+        log_message('debug', 'Exhibitions Controller Initialized');
     }
 
     public function index()
@@ -35,9 +36,9 @@ class Exhibitions extends CI_Controller
         unset($result_array);
 
         $this->table->clear();
-        $this->table->set_heading(array('ID', '展覽名稱', '展場','開始日期','結束日期', '連結iBeacon', '管理'));
-        $tmpl = array ( 'table_open'  => '<table id="exh_list" data-toggle="table" data-striped="true">',
-                        'heading_cell_start'  => '<th data-sortable="true">');
+        $this->table->set_heading(array('ID', '展覽名稱', '展場', '開始日期', '結束日期', '連結iBeacon', '管理'));
+        $tmpl = array('table_open' => '<table id="exh_list" data-toggle="table" data-striped="true">',
+                        'heading_cell_start' => '<th data-sortable="true">', );
         $this->table->set_template($tmpl);
 
         return $exhibitions;
@@ -66,12 +67,9 @@ class Exhibitions extends CI_Controller
     {
         $this->form_validation->set_rules('exh_title', '標題', 'required');
 
-        if ($this->form_validation->run() == FALSE)
-        {
+        if ($this->form_validation->run() == false) {
             $this->load->view('exhibition/add');
-        }
-        else
-        {
+        } else {
             ;
             $data = array(
                 'curator_id' => $this->config->item('login_user_id'),
@@ -86,7 +84,7 @@ class Exhibitions extends CI_Controller
                 'web_link' => $this->input->post('exh_web_link'),
                 'main_pic' => $this->input->post('exh_main_pic'),
                 'push_content' => $this->input->post('exh_push'),
-                'ibeacon_id' => $this->input->post('exh_ibeacon')
+                'ibeacon_id' => $this->input->post('exh_ibeacon'),
             );
             $this->Exhibition->create($data);
 
@@ -100,12 +98,9 @@ class Exhibitions extends CI_Controller
     public function edit_exhibition_action()
     {
         $this->form_validation->set_rules('exh_title', '標題', 'required');
-        if ($this->form_validation->run() == FALSE)
-        {
+        if ($this->form_validation->run() == false) {
             $this->load->view('exhibition/edit'); // 應該要改成沒過就不會送出
-        }
-        else
-        {
+        } else {
             $exh_obj = $this->Exhibition->find($this->input->post('exh_id'));
 
             $exh_obj->title = $this->input->post('exh_title');
@@ -153,7 +148,7 @@ class Exhibitions extends CI_Controller
 
     public function get_sec_list($exh_id)
     {
-        $query = $this->Section->prepare_for_table_by_exh_id($exh_id,'id, title, description');
+        $query = $this->Section->prepare_for_table_by_exh_id($exh_id, 'id, title, description');
         $result_array = $query->result_array();
         $sections = array();
 
@@ -167,8 +162,8 @@ class Exhibitions extends CI_Controller
         unset($result_array);
 
         $this->table->clear();
-        $this->table->set_heading(array('ID', '展區名稱', '展區介紹','管理'));
-        $tmpl = array ( 'table_open'  => '<table id="fac_list" data-toggle="table" data-striped="true">' );
+        $this->table->set_heading(array('ID', '展區名稱', '展區介紹', '管理'));
+        $tmpl = array('table_open' => '<table id="fac_list" data-toggle="table" data-striped="true">');
         $this->table->set_template($tmpl);
 
         return $sections;
@@ -192,19 +187,16 @@ class Exhibitions extends CI_Controller
         $this->form_validation->set_rules('sec_title', '標題', 'required');
         $this->form_validation->set_rules('sec_description', '說明', 'required');
 
-        if ($this->form_validation->run() == FALSE)
-        {
+        if ($this->form_validation->run() == false) {
             redirect('exhibitions');
-        }
-        else
-        {
+        } else {
             $exh_id = $this->input->post('exh_id');
 
             $data = array(
                 'exh_id' => $exh_id,
                 'title' => $this->input->post('sec_title'),
                 'description' => $this->input->post('sec_description'),
-                'main_pic' => $this->input->post('sec_main_pic')
+                'main_pic' => $this->input->post('sec_main_pic'),
             );
             $this->Section->create($data);
 
@@ -217,12 +209,9 @@ class Exhibitions extends CI_Controller
         $this->form_validation->set_rules('sec_title', '標題', 'required');
         $this->form_validation->set_rules('sec_description', '說明', 'required');
 
-        if ($this->form_validation->run() == FALSE)
-        {
+        if ($this->form_validation->run() == false) {
             redirect('exhibitions');
-        }
-        else
-        {
+        } else {
             $sec_obj = $this->Section->find($this->input->post('sec_id'));
             $sec_obj->title = $this->input->post('sec_title');
             $sec_obj->description = $this->input->post('sec_description');
@@ -239,7 +228,6 @@ class Exhibitions extends CI_Controller
         $sec_obj->delete();
         echo $this->table->generate($this->get_sec_list($_POST['exh_id']));
     }
-
 }
 
 /* End of file Exhibitions.php */
