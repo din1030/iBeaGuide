@@ -37,7 +37,7 @@
                         <div class='input-group date' id='exh_start_date_picker'>
                             <input id='exh_start_date' type='text' class="form-control" />
                             <span class="input-group-addon">
-                            <span class="glyphicon glyphicon-calendar"></span>
+                                <span class="glyphicon glyphicon-calendar"></span>
                             </span>
                         </div>
                     </div>
@@ -48,7 +48,7 @@
                         <div class='input-group date' id='exh_end_date_picker'>
                             <input id='exh_end_date' type='text' class="form-control" />
                             <span class="input-group-addon">
-                            <span class="glyphicon glyphicon-calendar"></span>
+                                <span class="glyphicon glyphicon-calendar"></span>
                             </span>
                         </div>
                     </div>
@@ -59,7 +59,7 @@
                         <div class='input-group date' id='exh_daily_open_time_picker'>
                             <input id='exh_daily_open_time' type='text' class="form-control" />
                             <span class="input-group-addon">
-                            <span class="glyphicon glyphicon-calendar"></span>
+                                <span class="glyphicon glyphicon-calendar"></span>
                             </span>
                         </div>
                     </div>
@@ -70,7 +70,7 @@
                         <div class='input-group date' id='exh_daily_close_time_picker'>
                             <input id='exh_daily_close_time' type='text' class="form-control" />
                             <span class="input-group-addon">
-                            <span class="glyphicon glyphicon-calendar"></span>
+                                <span class="glyphicon glyphicon-calendar"></span>
                             </span>
                         </div>
                     </div>

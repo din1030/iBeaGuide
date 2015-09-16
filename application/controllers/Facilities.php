@@ -1,5 +1,4 @@
 <?php
-
 class Facilities extends CI_Controller
 {
     public function __construct()
@@ -56,13 +55,15 @@ class Facilities extends CI_Controller
 
     public function get_fac_edit_form()
     {
+        $fac_id = $_GET['fac_id'];
+        $data['facility'] = $this->Facility->find_by_id($fac_id);
+
         $this->load->model('Exhibition');
         $data['exhibitions'] = $this->Exhibition->prepare_for_dropdwon();;
 
         $this->load->model('Ibeacon');
         $data['ibeacons'] = $this->Ibeacon->prepare_for_dropdwon();
 
-        $data['facility'] = $this->Facility->find_by_id($_GET['fac_id']);
         $this->load->view('facility/fac_edit_form', $data);
     }
 
@@ -100,6 +101,44 @@ class Facilities extends CI_Controller
         }
         else
         {
+            if (empty($_FILES['fac_main_pic'])) {
+                echo json_encode(['error'=>'No files found for upload.']);
+                // or you can throw an exception
+                return; // terminate
+
+            } else {
+                $images = $_FILES['fac_main_pic'];
+                print_r($images);
+                $config['upload_path'] = 'user_uploads';
+                // $config['file_name'] = 'test';
+        		$config['allowed_types'] = 'gif|jpg|png';
+        		// $config['max_size']	= '100000';
+        		// $config['max_width']  = '1024';
+        		// $config['max_height']  = '768';
+
+        		$this->upload->initialize($config);
+
+                if ( !$this->upload->do_multiple_upload('fac_main_pic'))
+        		{
+                    log_message('debug', "Upload failed.");
+        			// echo json_encode(['error'=>'Upload failed.']);
+                    $error = array('error' => $this->upload->display_errors());
+        			$this->load->view('facility/fac_manage', $error);
+
+                    // return;
+        		}
+        		else
+        		{
+                    log_message('debug', "Upload successful.");
+        			$data = array('upload_data' => $this->upload->data());
+                    print_r($data);
+
+                    // echo json_encode(['error'=>'Upload successful.']);
+        			// $this->load->view('upload_success'，$data);
+        		}
+        	}
+
+
             $fac_obj = $this->Facility->find($this->input->post('fac_id'));
             $fac_obj->exh_id = $this->input->post('fac_exh');
             $fac_obj->title = $this->input->post('fac_title');

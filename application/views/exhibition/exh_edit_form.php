@@ -29,7 +29,7 @@
                     <!-- Text input-->
                     <label class="col-md-2 control-label" for="exh_venue">展場</label>
                     <div class="col-sm-8 col-md-8">
-                        <input id="exh_venue" name="exh_venue" type="text" placeholder="" class="form-control input-md" required=""  value="<?= $exhibition->venue ?>">
+                        <input id="exh_venue" name="exh_venue" type="text" placeholder="" class="form-control input-md" required="" value="<?= $exhibition->venue ?>">
                     </div>
                 </div>
 
@@ -90,14 +90,14 @@
                     <!-- Text input-->
                     <label class="col-md-2 control-label" for="exh_web_link">官網連結</label>
                     <div class="col-sm-8 col-md-8">
-                        <input id="exh_web_link" name="exh_web_link" type="text" placeholder="" class="form-control input-md" required=""  value="<?= $exhibition->web_link ?>">
+                        <input id="exh_web_link" name="exh_web_link" type="text" placeholder="" class="form-control input-md" required="" value="<?= $exhibition->web_link ?>">
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label class="col-md-2 control-label" for="exh_main_pic">封面照片</label>
                     <!-- File Upload -->
-                    <div class="col-md-2">
+                    <div class="col-md-8">
                         <input id="exh_main_pic" name="exh_main_pic" class="input-file" type="file">
                     </div>
                 </div>
@@ -114,7 +114,7 @@
                 <div class="form-group">
                     <label class="col-md-2 control-label" for="exh_ibeacon">連結 iBeacon</label>
                     <div class="col-md-8">
-                        <?= form_dropdown('exh_ibeacon', $ibeacons, $exhibition->ibeacon_id,"id='exh_ibeacon' class='form-control'") ?>
+                        <?= form_dropdown('exh_ibeacon', $ibeacons, $exhibition->ibeacon_id, "id='exh_ibeacon' class='form-control'") ?>
                     </div>
                 </div>
 
@@ -137,48 +137,61 @@
         </form>
     </div>
 </div>
-
 <script type="text/javascript">
-    $('#exh_start_date_picker').datetimepicker({
-        format: 'YYYY-MM-DD',
-        defaultDate: moment("<?= $exhibition->start_date ?>")
-    });
+    $('#edit_exh_form').ready(function() {
 
-    $('#exh_end_date_picker').datetimepicker({
-        useCurrent: false, //Important! See issue #1075
-        format: 'YYYY-MM-DD',
-        defaultDate: moment("<?= $exhibition->end_date ?>")
-    });
+        $('#exh_start_date_picker').datetimepicker({
+            format: 'YYYY-MM-DD',
+            defaultDate: moment("<?= $exhibition->start_date ?>")
+        });
 
-    $("#exh_start_date_picker").on("dp.change", function(e) {
-        $('#exh_end_date').data("DateTimePicker").minDate(e.date);
-    });
+        $('#exh_end_date_picker').datetimepicker({
+            useCurrent: false, //Important! See issue #1075
+            format: 'YYYY-MM-DD',
+            defaultDate: moment("<?= $exhibition->end_date ?>")
+        });
 
-    $("#exh_end_date_picker").on("dp.change", function(e) {
-        $('#exh_start_date').data("DateTimePicker").maxDate(e.date);
-    });
+        $("#exh_start_date_picker").on("dp.change", function(e) {
+            $('#exh_end_date').data("DateTimePicker").minDate(e.date);
+        });
 
-    $('#exh_daily_open_time_picker').datetimepicker({
-        format: 'HH:mm',
-        defaultDate: moment("<?= $exhibition->daily_open_time ?>","HH:mm:ss")
-    });
+        $("#exh_end_date_picker").on("dp.change", function(e) {
+            $('#exh_start_date').data("DateTimePicker").maxDate(e.date);
+        });
 
-    $('#exh_daily_close_time_picker').datetimepicker({
-        useCurrent: false,  //Important! See issue #1075
-        format: 'HH:mm',
-        defaultDate: moment("<?= $exhibition->daily_close_time ?>","HH:mm:ss")
-    });
-    $("#exh_daily_open_time_picker").on("dp.change", function(e) {
-        $('#exh_daily_close_time_picker').data("DateTimePicker").minDate(e.date);
-    });
+        $('#exh_daily_open_time_picker').datetimepicker({
+            format: 'HH:mm',
+            defaultDate: moment("<?= $exhibition->daily_open_time ?>", "HH:mm:ss")
+        });
 
-    $("#exh_daily_close_time_picker").on("dp.change", function(e) {
-        $('#exh_daily_open_time_picker').data("DateTimePicker").maxDate(e.date);
-    });
+        $('#exh_daily_close_time_picker').datetimepicker({
+            useCurrent: false, //Important! See issue #1075
+            format: 'HH:mm',
+            defaultDate: moment("<?= $exhibition->daily_close_time ?>", "HH:mm:ss")
+        });
+        $("#exh_daily_open_time_picker").on("dp.change", function(e) {
+            $('#exh_daily_close_time_picker').data("DateTimePicker").minDate(e.date);
+        });
 
-    $(document.body).off('click.exh_cancel', '#exh_cancel_btn');
-    $(document.body).on('click.exh_cancel', '#exh_cancel_btn', function() {
-        $('#exh_form_block').empty();
-        $.scrollTo($('#add_exh_btn'), 500, {offset: -10});
+        $("#exh_daily_close_time_picker").on("dp.change", function(e) {
+            $('#exh_daily_open_time_picker').data("DateTimePicker").maxDate(e.date);
+        });
+
+        $('#exh_main_pic').fileinput({
+            language: 'zh-TW',
+            showUpload: false,
+            maxFileCount: 3,
+            allowedFileTypes: ["image"],
+            previewFileType: 'image'
+        });
+
+        $(document.body).off('click.exh_cancel', '#exh_cancel_btn');
+        $(document.body).on('click.exh_cancel', '#exh_cancel_btn', function() {
+            $('#exh_form_block').empty();
+            $.scrollTo($('#add_exh_btn'), 500, {
+                offset: -10
+            });
+        });
+
     });
 </script>

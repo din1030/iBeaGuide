@@ -4,7 +4,7 @@
         <span class="h4">編輯設施資訊</span>
     </div>
     <div class="panel-body">
-        <form id="edit_fac_form" class="form-horizontal" action="/iBeaGuide/facilities/edit_facility_action" method="post">
+        <form id="edit_fac_form" class="form-horizontal" action="/iBeaGuide/facilities/edit_facility_action" method="post" enctype="multipart/form-data">
             <fieldset>
                 <input id="fac_id" type="hidden" name="fac_id" value="<?= $facility->id ?>">
 
@@ -36,7 +36,7 @@
                 <div class="form-group">
                     <label class="col-md-2 control-label" for="fac_main_pic">主要圖片</label>
                     <div class="col-md-8">
-                        <input id="fac_main_pic" name="fac_main_pic" class="input-file" type="file" multiple="true" accept="image/*">
+                        <input id="fac_main_pic" name="fac_main_pic[]" class="input-file" type="file" multiple="true" accept="image/*">
                     </div>
                 </div>
 
@@ -83,7 +83,8 @@
             showUpload: false,
             maxFileCount: 3,
             allowedFileTypes: ["image"],
-            previewFileType: 'image'
+            previewFileType: 'image',
+            uploadAsync: false
         });
 
     });

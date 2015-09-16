@@ -20,10 +20,7 @@
                 <div class="form-group">
                     <label class="col-md-2 control-label" for="route_exh">所屬展覽</label>
                     <div class="col-md-8">
-                        <select id="route_exh" name="route_exh" class="form-control">
-                            <option value="1">展覽 A</option>
-                            <option value="2">展覽 B</option>
-                        </select>
+                        <?= form_dropdown('route_exh', $exhibitions, $route->exh_id, "id='route_exh' class='form-control'") ?>
                     </div>
                 </div>
 
@@ -31,7 +28,7 @@
                 <div class="form-group">
                     <label class="col-md-2 control-label" for="route_main_pic">主要圖片</label>
                     <div class="col-md-8">
-                        <input id="route_main_pic" name="route_main_pic" class="input-file" type="file">
+                        <input id="route_main_pic" name="route_main_pic" class="input-file" type="file" accept="image/*" multiple="true">
                     </div>
                 </div>
 
@@ -46,13 +43,15 @@
                 <!--  路線排序 -->
                 <div class="col-md-5">
                     <legend>已連結iBeacon展品</legend>
-                    <ol id="items_list" class="connectedSortable">
-                        <li class="ui-state-default">Item 1</li>
-                        <li class="ui-state-default">Item 2</li>
-                        <li class="ui-state-default">Item 3</li>
-                        <li class="ui-state-default">Item 4</li>
-                        <li class="ui-state-default">Item 5</li>
-                    </ol>
+                    <div class="well clearfix">
+                        <ol id="items_list" class="connectedSortable">
+                            <li class="ui-state-default">Item 1</li>
+                            <li class="ui-state-default">Item 2</li>
+                            <li class="ui-state-default">Item 3</li>
+                            <li class="ui-state-default">Item 4</li>
+                            <li class="ui-state-default">Item 5</li>
+                        </ol>
+                    </div>
                 </div>
                 <div class="col-md-2" style="margin-top: 100px;">
                     <p class="text-center">
@@ -61,29 +60,27 @@
                         <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
                     </p>
                     <p class="text-center">
-                        拖曳展品排序
+                        請拖曳以排序或新增/移出路線中展品
                     </p>
                 </div>
                 <div class="col-md-5">
                     <legend>路線排序</legend>
-                    <div class="well">
-                        <div class="clearfix" style="">
-                            <p id="route_start_label" class="in-route-label">
-                                路線開始
-                            </p>
-                            <p class='text-center'><span class='glyphicon glyphicon-arrow-down'></span></p>
-                            <ol id="in_route_list" class="connectedSortable">
-                                <li class="ui-state-highlight in-route-item">Item 1</li>
-                                <li class="ui-state-highlight in-route-item">Item 2</li>
-                                <li class="ui-state-highlight in-route-item">Item 3</li>
-                                <li class="ui-state-highlight in-route-item">Item 4</li>
-                                <li class="ui-state-highlight in-route-item">Item 5</li>
-                            </ol>
-                            <p class='text-center'><span class='glyphicon glyphicon-arrow-down'></span></p>
-                            <p id="route_start_label" class="in-route-label">
-                                路線結束
-                            </p>
-                        </div>
+                    <div class="well clearfix">
+                        <p id="route_start_label" class="in-route-label">
+                            路線開始
+                        </p>
+                        <p class='text-center'><span class='glyphicon glyphicon-arrow-down'></span></p>
+                        <ol id="in_route_list" class="connectedSortable">
+                            <li class="ui-state-highlight in-route-item">Item 1</li>
+                            <li class="ui-state-highlight in-route-item">Item 2</li>
+                            <li class="ui-state-highlight in-route-item">Item 3</li>
+                            <li class="ui-state-highlight in-route-item">Item 4</li>
+                            <li class="ui-state-highlight in-route-item">Item 5</li>
+                        </ol>
+                        <p class='text-center'><span class='glyphicon glyphicon-arrow-down'></span></p>
+                        <p id="route_start_label" class="in-route-label">
+                            路線結束
+                        </p>
                     </div>
                 </div>
 

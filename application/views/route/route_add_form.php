@@ -20,10 +20,7 @@
                 <div class="form-group">
                     <label class="col-md-2 control-label" for="route_exh">所屬展覽</label>
                     <div class="col-md-8">
-                        <select id="route_exh" name="route_exh" class="form-control">
-                            <option value="1">展覽 A</option>
-                            <option value="2">展覽 B</option>
-                        </select>
+                        <?= form_dropdown('route_exh', $exhibitions, '', "id='route_exh' class='form-control'") ?>
                     </div>
                 </div>
 
@@ -31,7 +28,7 @@
                 <div class="form-group">
                     <label class="col-md-2 control-label" for="route_main_pic">主要圖片</label>
                     <div class="col-md-8">
-                        <input id="route_main_pic" name="route_main_pic" class="input-file" type="file">
+                        <input id="route_main_pic" name="route_main_pic" class="input-file" type="file" accept="image/*" multiple="true">
                     </div>
                 </div>
 
@@ -63,7 +60,7 @@
                         <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
                     </p>
                     <p class="text-center">
-                        請拖曳展品以排序或新增/移出路線項目
+                        請拖曳以排序或新增/移出路線中展品
                     </p>
                 </div>
                 <div class="col-md-5">

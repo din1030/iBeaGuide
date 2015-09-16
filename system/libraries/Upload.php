@@ -39,7 +39,7 @@ class CI_Upload {
 	public $file_size				= "";
 	public $file_ext				= "";
 	public $upload_path				= "";
-	public $overwrite				= FALSE;
+	public $overwrite				= TRUE; // originally set FALSE.
 	public $encrypt_name			= FALSE;
 	public $is_image				= FALSE;
 	public $image_width				= '';
@@ -81,32 +81,32 @@ class CI_Upload {
 	public function initialize($config = array())
 	{
 		$defaults = array(
-							'max_size'			=> 0,
-							'max_width'			=> 0,
-							'max_height'		=> 0,
-							'max_filename'		=> 0,
-							'allowed_types'		=> "",
-							'file_temp'			=> "",
-							'file_name'			=> "",
-							'orig_name'			=> "",
-							'file_type'			=> "",
-							'file_size'			=> "",
-							'file_ext'			=> "",
-							'upload_path'		=> "",
-							'overwrite'			=> FALSE,
-							'encrypt_name'		=> FALSE,
-							'is_image'			=> FALSE,
-							'image_width'		=> '',
-							'image_height'		=> '',
-							'image_type'		=> '',
-							'image_size_str'	=> '',
-							'error_msg'			=> array(),
-							'mimes'				=> array(),
-							'remove_spaces'		=> TRUE,
-							'xss_clean'			=> FALSE,
-							'temp_prefix'		=> "temp_file_",
-							'client_name'		=> ''
-						);
+			'max_size'			=> 0,
+			'max_width'			=> 0,
+			'max_height'		=> 0,
+			'max_filename'		=> 0,
+			'allowed_types'		=> "",
+			'file_temp'			=> "",
+			'file_name'			=> "",
+			'orig_name'			=> "",
+			'file_type'			=> "",
+			'file_size'			=> "",
+			'file_ext'			=> "",
+			'upload_path'		=> "",
+			'overwrite'			=> TRUE, // originally set FALSE.
+			'encrypt_name'		=> FALSE,
+			'is_image'			=> FALSE,
+			'image_width'		=> '',
+			'image_height'		=> '',
+			'image_type'		=> '',
+			'image_size_str'	=> '',
+			'error_msg'			=> array(),
+			'mimes'				=> array(),
+			'remove_spaces'		=> TRUE,
+			'xss_clean'			=> FALSE,
+			'temp_prefix'		=> "temp_file_",
+			'client_name'		=> ''
+		);
 
 
 		foreach ($defaults as $key => $val)

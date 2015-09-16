@@ -35,7 +35,7 @@ class Routes extends CI_Controller
         $this->table->clear();
         $this->table->set_heading(array('ID', '路線名稱', '所屬展覽', '展品數量', '管理'));
         $tmpl = array('table_open' => '<table id="route_list" data-toggle="table" data-striped="true">',
-                        'heading_cell_start' => '<th data-sortable="true">', );
+                      'heading_cell_start' => '<th data-sortable="true">', );
         $this->table->set_template($tmpl);
 
         return $routes;
@@ -43,16 +43,19 @@ class Routes extends CI_Controller
 
     public function get_route_add_form()
     {
-        // $this->load->view('header');
-        // $this->load->view('breadcrumb');
-        $this->load->view('route/route_add_form');
-        // $this->load->view('footer');
+        $this->load->model('Exhibition');
+        $data['exhibitions'] = $this->Exhibition->prepare_for_dropdwon();;
+
+        $this->load->view('route/route_add_form', $data);
     }
 
     public function get_route_edit_form()
     {
         $route_id = $_GET['route_id'];
         $data['route'] = $this->Route->find($route_id);
+
+        $this->load->model('Exhibition');
+        $data['exhibitions'] = $this->Exhibition->prepare_for_dropdwon();;
 
         $this->load->view('route/route_edit_form', $data);
     }

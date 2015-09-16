@@ -3,6 +3,7 @@
     <button id="add_fac_btn" type="button" class="btn btn-primary btn-xs pull-right">新增設施</button>
     <!-- <a href="/iBeaGuide/facilities/add" class="btn btn-primary btn-xs pull-right">新增設施</a> -->
 </legend>
+<?php echo $error; ?>
 <div id="fac_form_block"></div>
 <div id="fac_list_block">
 <?= $this->table->generate($facilities); ?>
