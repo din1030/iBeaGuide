@@ -1,4 +1,5 @@
 <html>
+
     <head>
         <title>iBeaGuide - 數位導覽內容管理系統</title>
         <!-- Latest compiled and minified CSS -->
@@ -13,8 +14,10 @@
         <!-- Latest compiled and minified JavaScript -->
         <script src="/iBeaGuide/assets//Bootstrap/js/bootstrap.min.js"></script>
 
-        <!-- jquery-pjax -->
+        <!-- single js files: jquery-pjax / form / scrollTo-->
         <script src="/iBeaGuide/assets/javascript/jquery.pjax.js"></script>
+        <script src="/iBeaGuide/assets/javascript/jquery.form.js"></script>
+        <script src="/iBeaGuide/assets/javascript/jquery.scrollTo.min.js"></script>
 
         <!-- bootstrap-table -->
         <link rel="stylesheet" href="/iBeaGuide/assets/bootstrap-table/src/bootstrap-table.css">
@@ -29,9 +32,6 @@
         <script src="/iBeaGuide/assets/moment/min/moment.min.js"></script>
         <script src="/iBeaGuide/assets/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
 
-        <!-- scrollTo -->
-        <script src="/iBeaGuide/assets/javascript/jquery.scrollTo.min.js"></script>
-
         <!-- bootstrap-dialog -->
         <script src="/iBeaGuide/assets/bootstrap3-dialog/src/js/bootstrap-dialog.js"></script>
 
@@ -42,6 +42,7 @@
         <script src="/iBeaGuide/assets/kartik-v-bootstrap-fileinput/js/fileinput_locale_zh-TW.js"></script>
 
     </head>
+
     <body>
         <div id="wrap">
             <div class="header">

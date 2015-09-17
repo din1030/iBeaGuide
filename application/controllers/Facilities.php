@@ -14,6 +14,7 @@ class Facilities extends CI_Controller
         $this->load->view('header');
         $this->load->view('breadcrumb');
         $data['facilities'] = $this->get_fac_list();
+        $data['error'] = '';
         $this->load->view('facility/fac_manage', $data);
         $this->load->view('footer');
     }
@@ -99,7 +100,7 @@ class Facilities extends CI_Controller
             $fac_obj->exh_id = $this->input->post('fac_exh');
             $fac_obj->title = $this->input->post('fac_title');
             $fac_obj->description = $this->input->post('fac_description');
-            // $fac_obj->main_pic = $this->input->post('fac_main_pic');
+            $fac_obj->main_pic = $this->input->post('fac_main_pic');
             $fac_obj->push_content = $this->input->post('fac_push');
             $fac_obj->ibeacon_id = $this->input->post('fac_ibeacon');
 
@@ -114,7 +115,7 @@ class Facilities extends CI_Controller
 
                 if (empty($_FILES['fac_main_pic'])) {
 
-                    $error_msg = $this->error_message->get_error_message('no_upload_file_error');
+                    $error_msg = $this->error_message('no_upload_file_error');
                     log_message('error', $error_msg);
                     echo $error_msg;
 
@@ -124,8 +125,8 @@ class Facilities extends CI_Controller
                     $config['upload_path'] = 'user_uploads';
                     $config['allowed_types'] = 'gif|jpg|png';
                     $config['max_size']	= '100000';
-                    $config['max_width']  = '2048';
-                    $config['max_height']  = '1536';
+                    $config['max_width']  = '1024';
+                    $config['max_height']  = '768';
                     $this->upload->initialize($config);
 
                     $upload_results = $this->upload->do_multiple_upload('fac_main_pic');

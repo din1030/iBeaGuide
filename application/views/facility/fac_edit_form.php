@@ -4,6 +4,7 @@
         <span class="h4">編輯設施資訊</span>
     </div>
     <div class="panel-body">
+        <div id="form_alert" class="alert alert-danger" role="alert" style="display: none"></div>
         <form id="edit_fac_form" class="form-horizontal" action="/iBeaGuide/facilities/edit_facility_action" method="post" enctype="multipart/form-data">
             <fieldset>
                 <input id="fac_id" type="hidden" name="fac_id" value="<?= $facility->id ?>">
@@ -20,7 +21,7 @@
                 <div class="form-group">
                     <label class="col-md-2 control-label" for="fac_title">設施名稱</label>
                     <div class="col-md-8">
-                        <input id="fac_title" name="fac_title" type="text" placeholder="" class="form-control input-md" required="" value="<?= $facility->title ?>">
+                        <input id="fac_title" name="fac_title" type="text" placeholder="" class="form-control input-md" value="<?= $facility->title ?>">
                     </div>
                 </div>
 
@@ -85,6 +86,17 @@
             allowedFileTypes: ["image"],
             previewFileType: 'image',
             uploadAsync: false
+        });
+
+        $('form').ajaxForm({
+            success: function( result ) {
+                // if( jqXhr.status == 400 ) { //Validation error or other reason for Bad Request 400
+                    // var error_str = jqXhr.responseText;
+                    $('#form_alert').show();
+                    $('#form_alert').html(result);
+                    $('#system-message').fadeOut();
+                // }
+            }
         });
 
     });

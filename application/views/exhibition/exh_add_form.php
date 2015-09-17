@@ -34,8 +34,8 @@
                 <div class="form-group">
                     <label class="col-md-2 control-label" for="exh_start_date">開展日期</label>
                     <div class="col-md-8">
-                        <div class='input-group date' id='exh_start_date_picker'>
-                            <input id='exh_start_date' type='text' class="form-control" />
+                        <div class="input-group date" id="exh_start_date_picker">
+                            <input id="exh_start_date" type="text" class="form-control" />
                             <span class="input-group-addon">
                                 <span class="glyphicon glyphicon-calendar"></span>
                             </span>
@@ -45,8 +45,8 @@
                 <div class="form-group">
                     <label class="col-md-2 control-label" for="exh_end_date">閉展日期</label>
                     <div class="col-md-8">
-                        <div class='input-group date' id='exh_end_date_picker'>
-                            <input id='exh_end_date' type='text' class="form-control" />
+                        <div class="input-group date" id="exh_end_date_picker">
+                            <input id="exh_end_date" type="text" class="form-control" />
                             <span class="input-group-addon">
                                 <span class="glyphicon glyphicon-calendar"></span>
                             </span>
@@ -56,8 +56,8 @@
                 <div class="form-group">
                     <label class="col-md-2 control-label" for="exh_daily_open_time">每日開展時間</label>
                     <div class="col-md-8">
-                        <div class='input-group date' id='exh_daily_open_time_picker'>
-                            <input id='exh_daily_open_time' type='text' class="form-control" />
+                        <div class="input-group date" id="exh_daily_open_time_picker">
+                            <input id="exh_daily_open_time" type="text" class="form-control" />
                             <span class="input-group-addon">
                                 <span class="glyphicon glyphicon-calendar"></span>
                             </span>
@@ -67,8 +67,8 @@
                 <div class="form-group">
                     <label class="col-md-2 control-label" for="exh_daily_close_time">每日閉展時間</label>
                     <div class="col-md-8">
-                        <div class='input-group date' id='exh_daily_close_time_picker'>
-                            <input id='exh_daily_close_time' type='text' class="form-control" />
+                        <div class="input-group date" id="exh_daily_close_time_picker">
+                            <input id="exh_daily_close_time" type="text" class="form-control" />
                             <span class="input-group-addon">
                                 <span class="glyphicon glyphicon-calendar"></span>
                             </span>

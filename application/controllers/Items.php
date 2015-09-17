@@ -17,7 +17,7 @@ class Items extends CI_Controller {
 
 	}
 
-	public function get_add_edit_form()
+	public function get_item_add_form()
 	{
 		$this->load->view('header');
         $this->load->view('breadcrumb');
