@@ -38,10 +38,10 @@
  */
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-$lang['form_validation_required'] = '要求含有 {field} 欄位';
-$lang['form_validation_isset'] = '{field} 欄位必須有值';
-$lang['form_validation_valid_email'] = '{field} 欄位必須是一個有效的 E-mail 地址';
-$lang['form_validation_valid_emails'] = '{field} 欄位必須包含有效的 E-mail地址';
+$lang['form_validation_required'] = '請填寫{field}';
+$lang['form_validation_isset'] = '請填寫{field}';
+$lang['form_validation_valid_email'] = '{field}必須是一個有效的 E-mail 地址';
+$lang['form_validation_valid_emails'] = '{field}必須包含有效的 E-mail 地址';
 $lang['form_validation_valid_url'] = '{field} 欄位必須是一個有效的 URL';
 $lang['form_validation_valid_ip'] = '{field} 欄位必須包含一個有效的 IP 位址';
 $lang['form_validation_min_length'] = '{field} 欄位最少需要有 {param} 字元';

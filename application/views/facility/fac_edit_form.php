@@ -90,12 +90,9 @@
 
         $('form').ajaxForm({
             success: function( result ) {
-                // if( jqXhr.status == 400 ) { //Validation error or other reason for Bad Request 400
-                    // var error_str = jqXhr.responseText;
-                    $('#form_alert').show();
-                    $('#form_alert').html(result);
-                    $('#system-message').fadeOut();
-                // }
+                $('#form_alert').show();
+                $('#form_alert').html(result);
+                $('#system-message').fadeOut();
             }
         });
 

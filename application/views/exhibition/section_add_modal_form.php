@@ -5,7 +5,7 @@
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title" id="myModalLabel">新增展區</h4>
     </div>
-    <form id="section_add_form" class="form-horizontal" action="exhibitions/add_section_action" method="post">
+    <form id="section_add_form" class="form-horizontal" action="/iBeaGuide/exhibitions/add_section_action" method="post" enctype="multipart/form-data">
         <fieldset>
             <div class="modal-body">
                 <input id="exh_id" type="hidden" name="exh_id" value="<?= $exh_id ?>">
