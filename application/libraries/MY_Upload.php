@@ -13,7 +13,7 @@ class MY_Upload extends CI_Upload
         log_message('debug', 'MY_Upload Class Initialized');
     }
 
-    public function do_multiple_upload($field = 'userfile', $type)
+    public function do_multiple_upload($field = 'userfile', $pic_type, $id_no, $id_no2 ='')
     {
         // Is $_FILES[$field] set? If not, no reason to continue.
         if (!isset($_FILES[$field])) {
@@ -46,9 +46,40 @@ class MY_Upload extends CI_Upload
         }
         $this->_CI->upload->set_upload_path($upload_path);
 
-        foreach ($_FILES as $file => $value) {
-            $this->_file_name_override = $type.$file;
+        $file_name_str = 'User_'.$this->_CI->config->item('login_user_id').'_'; // User_1_
 
+        switch ($pic_type) {
+            case 'exh':
+                $file_name_str .= 'exh_'.$id_no;
+                break;
+
+            case 'sec':
+                $file_name_str .= 'exh_'.$id_no.'_sec_'.$id_no2;
+                break;
+
+            case 'fac':
+                $file_name_str .= 'fac_'.$id_no.'_';
+                break;
+
+            case 'item_main':
+                $file_name_str .= 'item_'.$id_no.'_main';
+                break;
+
+            case 'item':
+                $file_name_str .= 'item_'.$id_no.'_';
+                break;
+
+            case 'route':
+                $file_name_str .= 'exh_'.$id_no.'_route_'.$id_no2;
+                break;
+
+            default:
+                break;
+        }
+
+        foreach ($_FILES as $file => $value) {
+
+            $this->_file_name_override = $file_name_str.$file;
             if (!$this->do_upload($file)) {
                 $result[$file]['name'] = $value['name'];
                 $result[$file]['error'] = $this->display_errors('', '<br>');

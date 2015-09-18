@@ -106,7 +106,7 @@ class Facilities extends CI_Controller
             // If DB update failed, then no need to upload files.
             if (!$fac_obj->update()) {
 
-                $error_msg = $this->error_message('update_error');
+                $error_msg = $this->error_message->get_error_message('update_error');
                 log_message('debug', $error_msg);
                 echo $error_msg;
 
@@ -118,6 +118,8 @@ class Facilities extends CI_Controller
                     log_message('error', $error_msg);
                     echo $error_msg;
 
+                    return;
+
                 } else {
 
                     // set upload config
@@ -128,7 +130,7 @@ class Facilities extends CI_Controller
                     // $config['max_height']  = '1536';
                     $this->upload->initialize($config);
 
-                    $upload_results = $this->upload->do_multiple_upload('fac_main_pic', 'fac');
+                    $upload_results = $this->upload->do_multiple_upload('fac_main_pic', 'fac', $this->input->post('fac_id'));
                     foreach ($upload_results as $result) {
                         if (isset($result['error'])) {
 

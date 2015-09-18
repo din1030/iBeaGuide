@@ -21,7 +21,7 @@
                 <div class="form-group">
                     <label class="col-md-2 control-label" for="fac_title">設施名稱</label>
                     <div class="col-md-8">
-                        <input id="fac_title" name="fac_title" type="text" placeholder="" class="form-control input-md" value="<?= $facility->title ?>">
+                        <input id="fac_title" name="fac_title" type="text" placeholder="" class="form-control input-md" requiredvalue="<?= $facility->title ?>">
                     </div>
                 </div>
 
@@ -89,10 +89,25 @@
         });
 
         $('form').ajaxForm({
-            success: function( result ) {
-                $('#form_alert').show();
-                $('#form_alert').html(result);
-                $('#system-message').fadeOut();
+            beforeSend: function(xhr) {
+                $('#system-message').html('處理中...');
+                $('#system-message').show();
+            },
+            success: function(result) {
+                if (result) {
+
+                    $('#form_alert').html(result);
+                    $('#form_alert').show();
+                    $('#system-message').fadeOut();
+
+                } else {
+
+                    $('#form_alert').hide();
+                    $('#form_alert').empty();
+                    $('#system-message').html('完成');
+                    $('#system-message').fadeOut();
+
+                }
             }
         });
 

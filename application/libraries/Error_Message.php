@@ -7,32 +7,32 @@
  */
 class Error_Message
 {
-    protected $CI;
-    protected $type;
+    // protected $CI;
+    // protected $type;
     protected $message;
 
     public function __construct()
     {
         // Assign the CodeIgniter super-object
-        $this->CI = &get_instance();
+        // $this->CI = &get_instance();
 
         log_message('debug', 'MY_Upload Class Initialized');
     }
 
-    protected function get_error_message($type)
+    public function get_error_message($type)
     {
         // $this->type = $type;
         switch ($type) {
             case 'update_error':
-                $this->message = "無法更新資料";
+                $this->message = "無法更新資料，請重新操作";
                 break;
 
             case 'upload_error':
-                $this->message = "無法上傳檔案";
+                $this->message = "無法上傳檔案，請重新操作";
                 break;
 
             case 'no_upload_file_error':
-                $this->message = "未選擇上傳檔案！";
+                $this->message = "未選擇上傳檔案，請重新操作";
                 break;
             //
             // case 'variable':

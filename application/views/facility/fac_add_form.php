@@ -4,6 +4,7 @@
         <span class="h4">新增設施資訊</span>
     </div>
     <div class="panel-body">
+        <div id="form_alert" class="alert alert-danger" role="alert" style="display: none"></div>
         <form id="add_fac_form" class="form-horizontal" action="/iBeaGuide/facilities/add_facility_action" method="post" enctype="multipart/form-data">
             <fieldset>
 
@@ -19,7 +20,7 @@
                 <div class="form-group">
                     <label class="col-md-2 control-label" for="fac_title">設施名稱</label>
                     <div class="col-md-8">
-                        <input id="fac_title" name="fac_title" type="text" placeholder="" class="form-control input-md" required="">
+                        <input id="fac_title" name="fac_title" type="text" placeholder="" class="form-control input-md" required>
                     </div>
                 </div>
 
@@ -85,6 +86,29 @@
             previewFileType: 'image',
             uploadAsync: false
             // uploadUrl: "/path/to/upload.php"
+        });
+
+        $('form').ajaxForm({
+            beforeSend: function(xhr) {
+                $('#system-message').html('處理中...');
+                $('#system-message').show();
+            },
+            success: function(result) {
+                if (result) {
+
+                    $('#form_alert').html(result);
+                    $('#form_alert').show();
+                    $('#system-message').fadeOut();
+
+                } else {
+
+                    $('#form_alert').hide();
+                    $('#form_alert').empty();
+                    $('#system-message').html('完成');
+                    $('#system-message').fadeOut();
+
+                }
+            }
         });
 
     });

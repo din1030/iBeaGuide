@@ -165,7 +165,7 @@ class CI_Upload {
 	 *
 	 * @var	bool
 	 */
-	public $overwrite = FALSE;
+	public $overwrite = TRUE;
 
 	/**
 	 * Obfuscate filename flag
