@@ -4,6 +4,7 @@
         <span class="h4">新增推薦路線</span>
     </div>
     <div class="panel-body">
+        <div id="form_alert" class="alert alert-danger" role="alert" style="display: none"></div>
         <form id="route_add_form" class="form-horizontal" action="exhibitions/add_route_action" method="post">
             <fieldset>
 
@@ -28,7 +29,7 @@
                 <div class="form-group">
                     <label class="col-md-2 control-label" for="route_main_pic">主要圖片</label>
                     <div class="col-md-8">
-                        <input id="route_main_pic" name="route_main_pic" class="input-file" type="file" accept="image/*" multiple="true">
+                        <input id="route_main_pic" name="route_main_pic[]" class="input-file" type="file" accept="image/*" multiple="true">
                     </div>
                 </div>
 
@@ -112,7 +113,7 @@
         $('#route_main_pic').fileinput({
             language: 'zh-TW',
             showUpload: false,
-            maxFileCount: 3,
+            maxFileCount: 1,
             allowedFileTypes: ["image"],
             previewFileType: 'image'
         });

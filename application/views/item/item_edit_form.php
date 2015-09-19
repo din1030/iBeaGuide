@@ -52,7 +52,7 @@
         <div class="form-group">
             <label class="col-md-4 control-label" for="item_main_pic">主要圖片</label>
             <div class="col-md-4">
-                <input id="item_main_pic" name="item_main_pic" class="input-file" type="file">
+                <input id="item_main_pic" name="item_main_pic[]" class="input-file" type="file">
             </div>
         </div>
 

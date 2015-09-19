@@ -11,7 +11,6 @@
 <?php $this->table->clear(); ?>
 
 <script type="text/javascript">
-
     $(document.body).off('click.add_exh_form', '#add-exh-btn');
     $(document.body).on('click.add_exh_form', '#add-exh-btn', function() {
         $.ajax({
@@ -60,7 +59,7 @@
         var this_exh_id = $(this).attr('data-exh-id');
         BootstrapDialog.show({
             title: '注意！',
-            message: '是否刪除此展區？',
+            message: '刪除展覽資訊會將所屬展區一併刪除，是否確認刪除此展覽？',
             buttons: [{
                 label: '取消',
                 action: function(dialogRef){

@@ -9,7 +9,15 @@
         <fieldset>
             <div class="modal-body">
                 <input id="sec_id" type="hidden" name="sec_id" value="<?= $sec->id ?>">
-                <input id="exh_id" type="hidden" name="exh_id" value="<?= $sec->exh_id ?>">
+                
+                <!-- Select Basic -->
+                <div class="form-group">
+                    <label class="col-md-2 control-label" for="sec_exh">所屬展覽</label>
+                    <div class="col-md-8">
+                        <?= form_dropdown('sec_exh', $exhibitions, $sec->exh_id, "id='sec_exh' class='form-control'") ?>
+                    </div>
+                </div>
+
                 <!-- Text input-->
                 <div class="form-group">
                     <label class="col-md-2 control-label" for="sec_title">展區標題</label>
@@ -30,7 +38,7 @@
                 <div class="form-group">
                     <label class="col-md-2 control-label" for="sec_main_pic">主要圖片</label>
                     <div class="col-md-8">
-                        <input id="sec_main_pic" name="sec_main_pic" class="input-file" type="file" accept="image/*" multiple="true">
+                        <input id="sec_main_pic" name="sec_main_pic[]" class="input-file" type="file" accept="image/*" multiple="true">
                     </div>
                 </div>
             </div>

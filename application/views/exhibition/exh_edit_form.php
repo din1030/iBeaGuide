@@ -4,8 +4,8 @@
         <span class="h4">編輯「<?= $exhibition->title ?>」展覽資訊</span>
     </div>
     <div class="panel-body">
-
-        <form id="edit_exh_form" class="form-horizontal" action="/iBeaGuide/exhibitions/edit_exhibition_action" method="post">
+        <div id="form_alert" class="alert alert-danger" role="alert" style="display: none"></div>
+        <form id="exh_edit_form" class="form-horizontal" action="/iBeaGuide/exhibitions/edit_exhibition_action" method="post">
             <fieldset>
                 <input id="exh_id" type="hidden" name="exh_id" value="<?= $exhibition->id ?>">
 
@@ -95,10 +95,10 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="col-md-2 control-label" for="exh_main_pic">封面照片</label>
+                    <label class="col-md-2 control-label" for="exh_main_pic">主要圖片</label>
                     <!-- File Upload -->
                     <div class="col-md-8">
-                        <input id="exh_main_pic" name="exh_main_pic" class="input-file" type="file">
+                        <input id="exh_main_pic" name="exh_main_pic[]" class="input-file" type="file" accept="image/*">
                     </div>
                 </div>
 
@@ -138,7 +138,7 @@
     </div>
 </div>
 <script type="text/javascript">
-    $('#edit_exh_form').ready(function() {
+    $('#exh_edit_form').ready(function() {
 
         $('#exh_start_date_picker').datetimepicker({
             format: 'YYYY-MM-DD',
@@ -180,9 +180,33 @@
         $('#exh_main_pic').fileinput({
             language: 'zh-TW',
             showUpload: false,
-            maxFileCount: 3,
+            maxFileCount: 1,
             allowedFileTypes: ["image"],
             previewFileType: 'image'
+            // showCaption: false
+        });
+
+        $('form').ajaxForm({
+            beforeSend: function(xhr) {
+                $('#system-message').html('處理中...');
+                $('#system-message').show();
+            },
+            success: function(result) {
+                if (result) {
+
+                    $('#form_alert').html(result);
+                    $('#form_alert').show();
+                    $('#system-message').fadeOut();
+
+                } else {
+
+                    $('#form_alert').hide();
+                    $('#form_alert').empty();
+                    $('#system-message').html('完成');
+                    $('#system-message').fadeOut();
+
+                }
+            }
         });
 
         $(document.body).off('click.exh_cancel', '#exh_cancel_btn');

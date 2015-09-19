@@ -23,21 +23,26 @@ class Error_Message
     {
         // $this->type = $type;
         switch ($type) {
-            case 'update_error':
-                $this->message = "無法更新資料，請重新操作";
+
+            case 'create_error':
+                $this->message = "建立資料發生錯誤，請重新操作";
                 break;
 
-            case 'upload_error':
-                $this->message = "無法上傳檔案，請重新操作";
+            case 'update_error':
+                $this->message = "更新資料發生錯誤，請重新操作";
+                break;
+
+            case 'delete_error':
+                $this->message = "刪除資料發生錯誤，請重新操作";
+                break;
+
+            case 'file_upload_error':
+                $this->message = "上傳檔案發生錯誤，請重新操作";
                 break;
 
             case 'no_upload_file_error':
                 $this->message = "未選擇上傳檔案，請重新操作";
                 break;
-            //
-            // case 'variable':
-            //     $this->message = "";
-            //     break;
 
             default:
                 $this->message = "失敗，請重新操作";

@@ -86,26 +86,52 @@ class Exhibitions extends CI_Controller
                 'push_content' => $this->input->post('exh_push'),
                 'ibeacon_id' => $this->input->post('exh_ibeacon'),
             );
-            $this->Exhibition->create($data);
+            $exh_obj = $this->Exhibition->create($data);
 
-            $this->load->view('header');
-            $this->load->view('breadcrumb');
-            $this->load->view('exhibition/submit');
-            $this->load->view('footer');
+            if (!isset($exh_obj->id)) {
+                $error_msg = $this->error_message->get_error_message('create_error');
+                log_message('debug', $error_msg);
+                echo $error_msg;
+            } else {
+                if (empty($_FILES['exh_main_pic'])) {
+                    $error_msg = $this->error_message->get_error_message('no_upload_file_error');
+                    log_message('error', $error_msg);
+                    echo $error_msg;
+
+                    return;
+                } else {
+                    // set upload config
+                    $config['allowed_types'] = 'gif|jpg|png';
+                    $config['max_size'] = '2048';
+                    $this->upload->initialize($config);
+
+                    $upload_results = $this->upload->do_multiple_upload('exh_main_pic', 'exh', $exh_obj->id);
+                    foreach ($upload_results as $result) {
+                        if (isset($result['error'])) {
+                            // if error is set, print why  upload failed.
+                            log_message('error', $result['name'].' upload failed.');
+                            echo $result['name'].' '.$result['error'];
+                        } else {
+                            log_message('debug', $result['name'].' uploaded.');
+                        }
+                    }
+                }
+            }
         }
+
+        return;
     }
 
     public function edit_exhibition_action()
     {
         $this->form_validation->set_rules('exh_title', '標題', 'required');
+        // To complete validation rules!
+
         if ($this->form_validation->run() == false) {
-            $this->load->view('exhibition/edit'); // 應該要改成沒過就不會送出
+            echo validation_errors();
+            return;
         } else {
             $exh_obj = $this->Exhibition->find($this->input->post('exh_id'));
-
-            $exh_obj->title = $this->input->post('exh_title');
-            $exh_obj->description = $this->input->post('exh_description');
-            $exh_obj->main_pic = $this->input->post('exh_main_pic');
             $exh_obj->title = $this->input->post('exh_title');
             $exh_obj->subtitle = $this->input->post('exh_subtitle');
             $exh_obj->venue = $this->input->post('exh_venue');
@@ -115,19 +141,67 @@ class Exhibitions extends CI_Controller
             $exh_obj->daily_open_time = $this->input->post('exh_daily_open_time');
             $exh_obj->daily_close_time = $this->input->post('exh_daily_close_time');
             $exh_obj->web_link = $this->input->post('exh_web_link');
-            $exh_obj->main_pic = $this->input->post('exh_main_pic');
+            // $exh_obj->main_pic = $this->input->post('exh_main_pic');
             $exh_obj->push_content = $this->input->post('exh_push');
             $exh_obj->ibeacon_id = $this->input->post('exh_ibeacon');
-            $exh_obj->save();
 
-            redirect('exhibitions');
+            // If DB update failed, then no need to upload files.
+            if (!$exh_obj->update()) {
+                $error_msg = $this->error_message->get_error_message('update_error');
+                log_message('debug', $error_msg);
+                echo $error_msg;
+            } else {
+                if (empty($_FILES['exh_main_pic'])) {
+                    $error_msg = $this->error_message->get_error_message('no_upload_file_error');
+                    log_message('error', $error_msg);
+                    echo $error_msg;
+
+                    return;
+                } else {
+
+                    // set upload config
+                    $config['upload_path'] = 'gif|jpg|png';
+                    $config['allowed_types'] = 'gif|jpg|png';
+                    $config['max_size'] = '2048';
+                    $this->upload->initialize($config);
+
+                    // $this->upload->do_upload('exh_main_pic');
+
+                    $upload_results = $this->upload->do_multiple_upload('exh_main_pic', 'exh', $this->input->post('exh_id'), '');
+                    foreach ($upload_results as $result) {
+                        if (isset($result['error'])) {
+
+                            // if error is set, print why upload failed.
+                            log_message('error', $result['name'].' upload failed.');
+                            echo $result['name'].' '.$result['error'];
+                        } else {
+                            log_message('debug', $result['name'].' uploaded.');
+                        }
+                    }
+                }
+            }
         }
+        return;
     }
 
     public function delete_exhibition_action()
     {
         $exh_obj = $this->Exhibition->find($_POST['exh_id']);
-        $exh_obj->delete();
+
+        // if exhibition has sections, detele them before deleting exhibition itself.ㄦ
+        $exh_sec_array = $this->Section->find_all_by_exh_id($_POST['exh_id']);
+        if(isset($exh_sec_array)) {
+            foreach ($exh_sec_array as $sec_obj) {
+                if(!$sec_obj->delete()) {
+                    echo $this->error_message->get_error_message('delete_error');
+                    return;
+                }
+            }
+        }
+        if(!$exh_obj->delete()) {
+            echo $this->error_message->get_error_message('delete_error');
+            return;
+        }
         echo $this->table->generate($this->get_exh_list());
     }
 
@@ -137,7 +211,7 @@ class Exhibitions extends CI_Controller
         if (!isset($exh_id)) {
             redirect('exhibitions');
         }
-        $data['exhibition'] = $this->Exhibition->find_by_id($exh_id);
+        $data['exhibition'] = $this->Exhibition->find($exh_id);
 
         $this->load->view('header');
         $this->load->view('breadcrumb');
@@ -179,6 +253,10 @@ class Exhibitions extends CI_Controller
     {
         $sec_id = $_GET['sec_id'];
         $data['sec'] = $this->Section->find($sec_id);
+
+        $this->load->model('Exhibition');
+        $data['exhibitions'] = $this->Exhibition->prepare_for_dropdwon();
+
         $this->load->view('exhibition/section_edit_modal_form', $data);
     }
 
@@ -214,8 +292,9 @@ class Exhibitions extends CI_Controller
         } else {
             $sec_obj = $this->Section->find($this->input->post('sec_id'));
             $sec_obj->title = $this->input->post('sec_title');
+            $sec_obj->exh_id = $this->input->post('sec_exh');
             $sec_obj->description = $this->input->post('sec_description');
-            $sec_obj->main_pic = $this->input->post('sec_main_pic');
+            // $sec_obj->main_pic = $this->input->post('sec_main_pic');
             $sec_obj->save();
 
             redirect('exhibitions/sections?exh_id='.$sec_obj->exh_id);

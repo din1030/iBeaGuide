@@ -55,7 +55,7 @@ class Facilities extends CI_Controller
     public function get_fac_edit_form()
     {
         $fac_id = $_GET['fac_id'];
-        $data['facility'] = $this->Facility->find_by_id($fac_id);
+        $data['facility'] = $this->Facility->find($fac_id);
 
         $this->load->model('Exhibition');
         $data['exhibitions'] = $this->Exhibition->prepare_for_dropdwon();
@@ -91,6 +91,8 @@ class Facilities extends CI_Controller
     public function edit_facility_action()
     {
         $this->form_validation->set_rules('fac_title', '設施名稱', 'required');
+        // To complete validation rules!
+
         if ($this->form_validation->run() == false) {
             echo validation_errors();
         } else {
@@ -123,11 +125,8 @@ class Facilities extends CI_Controller
                 } else {
 
                     // set upload config
-                    $config['upload_path'] = 'user_uploads';
                     $config['allowed_types'] = 'gif|jpg|png';
                     $config['max_size']	= '100000';
-                    // $config['max_width']  = '2048';
-                    // $config['max_height']  = '1536';
                     $this->upload->initialize($config);
 
                     $upload_results = $this->upload->do_multiple_upload('fac_main_pic', 'fac', $this->input->post('fac_id'));

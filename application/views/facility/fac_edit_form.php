@@ -5,7 +5,7 @@
     </div>
     <div class="panel-body">
         <div id="form_alert" class="alert alert-danger" role="alert" style="display: none"></div>
-        <form id="edit_fac_form" class="form-horizontal" action="/iBeaGuide/facilities/edit_facility_action" method="post" enctype="multipart/form-data">
+        <form id="fac_edit_form" class="form-horizontal" action="/iBeaGuide/facilities/edit_facility_action" method="post" enctype="multipart/form-data">
             <fieldset>
                 <input id="fac_id" type="hidden" name="fac_id" value="<?= $facility->id ?>">
 
@@ -21,7 +21,7 @@
                 <div class="form-group">
                     <label class="col-md-2 control-label" for="fac_title">設施名稱</label>
                     <div class="col-md-8">
-                        <input id="fac_title" name="fac_title" type="text" placeholder="" class="form-control input-md" requiredvalue="<?= $facility->title ?>">
+                        <input id="fac_title" name="fac_title" type="text" placeholder="" class="form-control input-md" required value="<?= $facility->title ?>">
                     </div>
                 </div>
 
@@ -69,20 +69,12 @@
     </div>
 </div>
 <script type="text/javascript">
-    $('#edit_fac_form').ready(function() {
-
-        $(document.body).off('click.fac_cancel', '#fac_cancel_btn');
-        $(document.body).on('click.fac_cancel', '#fac_cancel_btn', function() {
-            $('#fac_form_block').empty();
-            $.scrollTo($('#add_fac_btn'), 500, {
-                offset: -10
-            });
-        });
+    $('#fac_edit_form').ready(function() {
 
         $('#fac_main_pic').fileinput({
             language: 'zh-TW',
             showUpload: false,
-            maxFileCount: 3,
+            maxFileCount: 1,
             allowedFileTypes: ["image"],
             previewFileType: 'image',
             uploadAsync: false
@@ -109,6 +101,14 @@
 
                 }
             }
+        });
+
+        $(document.body).off('click.fac_cancel', '#fac_cancel_btn');
+        $(document.body).on('click.fac_cancel', '#fac_cancel_btn', function() {
+            $('#fac_form_block').empty();
+            $.scrollTo($('#add_fac_btn'), 500, {
+                offset: -10
+            });
         });
 
     });

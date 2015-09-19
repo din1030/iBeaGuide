@@ -5,7 +5,7 @@
     </div>
     <div class="panel-body">
         <div id="form_alert" class="alert alert-danger" role="alert" style="display: none"></div>
-        <form id="add_fac_form" class="form-horizontal" action="/iBeaGuide/facilities/add_facility_action" method="post" enctype="multipart/form-data">
+        <form id="fac_add_form" class="form-horizontal" action="/iBeaGuide/facilities/add_facility_action" method="post" enctype="multipart/form-data">
             <fieldset>
 
                 <!-- Select Basic -->
@@ -68,7 +68,7 @@
     </div>
 </div>
 <script type="text/javascript">
-    $('#add_fac_form').ready(function() {
+    $('#fac_add_form').ready(function() {
 
         $(document.body).off('click.fac_cancel', '#fac_cancel_btn');
         $(document.body).on('click.fac_cancel', '#fac_cancel_btn', function() {
@@ -85,7 +85,6 @@
             allowedFileTypes: ["image"],
             previewFileType: 'image',
             uploadAsync: false
-            // uploadUrl: "/path/to/upload.php"
         });
 
         $('form').ajaxForm({

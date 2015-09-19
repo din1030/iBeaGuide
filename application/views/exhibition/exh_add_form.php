@@ -4,7 +4,8 @@
         <span class="h4">新增展覽</span>
     </div>
     <div class="panel-body">
-        <form id="add_exh_form" class="form-horizontal" action="exhibitions/add_exhibition_action" method="post">
+        <div id="form_alert" class="alert alert-danger" role="alert" style="display: none"></div>
+        <form id="exh_add_form" class="form-horizontal" action="exhibitions/add_exhibition_action" method="post">
             <fieldset>
 
                 <div class="form-group">
@@ -59,7 +60,7 @@
                         <div class="input-group date" id="exh_daily_open_time_picker">
                             <input id="exh_daily_open_time" type="text" class="form-control" />
                             <span class="input-group-addon">
-                                <span class="glyphicon glyphicon-calendar"></span>
+                                <span class="glyphicon glyphicon-time"></span>
                             </span>
                         </div>
                     </div>
@@ -70,7 +71,7 @@
                         <div class="input-group date" id="exh_daily_close_time_picker">
                             <input id="exh_daily_close_time" type="text" class="form-control" />
                             <span class="input-group-addon">
-                                <span class="glyphicon glyphicon-calendar"></span>
+                                <span class="glyphicon glyphicon-time"></span>
                             </span>
                         </div>
                     </div>
@@ -93,10 +94,10 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="col-md-2 control-label" for="exh_main_pic">封面照片</label>
+                    <label class="col-md-2 control-label" for="exh_main_pic">主要圖片</label>
                     <!-- File Upload -->
                     <div class="col-md-8">
-                        <input id="exh_main_pic" name="exh_main_pic" class="input-file" type="file" multiple="true" accept="image/*">
+                        <input id="exh_main_pic" name="exh_main_pic[]" class="input-file" type="file" multiple="true" accept="image/*">
                     </div>
                 </div>
 
@@ -136,7 +137,7 @@
     </div>
 </div>
 <script type="text/javascript">
-    $('#add_exh_form').ready(function() {
+    $('#exh_add_form').ready(function() {
 
         $('#exh_start_date').datetimepicker({
             format: 'YYYY-MM-DD'
@@ -174,9 +175,32 @@
         $('#exh_main_pic').fileinput({
             language: 'zh-TW',
             showUpload: false,
-            maxFileCount: 3,
+            maxFileCount: 1,
             allowedFileTypes: ["image"],
             previewFileType: 'image'
+        });
+
+        $('form').ajaxForm({
+            beforeSend: function(xhr) {
+                $('#system-message').html('處理中...');
+                $('#system-message').show();
+            },
+            success: function(result) {
+                if (result) {
+
+                    $('#form_alert').html(result);
+                    $('#form_alert').show();
+                    $('#system-message').fadeOut();
+
+                } else {
+
+                    $('#form_alert').hide();
+                    $('#form_alert').empty();
+                    $('#system-message').html('完成');
+                    $('#system-message').fadeOut();
+
+                }
+            }
         });
 
         $(document.body).off('click.exh_cancel', '#exh_cancel_btn');
