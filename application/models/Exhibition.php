@@ -29,10 +29,25 @@ class Exhibition extends ActiveRecord {
     // 要改成判斷日期！
     public function get_latest_exh()
     {
-        $this->db->select('id, title, main_pic');
+        $this->db->select('id, title');
         $this->db->where('curator_id', $this->config->item('login_user_id'));
         $query = $this->db->get($this->_table, 3, 0);
         $exhibitions = $query->result_array();
+        $this->load->helper('directory');
+        $filename_prefix = 'user_uploads/User_'.$this->config->item('login_user_id').'/User_'.$this->config->item('login_user_id').'_exh_';
+        // $filename_dir = 'user_uploads/User_'.$this->config->item('login_user_id').'/';
+        // 'User_'.$this->config->item('login_user_id').'_exh_';
+
+        foreach ($exhibitions as $index => $exh_data) {
+            $filename = $filename_prefix.$exh_data['id'];
+            if (is_file($filename.'.jpg')) {
+                $exhibitions[$index]['main_pic'] = $filename.'.jpg';
+            } elseif (is_file($filename.'.png')) {
+                $exhibitions[$index]['main_pic'] = $filename.'.png';
+            } elseif (is_file($filename.'.gif')) {
+                $exhibitions[$index]['main_pic'] = $filename.'.gif';
+            }
+        }
 
         return $exhibitions;
     }

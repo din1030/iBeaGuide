@@ -82,10 +82,13 @@ class Exhibitions extends CI_Controller
                 'daily_open_time' => $this->input->post('exh_daily_open_time'),
                 'daily_close_time' => $this->input->post('exh_daily_close_time'),
                 'web_link' => $this->input->post('exh_web_link'),
-                'main_pic' => $this->input->post('exh_main_pic'),
+                // 'main_pic' => $this->input->post('exh_main_pic'),
                 'push_content' => $this->input->post('exh_push'),
-                'ibeacon_id' => $this->input->post('exh_ibeacon'),
             );
+            if ($this->input->post('exh_ibeacon') != 0) {
+                $data['ibeacon_id'] = $this->input->post('exh_ibeacon');
+            }
+
             $exh_obj = $this->Exhibition->create($data);
 
             if (!isset($exh_obj->id)) {

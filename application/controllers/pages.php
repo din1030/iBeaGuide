@@ -6,7 +6,6 @@ class Pages extends CI_Controller
     {
         $this->load->model('Exhibition');
         $data['exhibitions'] = $this->Exhibition->get_latest_exh();
-        log_message('debug', '123');
 
         $this->load->view('header');
         $this->load->view('home', $data);
