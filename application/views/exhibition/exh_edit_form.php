@@ -13,7 +13,7 @@
                     <!-- Text input-->
                     <label class="col-md-2 control-label" for="exh_title">標題</label>
                     <div class="col-sm-8 col-md-8">
-                        <input id="exh_title" name="exh_title" type="text" placeholder="" class="form-control input-md" required="" value="<?= $exhibition->title ?>">
+                        <input id="exh_title" name="exh_title" type="text" placeholder="" class="form-control input-md" required value="<?= $exhibition->title ?>">
                     </div>
                 </div>
 
@@ -82,7 +82,7 @@
                     <!-- Textarea -->
                     <label class="col-md-2 control-label" for="exh_description">展覽介紹</label>
                     <div class="col-md-8">
-                        <textarea class="form-control" id="exh_description" name="exh_description"><?= $exhibition->description ?></textarea>
+                        <textareaid="exh_description" name="exh_description" class="form-control" required><?= $exhibition->description ?></textarea>
                     </div>
                 </div>
 
@@ -90,7 +90,7 @@
                     <!-- Text input-->
                     <label class="col-md-2 control-label" for="exh_web_link">官網連結</label>
                     <div class="col-sm-8 col-md-8">
-                        <input id="exh_web_link" name="exh_web_link" type="text" placeholder="" class="form-control input-md" required="" value="<?= $exhibition->web_link ?>">
+                        <input id="exh_web_link" name="exh_web_link" type="text" placeholder="" class="form-control input-md"value="<?= $exhibition->web_link ?>">
                     </div>
                 </div>
 
@@ -98,7 +98,8 @@
                     <label class="col-md-2 control-label" for="exh_main_pic">主要圖片</label>
                     <!-- File Upload -->
                     <div class="col-md-8">
-                        <input id="exh_main_pic" name="exh_main_pic[]" class="input-file" type="file" accept="image/*">
+                        <input id="exh_main_pic" name="exh_main_pic[]" class="input-file" type="file" accept="image/*" required>
+                        <p class="help-block">（檔案大小請勿超過 2 MB）</p>
                     </div>
                 </div>
 
@@ -107,6 +108,12 @@
                     <label class="col-md-2 control-label" for="exh_push">推播文字</label>
                     <div class="col-md-8">
                         <textarea class="form-control" id="exh_push" name="exh_push"><?= $exhibition->push_content ?></textarea>
+                        <p class="help-block">（推播文字將顯示於使用者手機推播通知）</p>
+                        <!-- <div class="checkbox">
+                            <label>
+                                <input id="customize_push" type="checkbox"> 自定推播文字內容
+                            </label>
+                        </div> -->
                     </div>
                 </div>
 
@@ -139,6 +146,16 @@
 </div>
 <script type="text/javascript">
     $('#exh_edit_form').ready(function() {
+
+        // $('#exh_title').on("change keyup click", function() {
+        //     if (!$('#customize_push').prop("checked")) {
+        //         $('#exh_push').val("歡迎參觀「" + $('#exh_title').val() + "」！");
+        //     }
+        // });
+        //
+        // $('#customize_push').change(function() {
+        //     $('#exh_push').prop('disabled', !$('#exh_push').prop('disabled'));
+        // });
 
         $('#exh_start_date_picker').datetimepicker({
             format: 'YYYY-MM-DD',
@@ -180,6 +197,7 @@
         $('#exh_main_pic').fileinput({
             language: 'zh-TW',
             showUpload: false,
+            minFileCount: 1,
             maxFileCount: 1,
             allowedFileTypes: ["image"],
             previewFileType: 'image'

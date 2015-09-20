@@ -37,6 +37,7 @@
                     <label class="col-md-2 control-label" for="fac_main_pic">主要圖片</label>
                     <div class="col-md-8">
                         <input id="fac_main_pic" name="fac_main_pic[]" class="input-file" type="file" multiple="true" accept="image/*">
+                        <p class="help-block">（檔案大小請勿超過 2 MB）</p>
                     </div>
                 </div>
 
@@ -53,6 +54,7 @@
                     <label class="col-md-2 control-label" for="fac_push">推播文字</label>
                     <div class="col-md-8">
                         <textarea class="form-control" id="fac_push" name="fac_push"></textarea>
+                        <p class="help-block">（推播文字將顯示於使用者手機推播通知）</p>
                     </div>
                 </div>
 

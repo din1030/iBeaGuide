@@ -35,7 +35,7 @@ class Facilities extends CI_Controller
         $this->table->clear();
         $this->table->set_heading(array('ID', '設施名稱', '所屬展覽', '連結iBeacon', '管理'));
         $tmpl = array('table_open' => '<table id="fac_list" data-toggle="table" data-striped="true">',
-                    'heading_cell_start' => '<th data-sortable="true">' );
+                    'heading_cell_start' => '<th data-sortable="true">', );
         $this->table->set_template($tmpl);
 
         return $facilities;
@@ -78,7 +78,7 @@ class Facilities extends CI_Controller
                 'exh_id' => $this->input->post('fac_exh'),
                 'title' => $this->input->post('fac_title'),
                 'description' => $this->input->post('fac_description'),
-                'main_pic' => $this->input->post('fac_main_pic'),
+                // 'main_pic' => $this->input->post('fac_main_pic'),
                 'push_content' => $this->input->post('fac_push'),
                 'ibeacon_id' => $this->input->post('fac_ibeacon'),
             );

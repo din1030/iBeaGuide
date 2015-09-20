@@ -9,7 +9,7 @@
         <fieldset>
             <div class="modal-body">
                 <input id="sec_id" type="hidden" name="sec_id" value="<?= $sec->id ?>">
-                
+
                 <!-- Select Basic -->
                 <div class="form-group">
                     <label class="col-md-2 control-label" for="sec_exh">所屬展覽</label>
@@ -39,6 +39,7 @@
                     <label class="col-md-2 control-label" for="sec_main_pic">主要圖片</label>
                     <div class="col-md-8">
                         <input id="sec_main_pic" name="sec_main_pic[]" class="input-file" type="file" accept="image/*" multiple="true">
+                        <p class="help-block">（檔案大小請勿超過 2 MB）</p>
                     </div>
                 </div>
             </div>

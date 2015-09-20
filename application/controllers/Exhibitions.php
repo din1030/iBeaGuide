@@ -38,7 +38,7 @@ class Exhibitions extends CI_Controller
         $this->table->clear();
         $this->table->set_heading(array('ID', '展覽名稱', '展場', '開始日期', '結束日期', '連結iBeacon', '管理'));
         $tmpl = array('table_open' => '<table id="exh_list" data-toggle="table" data-striped="true">',
-                        'heading_cell_start' => '<th data-sortable="true">', );
+                      'heading_cell_start' => '<th data-sortable="true">', );
         $this->table->set_template($tmpl);
 
         return $exhibitions;
@@ -66,46 +66,57 @@ class Exhibitions extends CI_Controller
     public function add_exhibition_action()
     {
         $this->form_validation->set_rules('exh_title', '標題', 'required');
+        $this->form_validation->set_rules('exh_venue', '標題', 'required');
+        $this->form_validation->set_rules('exh_start_date', '開展日期', 'required');
+        $this->form_validation->set_rules('exh_end_date', '閉展日期', 'required');
+        $this->form_validation->set_rules('exh_daily_open_time', '每日開展時間', 'required');
+        $this->form_validation->set_rules('exh_daily_close_time', '每日閉展時間', 'required');
+        $this->form_validation->set_rules('exh_description', '展覽介紹', 'required');
 
         if ($this->form_validation->run() == false) {
-            $this->load->view('exhibition/add');
+            echo validation_errors();
+
+            return;
         } else {
-            ;
             $data = array(
                 'curator_id' => $this->config->item('login_user_id'),
                 'title' => $this->input->post('exh_title'),
                 'subtitle' => $this->input->post('exh_subtitle'),
                 'venue' => $this->input->post('exh_venue'),
-                'description' => $this->input->post('exh_description'),
                 'start_date' => $this->input->post('exh_start_date'),
                 'end_date' => $this->input->post('exh_end_date'),
                 'daily_open_time' => $this->input->post('exh_daily_open_time'),
                 'daily_close_time' => $this->input->post('exh_daily_close_time'),
+                'description' => $this->input->post('exh_description'),
                 'web_link' => $this->input->post('exh_web_link'),
                 // 'main_pic' => $this->input->post('exh_main_pic'),
                 'push_content' => $this->input->post('exh_push'),
             );
+
             if ($this->input->post('exh_ibeacon') != 0) {
                 $data['ibeacon_id'] = $this->input->post('exh_ibeacon');
             }
 
-            $exh_obj = $this->Exhibition->create($data);
-
-            if (!isset($exh_obj->id)) {
-                $error_msg = $this->error_message->get_error_message('create_error');
-                log_message('debug', $error_msg);
+            // If no selected files, terminating add action
+            if (empty($_FILES['exh_main_pic'])) {
+                $error_msg = $this->error_message->get_error_message('no_upload_file_error');
+                log_message('error', $error_msg);
                 echo $error_msg;
-            } else {
-                if (empty($_FILES['exh_main_pic'])) {
-                    $error_msg = $this->error_message->get_error_message('no_upload_file_error');
-                    log_message('error', $error_msg);
-                    echo $error_msg;
 
-                    return;
+                return;
+            } else {
+                $exh_obj = $this->Exhibition->create($data);
+                unset($data);
+
+                // If create data fail
+                if (!isset($exh_obj)) {
+                    $error_msg = $this->error_message->get_error_message('create_error');
+                    log_message('debug', $error_msg);
+                    echo $error_msg;
                 } else {
                     // set upload config
                     $config['allowed_types'] = 'gif|jpg|png';
-                    $config['max_size'] = '2048';
+                    $config['max_size'] = '2048'; // 2MB
                     $this->upload->initialize($config);
 
                     $upload_results = $this->upload->do_multiple_upload('exh_main_pic', 'exh', $exh_obj->id);
@@ -118,6 +129,7 @@ class Exhibitions extends CI_Controller
                             log_message('debug', $result['name'].' uploaded.');
                         }
                     }
+                    unset($upload_results);
                 }
             }
         }
@@ -128,10 +140,16 @@ class Exhibitions extends CI_Controller
     public function edit_exhibition_action()
     {
         $this->form_validation->set_rules('exh_title', '標題', 'required');
-        // To complete validation rules!
+        $this->form_validation->set_rules('exh_venue', '展場', 'required');
+        $this->form_validation->set_rules('exh_start_date', '開展日期', 'required');
+        $this->form_validation->set_rules('exh_end_date', '閉展日期', 'required');
+        $this->form_validation->set_rules('exh_daily_open_time', '每日開展時間', 'required');
+        $this->form_validation->set_rules('exh_daily_close_time', '每日閉展時間', 'required');
+        $this->form_validation->set_rules('exh_description', '展覽介紹', 'required');
 
         if ($this->form_validation->run() == false) {
             echo validation_errors();
+
             return;
         } else {
             $exh_obj = $this->Exhibition->find($this->input->post('exh_id'));
@@ -146,29 +164,29 @@ class Exhibitions extends CI_Controller
             $exh_obj->web_link = $this->input->post('exh_web_link');
             // $exh_obj->main_pic = $this->input->post('exh_main_pic');
             $exh_obj->push_content = $this->input->post('exh_push');
-            $exh_obj->ibeacon_id = $this->input->post('exh_ibeacon');
+
+            if ($this->input->post('exh_ibeacon') != 0) {
+                $exh_obj->ibeacon_id = $this->input->post('exh_ibeacon');
+            } else {
+                $exh_obj->ibeacon_id = null;
+            }
 
             // If DB update failed, then no need to upload files.
             if (!$exh_obj->update()) {
                 $error_msg = $this->error_message->get_error_message('update_error');
                 log_message('debug', $error_msg);
                 echo $error_msg;
-            } else {
-                if (empty($_FILES['exh_main_pic'])) {
-                    $error_msg = $this->error_message->get_error_message('no_upload_file_error');
-                    log_message('error', $error_msg);
-                    echo $error_msg;
 
-                    return;
-                } else {
+                return;
+            } else {
+                // Edit action allows user not to upload files.
+                // But if there are files, upload them.
+                if (!empty($_FILES['exh_main_pic'])) {
 
                     // set upload config
-                    $config['upload_path'] = 'gif|jpg|png';
                     $config['allowed_types'] = 'gif|jpg|png';
-                    $config['max_size'] = '2048';
+                    $config['max_size'] = '2048'; // 2MB
                     $this->upload->initialize($config);
-
-                    // $this->upload->do_upload('exh_main_pic');
 
                     $upload_results = $this->upload->do_multiple_upload('exh_main_pic', 'exh', $this->input->post('exh_id'), '');
                     foreach ($upload_results as $result) {
@@ -181,9 +199,11 @@ class Exhibitions extends CI_Controller
                             log_message('debug', $result['name'].' uploaded.');
                         }
                     }
+                    unset($upload_results);
                 }
             }
         }
+
         return;
     }
 
@@ -193,16 +213,18 @@ class Exhibitions extends CI_Controller
 
         // if exhibition has sections, detele them before deleting exhibition itself.ㄦ
         $exh_sec_array = $this->Section->find_all_by_exh_id($_POST['exh_id']);
-        if(isset($exh_sec_array)) {
+        if (isset($exh_sec_array)) {
             foreach ($exh_sec_array as $sec_obj) {
-                if(!$sec_obj->delete()) {
+                if (!$sec_obj->delete()) {
                     echo $this->error_message->get_error_message('delete_error');
+
                     return;
                 }
             }
         }
-        if(!$exh_obj->delete()) {
+        if (!$exh_obj->delete()) {
             echo $this->error_message->get_error_message('delete_error');
+
             return;
         }
         echo $this->table->generate($this->get_exh_list());
@@ -277,7 +299,7 @@ class Exhibitions extends CI_Controller
                 'exh_id' => $exh_id,
                 'title' => $this->input->post('sec_title'),
                 'description' => $this->input->post('sec_description'),
-                'main_pic' => $this->input->post('sec_main_pic'),
+                // 'main_pic' => $this->input->post('sec_main_pic'),
             );
             $this->Section->create($data);
 

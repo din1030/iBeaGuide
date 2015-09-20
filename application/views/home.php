@@ -1,16 +1,28 @@
 <div id="active-exh" class="row" style="padding-bottom: 15px;">
     <h4>進行中展覽：</h4>
     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-center">
-        <img class="img-responsive" src="<?php echo $exhibitions[0]['main_pic']; ?>">
-        <h4><?= $exhibitions[0]['title']; ?></h4>
+        <div class="active-exh-img-block">
+            <img class="img-responsive" src="<?php echo $exhibitions[0]['main_pic']; ?>">
+        </div>
+        <h4>
+            <?= $exhibitions[0]['title']; ?>
+        </h4>
     </div>
     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-center">
-        <img class="img-responsive" src="<?php echo $exhibitions[1]['main_pic']; ?>">
-        <h4><?= $exhibitions[1]['title']; ?></h4>
+        <div class="active-exh-img-block">
+            <img class="img-responsive" src="<?php echo $exhibitions[1]['main_pic']; ?>">
+        </div>
+        <h4>
+            <?= $exhibitions[1]['title']; ?>
+        </h4>
     </div>
     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-center">
-        <img class="img-responsive" src="<?php echo $exhibitions[2]['main_pic']; ?>">
-        <h4><?= $exhibitions[2]['title']; ?></h4>
+        <div class="active-exh-img-block">
+            <img class="img-responsive" src="<?php echo $exhibitions[2]['main_pic']; ?>">
+        </div>
+        <h4>
+            <?= $exhibitions[2]['title']; ?>
+        </h4>
     </div>
 </div>
 <hr>

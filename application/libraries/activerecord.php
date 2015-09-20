@@ -152,6 +152,7 @@ class ActiveRecord extends CI_Model
             return $return;
         } else {
             log_message('error', $this->db->last_query());
+            return false;
         }
     }
 
