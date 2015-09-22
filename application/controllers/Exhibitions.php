@@ -44,6 +44,11 @@ class Exhibitions extends CI_Controller
         return $exhibitions;
     }
 
+    public function print_exh_list()
+    {
+        echo $this->table->generate($this->get_exh_list());
+    }
+
     public function get_exh_add_form()
     {
         $this->load->model('Ibeacon');

@@ -186,6 +186,7 @@
             $('#exh_main_pic').fileinput({
                 language: 'zh-TW',
                 showUpload: false,
+                minFileCount: 1,
                 maxFileCount: 1,
                 allowedFileTypes: ["image"],
                 previewFileType: 'image'
@@ -203,6 +204,22 @@
                     } else {
                         $('#form_alert').hide();
                         $('#form_alert').empty();
+
+                        $.ajax({
+                            url: 'exhibitions/print_exh_list',
+                            type: "GET",
+                            dataType: 'html',
+
+                            success: function(html_block) {
+                                $('#exh_list_block').html(html_block);
+                                $('#exh_form_block').empty();
+                                $('[data-toggle="table"]').bootstrapTable();
+                                $('#system-message').html('完成');
+                                $('#system-message').fadeOut();
+                                $.scrollTo($('#add-exh-btn'), 500, {offset: -10});
+                            }
+                        });
+
                         $('#system-message').html('完成');
                         $('#system-message').fadeOut();
                     }
