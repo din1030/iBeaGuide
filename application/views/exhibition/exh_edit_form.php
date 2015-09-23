@@ -14,7 +14,7 @@
                         <!-- Text input-->
                         <label class="col-md-2 control-label" for="exh_title">標題</label>
                         <div class="col-sm-8 col-md-8">
-                            <input id="exh_title" name="exh_title" type="text" placeholder="" class="form-control input-md" required value="<?= $exhibition->title ?>">
+                            <input id="exh_title" name="exh_title" type="text" placeholder="" class="form-control input-md" required="" value="<?= $exhibition->title ?>">
                         </div>
                     </div>
 
@@ -38,7 +38,7 @@
                         <label class="col-md-2 control-label" for="exh_start_date">開展日期</label>
                         <div class="col-md-8">
                             <div class="input-group date" id="exh_start_date_picker">
-                                <input id="exh_start_date" name="exh_start_date" type="text" class="form-control" required value="<?= $exhibition->start_date ?>" />
+                                <input id="exh_start_date" name="exh_start_date" type="text" class="form-control" required="" value="<?= $exhibition->start_date ?>" />
                                 <span class="input-group-addon">
                                     <span class="glyphicon glyphicon-calendar"></span>
                                 </span>
@@ -49,7 +49,7 @@
                         <label class="col-md-2 control-label" for="exh_end_date">閉展日期</label>
                         <div class="col-md-8">
                             <div class="input-group date" id="exh_end_date_picker">
-                                <input id="exh_end_date" name="exh_end_date" type="text" class="form-control" required value="<?= $exhibition->end_date ?>" />
+                                <input id="exh_end_date" name="exh_end_date" type="text" class="form-control" required="" value="<?= $exhibition->end_date ?>" />
                                 <span class="input-group-addon">
                                     <span class="glyphicon glyphicon-calendar"></span>
                                 </span>
@@ -60,7 +60,7 @@
                         <label class="col-md-2 control-label" for="exh_daily_open_time">每日開展時間</label>
                         <div class="col-md-8">
                             <div class='input-group date' id='exh_daily_open_time_picker'>
-                                <input id="exh_daily_open_time" name="exh_daily_open_time" type="text" class="form-control" required value="<?= $exhibition->daily_open_time ?>" />
+                                <input id="exh_daily_open_time" name="exh_daily_open_time" type="text" class="form-control" required="" value="<?= $exhibition->daily_open_time ?>" />
                                 <span class="input-group-addon">
                                     <span class="glyphicon glyphicon-calendar"></span>
                                 </span>
@@ -71,7 +71,7 @@
                         <label class="col-md-2 control-label" for="exh_daily_close_time">每日閉展時間</label>
                         <div class="col-md-8">
                             <div class="input-group date" id="exh_daily_close_time_picker">
-                                <input id="exh_daily_close_time" name="exh_daily_close_time" type="text" class="form-control" required value="<?= $exhibition->daily_close_time ?>" />
+                                <input id="exh_daily_close_time" name="exh_daily_close_time" type="text" class="form-control" required="" value="<?= $exhibition->daily_close_time ?>" />
                                 <span class="input-group-addon">
                                     <span class="glyphicon glyphicon-calendar"></span>
                                 </span>
@@ -187,7 +187,7 @@
                 $('#exh_daily_open_time_picker').data("DateTimePicker").maxDate(e.date);
             });
             $('#exh_main_pic').fileinput({
-                // language: 'zh-TW',
+                language: 'zh-TW',
                 showUpload: false,
                 // minFileCount: 1, 編輯可不上傳檔案
                 maxFileCount: 1,
@@ -199,9 +199,9 @@
                     $('#system-message').html('處理中...');
                     $('#system-message').show();
                 },
-                success: function(result) {
-                    if (result) {
-                        $('#form_alert').html(result);
+                success: function(error) {
+                    if (error) {
+                        $('#form_alert').html(error);
                         $('#form_alert').show();
                         $('#system-message').fadeOut();
                     } else {

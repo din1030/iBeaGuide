@@ -21,7 +21,7 @@
                 <div class="form-group">
                     <label class="col-md-2 control-label" for="fac_title">設施名稱</label>
                     <div class="col-md-8">
-                        <input id="fac_title" name="fac_title" type="text" placeholder="" class="form-control input-md" required value="<?= $facility->title ?>">
+                        <input id="fac_title" name="fac_title" type="text" placeholder="" class="form-control input-md" required="" value="<?= $facility->title ?>">
                     </div>
                 </div>
 

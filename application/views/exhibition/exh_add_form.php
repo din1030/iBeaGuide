@@ -196,9 +196,9 @@
                     $('#system-message').html('處理中...');
                     $('#system-message').show();
                 },
-                success: function(result) {
-                    if (result) {
-                        $('#form_alert').html(result);
+                success: function(error) {
+                    if (error) {
+                        $('#form_alert').html(error);
                         $('#form_alert').show();
                         $('#system-message').fadeOut();
                     } else {

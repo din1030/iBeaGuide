@@ -46,3 +46,11 @@
         <a class="btn btn-block btn-lg btn-default list-group" href="/iBeaGuide/ibeacons">iBeacon管理</a>
     </div>
 </div>
+<script type="text/javascript">
+    // main pic will cover whole block with oringin ratio
+    $('.active-exh-img-block img').each(function(){
+        if($(this).width() > $(this).height()) {
+            $(this).css({"height": "100%", "object-fit": "cover"});
+        }
+    });
+</script>

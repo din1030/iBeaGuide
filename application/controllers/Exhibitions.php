@@ -80,8 +80,6 @@ class Exhibitions extends CI_Controller
 
         if ($this->form_validation->run() == false) {
             echo validation_errors();
-
-            return;
         } else {
             $data = array(
                 'curator_id' => $this->config->item('login_user_id'),
@@ -135,6 +133,7 @@ class Exhibitions extends CI_Controller
                         }
                     }
                     unset($upload_results);
+                    unset($exh_obj);
                 }
             }
         }
@@ -154,8 +153,6 @@ class Exhibitions extends CI_Controller
 
         if ($this->form_validation->run() == false) {
             echo validation_errors();
-
-            return;
         } else {
             $exh_obj = $this->Exhibition->find($this->input->post('exh_id'));
             $exh_obj->title = $this->input->post('exh_title');
@@ -196,7 +193,6 @@ class Exhibitions extends CI_Controller
                     $upload_results = $this->upload->do_multiple_upload('exh_main_pic', 'exh', $this->input->post('exh_id'), '');
                     foreach ($upload_results as $result) {
                         if (isset($result['error'])) {
-
                             // if error is set, print why upload failed.
                             log_message('error', $result['name'].' upload failed.');
                             echo $result['name'].' '.$result['error'];
@@ -205,6 +201,7 @@ class Exhibitions extends CI_Controller
                         }
                     }
                     unset($upload_results);
+                    unset($exh_obj);
                 }
             }
         }
@@ -273,6 +270,11 @@ class Exhibitions extends CI_Controller
         return $sections;
     }
 
+    public function print_sec_list($exh_id)
+    {
+        echo $this->table->generate($this->get_sec_list($exh_id));
+    }
+
     public function get_section_add_modal_form()
     {
         $data['exh_id'] = $_GET['exh_id'];
@@ -296,7 +298,7 @@ class Exhibitions extends CI_Controller
         $this->form_validation->set_rules('sec_description', '說明', 'required');
 
         if ($this->form_validation->run() == false) {
-            redirect('exhibitions');
+            echo validation_errors();
         } else {
             $exh_id = $this->input->post('exh_id');
 
@@ -306,10 +308,46 @@ class Exhibitions extends CI_Controller
                 'description' => $this->input->post('sec_description'),
                 // 'main_pic' => $this->input->post('sec_main_pic'),
             );
-            $this->Section->create($data);
 
-            redirect("exhibitions/sections?exh_id=$exh_id");
+            // If no selected files, terminating add action
+            if (empty($_FILES['sec_main_pic'])) {
+                $error_msg = $this->error_message->get_error_message('no_upload_file_error');
+                log_message('error', $error_msg);
+                echo $error_msg;
+
+                return;
+            } else {
+                $sec_obj = $this->Section->create($data);
+                unset($data);
+
+                // If create data fail
+                if (!isset($sec_obj)) {
+                    $error_msg = $this->error_message->get_error_message('create_error');
+                    log_message('debug', $error_msg);
+                    echo $error_msg;
+                } else {
+                    // set upload config
+                    $config['allowed_types'] = 'gif|jpg|png';
+                    $config['max_size'] = '2048'; // 2MB
+                    $this->upload->initialize($config);
+
+                    $upload_results = $this->upload->do_multiple_upload('sec_main_pic', 'sec', $sec_obj->id, $sec_obj->id);
+                    foreach ($upload_results as $result) {
+                        if (isset($result['error'])) {
+                            // if error is set, print why  upload failed.
+                            log_message('error', $result['name'].' upload failed.');
+                            echo $result['name'].' '.$result['error'];
+                        } else {
+                            log_message('debug', $result['name'].' uploaded.');
+                        }
+                    }
+                    unset($upload_results);
+                    unset($sec_obj);
+                }
+            }
         }
+
+        return;
     }
 
     public function edit_section_action()
@@ -318,17 +356,49 @@ class Exhibitions extends CI_Controller
         $this->form_validation->set_rules('sec_description', '說明', 'required');
 
         if ($this->form_validation->run() == false) {
-            redirect('exhibitions');
+            echo validation_errors();
         } else {
             $sec_obj = $this->Section->find($this->input->post('sec_id'));
             $sec_obj->title = $this->input->post('sec_title');
             $sec_obj->exh_id = $this->input->post('sec_exh');
             $sec_obj->description = $this->input->post('sec_description');
             // $sec_obj->main_pic = $this->input->post('sec_main_pic');
-            $sec_obj->save();
 
-            redirect('exhibitions/sections?exh_id='.$sec_obj->exh_id);
+            // If DB update failed, then no need to upload files.
+            if (!$sec_obj->update()) {
+                $error_msg = $this->error_message->get_error_message('update_error');
+                log_message('debug', $error_msg);
+                echo $error_msg;
+
+                return;
+            } else {
+                // Edit action allows user not to upload files.
+                // But if there are files, upload them.
+                if (!empty($_FILES['sec_main_pic'])) {
+
+                    // set upload config
+                    $config['allowed_types'] = 'gif|jpg|png';
+                    $config['max_size'] = '2048'; // 2MB
+                    $this->upload->initialize($config);
+                    log_message('debug', $sec_obj->exh_id.'-'.$sec_obj->id);
+
+                    $upload_results = $this->upload->do_multiple_upload('sec_main_pic', 'sec', $sec_obj->exh_id, $sec_obj->id);
+                    foreach ($upload_results as $result) {
+                        if (isset($result['error'])) {
+                            // if error is set, print why upload failed.
+                            log_message('error', $result['name'].' upload failed.');
+                            echo $result['name'].' '.$result['error'];
+                        } else {
+                            log_message('debug', $result['name'].' uploaded.');
+                        }
+                    }
+                    unset($upload_results);
+                    unset($sec_obj);
+                }
+            }
         }
+
+        return;
     }
 
     public function delete_section_action()
