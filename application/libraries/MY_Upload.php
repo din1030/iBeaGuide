@@ -87,7 +87,7 @@ class MY_Upload extends CI_Upload
                 $this->error_msg = array();
             } else {
                 $result[$file_no]['name'] = $file_data['name'];
-                if (!$this->_create_thumbnail($upload_path.'/'.$this->file_name, false, $thumbMarker = '', 2048, 1536)) {
+                if (!$this->_create_thumbnail($upload_path.'/'.$this->file_name, false, $thumbMarker = '', 800, 600)) {
                     $result[$file_no]['error'] = $this->_CI->display_errors('', '<br>');
                     $this->error_msg = array();
                 }
