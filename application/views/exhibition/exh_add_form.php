@@ -209,7 +209,6 @@
                             url: 'exhibitions/print_exh_list',
                             type: "GET",
                             dataType: 'html',
-
                             success: function(html_block) {
                                 $('#exh_list_block').html(html_block);
                                 $('#exh_form_block').empty();

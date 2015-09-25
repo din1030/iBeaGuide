@@ -152,6 +152,7 @@ class ActiveRecord extends CI_Model
             return $return;
         } else {
             log_message('error', $this->db->last_query());
+
             return false;
         }
     }
@@ -595,7 +596,7 @@ class ActiveRecord extends CI_Model
     {
         $this->db->select($select_string);
         $this->db->from($this->_table);
-        $this->db->join('exhibitions', 'exhibitions.id = '.$this->_table.'.exh_id', 'left');
+        $this->db->join('exhibitions', 'exhibitions.id = '.$this->_table.'.exh_id', 'INNER');
         $this->db->where('exhibitions.curator_id', $this->config->item('login_user_id'));
         $query = $this->db->get();
 

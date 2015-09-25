@@ -26,6 +26,9 @@ class Exhibitions extends CI_Controller
         $exhibitions = array();
 
         foreach ($result_array as $exh_row) {
+            if (!isset($exh_row['ibeacon_id']) || $exh_row['ibeacon_id'] == 0) {
+                $exh_row['ibeacon_id'] = '未連結';
+            }
             $manage_ctrl = "<a href='/iBeaGuide/exhibitions/sections?exh_id=".$exh_row['id']."' class='btn btn-default'>展區管理</a>&nbsp;";
             $manage_ctrl .= "<button id='edit-exh-btn_".$exh_row['id']."' type='button' class='btn btn-primary edit-exh-btn' data-toggle='modal' data-exh-id='".$exh_row['id']."'>編輯</button>&nbsp;";
             $manage_ctrl .= "<button id='del-exh-btn_".$exh_row['id']."' type='button' class='btn btn-danger del-exh-btn' data-toggle='modal' data-exh-id='".$exh_row['id']."'>刪除</button>";
@@ -71,12 +74,13 @@ class Exhibitions extends CI_Controller
     public function add_exhibition_action()
     {
         $this->form_validation->set_rules('exh_title', '標題', 'required');
-        $this->form_validation->set_rules('exh_venue', '標題', 'required');
+        $this->form_validation->set_rules('exh_venue', '展場', 'required');
         $this->form_validation->set_rules('exh_start_date', '開展日期', 'required');
         $this->form_validation->set_rules('exh_end_date', '閉展日期', 'required');
         $this->form_validation->set_rules('exh_daily_open_time', '每日開展時間', 'required');
         $this->form_validation->set_rules('exh_daily_close_time', '每日閉展時間', 'required');
         $this->form_validation->set_rules('exh_description', '展覽介紹', 'required');
+        $this->form_validation->set_rules('exh_push', '推播文字', 'required');
 
         if ($this->form_validation->run() == false) {
             echo validation_errors();
@@ -133,8 +137,8 @@ class Exhibitions extends CI_Controller
                         }
                     }
                     unset($upload_results);
-                    unset($exh_obj);
                 }
+                unset($exh_obj);
             }
         }
 
@@ -184,7 +188,6 @@ class Exhibitions extends CI_Controller
                 // Edit action allows user not to upload files.
                 // But if there are files, upload them.
                 if (!empty($_FILES['exh_main_pic'])) {
-
                     // set upload config
                     $config['allowed_types'] = 'gif|jpg|png';
                     $config['max_size'] = '2048'; // 2MB
@@ -201,9 +204,9 @@ class Exhibitions extends CI_Controller
                         }
                     }
                     unset($upload_results);
-                    unset($exh_obj);
                 }
             }
+            unset($exh_obj);
         }
 
         return;
@@ -342,8 +345,8 @@ class Exhibitions extends CI_Controller
                         }
                     }
                     unset($upload_results);
-                    unset($sec_obj);
                 }
+                unset($sec_obj);
             }
         }
 
@@ -393,9 +396,9 @@ class Exhibitions extends CI_Controller
                         }
                     }
                     unset($upload_results);
-                    unset($sec_obj);
                 }
             }
+            unset($sec_obj);
         }
 
         return;

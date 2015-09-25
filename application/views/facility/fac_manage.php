@@ -1,6 +1,6 @@
 <legend>
     設施管理
-    <button id="add_fac_btn" type="button" class="btn btn-primary btn-xs pull-right">新增設施</button>
+    <button id="add-fac-btn" type="button" class="btn btn-primary btn-xs pull-right">新增設施</button>
     <!-- <a href="/iBeaGuide/facilities/add" class="btn btn-primary btn-xs pull-right">新增設施</a> -->
 </legend>
 <div id="fac_form_block"></div>
@@ -10,8 +10,8 @@
 <?php $this->table->clear(); ?>
 
 <script type="text/javascript">
-    $(document.body).off('click.add_fac_form', '#add_fac_btn');
-    $(document.body).on('click.add_fac_form', '#add_fac_btn', function() {
+    $(document.body).off('click.add_fac_form', '#add-fac-btn');
+    $(document.body).on('click.add_fac_form', '#add-fac-btn', function() {
         $.ajax({
             url: '/iBeaGuide/facilities/get_fac_add_form',
             type: "GET",
@@ -46,13 +46,12 @@
             },
             success: function(html_block) {
                 $('#fac_form_block').html(html_block);
-                $.scrollTo($('#add_fac_btn'), 500, {offset: -10});
+                $.scrollTo($('#add-fac-btn'), 500, {offset: -10});
                 $('#system-message').html('完成');
                 $('#system-message').fadeOut();
             }
         });
     });
-
 
     $(document.body).off('click.delete_fac', '.del-fac-btn');
     $(document.body).on('click.delete_fac', '.del-fac-btn', function() {
@@ -84,7 +83,7 @@
                         },
                         success: function(html_block) {
                             $('#fac_list_block').html(html_block);
-                            // $.scrollTo($('#add_fac_btn'), 500, {offset: -10});
+                            // $.scrollTo($('#add-fac-btn'), 500, {offset: -10});
                             $('#system-message').html('完成');
                             $('#system-message').fadeOut();
                             $('[data-toggle="table"]').bootstrapTable();

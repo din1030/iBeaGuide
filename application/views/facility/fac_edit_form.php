@@ -87,20 +87,31 @@
                 $('#system-message').html('處理中...');
                 $('#system-message').show();
             },
-            success: function(result) {
-                if (result) {
-
-                    $('#form_alert').html(result);
+            success: function(error) {
+                if (error) {
+                    $('#form_alert').html(error);
                     $('#form_alert').show();
                     $('#system-message').fadeOut();
-
                 } else {
-
                     $('#form_alert').hide();
                     $('#form_alert').empty();
+
+                    $.ajax({
+                        url: 'facilities/print_fac_list',
+                        type: "GET",
+                        dataType: 'html',
+                        success: function(html_block) {
+                            $('#fac_list_block').html(html_block);
+                            $('#fac_form_block').empty();
+                            $('[data-toggle="table"]').bootstrapTable();
+                            $('#system-message').html('完成');
+                            $('#system-message').fadeOut();
+                            $.scrollTo($('#add-fac-btn'), 500, {offset: -10});
+                        }
+                    });
+
                     $('#system-message').html('完成');
                     $('#system-message').fadeOut();
-
                 }
             }
         });
