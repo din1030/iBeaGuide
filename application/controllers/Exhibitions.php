@@ -34,7 +34,6 @@ class Exhibitions extends CI_Controller
             $manage_ctrl .= "<button id='del-exh-btn_".$exh_row['id']."' type='button' class='btn btn-danger del-exh-btn' data-toggle='modal' data-exh-id='".$exh_row['id']."'>刪除</button>";
             array_push($exh_row, $manage_ctrl);
             $exhibitions[] = $exh_row;
-            $exh_row = null;
         }
         unset($result_array);
 

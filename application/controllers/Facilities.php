@@ -81,7 +81,7 @@ class Facilities extends CI_Controller
         $this->form_validation->set_rules('fac_push', '推播文字', 'required');
 
         if ($this->form_validation->run() == false) {
-            $this->load->view('facility/add');
+            echo validation_errors();
         } else {
             $data = array(
                 'owner_id' => $this->config->item('login_user_id'),

@@ -1,4 +1,4 @@
-<?php echo validation_errors(); ?>
+
 <div class="panel panel-info panel-form">
     <div class="panel-heading">
         <span class="h4">編輯設施資訊</span>

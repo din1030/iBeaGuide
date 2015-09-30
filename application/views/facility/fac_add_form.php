@@ -1,4 +1,3 @@
-<?php echo validation_errors(); ?>
 <div class="panel panel-info panel-form">
     <div class="panel-heading">
         <span class="h4">新增設施資訊</span>
@@ -71,7 +70,6 @@
 </div>
 <script type="text/javascript">
     $('#fac_add_form').ready(function() {
-
         $('#fac_main_pic').fileinput({
             language: 'zh-TW',
             showUpload: false,
@@ -80,7 +78,6 @@
             previewFileType: 'image',
             uploadAsync: false
         });
-
         $('form').ajaxForm({
             beforeSend: function(xhr) {
                 $('#system-message').html('處理中...');
@@ -94,7 +91,6 @@
                 } else {
                     $('#form_alert').hide();
                     $('#form_alert').empty();
-
                     $.ajax({
                         url: 'facilities/print_fac_list',
                         type: "GET",
@@ -105,16 +101,16 @@
                             $('[data-toggle="table"]').bootstrapTable();
                             $('#system-message').html('完成');
                             $('#system-message').fadeOut();
-                            $.scrollTo($('#add-fac-btn'), 500, {offset: -10});
+                            $.scrollTo($('#add-fac-btn'), 500, {
+                                offset: -10
+                            });
                         }
                     });
-
                     $('#system-message').html('完成');
                     $('#system-message').fadeOut();
                 }
             }
         });
-
         $(document.body).off('click.fac_cancel', '#fac_cancel_btn');
         $(document.body).on('click.fac_cancel', '#fac_cancel_btn', function() {
             $('#fac_form_block').empty();
@@ -122,6 +118,5 @@
                 offset: -10
             });
         });
-
     });
 </script>

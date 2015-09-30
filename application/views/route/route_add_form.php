@@ -1,4 +1,4 @@
-<?php echo validation_errors(); ?>
+
 <div class="panel panel-info panel-form">
     <div class="panel-heading">
         <span class="h4">新增推薦路線</span>

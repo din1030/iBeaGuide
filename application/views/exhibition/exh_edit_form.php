@@ -1,4 +1,4 @@
-<?php echo validation_errors(); ?>
+
     <div class="panel panel-info panel-form">
         <div class="panel-heading">
             <span class="h4">編輯「
@@ -138,7 +138,7 @@
                     <div class="form-group text-center">
                         <button type="button" id="preview" name="preview" class="btn btn-default">預覽</button>
                         <button type="submit" id="submit" name="submit" class="btn btn-primary">送出展覽資訊</button>
-                        <button type="button" id="exh_cancel_btn" name="exh_cancel_btn" class="btn btn-default">取消</button>
+                        <button type="button" id="exh-cancel-btn" name="exh-cancel-btn" class="btn btn-default">取消</button>
                     </div>
 
                 </fieldset>
@@ -228,8 +228,8 @@
                 }
             });
 
-            $(document.body).off('click.exh_cancel', '#exh_cancel_btn');
-            $(document.body).on('click.exh_cancel', '#exh_cancel_btn', function() {
+            $(document.body).off('click.exh_cancel', '#exh-cancel-btn');
+            $(document.body).on('click.exh_cancel', '#exh-cancel-btn', function() {
                 $('#exh_form_block').empty();
                 $.scrollTo($('#add_exh_btn'), 500, {
                     offset: -10
