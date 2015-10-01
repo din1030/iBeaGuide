@@ -70,14 +70,38 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | The $query_builder variables lets you determine whether or not to load
 | the query builder class.
 */
-$active_group = 'default';
+$active_group = 'dct_server';
+// $active_group = 'localhost';
 $query_builder = TRUE;
 
-$db['default'] = array(
+// setting for DCT Lab server 
+$db['dct_server'] = array(
 	'dsn'	   => '',
 	'hostname' => '140.119.189.154',
 	'username' => '101462001',
 	'password' => 'AD771030DIN',
+	'database' => 'ibeaguide',
+	'dbdriver' => 'mysqli',
+	'dbprefix' => '',
+	'pconnect' => FALSE,
+	'db_debug' => (ENVIRONMENT !== 'production'),
+	'cache_on' => FALSE,
+	'cachedir' => '',
+	'char_set' => 'utf8',
+	'dbcollat' => 'utf8_general_ci',
+	'swap_pre' => '',
+	'encrypt'  => FALSE,
+	'compress' => FALSE,
+	'stricton' => FALSE,
+	'failover' => array(),
+	'save_queries' => TRUE
+);
+//  setting for localhost DB
+$db['localhost'] = array(
+	'dsn'	   => '',
+	'hostname' => 'localhost',
+	'username' => 'din1030',
+	'password' => 'ibg101462001',
 	'database' => 'ibeaguide',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',

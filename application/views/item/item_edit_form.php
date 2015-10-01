@@ -89,24 +89,18 @@
                 </div>
 
                 <!-- Text input-->
-                <div class="form-group">
+                <!-- <div class="form-group">
                     <label class="col-md-2 control-label" for="item_finished_time">展品完成時間</label>
                     <div class="col-md-8">
                         <input id="item_finished_time" name="item_finished_time" type="text" placeholder="日期或文字描述（如：2015 夏末）" class="form-control input-md">
-
                     </div>
-                </div>
+                </div> -->
 
                 <!-- Select Basic -->
                 <div class="form-group">
-                    <label class="col-md-2 control-label" for="item_ibeacon">連結 iBeacon</label>
+                    <label class="col-md-2 control-label" for="exh_ibeacon">連結 iBeacon</label>
                     <div class="col-md-8">
-                        <select id="item_ibeacon" name="item_ibeacon" class="form-control">
-                            <option value="null">請選擇</option>
-                            <option value="1">A</option>
-                            <option value="2">B</option>
-                            <option value="3">C</option>
-                        </select>
+                        <?= form_dropdown('item_ibeacon', $ibeacons, '', "id='item_ibeacon' class='form-control'") ?>
                     </div>
                 </div>
 
