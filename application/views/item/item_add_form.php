@@ -27,9 +27,10 @@
                     <div class="col-md-8">
                     </div>
                 </div>
+
                 <!-- Text input-->
                 <div class="form-group">
-                    <label class="col-md-2 control-label" for="item_title">展品標題</label>
+                    <label class="col-md-2 control-label" for="item_title">展品名稱</label>
                     <div class="col-md-8">
                         <input id="item_title" name="item_title" type="text" placeholder="" class="form-control input-md" required="">
                     </div>
@@ -45,7 +46,7 @@
 
                 <!-- Text input-->
                 <div class="form-group">
-                    <label class="col-md-2 control-label" for="item_creator">展品創作者</label>
+                    <label class="col-md-2 control-label" for="item_creator">展品作者</label>
                     <div class="col-md-8">
                         <input id="item_creator" name="item_creator" type="text" placeholder="" class="form-control input-md" required="">
                     </div>
@@ -63,7 +64,7 @@
                 <div class="form-group">
                     <label class="col-md-2 control-label" for="item_main_pic">主要圖片</label>
                     <div class="col-md-8">
-                        <input id="item_main_pic" name="item_main_pic[]" class="input-file" type="file" accept="image/*">
+                        <input id="item_main_pic" name="item_main_pic[]" class="input-file" type="file" accept="image/*" required="">
                         <p class="help-block">（檔案大小請勿超過 2 MB）</p>
                     </div>
                 </div>
@@ -86,25 +87,24 @@
                 </div>
             </fieldset>
             <div class="col-md-offset-2 col-md-8">
-                <button type="button" id="add-field-btn" name="add-field-btn" class="btn btn-block btn-info">
-                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>新增自訂欄位
+                <button type="button" id="add-basic-btn" name="add-basic-btn" class="btn btn-block btn-info">
+                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>新增基本資訊欄位
                 </button>
-            </div>
-            <div id="note_for_custon_fields">
-                <p>
-                    自訂欄位注意事項：
-                </p>
+                <br>
+                <div id="note_for_basic_fields" class="text-muted" style="display: none;">
+                    <p>自訂詳細解說欄位注意事項：</p>
                     <ul>
-                        <li>最多新增五個自訂欄位。</li>
+                        <li>最多新增三個詳細解說欄位。</li>
+                        <li>自訂欄位將顯示於原有欄位之後。</li>
                         <li>欄位名稱與內容皆為必填，若其中一項留白將動刪除該欄位（欲刪除欄位，請將該欄位名稱或內容留白即可）。</li>
                         <li>欄位名稱建議長度為四個字以內。</li>
                     </ul>
+                </div>
             </div>
+            <div class="clearfix"></div>
             <br>
             <br>
-            <br>
-            <br>
-            <fieldset>
+            <fieldset id="item_detail_info">
                 <div class="col-md-12">
                     <legend>展品詳細資訊
                         <span style="font-size:15px; color:#AAA;">顯示於展品導覽詳細說明頁面</span>
@@ -112,7 +112,7 @@
                 </div>
                 <!-- Textarea -->
                 <div class="form-group">
-                    <label class="col-md-2 control-label" for="item_detail">展品詳細說明</label>
+                    <label class="col-md-2 control-label" for="item_detail">展品詳細解說</label>
                     <div class="col-md-8">
                         <textarea class="form-control" id="item_detail" name="item_detail" required=""></textarea>
                     </div>
@@ -122,27 +122,43 @@
                 <div class="form-group">
                     <label class="col-md-2 control-label" for="item_more_pics">其他圖片</label>
                     <div class="col-md-8">
-                        <input id="item_more_pics" name="item_more_pics" class="input-file" type="file" accept="image/*">
+                        <input id="item_more_pics" name="item_more_pics[]" class="input-file" type="file" multiple="true" accept="image/*" required="">
                         <p class="help-block">（檔案大小請勿超過 2 MB，至多五張）</p>
                     </div>
                 </div>
-
-                <!-- Text input-->
-                <!-- <div class="form-group">
-                    <label class="col-md-2 control-label" for="item_finished_time">展品完成時間</label>
-                    <div class="col-md-8">
-                        <input id="item_finished_time" name="item_finished_time" type="text" placeholder="日期或文字描述（如：2015 夏末）" class="form-control input-md">
-                    </div>
-                </div> -->
-
-                <!-- Button Group -->
-                <div class="form-group text-center">
-                    <button type="button" id="preview" name="preview" class="btn btn-default">預覽</button>
-                    <button type="submit" id="submit" name="submit" class="btn btn-primary">送出展品資訊</button>
-                    <button type="button" id="item-cancel-btn" name="item-cancel-btn" class="btn btn-default">取消</button>
-                </div>
-
             </fieldset>
+
+            <div class="col-md-offset-2 col-md-8">
+                <button type="button" id="add-detail-btn" name="add-detail-btn" class="btn btn-block btn-info">
+                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>新增詳細解說欄位
+                </button>
+                <br>
+                <div id="note_for_detail_fields" class="text-muted" style="display: none;">
+                    <p>自訂詳細解說欄位注意事項：</p>
+                    <ul>
+                        <li>最多新增三個詳細解說欄位。</li>
+                        <li>自訂欄位將顯示於原有欄位之後。</li>
+                        <li>欄位名稱與內容皆為必填，若其中一項留白將動刪除該欄位（欲刪除欄位，請將該欄位名稱或內容留白即可）。</li>
+                        <li>欄位名稱建議長度為四個字以內。</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Textarea -->
+            <div class="form-group">
+                <label class="col-md-2 control-label" for="item_push">推播文字</label>
+                <div class="col-md-8">
+                    <textarea class="form-control" id="item_push" name="item_push"></textarea>
+                    <p class="help-block">（推播文字將顯示於使用者手機推播通知）</p>
+                </div>
+            </div>
+
+            <div class="form-group text-center col-md-12 margin-top-30">
+                <button type="button" id="preview" name="preview" class="btn btn-default">預覽</button>
+                <button type="submit" id="submit" name="submit" class="btn btn-primary">送出展品資訊</button>
+                <button type="button" id="item-cancel-btn" name="item-cancel-btn" class="btn btn-default">取消</button>
+            </div>
+
         </form>
     </div>
 </div>
@@ -166,19 +182,45 @@
                 }
             });
         });
-        $(document.body).off('click.add_col', '#add-field-btn');
-        $(document.body).on('click.add_col', '#add-field-btn', function() {
-            $('#item_basic_info').append(function(n) {
-                var count = $('.item-custom-field').length;
-				var index = count + 1;
-				var custom_field_block = "<div class='form-group item-custom-field'><div class='col-md-2'><input id='custom_field_name_" + index + "' name='custom_field_name_" + index + "' type='text' placeholder='欄位名稱' class='form-control input-md' required=''></div><div class='col-md-8'><textarea class='form-control' id='custom_field_value_" + index + "' name='custom_field_value_" + index + "' placeholder='請輸入欄位內容' equired=''></textarea></div></div>";
+        $(document.body).off('click.add_basic_col', '#add-basic-btn');
+        $(document.body).on('click.add_basic_col', '#add-basic-btn', function() {
+            $('#item_basic_info').append(function() {
+                var count = $('.custom-basic-field').length;
+                var index = count + 1;
+                var custom_field_block =
+                    "<div class='well margin-top-30 custom-basic-field'><div class='form-group'><label class='col-md-2 control-label' for='basic_field_name_" + index +
+                    "'>自訂欄位名稱</label><div class='col-md-3'><input id='basic_field_name_" + index + "' name='basic_field_name_" + index +
+                    "' type='text' placeholder='請輸入欄位名稱' class='form-control input-md' required=''></div></div><div class='form-group'><label class='col-md-2 control-label' for='basic_field_value_" + index +
+                    "'>欄位內容</label><div class='col-md-8'><textarea class='form-control' id='basic_field_value_" + index + "' name='basic_field_value_" + index + "' required=''></textarea></div></div></div>";
                 if (count < 3) {
+                    $('#note_for_basic_fields').show();
                     return custom_field_block;
                 } else {
-                    $('#system-message').html('最多增三個自訂欄位！');
+                    $('#system-message').html('最多新增三個基本欄位！');
                     $('#system-message').show();
                     $('#system-message').delay(2000).fadeOut();
-
+                }
+            });
+            $.scrollTo($('#item_basic_info > div.custom-basic-field').last(), 500, {
+                offset: -10
+            });
+        });
+        $(document.body).off('click.add_detail_col', '#add-detail-btn');
+        $(document.body).on('click.add_detail_col', '#add-detail-btn', function() {
+            $('#item_detail_info').append(function(n) {
+                var count = $('.custom-detail-field').length;
+                var index = count + 1;
+                var custom_field_block = "<div class='well margin-top-30 custom-detail-field'><div class='form-group'><label class='col-md-2 control-label' for='detail_field_name_" + index +
+                    "'>自訂欄位名稱</label><div class='col-md-3'><input id='detail_field_name_" + index + "' name='detail_field_name_" + index +
+                    "' type='text' placeholder='請輸入欄位名稱' class='form-control input-md' required=''></div></div><div class='form-group'><label class='col-md-2 control-label' for='detail_field_value_" + index +
+                    "'>欄位內容</label><div class='col-md-8'><textarea class='form-control' id='detail_field_value_" + index + "' name='detail_field_value_" + index + "' required=''></textarea></div></div></div>";
+                if (count < 3) {
+                    $('#note_for_detail_fields').show();
+                    return custom_field_block;
+                } else {
+                    $('#system-message').html('最多新增三個詳細欄位！');
+                    $('#system-message').show();
+                    $('#system-message').delay(2000).fadeOut();
                 }
             });
         });
@@ -205,6 +247,39 @@
             maxFileCount: 1,
             allowedFileTypes: ["audio"],
             previewFileType: 'audio'
+        });
+        $('#item_add_form').ajaxForm({
+            beforeSend: function(xhr) {
+                $('#system-message').html('處理中...');
+                $('#system-message').show();
+            },
+            success: function(error) {
+                if (error) {
+                    $('#form_alert').html(error);
+                    $('#form_alert').show();
+                    $('#system-message').fadeOut();
+                } else {
+                    $('#form_alert').hide();
+                    $('#form_alert').empty();
+                    // $.ajax({
+                    //     url: 'facilities/print_fac_list',
+                    //     type: "GET",
+                    //     dataType: 'html',
+                    //     success: function(html_block) {
+                    //         $('#fac_list_block').html(html_block);
+                    //         $('#fac_form_block').empty();
+                    //         $('[data-toggle="table"]').bootstrapTable();
+                    //         $('#system-message').html('完成');
+                    //         $('#system-message').fadeOut();
+                    //         $.scrollTo($('#add-fac-btn'), 500, {
+                    //             offset: -10
+                    //         });
+                    //     }
+                    // });
+                    $('#system-message').html('完成');
+                    $('#system-message').fadeOut();
+                }
+            }
         });
         $(document.body).off('click.item_cancel', '#item-cancel-btn');
         $(document.body).on('click.item_cancel', '#item-cancel-btn', function() {

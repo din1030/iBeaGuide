@@ -40,8 +40,12 @@ class Error_Message
                 $this->message = "上傳檔案發生錯誤，請重新操作";
                 break;
 
-            case 'no_upload_file_error':
-                $this->message = "未選擇上傳檔案，請重新操作";
+            case 'no_main_pic_error':
+                $this->message = "未選擇主要圖片檔案，請重新操作";
+                break;
+
+            case 'no_more_pics_error':
+                $this->message = "未選擇其他圖片檔案，請重新操作";
                 break;
 
             default:

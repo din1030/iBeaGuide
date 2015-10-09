@@ -14,7 +14,7 @@
     $(document.body).off('click.add_exh_form', '#add-exh-btn');
     $(document.body).on('click.add_exh_form', '#add-exh-btn', function() {
         $.ajax({
-            url: 'exhibitions/get_exh_add_form',
+            url: '/iBeaGuide/exhibitions/get_exh_add_form',
             type: "GET",
             //cache: false,
             data: {},

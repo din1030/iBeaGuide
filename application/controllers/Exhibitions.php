@@ -72,14 +72,14 @@ class Exhibitions extends CI_Controller
 
     public function add_exhibition_action()
     {
-        $this->form_validation->set_rules('exh_title', '標題', 'required');
-        $this->form_validation->set_rules('exh_venue', '展場', 'required');
-        $this->form_validation->set_rules('exh_start_date', '開展日期', 'required');
-        $this->form_validation->set_rules('exh_end_date', '閉展日期', 'required');
-        $this->form_validation->set_rules('exh_daily_open_time', '每日開展時間', 'required');
-        $this->form_validation->set_rules('exh_daily_close_time', '每日閉展時間', 'required');
-        $this->form_validation->set_rules('exh_description', '展覽介紹', 'required');
-        $this->form_validation->set_rules('exh_push', '推播文字', 'required');
+        $this->form_validation->set_rules('exh_title', '標題', 'trim|required');
+        $this->form_validation->set_rules('exh_venue', '展場', 'trim|required');
+        $this->form_validation->set_rules('exh_start_date', '開展日期', 'trim|required');
+        $this->form_validation->set_rules('exh_end_date', '閉展日期', 'trim|required');
+        $this->form_validation->set_rules('exh_daily_open_time', '每日開展時間', 'trim|required');
+        $this->form_validation->set_rules('exh_daily_close_time', '每日閉展時間', 'trim|required');
+        $this->form_validation->set_rules('exh_description', '展覽介紹', 'trim|required');
+        $this->form_validation->set_rules('exh_push', '推播文字', 'trim|required');
 
         if ($this->form_validation->run() == false) {
             echo validation_errors();
@@ -105,7 +105,7 @@ class Exhibitions extends CI_Controller
 
             // If no selected files, terminating add action
             if (empty($_FILES['exh_main_pic'])) {
-                $error_msg = $this->error_message->get_error_message('no_upload_file_error');
+                $error_msg = $this->error_message->get_error_message('no_main_pic_error');
                 log_message('error', $error_msg);
                 echo $error_msg;
 
@@ -146,13 +146,13 @@ class Exhibitions extends CI_Controller
 
     public function edit_exhibition_action()
     {
-        $this->form_validation->set_rules('exh_title', '標題', 'required');
-        $this->form_validation->set_rules('exh_venue', '展場', 'required');
-        $this->form_validation->set_rules('exh_start_date', '開展日期', 'required');
-        $this->form_validation->set_rules('exh_end_date', '閉展日期', 'required');
-        $this->form_validation->set_rules('exh_daily_open_time', '每日開展時間', 'required');
-        $this->form_validation->set_rules('exh_daily_close_time', '每日閉展時間', 'required');
-        $this->form_validation->set_rules('exh_description', '展覽介紹', 'required');
+        $this->form_validation->set_rules('exh_title', '標題', 'trim|required');
+        $this->form_validation->set_rules('exh_venue', '展場', 'trim|required');
+        $this->form_validation->set_rules('exh_start_date', '開展日期', 'trim|required');
+        $this->form_validation->set_rules('exh_end_date', '閉展日期', 'trim|required');
+        $this->form_validation->set_rules('exh_daily_open_time', '每日開展時間', 'trim|required');
+        $this->form_validation->set_rules('exh_daily_close_time', '每日閉展時間', 'trim|required');
+        $this->form_validation->set_rules('exh_description', '展覽介紹', 'trim|required');
 
         if ($this->form_validation->run() == false) {
             echo validation_errors();
@@ -296,8 +296,8 @@ class Exhibitions extends CI_Controller
 
     public function add_section_action()
     {
-        $this->form_validation->set_rules('sec_title', '標題', 'required');
-        $this->form_validation->set_rules('sec_description', '說明', 'required');
+        $this->form_validation->set_rules('sec_title', '標題', 'trim|required');
+        $this->form_validation->set_rules('sec_description', '說明', 'trim|required');
 
         if ($this->form_validation->run() == false) {
             echo validation_errors();
@@ -313,7 +313,7 @@ class Exhibitions extends CI_Controller
 
             // If no selected files, terminating add action
             if (empty($_FILES['sec_main_pic'])) {
-                $error_msg = $this->error_message->get_error_message('no_upload_file_error');
+                $error_msg = $this->error_message->get_error_message('no_main_pic_error');
                 log_message('error', $error_msg);
                 echo $error_msg;
 
@@ -354,8 +354,8 @@ class Exhibitions extends CI_Controller
 
     public function edit_section_action()
     {
-        $this->form_validation->set_rules('sec_title', '標題', 'required');
-        $this->form_validation->set_rules('sec_description', '說明', 'required');
+        $this->form_validation->set_rules('sec_title', '標題', 'trim|required');
+        $this->form_validation->set_rules('sec_description', '說明', 'trim|required');
 
         if ($this->form_validation->run() == false) {
             echo validation_errors();

@@ -76,9 +76,9 @@ class Facilities extends CI_Controller
 
     public function add_facility_action()
     {
-        $this->form_validation->set_rules('fac_title', '名稱', 'required');
-        // $this->form_validation->set_rules('fac_description', '說明', 'required');
-        $this->form_validation->set_rules('fac_push', '推播文字', 'required');
+        $this->form_validation->set_rules('fac_title', '名稱', 'trim|required');
+        // $this->form_validation->set_rules('fac_description', '說明', 'trim|required');
+        $this->form_validation->set_rules('fac_push', '推播文字', 'trim|required');
 
         if ($this->form_validation->run() == false) {
             echo validation_errors();
@@ -97,7 +97,7 @@ class Facilities extends CI_Controller
             }
             // If no selected files, terminating add action
             if (empty($_FILES['fac_main_pic'])) {
-                $error_msg = $this->error_message->get_error_message('no_upload_file_error');
+                $error_msg = $this->error_message->get_error_message('no_main_pic_error');
                 log_message('error', $error_msg);
                 echo $error_msg;
 
@@ -137,9 +137,9 @@ class Facilities extends CI_Controller
 
     public function edit_facility_action()
     {
-        $this->form_validation->set_rules('fac_title', '名稱', 'required');
-        // $this->form_validation->set_rules('fac_description', '說明', 'required');
-        $this->form_validation->set_rules('fac_push', '推播文字', 'required');
+        $this->form_validation->set_rules('fac_title', '名稱', 'trim|required');
+        // $this->form_validation->set_rules('fac_description', '說明', 'trim|required');
+        $this->form_validation->set_rules('fac_push', '推播文字', 'trim|required');
 
         if ($this->form_validation->run() == false) {
             echo validation_errors();

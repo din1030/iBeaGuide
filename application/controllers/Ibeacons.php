@@ -58,9 +58,9 @@ class Ibeacons extends CI_Controller {
 
     public function add_ibeacon_action()
     {
-        $this->form_validation->set_rules('ibeacon_uuid', 'UUID', 'required');
-        $this->form_validation->set_rules('ibeacon_major', 'Major', 'required');
-        $this->form_validation->set_rules('ibeacon_minor', 'Minor', 'required');
+        $this->form_validation->set_rules('ibeacon_uuid', 'UUID', 'trim|required');
+        $this->form_validation->set_rules('ibeacon_major', 'Major', 'trim|required');
+        $this->form_validation->set_rules('ibeacon_minor', 'Minor', 'trim|required');
 
         if ($this->form_validation->run() == FALSE)
         {
@@ -83,9 +83,9 @@ class Ibeacons extends CI_Controller {
     }
     public function edit_ibeacon_action()
     {
-        $this->form_validation->set_rules('ibeacon_uuid', 'UUID', 'required');
-        $this->form_validation->set_rules('ibeacon_major', 'Major', 'required');
-        $this->form_validation->set_rules('ibeacon_minor', 'Minor', 'required');
+        $this->form_validation->set_rules('ibeacon_uuid', 'UUID', 'trim|required');
+        $this->form_validation->set_rules('ibeacon_major', 'Major', 'trim|required');
+        $this->form_validation->set_rules('ibeacon_minor', 'Minor', 'trim|required');
 
         if ($this->form_validation->run() == FALSE)
         {

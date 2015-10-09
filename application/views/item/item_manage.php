@@ -6,7 +6,7 @@
 </legend>
 <div id="item_form_block"></div>
 <div id="item_list_block">
-    <!-- <?= $this->table->generate($items); ?> -->
+    <!-- < $this->table->generate($items); ?> -->
 </div>
 <table id="item_list" data-toggle="table" data-striped="true">
     <thead>

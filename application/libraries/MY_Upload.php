@@ -65,7 +65,7 @@ class MY_Upload extends CI_Upload
                 $this->_file_name_override = $file_name_str.'item_'.$id_no.'_main';
                 break;
 
-            case 'item':
+            case 'item_more':
                 $this->_file_name_override = $file_name_str.'item_'.$id_no;
                 break;
 
