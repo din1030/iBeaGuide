@@ -85,6 +85,16 @@
                         <?= form_dropdown('item_ibeacon', $ibeacons, '', "id='item_ibeacon' class='form-control'") ?>
                     </div>
                 </div>
+
+                <!-- Textarea -->
+                <div class="form-group">
+                    <label class="col-md-2 control-label" for="item_push">推播文字</label>
+                    <div class="col-md-8">
+                        <textarea class="form-control" id="item_push" name="item_push"></textarea>
+                        <p class="help-block">（推播文字將顯示於使用者手機推播通知）</p>
+                    </div>
+                </div>
+
             </fieldset>
             <div class="col-md-offset-2 col-md-8">
                 <button type="button" id="add-basic-btn" name="add-basic-btn" class="btn btn-block btn-info">
@@ -112,9 +122,9 @@
                 </div>
                 <!-- Textarea -->
                 <div class="form-group">
-                    <label class="col-md-2 control-label" for="item_detail">展品詳細解說</label>
+                    <label class="col-md-2 control-label" for="item_description">展品詳細解說</label>
                     <div class="col-md-8">
-                        <textarea class="form-control" id="item_detail" name="item_detail" required=""></textarea>
+                        <textarea class="form-control" id="item_description" name="item_description" required=""></textarea>
                     </div>
                 </div>
 
@@ -141,15 +151,6 @@
                         <li>欄位名稱與內容皆為必填，若其中一項留白將動刪除該欄位（欲刪除欄位，請將該欄位名稱或內容留白即可）。</li>
                         <li>欄位名稱建議長度為四個字以內。</li>
                     </ul>
-                </div>
-            </div>
-
-            <!-- Textarea -->
-            <div class="form-group">
-                <label class="col-md-2 control-label" for="item_push">推播文字</label>
-                <div class="col-md-8">
-                    <textarea class="form-control" id="item_push" name="item_push"></textarea>
-                    <p class="help-block">（推播文字將顯示於使用者手機推播通知）</p>
                 </div>
             </div>
 
@@ -201,7 +202,7 @@
                     $('#system-message').delay(2000).fadeOut();
                 }
             });
-            $.scrollTo($('#item_basic_info > div.custom-basic-field').last(), 500, {
+            $.scrollTo($('#item_basic_info > div.custom-basic-field').last(), 300, {
                 offset: -10
             });
         });
@@ -223,6 +224,9 @@
                     $('#system-message').delay(2000).fadeOut();
                 }
             });
+            $.scrollTo($('#item_detail_info > div.custom-detail-field').last(), 300, {
+                offset: -10
+            });
         });
         $('#item_main_pic').fileinput({
             language: 'zh-TW',
@@ -235,7 +239,7 @@
         $('#item_more_pics').fileinput({
             language: 'zh-TW',
             showUpload: false,
-            // minFileCount: 3,
+            minFileCount: 1,
             maxFileCount: 5,
             allowedFileTypes: ["image"],
             previewFileType: 'image'

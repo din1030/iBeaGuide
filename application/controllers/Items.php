@@ -1,4 +1,5 @@
 <?php
+
 class Items extends CI_Controller
 {
     public function __construct()
@@ -55,7 +56,7 @@ class Items extends CI_Controller
         $this->form_validation->set_rules('item_brief', '展品簡介', 'trim|required');
         // $this->form_validation->set_rules('item_main_pic', '主要圖片', 'trim|required');
         // $this->form_validation->set_rules('item_audioguide', '導覽語音', 'trim|required');
-        $this->form_validation->set_rules('item_detail', '展品詳細解說', 'trim|required');
+        $this->form_validation->set_rules('item_description', '展品詳細解說', 'trim|required');
         // $this->form_validation->set_rules('item_more_pics', '其他圖片', 'trim|required');
 
         if ($this->form_validation->run() == false) {
@@ -69,7 +70,7 @@ class Items extends CI_Controller
                 'brief' => $this->input->post('item_brief'),
                 'description' => $this->input->post('item_description'),
                 'main_pic' => $this->input->post('item_main_pic'),
-                // 'push_content' => $this->input->post('item_push'),
+                'push_content' => $this->input->post('item_push'),
                 'ibeacon_id' => $this->input->post('item_ibeacon'),
             );
             if ($this->input->post('item_exh') != 0) {
@@ -114,33 +115,42 @@ class Items extends CI_Controller
                     $this->upload->initialize($config);
                     // upload item main pic
                     $main_upload_results = $this->upload->do_multiple_upload('item_main_pic', 'item_main', $item_obj->id);
-                    foreach ($main_upload_results as $result) {
-                        if (isset($result['error'])) {
-                            // if error is set, print why  upload failed.
+                    if (!$main_upload_results) {
+                        $this->upload->display_errors('', '<br>');
+                    } else {
+                        foreach ($main_upload_results as $result) {
+                            if (isset($result['error'])) {
+                                // if error is set, print why  upload failed.
                             log_message('error', $result['name'].' upload failed.');
-                            echo $result['name'].' '.$result['error'];
-                        } else {
-                            log_message('debug', $result['name'].' uploaded.');
+                                echo $result['name'].' '.$result['error'];
+                            } else {
+                                log_message('debug', $result['name'].' uploaded.');
+                            }
                         }
+                        unset($main_upload_results);
                     }
-                    unset($main_upload_results);
                     // upload more item pic
                     $more_upload_results = $this->upload->do_multiple_upload('item_more_pics', 'item_more', $item_obj->id);
-                    foreach ($more_upload_results as $result) {
-                        if (isset($result['error'])) {
-                            // if error is set, print why  upload failed.
-                            log_message('error', $result['name'].' upload failed.');
-                            echo $result['name'].' '.$result['error'];
-                        } else {
-                            log_message('debug', $result['name'].' uploaded.');
+                    if (!$more_upload_results) {
+                        $this->upload->display_errors('', '<br>');
+                    } else {
+                        foreach ($more_upload_results as $result) {
+                            if (isset($result['error'])) {
+                                // if error is set, print why  upload failed.
+                                log_message('error', $result['name'].' upload failed.');
+                                echo $result['name'].' '.$result['error'];
+                            } else {
+                                log_message('debug', $result['name'].' uploaded.');
+                            }
                         }
+                        unset($more_upload_results);
                     }
-                    unset($more_upload_results);
                 }
                 unset($item_obj);
             }
         }
-		return;
+
+        return;
     }
 }
 

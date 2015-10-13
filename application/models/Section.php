@@ -21,7 +21,7 @@ class Section extends ActiveRecord
         if ($query->num_rows() > 0) {
             $result_array = $query->result_array();
             $sections = array();
-            $sections[0] = '不加入展區';
+            $sections[0] = '＝暫不加入展區＝';
 
             foreach ($result_array as $sec_row) {
                 $sections[$sec_row['id']] = $sec_row['title'];

@@ -13,9 +13,10 @@ class MY_Upload extends CI_Upload
         log_message('debug', 'MY_Upload Class Initialized');
     }
 
-    public function do_multiple_upload($field = 'userfile', $pic_type, $id_no, $id_no2 ='')
+    public function do_multiple_upload($field, $pic_type, $id_no, $id_no2 ='')
     {
         // Is $_FILES[$field] set? If not, no reason to continue.
+        echo $field.":".isset($_FILES[$field])."<br>";
         if (!isset($_FILES[$field])) {
             $this->set_error('upload_no_file_selected');
 

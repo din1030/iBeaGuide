@@ -1,28 +1,36 @@
-<?php  if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php
 
-class Exhibition extends ActiveRecord {
+ if (!defined('BASEPATH')) {
+     exit('No direct script access allowed');
+ }
 
-    function __construct()
+class Exhibition extends ActiveRecord
+{
+    public function __construct()
     {
         parent::__construct();
         $this->_class_name = strtolower(get_class($this));
-        $this->_table = $this->_class_name . 's';
+        $this->_table = $this->_class_name.'s';
         $this->_columns = $this->discover_table_columns();
-        log_message('debug', "Exhibition Model Initialized");
+        log_message('debug', 'Exhibition Model Initialized');
     }
 
-    public function prepare_for_dropdwon($value='')
+    public function prepare_for_dropdwon($value = '')
     {
         $this->load->model('Exhibition');
         $query = $this->Exhibition->prepare_for_table_by_curator_id($this->config->item('login_user_id'), 'id, title');
         $exh_array = $query->result_array();
         $exhibitions = array();
-        $exhibitions[0] = "請選擇";
-        foreach ($exh_array as $exh_row)
-        {
-            $exhibitions[$exh_row['id']] = $exh_row['title'];
-            $exh_row = null;
+        if ($query->num_rows() > 0) {
+            $exhibitions[0] = '＝暫不加入展覽＝';
+            foreach ($exh_array as $exh_row) {
+                $exhibitions[$exh_row['id']] = $exh_row['title'];
+                $exh_row = null;
+            }
+        } else {
+            $exhibitions[0] = '＝目前無展覽資訊＝';
         }
+
         return $exhibitions;
     }
 
@@ -51,7 +59,4 @@ class Exhibition extends ActiveRecord {
 
         return $exhibitions;
     }
-
 }
-
-?>
