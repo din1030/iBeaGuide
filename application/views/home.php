@@ -48,9 +48,9 @@
 </div>
 <script type="text/javascript">
     // main pic will cover whole block with oringin ratio
-    $('.active-exh-img-block img').each(function(){
-        if($(this).width() > $(this).height()) {
-            $(this).css({"height": "100%", "object-fit": "cover"});
-        }
-    });
+    // $('.active-exh-img-block img').each(function(){
+    //     if($(this).width() > $(this).height()) {
+    //         $(this).css({"height": "100%", "object-fit": "cover"});
+    //     }
+    // });
 </script>
