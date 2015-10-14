@@ -72,6 +72,7 @@ class Items extends CI_Controller
                 'main_pic' => $this->input->post('item_main_pic'),
                 'push_content' => $this->input->post('item_push'),
                 'ibeacon_id' => $this->input->post('item_ibeacon'),
+                'created' => NULL,
             );
             if ($this->input->post('item_exh') != 0) {
                 $data['exh_id'] = $this->input->post('item_exh');

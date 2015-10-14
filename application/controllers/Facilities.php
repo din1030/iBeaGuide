@@ -90,6 +90,7 @@ class Facilities extends CI_Controller
                 'description' => $this->input->post('fac_description'),
                 // 'main_pic' => $this->input->post('fac_main_pic'),
                 'push_content' => $this->input->post('fac_push'),
+                'created' => NULL,
             );
 
             if ($this->input->post('fac_ibeacon') != 0) {

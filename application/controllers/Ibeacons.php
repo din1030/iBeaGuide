@@ -74,7 +74,8 @@ class Ibeacons extends CI_Controller {
                 'uuid' => $this->input->post('ibeacon_uuid'),
                 'major' => $this->input->post('ibeacon_major'),
                 'minor' => $this->input->post('ibeacon_minor'),
-                'link_type' => $this->input->post('ibeacon_link')
+                'link_type' => $this->input->post('ibeacon_link'),
+                'created' => NULL,
             );
             $this->Ibeacon->create($data);
 

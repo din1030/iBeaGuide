@@ -69,6 +69,7 @@ class Routes extends CI_Controller
                 'exh_id' => $this->input->post('route_exh'),
                 'title' => $this->input->post('route_title'),
                 'description' => $this->input->post('route_description'),
+                'created' => NULL,
                 // 'main_pic' => $this->input->post('route_main_pic')
             );
             $this->Route->create($data);

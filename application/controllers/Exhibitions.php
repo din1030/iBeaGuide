@@ -97,6 +97,7 @@ class Exhibitions extends CI_Controller
                 'web_link' => $this->input->post('exh_web_link'),
                 // 'main_pic' => $this->input->post('exh_main_pic'),
                 'push_content' => $this->input->post('exh_push'),
+                'created' => NULL,
             );
 
             if ($this->input->post('exh_ibeacon') != 0) {
