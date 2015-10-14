@@ -191,8 +191,8 @@
                 var custom_field_block =
                     "<div class='well margin-top-30 custom-basic-field'><div class='form-group'><label class='col-md-2 control-label' for='basic_field_name_" + index +
                     "'>自訂欄位名稱</label><div class='col-md-3'><input id='basic_field_name_" + index + "' name='basic_field_name_" + index +
-                    "' type='text' placeholder='請輸入欄位名稱' class='form-control input-md' required=''></div></div><div class='form-group'><label class='col-md-2 control-label' for='basic_field_value_" + index +
-                    "'>欄位內容</label><div class='col-md-8'><textarea class='form-control' id='basic_field_value_" + index + "' name='basic_field_value_" + index + "' required=''></textarea></div></div></div>";
+                    "' type='text' placeholder='請輸入欄位名稱' class='form-control input-md'></div></div><div class='form-group'><label class='col-md-2 control-label' for='basic_field_value_" + index +
+                    "'>欄位內容</label><div class='col-md-8'><textarea class='form-control' id='basic_field_value_" + index + "' name='basic_field_value_" + index + "'></textarea></div></div></div>";
                 if (count < 3) {
                     $('#note_for_basic_fields').show();
                     return custom_field_block;
@@ -213,8 +213,8 @@
                 var index = count + 1;
                 var custom_field_block = "<div class='well margin-top-30 custom-detail-field'><div class='form-group'><label class='col-md-2 control-label' for='detail_field_name_" + index +
                     "'>自訂欄位名稱</label><div class='col-md-3'><input id='detail_field_name_" + index + "' name='detail_field_name_" + index +
-                    "' type='text' placeholder='請輸入欄位名稱' class='form-control input-md' required=''></div></div><div class='form-group'><label class='col-md-2 control-label' for='detail_field_value_" + index +
-                    "'>欄位內容</label><div class='col-md-8'><textarea class='form-control' id='detail_field_value_" + index + "' name='detail_field_value_" + index + "' required=''></textarea></div></div></div>";
+                    "' type='text' placeholder='請輸入欄位名稱' class='form-control input-md'></div></div><div class='form-group'><label class='col-md-2 control-label' for='detail_field_value_" + index +
+                    "'>欄位內容</label><div class='col-md-8'><textarea class='form-control' id='detail_field_value_" + index + "' name='detail_field_value_" + index + "'></textarea></div></div></div>";
                 if (count < 3) {
                     $('#note_for_detail_fields').show();
                     return custom_field_block;

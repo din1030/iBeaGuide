@@ -1,13 +1,17 @@
-<?php  if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php
 
-class Custom_field extends ActiveRecord {
+ if (!defined('BASEPATH')) {
+     exit('No direct script access allowed');
+ }
 
-    function __construct()
+class Custom_field extends ActiveRecord
+{
+    public function __construct()
     {
-        parent::ActiveRecord();
+        parent::__construct();
         $this->_class_name = strtolower(get_class($this));
-        $this->_table = $this->_class_name . 's';
+        $this->_table = $this->_class_name.'s';
         $this->_columns = $this->discover_table_columns();
+        log_message('debug', 'Custom_field Model Initialized');
     }
-
 }

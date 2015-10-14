@@ -6,6 +6,7 @@ class Items extends CI_Controller
     {
         parent::__construct();
         $this->load->model('Item');
+        $this->load->model('Custom_field');
         log_message('debug', 'Items Controller Initialized');
     }
 
@@ -86,6 +87,34 @@ class Items extends CI_Controller
             if ($this->input->post('item_ibeacon') != 0) {
                 $data['ibeacon_id'] = $this->input->post('item_ibeacon');
             }
+
+            // create custom data
+            $custom_filed_data = array();
+            if (!empty($this->input->post('basic_field_name_1')) || !empty($this->input->post('basic_field_value_1'))) {
+                $custom_filed_data[1] = array(
+                    'item_id' => $this->input->post('basic_field_name_1'),
+                    'field_name' => $this->input->post('basic_field_name_1'),
+                    'field_value' => $this->input->post('basic_field_value_1'),
+                    'created' => NULL,
+                );
+            }
+            if (!empty($this->input->post('basic_field_name_2')) || !empty($this->input->post('basic_field_value_2'))) {
+                $custom_filed_data[2] = array(
+                    'item_id' => $this->input->post('basic_field_name_2'),
+                    'field_name' => $this->input->post('basic_field_name_2'),
+                    'field_value' => $this->input->post('basic_field_value_2'),
+                    'created' => NULL,
+                );
+            }
+            if (!empty($this->input->post('basic_field_name_3')) || !empty($this->input->post('basic_field_value_3'))) {
+                $custom_filed_data[3] = array(
+                    'item_id' => $this->input->post('basic_field_name_3'),
+                    'field_name' => $this->input->post('basic_field_name_3'),
+                    'field_value' => $this->input->post('basic_field_value_3'),
+                    'created' => NULL,
+                );
+            }
+
             // If no selected files, terminating add action
             if (empty($_FILES['item_main_pic'])) {
                 $error_msg = $this->error_message->get_error_message('no_main_pic_error');
@@ -102,7 +131,11 @@ class Items extends CI_Controller
                 return;
             } else {
                 $item_obj = $this->Item->create($data);
+                foreach ($custom_filed_data as $custom_filed) {
+                    $this->Custom_filed->create($custom_filed);
+                }
                 unset($data);
+                unset($custom_filed_data);
 
                 // If create data failed
                 if (!isset($item_obj)) {
