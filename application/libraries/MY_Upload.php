@@ -13,20 +13,20 @@ class MY_Upload extends CI_Upload
         log_message('debug', 'MY_Upload Class Initialized');
     }
 
-    public function do_multiple_upload($field, $pic_type, $id_no, $id_no2 ='')
+    public function do_multiple_upload($field, $pic_type, $id_no, $id_no2 = '')
     {
         // Is $_FILES[$field] set? If not, no reason to continue.
-        echo $field.":".isset($_FILES[$field])."<br>";
         if (!isset($_FILES[$field])) {
             $this->set_error('upload_no_file_selected');
 
             return false;
         }
 
-        $tmpfiles = array();
-        for ($i = 0, $len = count($_FILES[$field]['name']); $i < $len; ++$i) {
+        // change format for $_FILES and make index of input files numeric
+        $file_count = count($_FILES[$field]['name']);
+        for ($i = 0; $i < $file_count; ++$i) {
             if ($_FILES[$field]['size'][$i]) {
-                $tmpfiles[$i] =
+                $_FILES[$i] =
                     array(
                         'name' => $_FILES[$field]['name'][$i],
                         'type' => $_FILES[$field]['type'][$i],
@@ -37,8 +37,7 @@ class MY_Upload extends CI_Upload
             }
         }
 
-        //取代 $_FILES 内容
-        $_FILES = $tmpfiles;
+        // $_FILES = $tmpfiles;
         $result = array();
 
         $upload_path = 'user_uploads/user_'.$this->_CI->config->item('login_user_id');
@@ -47,51 +46,54 @@ class MY_Upload extends CI_Upload
         }
         $this->_CI->upload->set_upload_path($upload_path);
 
+        // define fine name based on upload type
         $file_name_str = 'User_'.$this->_CI->config->item('login_user_id').'_'; // User_1_
-
         switch ($pic_type) {
             case 'exh':
-                $this->_file_name_override = $file_name_str.'exh_'.$id_no;
+                $file_name_str = $file_name_str.'exh_'.$id_no;
                 break;
 
             case 'sec':
-                $this->_file_name_override = $file_name_str.'exh_'.$id_no.'_sec_'.$id_no2;
+                $file_name_str = $file_name_str.'exh_'.$id_no.'_sec_'.$id_no2;
                 break;
 
             case 'fac':
-                $this->_file_name_override = $file_name_str.'fac_'.$id_no;
+                $file_name_str = $file_name_str.'fac_'.$id_no;
                 break;
 
             case 'item_main':
-                $this->_file_name_override = $file_name_str.'item_'.$id_no.'_main';
+                $file_name_str = $file_name_str.'item_'.$id_no.'_main';
                 break;
 
             case 'item_more':
-                $this->_file_name_override = $file_name_str.'item_'.$id_no;
+                $file_name_str = $file_name_str.'item_'.$id_no;
                 break;
 
             case 'route':
-                $this->_file_name_override = $file_name_str.'exh_'.$id_no.'_route_'.$id_no2;
+                $file_name_str = $file_name_str.'exh_'.$id_no.'_route_'.$id_no2;
                 break;
 
             default:
                 break;
         }
 
-        foreach ($_FILES as $file_no => $file_data) {
-            if (count($_FILES) > 1) {
-                $this->_file_name_override .= '_'.$file_no;
+        // upload files and create thumbnails. if error occured, display it. 
+        for ($i = 0; $i < $file_count; ++$i) {
+            $this->_file_name_override = $file_name_str;
+            if ($file_count > 1) {
+                $this->_file_name_override = $file_name_str.'_'.$i;
             }
-            if (!$this->do_upload($file_no)) {
-                $result[$file_no]['name'] = $file_data['name'];
-                $result[$file_no]['error'] = $this->display_errors('', '<br>');
+            if (!$this->do_upload($i)) {
+                $result[$i]['name'] = $_FILES[$i]['name'];
+                $result[$i]['error'] = $this->display_errors('', '<br>');
                 $this->error_msg = array();
             } else {
-                $result[$file_no]['name'] = $file_data['name'];
+                $result[$i]['name'] = $_FILES[$i]['name'];
                 if (!$this->_create_thumbnail($upload_path.'/'.$this->file_name, false, $thumbMarker = '', 800, 600)) {
-                    $result[$file_no]['error'] = $this->_CI->display_errors('', '<br>');
+                    $result[$i]['error'] = $this->_CI->display_errors('', '<br>');
                     $this->error_msg = array();
                 }
+                unset($_FILES[$i]);
             }
         }
 
@@ -127,7 +129,6 @@ class MY_Upload extends CI_Upload
 
         return true;
     }
-
 }
 // END MY_Upload Class
 
