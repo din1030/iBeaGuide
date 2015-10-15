@@ -593,8 +593,9 @@ class ActiveRecord extends CI_Model
     {
         $this->db->select($select_string);
         $this->db->from($this->_table);
-        $this->db->join('exhibitions', 'exhibitions.id = '.$this->_table.'.exh_id', 'INNER');
+        $this->db->join('exhibitions', 'exhibitions.id = '.$this->_table.'.exh_id', 'LEFT');
         $this->db->where('exhibitions.curator_id', $this->config->item('login_user_id'));
+        $this->db->or_where($this->_table.".exh_id", NULL);
         $query = $this->db->get();
 
         return $query;

@@ -265,21 +265,21 @@
                 } else {
                     $('#form_alert').hide();
                     $('#form_alert').empty();
-                    // $.ajax({
-                    //     url: 'facilities/print_fac_list',
-                    //     type: "GET",
-                    //     dataType: 'html',
-                    //     success: function(html_block) {
-                    //         $('#fac_list_block').html(html_block);
-                    //         $('#fac_form_block').empty();
-                    //         $('[data-toggle="table"]').bootstrapTable();
-                    //         $('#system-message').html('完成');
-                    //         $('#system-message').fadeOut();
-                    //         $.scrollTo($('#add-fac-btn'), 500, {
-                    //             offset: -10
-                    //         });
-                    //     }
-                    // });
+                    $.ajax({
+                        url: '/iBeaGuide/items/print_item_list',
+                        type: "GET",
+                        dataType: 'html',
+                        success: function(html_block) {
+                            $('#item_list_block').html(html_block);
+                            $('#item_form_block').empty();
+                            $('[data-toggle="table"]').bootstrapTable();
+                            $('#system-message').html('完成');
+                            $('#system-message').fadeOut();
+                            $.scrollTo($('#add-item-btn'), 500, {
+                                offset: -10
+                            });
+                        }
+                    });
                     $('#system-message').html('完成');
                     $('#system-message').fadeOut();
                 }

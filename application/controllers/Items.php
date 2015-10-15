@@ -14,8 +14,43 @@ class Items extends CI_Controller
     {
         $this->load->view('header');
         $this->load->view('breadcrumb');
-        $this->load->view('item/item_manage');
+        $data['items'] = $this->get_item_list();
+        $this->load->view('item/item_manage', $data);
         $this->load->view('footer');
+    }
+
+    public function get_item_list()
+    {
+        $query = $this->Item->join_exh_title('items.id, items.title as item_title, exhibitions.title as exh_title, items.ibeacon_id');
+        $result_array = $query->result_array();
+        $items = array();
+        foreach ($result_array as $item_row) {
+            if (empty($item_row['ibeacon_id'])) {
+                $item_row['ibeacon_id'] = '＝未連結＝';
+            }
+            if (empty($item_row['exh_title'])) {
+                $item_row['exh_title'] = '＝尚未加入展覽＝';
+            }
+            $manage_ctrl = "<button id='edit_item_btn_".$item_row['id']."' type='button' class='btn btn-primary edit-item-btn' data-toggle='modal' data-item-id='".$item_row['id']."'>編輯</button>&nbsp;";
+            $manage_ctrl .= "<button id='del_item_btn_".$item_row['id']."' type='button' class='btn btn-danger del-item-btn' data-toggle='modal' data-item-id='".$item_row['id']."'>刪除</button>";
+            array_push($item_row, $manage_ctrl);
+            $items[] = $item_row;
+            unset($item_row);
+        }
+        unset($result_array);
+
+        $this->table->clear();
+        $this->table->set_heading(array('ID', '展品名稱', '所屬展覽', '連結iBeacon', '管理'));
+        $tmpl = array('table_open' => '<table id="item_list" data-toggle="table" data-striped="true">',
+                    'heading_cell_start' => '<th data-sortable="true">', );
+        $this->table->set_template($tmpl);
+
+        return $items;
+    }
+
+    public function print_item_list()
+    {
+        echo $this->table->generate($this->get_item_list());
     }
 
     public function get_item_add_form()

@@ -31,7 +31,7 @@ class Facilities extends CI_Controller
             $manage_ctrl .= "<button id='del_fac_btn_".$fac_row['id']."' type='button' class='btn btn-danger del-fac-btn' data-toggle='modal' data-fac-id='".$fac_row['id']."'>刪除</button>";
             array_push($fac_row, $manage_ctrl);
             $facilities[] = $fac_row;
-            $fac_row = null;
+            unset($fac_row);
         }
         unset($result_array);
 

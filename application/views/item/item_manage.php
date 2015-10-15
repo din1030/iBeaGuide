@@ -6,41 +6,8 @@
 </legend>
 <div id="item_form_block"></div>
 <div id="item_list_block">
-    <!-- < $this->table->generate($items); ?> -->
+    <?= $this->table->generate($items); ?>
 </div>
-<table id="item_list" data-toggle="table" data-striped="true">
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>展品名稱</th>
-            <th>展覽狀態</th>
-            <th>連結 iBeacon</th>
-            <th>管理</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>1</td>
-            <td>清院本清明上河圖</td>
-            <td>展於「古畫動漫」之「古畫」展區</td>
-            <td>Estimote-1</td>
-            <td>
-                <a href="/iBeaGuide/items/edit" class="btn btn-default">編輯</a>
-                <a href="/iBeaGuide/items/delete" class="btn btn-default">刪除</a>
-            </td>
-        </tr>
-        <tr>
-            <td>2</td>
-            <td>菜單塗鴉餐</td>
-            <td>展於「食物箴言：思想與食物」</td>
-            <td>未連結</td>
-            <td>
-                <a href="/iBeaGuide/items/edit" class="btn btn-default">編輯</a>
-                <a href="/iBeaGuide/items/delete" class="btn btn-default">刪除</a>
-            </td>
-        </tr>
-    </tbody>
-</table>
 <script type="text/javascript">
     $(document.body).off('click.add_item_form', '#add-item-btn');
     $(document.body).on('click.add_item_form', '#add-item-btn', function() {
@@ -90,7 +57,7 @@
         var this_item_id = $(this).attr('data-item-id');
         BootstrapDialog.show({
             title: '注意！',
-            message: '刪除展覽資訊會將所屬展區一併刪除，是否確認刪除此展覽？',
+            message: '是否確認刪除此展品資訊？',
             buttons: [{
                 label: '取消',
                 action: function(dialogRef){
