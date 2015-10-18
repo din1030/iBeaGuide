@@ -64,8 +64,11 @@ class Items extends CI_Controller
         $this->load->view('item/item_add_form', $data);
     }
 
-    public function get_item_edit_form()
+    public function get_item_edit_form($item_id)
     {
+        $data['item'] = $this->Item->find($item_id);
+        $data['basic_fields'] = $this->Custom_field->find_all_by_item_id($item_id, array('type' => 'basic'));
+        $data['detail_fields'] = $this->Custom_field->find_all_by_item_id($item_id, array('type' => 'detail'));
         $this->load->model('Exhibition');
         $data['exhibitions'] = $this->Exhibition->prepare_for_dropdwon();
 
@@ -75,7 +78,7 @@ class Items extends CI_Controller
         $this->load->view('item/item_edit_form', $data);
     }
 
-    public function print_exh_sec_select($exh_id)
+    public function print_exh_sec_menu($exh_id)
     {
         $this->load->model('Section');
         $sections = $this->Section->get_exh_sec($exh_id);
@@ -93,6 +96,10 @@ class Items extends CI_Controller
         // $this->form_validation->set_rules('item_main_pic', '主要圖片', 'trim|required');
         // $this->form_validation->set_rules('item_audioguide', '導覽語音', 'trim|required');
         $this->form_validation->set_rules('item_description', '展品詳細解說', 'trim|required');
+        $this->form_validation->set_rules('basic_field_name[]', '自訂基本欄位名稱', 'trim|required');
+        $this->form_validation->set_rules('basic_field_value[]', '自訂基本欄位內容', 'trim|required');
+        $this->form_validation->set_rules('detail_field_name[]', '自訂詳細欄位名稱', 'trim|required');
+        $this->form_validation->set_rules('detail_field_value[]', '自訂詳細欄位內容', 'trim|required');
         // $this->form_validation->set_rules('item_more_pics', '其他圖片', 'trim|required');
 
         if ($this->form_validation->run() == false) {
@@ -108,7 +115,7 @@ class Items extends CI_Controller
                 'main_pic' => $this->input->post('item_main_pic'),
                 'push_content' => $this->input->post('item_push'),
                 'ibeacon_id' => $this->input->post('item_ibeacon'),
-                'created' => NULL,
+                'created' => null,
             );
             if ($this->input->post('item_exh') != 0) {
                 $data['exh_id'] = $this->input->post('item_exh');
@@ -121,33 +128,6 @@ class Items extends CI_Controller
             // }
             if ($this->input->post('item_ibeacon') != 0) {
                 $data['ibeacon_id'] = $this->input->post('item_ibeacon');
-            }
-
-            // create custom data
-            $custom_filed_data = array();
-            if (!empty($this->input->post('basic_field_name_1')) || !empty($this->input->post('basic_field_value_1'))) {
-                $custom_filed_data[1] = array(
-                    'item_id' => $this->input->post('basic_field_name_1'),
-                    'field_name' => $this->input->post('basic_field_name_1'),
-                    'field_value' => $this->input->post('basic_field_value_1'),
-                    'created' => NULL,
-                );
-            }
-            if (!empty($this->input->post('basic_field_name_2')) || !empty($this->input->post('basic_field_value_2'))) {
-                $custom_filed_data[2] = array(
-                    'item_id' => $this->input->post('basic_field_name_2'),
-                    'field_name' => $this->input->post('basic_field_name_2'),
-                    'field_value' => $this->input->post('basic_field_value_2'),
-                    'created' => NULL,
-                );
-            }
-            if (!empty($this->input->post('basic_field_name_3')) || !empty($this->input->post('basic_field_value_3'))) {
-                $custom_filed_data[3] = array(
-                    'item_id' => $this->input->post('basic_field_name_3'),
-                    'field_name' => $this->input->post('basic_field_name_3'),
-                    'field_value' => $this->input->post('basic_field_value_3'),
-                    'created' => NULL,
-                );
             }
 
             // If no selected files, terminating add action
@@ -166,18 +146,66 @@ class Items extends CI_Controller
                 return;
             } else {
                 $item_obj = $this->Item->create($data);
-                foreach ($custom_filed_data as $custom_filed) {
-                    $this->Custom_filed->create($custom_filed);
-                }
                 unset($data);
-                unset($custom_filed_data);
 
                 // If create data failed
                 if (!isset($item_obj)) {
                     $error_msg = $this->error_message->get_error_message('create_error');
-                    log_message('debug', $error_msg);
+                    log_message('error', $error_msg);
                     echo $error_msg;
+
+                    return;
                 } else {
+                    $basic_field_name = $this->input->post('basic_field_name');
+                    $basic_field_value = $this->input->post('basic_field_value');
+                    if (!empty($basic_field_name) && !empty($basic_field_value) && count($basic_field_name) == count($basic_field_value)) {
+                        for ($i = 0; $i < count($basic_field_name); $i++) {
+                            $basic_field_data[] = array(
+                                'item_id' => $item_obj->id,
+                                'field_name' => $basic_field_name[$i],
+                                'field_value' => $basic_field_value[$i],
+                                'type' => 'basic',
+                                'created' => null,
+                            );
+                        }
+                    }
+                    $detail_field_name = $this->input->post('detail_field_name');
+                    $detail_field_value = $this->input->post('detail_field_value');
+                    if (!empty($detail_field_name) && !empty($detail_field_value) && count($detail_field_name) == count($detail_field_value)) {
+                        for ($i = 0; $i < count($detail_field_name); $i++) {
+                            $detail_field_data[] = array(
+                                'item_id' => $item_obj->id,
+                                'field_name' => $detail_field_name[$i],
+                                'field_value' => $detail_field_value[$i],
+                                'type' => 'detail',
+                                'created' => null,
+                            );
+                        }
+                    }
+
+                    // if item info added successfully, then insert custom fields
+                    foreach ($basic_field_data as $basic_field) {
+                        if (!$this->Custom_field->create($basic_field)) {
+                            $error_msg = $this->error_message->get_error_message('custom_field_error');
+                            log_message('error', $error_msg);
+                            echo $error_msg;
+
+                            return;
+                        }
+                    }
+                    foreach ($detail_field_data as $detail_field) {
+                        if (!$this->Custom_field->create($detail_field)) {
+                            $error_msg = $this->error_message->get_error_message('custom_field_error');
+                            log_message('error', $error_msg);
+                            echo $error_msg;
+
+                            return;
+                        }
+                    }
+
+                    unset($basic_field_data);
+                    unset($detail_field_data);
+
                     // set upload config
                     $config['allowed_types'] = 'gif|jpg|png';
                     $config['max_size'] = '2048'; // 2MB

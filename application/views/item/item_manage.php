@@ -32,11 +32,11 @@
     $(document.body).off('click.edit_item_form', '.edit-item-btn');
     $(document.body).on('click.edit_item_form', '.edit-item-btn', function() {
         $.ajax({
-            url: '/iBeaGuide/items/get_item_edit_form',
+            url: '/iBeaGuide/items/get_item_edit_form/' + $(this).attr('data-item-id'),
             type: "GET",
             //cache: false,
             data: {
-                item_id: $(this).attr('data-item-id')
+                // item_id: $(this).attr('data-item-id')
             },
             dataType: "html",
             beforeSend: function(xhr) {

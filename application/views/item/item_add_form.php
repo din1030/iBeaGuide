@@ -102,11 +102,11 @@
                 </button>
                 <br>
                 <div id="note_for_basic_fields" class="text-muted" style="display: none;">
-                    <p>自訂詳細解說欄位注意事項：</p>
+                    <p>自訂基本資訊欄位注意事項：</p>
                     <ul>
-                        <li>最多新增三個詳細解說欄位。</li>
+                        <li>最多新增三個基本資訊欄位。</li>
                         <li>自訂欄位將顯示於原有欄位之後。</li>
-                        <li>欄位名稱與內容皆為必填，若其中一項留白將動刪除該欄位（欲刪除欄位，請將該欄位名稱或內容留白即可）。</li>
+                        <li>欄位名稱與內容皆為必填。</li>
                         <li>欄位名稱建議長度為四個字以內。</li>
                     </ul>
                 </div>
@@ -148,7 +148,7 @@
                     <ul>
                         <li>最多新增三個詳細解說欄位。</li>
                         <li>自訂欄位將顯示於原有欄位之後。</li>
-                        <li>欄位名稱與內容皆為必填，若其中一項留白將動刪除該欄位（欲刪除欄位，請將該欄位名稱或內容留白即可）。</li>
+                        <li>欄位名稱與內容皆為必填。</li>
                         <li>欄位名稱建議長度為四個字以內。</li>
                     </ul>
                 </div>
@@ -169,7 +169,7 @@
         $(document.body).on('change.item_exh', '#item_exh', function() {
             var exh_selected = $('#item_exh').val();
             $.ajax({
-                url: '/iBeaGuide/items/print_exh_sec_select/' + exh_selected,
+                url: '/iBeaGuide/items/print_exh_sec_menu/' + exh_selected,
                 type: "GET",
                 dataType: 'html',
                 success: function(html_block) {
@@ -189,10 +189,12 @@
                 var count = $('.custom-basic-field').length;
                 var index = count + 1;
                 var custom_field_block =
-                    "<div class='well margin-top-30 custom-basic-field'><div class='form-group'><label class='col-md-2 control-label' for='basic_field_name_" + index +
-                    "'>自訂欄位名稱</label><div class='col-md-3'><input id='basic_field_name_" + index + "' name='basic_field_name_" + index +
-                    "' type='text' placeholder='請輸入欄位名稱' class='form-control input-md'></div></div><div class='form-group'><label class='col-md-2 control-label' for='basic_field_value_" + index +
-                    "'>欄位內容</label><div class='col-md-8'><textarea class='form-control' id='basic_field_value_" + index + "' name='basic_field_value_" + index + "'></textarea></div></div></div>";
+                    "<div class='well margin-top-30 custom-basic-field'>" +
+                    "<button type='button' class='close custom-filed-close' aria-label='Close'><span aria-hidden='true'>" + "&times" + ";</span></button>" +
+                    "<div class='form-group'><label class='col-md-2 control-label' for='basic_field_name'>自訂欄位名稱</label>" +
+                    "<div class='col-md-3'><input id='basic_field_name' name='basic_field_name[]' type='text' placeholder='請輸入欄位名稱' class='form-control input-md' required=''></div></div>" +
+                    "<div class='form-group'><label class='col-md-2 control-label' for='basic_field_value'>欄位內容</label>" +
+                    "<div class='col-md-8'><textarea class='form-control' id='basic_field_value' name='basic_field_value[]' required=''></textarea></div></div></div>";
                 if (count < 3) {
                     $('#note_for_basic_fields').show();
                     return custom_field_block;
@@ -211,10 +213,13 @@
             $('#item_detail_info').append(function(n) {
                 var count = $('.custom-detail-field').length;
                 var index = count + 1;
-                var custom_field_block = "<div class='well margin-top-30 custom-detail-field'><div class='form-group'><label class='col-md-2 control-label' for='detail_field_name_" + index +
-                    "'>自訂欄位名稱</label><div class='col-md-3'><input id='detail_field_name_" + index + "' name='detail_field_name_" + index +
-                    "' type='text' placeholder='請輸入欄位名稱' class='form-control input-md'></div></div><div class='form-group'><label class='col-md-2 control-label' for='detail_field_value_" + index +
-                    "'>欄位內容</label><div class='col-md-8'><textarea class='form-control' id='detail_field_value_" + index + "' name='detail_field_value_" + index + "'></textarea></div></div></div>";
+                var custom_field_block =
+                    "<div class='well margin-top-30 custom-detail-field'>" +
+                    "<button type='button' class='close' aria-label='Close'><span aria-hidden='true'>" + "&times" + ";</span></button>" +
+                    "<div class='form-group'><label class='col-md-2 control-label' for='detail_field_name'>自訂欄位名稱</label>" +
+                    "<div class='col-md-3'><input id='detail_field_name' name='detail_field_name[]' type='text' placeholder='請輸入欄位名稱' class='form-control input-md' required=''></div></div>" +
+                    "<div class='form-group'><label class='col-md-2 control-label' for='detail_field_value'>欄位內容</label>" +
+                    "<div class='col-md-8'><textarea class='form-control' id='detail_field_value' name='detail_field_value[]' required=''></textarea></div></div></div>";
                 if (count < 3) {
                     $('#note_for_detail_fields').show();
                     return custom_field_block;
@@ -224,10 +229,17 @@
                     $('#system-message').delay(2000).fadeOut();
                 }
             });
-            $.scrollTo($('#item_detail_info > div.custom-detail-field').last(), 300, {
-                offset: -10
+            // $.scrollTo($('#item_detail_info > div.custom-detail-field').last(), 300, {
+            //     offset: -10
+            // });
+        });
+        $(document.body).off('click.close_field_block', '.custom-filed-close');
+        $(document.body).on('click.close_field_block', '.custom-filed-close', function() {
+            $(this).parent().fadeOut(300,  function() {
+                $(this).remove();
             });
         });
+
         $('#item_main_pic').fileinput({
             language: 'zh-TW',
             showUpload: false,

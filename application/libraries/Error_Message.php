@@ -48,6 +48,10 @@ class Error_Message
                 $this->message = "未選擇其他圖片檔案，請重新操作";
                 break;
 
+            case 'custom_field_error':
+                $this->message = "自訂欄位新增錯誤，請重新操作";
+                break;
+
             default:
                 $this->message = "失敗，請重新操作";
                 break;

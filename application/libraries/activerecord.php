@@ -332,16 +332,16 @@ class ActiveRecord extends CI_Model
     {
         $this->db->where($column, $query[0]);
         $this->db->select($this->_table.'.*');
+
         if (isset($query[1])) {
-            foreach ($query[1] as $key => $value) {
-                $this->db->where($key, $value);
-            }
+            $this->db->where($query[1]);
         }
         if (!isset($query[2])) {
             $this->db->from($this->_table);
         } else {
             $this->db->from($this->_table.' '.$query[2]);
         }
+
         $query = $this->db->get();
         if ($query->num_rows() > 0) {
             $found = $query->row();
@@ -389,9 +389,7 @@ class ActiveRecord extends CI_Model
                 $this->db->where($column, $query[0]);
         }
         if (isset($query[1])) {
-            foreach ($query[1] as $key => $value) {
-                $this->db->where($key, $value);
-            }
+            $this->db->where($query[1]);
         }
         if (!isset($query[2])) {
             $this->db->from($this->_table);
