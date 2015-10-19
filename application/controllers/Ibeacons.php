@@ -46,15 +46,56 @@ class Ibeacons extends CI_Controller {
 
     public function get_ibeacon_add_modal_form()
     {
-        $this->load->view('ibeacon/ibeacon_add_modal_form');
+        $data['type'] = array(
+            'none' => '＝暫不連結物件＝',
+            'exh' => '展覽',
+            'item' => '展品',
+            'fac' => '設施',
+        );
+
+        $this->load->view('ibeacon/ibeacon_add_modal_form', $data);
     }
 
     public function get_ibeacon_edit_modal_form()
     {
         $ibeacon_id = $_GET['ibeacon_id'];
         $data['ibeacon'] = $this->Ibeacon->find($ibeacon_id);
+
+        $data['type'] = array(
+            'none' => '＝暫不連結物件＝',
+            'exh' => '展覽',
+            'item' => '展品',
+            'fac' => '設施',
+        );
+
+        $this->load->model('Exhibition');
+        $data['exhibitions'] = $this->Exhibition->prepare_for_dropdwon();
+
         $this->load->view('ibeacon/ibeacon_edit_modal_form', $data);
     }
+
+    public function print_obj_menu($link_type)
+    {
+        switch ($link_type) {
+            case 'exh':
+            $this->load->model('Exhibition');
+            $menu = $this->Exhibition->prepare_for_dropdwon();
+                break;
+            case 'item':
+            $this->load->model('Item');
+            $menu = $this->Item->prepare_for_dropdwon();
+                break;
+            case 'fac':
+            $this->load->model('Facility');
+            $menu = $this->Facility->prepare_for_dropdwon();
+                break;
+            default:
+                return;
+                break;
+        }
+        echo form_dropdown('ibeacon_obj', $menu, '', "id='ibeacon_obj' class='form-control'");
+    }
+
 
     public function add_ibeacon_action()
     {

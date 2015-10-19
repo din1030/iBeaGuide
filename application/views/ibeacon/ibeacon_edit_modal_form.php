@@ -1,10 +1,11 @@
-
 <div class="modal-content">
     <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
         <h4 class="modal-title" id="myModalLabel">編輯iBeacon裝置資訊</h4>
     </div>
-    <form class="form-horizontal" action="ibeacons/edit_ibeacon_action" method="post">
+    <form id="ibeacon_edit_form" class="form-horizontal" action="ibeacons/edit_ibeacon_action" method="post">
         <fieldset>
             <div class="modal-body">
                 <input id="ibeacon_id" type="hidden" name="ibeacon_id" value="<?= $ibeacon->id ?>">
@@ -41,29 +42,22 @@
                     </div>
                 </div>
 
-                <!-- Button Drop Down -->
+                <!-- Select Basic -->
                 <div class="form-group">
-                    <label class="col-md-4 control-label" for="ibeacon_link">連結物件</label>
+                    <label class="col-md-4 control-label" for="ibeacon_link_type">連結物件種類</label>
                     <div class="col-md-6">
-                        <div class="input-group">
-                            <input id="ibeacon_link" name="ibeacon_link" class="form-control" placeholder="" type="text">
-                            <div class="input-group-btn">
-                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                                    管理
-                                    <span class="caret"></span>
-                                </button>
-                                <ul class="dropdown-menu pull-right">
-                                    <li>
-                                        <button id="link_modify" class="btn btn-link">變更</button>
-                                    </li>
-                                    <li>
-                                        <button id="link_remove" class="btn btn-link">刪除</button>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
+                        <?= form_dropdown('ibeacon_link_type', $type, $ibeacon->link_type, "id='ibeacon_link_type' class='form-control'") ?>
                     </div>
                 </div>
+
+                <!-- exh menu -->
+                <div class="form-group" style="display: none">
+                    <label class="col-md-4 control-label" for="ibeacon_obj">連結物件</label>
+                    <div class="col-md-6">
+                        <?= form_dropdown('ibeacon_obj', $obj, $ibeacon->link_obj_id, "id='ibeacon_obj' class='form-control'") ?>
+                    </div>
+                </div>
+
             </div>
             <!-- Button Group -->
             <div class="modal-footer">
@@ -74,3 +68,9 @@
         </fieldset>
     </form>
 </div>
+<script type="text/javascript">
+    $('#ibeacon_edit_form').ready(function() {
+        $(document.body).off('change.ibeacon_link_type', '#ibeacon_link_type');
+        $(document.body).on('change.ibeacon_link_type', '#ibeacon_link_type', function() {});
+    });
+</script>
