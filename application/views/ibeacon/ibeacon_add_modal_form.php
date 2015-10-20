@@ -53,7 +53,7 @@
                     </div>
                 </div>
 
-                <!-- exh menu -->
+                <!-- ibeacon obj menu -->
                 <div id="link_obj_block" class="form-group" style="display: none">
                     <label class="col-md-4 control-label" for="ibeacon_obj">連結對象</label>
                     <div class="col-md-6">
@@ -74,7 +74,6 @@
     $('#ibeacon_edit_form').ready(function() {
         $(document.body).off('change.ibeacon_link_type', '#ibeacon_link_type');
         $(document.body).on('change.ibeacon_link_type', '#ibeacon_link_type', function() {
-
             $.ajax({
                 url: '/iBeaGuide/ibeacons/print_obj_menu/' + $('#ibeacon_link_type').val(),
                 type: "GET",

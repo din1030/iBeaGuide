@@ -50,11 +50,15 @@
                     </div>
                 </div>
 
-                <!-- exh menu -->
-                <div class="form-group" style="display: none">
-                    <label class="col-md-4 control-label" for="ibeacon_obj">連結物件</label>
+                <!-- ibeacon obj menu -->
+                <div id="link_obj_block" class="form-group" style="">
+                    <label class="col-md-4 control-label" for="ibeacon_obj">連結對象</label>
                     <div class="col-md-6">
-                        <?= form_dropdown('ibeacon_obj', $obj, $ibeacon->link_obj_id, "id='ibeacon_obj' class='form-control'") ?>
+                        <?php
+                            if (!empty($ibeacon->link_obj_id)) {
+                                echo form_dropdown('ibeacon_link_obj', $linked_obj, $ibeacon->link_obj_id, "id='ibeacon_link_obj' class='form-control'");
+                            }
+                        ?>
                     </div>
                 </div>
 
@@ -71,6 +75,25 @@
 <script type="text/javascript">
     $('#ibeacon_edit_form').ready(function() {
         $(document.body).off('change.ibeacon_link_type', '#ibeacon_link_type');
-        $(document.body).on('change.ibeacon_link_type', '#ibeacon_link_type', function() {});
+        $(document.body).on('change.ibeacon_link_type', '#ibeacon_link_type', function() {
+            var url_str ='/iBeaGuide/ibeacons/print_obj_menu/' + $('#ibeacon_link_type').val()
+            if($('#ibeacon_link_type').val() == '<?= $ibeacon->link_type ?>') {
+                url_str += '/<?= $ibeacon->link_obj_id ?>';
+            }
+            $.ajax({
+                url: url_str,
+                type: "GET",
+                dataType: 'html',
+                success: function(html_block) {
+                    if (html_block) {
+                        $('#link_obj_block > div').html(html_block);
+                        $('#link_obj_block').show();
+                    } else {
+                        $('#link_obj_block > div').empty();
+                        $('#link_obj_block').hide();
+                    }
+                }
+            });
+        });
     });
 </script>

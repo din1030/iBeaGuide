@@ -1,12 +1,12 @@
 <?php
 
-class Ibeacons extends CI_Controller {
-
+class Ibeacons extends CI_Controller
+{
     public function __construct()
     {
         parent::__construct();
         $this->load->model('Ibeacon');
-        log_message('debug', "Ibeacons Controller Initialized");
+        log_message('debug', 'Ibeacons Controller Initialized');
     }
 
     public function index()
@@ -22,11 +22,10 @@ class Ibeacons extends CI_Controller {
 
     public function get_ibeacon_list()
     {
-        $query = $this->Ibeacon->prepare_for_table_by_owner_id($this->config->item('login_user_id'),'ibeacons.id, ibeacons.title, ibeacons.uuid, ibeacons.major, ibeacons.minor, ibeacons.link_type');
+        $query = $this->Ibeacon->prepare_for_table_by_owner_id($this->config->item('login_user_id'), 'ibeacons.id, ibeacons.title, ibeacons.uuid, ibeacons.major, ibeacons.minor, ibeacons.link_type');
         $result_array = $query->result_array();
         $ibeacons = array();
-        foreach ($result_array as $ibeacon_row)
-        {
+        foreach ($result_array as $ibeacon_row) {
             $manage_ctrl = "<button id='edit_ibeacon_btn_".$ibeacon_row['id']."' type='button' class='btn btn-primary edit-ibeacon-btn' data-toggle='modal' data-ibeacon-id='".$ibeacon_row['id']."'>編輯</button>&nbsp;";
             $manage_ctrl .= "<button id='del_ibeacon_btn_".$ibeacon_row['id']."' type='button' class='btn btn-danger del-ibeacon-btn' data-toggle='modal' data-ibeacon-id='".$ibeacon_row['id']."'>刪除</button>";
             array_push($ibeacon_row, $manage_ctrl);
@@ -37,8 +36,8 @@ class Ibeacons extends CI_Controller {
 
         $this->table->clear();
         $this->table->set_heading(array('ID', '名稱', 'UUID', 'Major', 'Minor', '連結物件', '管理'));
-        $tmpl = array ( 'table_open'  => '<table id="fac_list" data-toggle="table" data-striped="true">',
-                        'heading_cell_start'  => '<th data-sortable="true">');
+        $tmpl = array('table_open' => '<table id="fac_list" data-toggle="table" data-striped="true">',
+                        'heading_cell_start' => '<th data-sortable="true">', );
         $this->table->set_template($tmpl);
 
         return $ibeacons;
@@ -68,13 +67,14 @@ class Ibeacons extends CI_Controller {
             'fac' => '設施',
         );
 
-        $this->load->model('Exhibition');
-        $data['exhibitions'] = $this->Exhibition->prepare_for_dropdwon();
+        // $this->load->model('Exhibition');
+        // $data['exhibitions'] = $this->Exhibition->prepare_for_dropdwon();
+        $data['linked_obj'] = $this->get_obj_menu($data['ibeacon']->link_type);
 
         $this->load->view('ibeacon/ibeacon_edit_modal_form', $data);
     }
 
-    public function print_obj_menu($link_type)
+    public function get_obj_menu($link_type)
     {
         switch ($link_type) {
             case 'exh':
@@ -91,11 +91,15 @@ class Ibeacons extends CI_Controller {
                 break;
             default:
                 return;
-                break;
         }
-        echo form_dropdown('ibeacon_obj', $menu, '', "id='ibeacon_obj' class='form-control'");
+        return $menu;
     }
+    public function print_obj_menu($link_type, $selected = '')
+    {
+        $menu = $this->get_obj_menu($link_type);
+        echo form_dropdown('ibeacon_obj', $menu, $selected, "id='ibeacon_obj' class='form-control'");
 
+    }
 
     public function add_ibeacon_action()
     {
@@ -103,12 +107,9 @@ class Ibeacons extends CI_Controller {
         $this->form_validation->set_rules('ibeacon_major', 'Major', 'trim|required');
         $this->form_validation->set_rules('ibeacon_minor', 'Minor', 'trim|required');
 
-        if ($this->form_validation->run() == FALSE)
-        {
+        if ($this->form_validation->run() == false) {
             redirect('ibeacons');
-        }
-        else
-        {
+        } else {
             $data = array(
                 'owner_id' => $this->config->item('login_user_id'),
                 'title' => $this->input->post('ibeacon_title'),
@@ -116,7 +117,7 @@ class Ibeacons extends CI_Controller {
                 'major' => $this->input->post('ibeacon_major'),
                 'minor' => $this->input->post('ibeacon_minor'),
                 'link_type' => $this->input->post('ibeacon_link'),
-                'created' => NULL,
+                'created' => null,
             );
             $this->Ibeacon->create($data);
 
@@ -129,12 +130,9 @@ class Ibeacons extends CI_Controller {
         $this->form_validation->set_rules('ibeacon_major', 'Major', 'trim|required');
         $this->form_validation->set_rules('ibeacon_minor', 'Minor', 'trim|required');
 
-        if ($this->form_validation->run() == FALSE)
-        {
+        if ($this->form_validation->run() == false) {
             redirect('ibeacons');
-        }
-        else
-        {
+        } else {
             $ibeacon_obj = $this->Ibeacon->find($this->input->post('ibeacon_id'));
             $ibeacon_obj->owner_id = $this->config->item('login_user_id');
             $ibeacon_obj->title = $this->input->post('ibeacon_title');
