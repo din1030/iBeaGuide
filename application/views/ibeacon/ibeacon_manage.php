@@ -14,9 +14,6 @@
         $.ajax({
             url: '/iBeaGuide/ibeacons/get_ibeacon_add_modal_form',
             type: "GET",
-            data: {
-                // exh_id: $(this).attr('data-exh-id')
-            },
             dataType: "html",
             beforeSend: function(xhr) {
                 $('#system-message').html('處理中...');
@@ -34,13 +31,10 @@
 
     $(document.body).off('click.edit_ibeacon', '.edit-ibeacon-btn');
     $(document.body).on('click.edit_ibeacon', '.edit-ibeacon-btn', function() {
-
+        var this_ibeacon_id = $(this).attr('data-ibeacon-id');
         $.ajax({
-            url: '/iBeaGuide/ibeacons/get_ibeacon_edit_modal_form',
+            url: '/iBeaGuide/ibeacons/get_ibeacon_edit_modal_form/' + this_ibeacon_id,
             type: "GET",
-            data: {
-                ibeacon_id: $(this).attr('data-ibeacon-id')
-            },
             dataType: "html",
             beforeSend: function(xhr) {
                 $('#system-message').html('處理中...');

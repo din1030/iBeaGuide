@@ -51,11 +51,11 @@
                 </div>
 
                 <!-- ibeacon obj menu -->
-                <div id="link_obj_block" class="form-group" style="">
+                <div id="link_obj_block" class="form-group" style="<?php if(empty($linked_obj)) echo 'display: none;' ?>">
                     <label class="col-md-4 control-label" for="ibeacon_obj">連結對象</label>
                     <div class="col-md-6">
                         <?php
-                            if (!empty($ibeacon->link_obj_id)) {
+                            if ($ibeacon->link_obj_id == 'none' || !empty($ibeacon->link_obj_id)) {
                                 echo form_dropdown('ibeacon_link_obj', $linked_obj, $ibeacon->link_obj_id, "id='ibeacon_link_obj' class='form-control'");
                             }
                         ?>

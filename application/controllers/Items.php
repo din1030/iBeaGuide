@@ -35,7 +35,6 @@ class Items extends CI_Controller
             $manage_ctrl .= "<button id='del_item_btn_".$item_row['id']."' type='button' class='btn btn-danger del-item-btn' data-toggle='modal' data-item-id='".$item_row['id']."'>刪除</button>";
             array_push($item_row, $manage_ctrl);
             $items[] = $item_row;
-            unset($item_row);
         }
         unset($result_array);
 

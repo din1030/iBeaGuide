@@ -30,7 +30,6 @@ class Ibeacons extends CI_Controller
             $manage_ctrl .= "<button id='del_ibeacon_btn_".$ibeacon_row['id']."' type='button' class='btn btn-danger del-ibeacon-btn' data-toggle='modal' data-ibeacon-id='".$ibeacon_row['id']."'>刪除</button>";
             array_push($ibeacon_row, $manage_ctrl);
             $ibeacons[] = $ibeacon_row;
-            $fac_row = null;
         }
         unset($result_array);
 
@@ -55,9 +54,8 @@ class Ibeacons extends CI_Controller
         $this->load->view('ibeacon/ibeacon_add_modal_form', $data);
     }
 
-    public function get_ibeacon_edit_modal_form()
+    public function get_ibeacon_edit_modal_form($ibeacon_id)
     {
-        $ibeacon_id = $_GET['ibeacon_id'];
         $data['ibeacon'] = $this->Ibeacon->find($ibeacon_id);
 
         $data['type'] = array(
@@ -67,14 +65,11 @@ class Ibeacons extends CI_Controller
             'fac' => '設施',
         );
 
-        // $this->load->model('Exhibition');
-        // $data['exhibitions'] = $this->Exhibition->prepare_for_dropdwon();
         $data['linked_obj'] = $this->get_obj_menu($data['ibeacon']->link_type);
-
         $this->load->view('ibeacon/ibeacon_edit_modal_form', $data);
     }
 
-    public function get_obj_menu($link_type)
+    public function get_obj_menu($link_type = '')
     {
         switch ($link_type) {
             case 'exh':
@@ -92,13 +87,17 @@ class Ibeacons extends CI_Controller
             default:
                 return;
         }
+
         return $menu;
     }
-    public function print_obj_menu($link_type, $selected = '')
+
+    public function print_obj_menu($link_type = 'none', $selected = '')
     {
+        if ($link_type == 'none') {
+            return;
+        }
         $menu = $this->get_obj_menu($link_type);
         echo form_dropdown('ibeacon_obj', $menu, $selected, "id='ibeacon_obj' class='form-control'");
-
     }
 
     public function add_ibeacon_action()

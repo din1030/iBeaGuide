@@ -5,7 +5,7 @@
         </button>
         <h4 class="modal-title" id="myModalLabel">新增iBeacon裝置</h4>
     </div>
-    <form class="form-horizontal" action="ibeacons/add_ibeacon_action" method="post">
+    <form id="ibeacon_add_form" class="form-horizontal" action="ibeacons/add_ibeacon_action" method="post">
         <fieldset>
             <div class="modal-body">
 
@@ -71,7 +71,7 @@
     </form>
 </div>
 <script type="text/javascript">
-    $('#ibeacon_edit_form').ready(function() {
+    $('#ibeacon_add_form').ready(function() {
         $(document.body).off('change.ibeacon_link_type', '#ibeacon_link_type');
         $(document.body).on('change.ibeacon_link_type', '#ibeacon_link_type', function() {
             $.ajax({
