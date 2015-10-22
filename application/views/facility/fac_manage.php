@@ -56,16 +56,17 @@
     $(document.body).off('click.delete_fac', '.del-fac-btn');
     $(document.body).on('click.delete_fac', '.del-fac-btn', function() {
         var this_fac_id = $(this).attr('data-fac-id');
+        var this_fac_title = $(this).parent().parent().children('td').eq(1).html();
         BootstrapDialog.show({
             title: '注意！',
-            message: '是否刪除此設施資訊？',
+            message: '是否刪除「' + this_fac_title + '」設施資訊？',
             buttons: [{
                 label: '取消',
                 action: function(dialogRef){
                     dialogRef.close();
                 }
             }, {
-                label: '確認',
+                label: '刪除',
                 cssClass: 'btn-danger',
                 action: function(dialogRef) {
                     $.ajax({

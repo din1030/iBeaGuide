@@ -57,16 +57,17 @@
     $(document.body).off('click.delete_route', '.del-route-btn');
     $(document.body).on('click.delete_route', '.del-route-btn', function() {
         var this_route_id = $(this).attr('data-route-id');
+        var this_route_title = $(this).parent().parent().children('td').eq(1).html();
         BootstrapDialog.show({
             title: '注意！',
-            message: '是否刪除此iBeacon裝置？',
+            message: '是否刪除「' + this_route_title + '」路線？',
             buttons: [{
                 label: '取消',
                 action: function(dialogRef){
                     dialogRef.close();
                 }
             }, {
-                label: '確認',
+                label: '刪除',
                 cssClass: 'btn-danger',
                 action: function(dialogRef) {
                     $.ajax({

@@ -67,7 +67,7 @@
                     dialogRef.close();
                 }
             }, {
-                label: '確認',
+                label: '刪除',
                 cssClass: 'btn-danger',
                 action: function(dialogRef) {
                     $.ajax({
