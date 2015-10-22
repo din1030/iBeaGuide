@@ -7,6 +7,7 @@ class Exhibitions extends CI_Controller
         parent::__construct();
         $this->load->model('Exhibition');
         $this->load->model('Section');
+        $this->load->model('Ibeacon');
         log_message('debug', 'Exhibitions Controller Initialized');
     }
 
@@ -26,13 +27,16 @@ class Exhibitions extends CI_Controller
         $exhibitions = array();
 
         foreach ($result_array as $exh_row) {
-            if (!isset($exh_row['ibeacon_id']) || $exh_row['ibeacon_id'] == 0) {
-                $exh_row['ibeacon_id'] = '未連結';
+            if (empty($exh_row['ibeacon_id'])) {
+                $exh_row['ibeacon_id'] = '＝未連結＝';
+            } else {
+                $exh_ibeacon = $this->Ibeacon->find($exh_row['ibeacon_id']);
+                $exh_row['ibeacon_id'] = $exh_ibeacon->title;
             }
             $manage_ctrl = "<a href='/iBeaGuide/exhibitions/sections?exh_id=".$exh_row['id']."' class='btn btn-default'>展區管理</a>&nbsp;";
             $manage_ctrl .= "<button id='edit-exh-btn_".$exh_row['id']."' type='button' class='btn btn-primary edit-exh-btn' data-toggle='modal' data-exh-id='".$exh_row['id']."'>編輯</button>&nbsp;";
             $manage_ctrl .= "<button id='del-exh-btn_".$exh_row['id']."' type='button' class='btn btn-danger del-exh-btn' data-toggle='modal' data-exh-id='".$exh_row['id']."'>刪除</button>";
-            array_push($exh_row, $manage_ctrl);
+            $exh_row[] = $manage_ctrl;
             $exhibitions[] = $exh_row;
         }
         unset($result_array);

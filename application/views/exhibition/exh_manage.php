@@ -57,9 +57,10 @@
     $(document.body).off('click.delete_exh', '.del-exh-btn');
     $(document.body).on('click.delete_exh', '.del-exh-btn', function() {
         var this_exh_id = $(this).attr('data-exh-id');
+        var this_exh_title = $(this).parent().parent().children('td').eq(1).html();
         BootstrapDialog.show({
             title: '注意！',
-            message: '刪除展覽資訊會將所屬展區一併刪除，是否確認刪除此展覽？',
+            message: '刪除展覽資訊會將所屬展區一併刪除，是否確認刪除「' + this_exh_title + '」展覽資訊？',
             buttons: [{
                 label: '取消',
                 action: function(dialogRef){

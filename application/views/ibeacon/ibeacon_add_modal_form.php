@@ -5,7 +5,8 @@
         </button>
         <h4 class="modal-title" id="myModalLabel">新增iBeacon裝置</h4>
     </div>
-    <form id="ibeacon_add_form" class="form-horizontal" action="ibeacons/add_ibeacon_action" method="post">
+    <div id="form_alert" class="alert alert-danger" role="alert" style="display: none"></div>
+    <form id="ibeacon_add_form" class="form-horizontal" action="/iBeaGuide/ibeacons/add_ibeacon_action" method="post">
         <fieldset>
             <div class="modal-body">
 
@@ -22,7 +23,7 @@
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="ibeacon_uuid">UUID</label>
                     <div class="col-md-6">
-                        <input id="ibeacon_uuid" name="ibeacon_uuid" type="text" placeholder="" class="form-control input-md" required="">
+                        <input id="ibeacon_uuid" name="ibeacon_uuid" type="text" placeholder="" class="form-control input-md" pattern="^[a-zA-Z｜0-9]{8}-[a-zA-Z｜0-9]{4}-[a-zA-Z｜0-9]{4}-[a-zA-Z｜0-9]{4}-[a-zA-Z｜0-9]{12}$" required="">
 
                     </div>
                 </div>
@@ -88,6 +89,41 @@
                     }
                 }
             });
+        });
+
+        $('#ibeacon_add_form').ajaxForm({
+            beforeSend: function(xhr) {
+                $('#system-message').html('處理中...');
+                $('#system-message').show();
+            },
+            success: function(error) {
+                if (error) {
+                    $('#form_alert').html(error);
+                    $('#form_alert').show();
+                    $('#system-message').fadeOut();
+                } else {
+                    $('#form_alert').hide();
+                    $('#form_alert').empty();
+                    $.ajax({
+                        url: '/iBeaGuide/ibeacons/print_ibeacon_list',
+                        type: "GET",
+                        dataType: 'html',
+                        success: function(html_block) {
+                            $('#ibeacon_list_block').html(html_block);
+                            $('#iBeaGuide-modal-block').empty();
+                            $('#iBeaGuide-modal').modal('hide');
+                            $('[data-toggle="table"]').bootstrapTable();
+                            $('#system-message').html('完成');
+                            $('#system-message').fadeOut();
+                            $.scrollTo($('#add-ibeacon-btn'), 500, {
+                                offset: -10
+                            });
+                        }
+                    });
+                    $('#system-message').html('完成');
+                    $('#system-message').fadeOut();
+                }
+            }
         });
     });
 </script>

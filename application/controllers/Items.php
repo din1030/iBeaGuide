@@ -6,6 +6,7 @@ class Items extends CI_Controller
     {
         parent::__construct();
         $this->load->model('Item');
+        $this->load->model('Ibeacon');
         $this->load->model('Custom_field');
         log_message('debug', 'Items Controller Initialized');
     }
@@ -27,13 +28,16 @@ class Items extends CI_Controller
         foreach ($result_array as $item_row) {
             if (empty($item_row['ibeacon_id'])) {
                 $item_row['ibeacon_id'] = '＝未連結＝';
+            } else {
+                $item_ibeacon = $this->Ibeacon->find($item_row['ibeacon_id']);
+                $item_row['ibeacon_id'] = $item_ibeacon->title;
             }
             if (empty($item_row['exh_title'])) {
                 $item_row['exh_title'] = '＝尚未加入展覽＝';
             }
             $manage_ctrl = "<button id='edit_item_btn_".$item_row['id']."' type='button' class='btn btn-primary edit-item-btn' data-toggle='modal' data-item-id='".$item_row['id']."'>編輯</button>&nbsp;";
             $manage_ctrl .= "<button id='del_item_btn_".$item_row['id']."' type='button' class='btn btn-danger del-item-btn' data-toggle='modal' data-item-id='".$item_row['id']."'>刪除</button>";
-            array_push($item_row, $manage_ctrl);
+            $item_row[] = $manage_ctrl;
             $items[] = $item_row;
         }
         unset($result_array);
@@ -247,6 +251,13 @@ class Items extends CI_Controller
         }
 
         return;
+    }
+
+    public function delete_item_action()
+    {
+        $item_obj = $this->Item->find($_POST['item_id']);
+        $item_obj->delete();
+        echo $this->table->generate($this->get_item_list());
     }
 }
 

@@ -331,7 +331,7 @@
         });
         $(document.body).off('click.item_cancel', '#item-cancel-btn');
         $(document.body).on('click.item_cancel', '#item-cancel-btn', function() {
-            // $('#item_form_block').empty();
+            $('#item_form_block').empty();
             $.scrollTo($('#add-item-btn'), 500, {
                 offset: -10
             });

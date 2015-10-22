@@ -231,7 +231,7 @@
             $(document.body).off('click.exh_cancel', '#exh-cancel-btn');
             $(document.body).on('click.exh_cancel', '#exh-cancel-btn', function() {
                 $('#exh_form_block').empty();
-                $.scrollTo($('#add_exh_btn'), 500, {
+                $.scrollTo($('#add-exh-btn'), 500, {
                     offset: -10
                 });
             });

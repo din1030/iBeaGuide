@@ -53,9 +53,10 @@
     $(document.body).off('click.delete_ibeacon', '.del-ibeacon-btn');
     $(document.body).on('click.delete_ibeacon', '.del-ibeacon-btn', function() {
         var this_ibeacon_id = $(this).attr('data-ibeacon-id');
+        var this_ibeacon_title = $(this).parent().parent().children('td').eq(1).html();
         BootstrapDialog.show({
             title: '注意！',
-            message: '是否刪除此iBeacon裝置？',
+            message: '是否刪除此iBeacon（'+ this_ibeacon_title +'）？',
             buttons: [{
                 label: '取消',
                 action: function(dialogRef){

@@ -58,9 +58,10 @@
     $(document.body).off('click.delete_sec', '.del-section-btn');
     $(document.body).on('click.delete_sec', '.del-section-btn', function() {
         var this_sec_id = $(this).attr('data-sec-id');
+        var this_sec_title = $(this).parent().parent().children('td').eq(1).html();
         BootstrapDialog.show({
             title: '注意！',
-            message: '是否刪除此展區？',
+            message: '是否刪除「' + this_sec_title + '」展區？',
             buttons: [{
                 label: '取消',
                 action: function(dialogRef){

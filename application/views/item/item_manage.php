@@ -55,9 +55,10 @@
     $(document.body).off('click.delete_item', '.del-item-btn');
     $(document.body).on('click.delete_item', '.del-item-btn', function() {
         var this_item_id = $(this).attr('data-item-id');
+        var this_item_title = $(this).parent().parent().children('td').eq(1).html();
         BootstrapDialog.show({
             title: '注意！',
-            message: '是否確認刪除此展品資訊？',
+            message: '是否確認刪除「' + this_item_title + '」資訊？',
             buttons: [{
                 label: '取消',
                 action: function(dialogRef){
@@ -68,7 +69,7 @@
                 cssClass: 'btn-danger',
                 action: function(dialogRef) {
                     $.ajax({
-                        url: '/iBeaGuide/items/delete_itemibition_action',
+                        url: '/iBeaGuide/items/delete_item_action',
                         type: "POST",
                         //cache: false,
                         data: {

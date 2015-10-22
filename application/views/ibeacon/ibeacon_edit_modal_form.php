@@ -5,14 +5,14 @@
         </button>
         <h4 class="modal-title" id="myModalLabel">編輯iBeacon裝置資訊</h4>
     </div>
-    <form id="ibeacon_edit_form" class="form-horizontal" action="ibeacons/edit_ibeacon_action" method="post">
+    <form id="ibeacon_edit_form" class="form-horizontal" action="/iBeaGuide/ibeacons/edit_ibeacon_action" method="post">
         <fieldset>
             <div class="modal-body">
                 <input id="ibeacon_id" type="hidden" name="ibeacon_id" value="<?= $ibeacon->id ?>">
 
                 <!-- Text input-->
                 <div class="form-group">
-                    <label class="col-md-4 control-label" for="ibeacon_title">iBeacon名稱</label>
+                    <label class="col-md-4 control-label" for="ibeacon_title">名稱</label>
                     <div class="col-md-6">
                         <input id="ibeacon_title" name="ibeacon_title" type="text" placeholder="" class="form-control input-md" required="" value="<?= $ibeacon->title ?>">
                     </div>
@@ -52,7 +52,7 @@
 
                 <!-- ibeacon obj menu -->
                 <div id="link_obj_block" class="form-group" style="<?php if(empty($linked_obj)) echo 'display: none;' ?>">
-                    <label class="col-md-4 control-label" for="ibeacon_obj">連結對象</label>
+                    <label class="col-md-4 control-label" for="ibeacon_link_obj">連結對象</label>
                     <div class="col-md-6">
                         <?php
                             if ($ibeacon->link_obj_id == 'none' || !empty($ibeacon->link_obj_id)) {
@@ -94,6 +94,41 @@
                     }
                 }
             });
+        });
+
+        $('#ibeacon_edit_form').ajaxForm({
+            beforeSend: function(xhr) {
+                $('#system-message').html('處理中...');
+                $('#system-message').show();
+            },
+            success: function(error) {
+                if (error) {
+                    $('#form_alert').html(error);
+                    $('#form_alert').show();
+                    $('#system-message').fadeOut();
+                } else {
+                    $('#form_alert').hide();
+                    $('#form_alert').empty();
+                    $.ajax({
+                        url: '/iBeaGuide/ibeacons/print_ibeacon_list',
+                        type: "GET",
+                        dataType: 'html',
+                        success: function(html_block) {
+                            $('#ibeacon_list_block').html(html_block);
+                            $('#iBeaGuide-modal-block').empty();
+                            $('#iBeaGuide-modal').modal('hide');
+                            $('[data-toggle="table"]').bootstrapTable();
+                            $('#system-message').html('完成');
+                            $('#system-message').fadeOut();
+                            $.scrollTo($('#add-ibeacon-btn'), 500, {
+                                offset: -10
+                            });
+                        }
+                    });
+                    $('#system-message').html('完成');
+                    $('#system-message').fadeOut();
+                }
+            }
         });
     });
 </script>

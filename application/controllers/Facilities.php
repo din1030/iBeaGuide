@@ -6,6 +6,7 @@ class Facilities extends CI_Controller
     {
         parent::__construct();
         $this->load->model('Facility');
+        $this->load->model('Ibeacon');
         log_message('debug', 'Facilities Controller Initialized');
     }
 
@@ -25,13 +26,15 @@ class Facilities extends CI_Controller
         $facilities = array();
         foreach ($result_array as $fac_row) {
             if (!isset($fac_row['ibeacon_id']) || $fac_row['ibeacon_id'] == 0) {
-                $fac_row['ibeacon_id'] = '未連結';
+                $fac_row['ibeacon_id'] = '＝未連結＝';
+            } else {
+                $fac_ibeacon = $this->Ibeacon->find($fac_row['ibeacon_id']);
+                $fac_row['ibeacon_id'] = $fac_ibeacon->title;
             }
             $manage_ctrl = "<button id='edit_fac_btn_".$fac_row['id']."' type='button' class='btn btn-primary edit-fac-btn' data-toggle='modal' data-fac-id='".$fac_row['id']."'>編輯</button>&nbsp;";
             $manage_ctrl .= "<button id='del_fac_btn_".$fac_row['id']."' type='button' class='btn btn-danger del-fac-btn' data-toggle='modal' data-fac-id='".$fac_row['id']."'>刪除</button>";
-            array_push($fac_row, $manage_ctrl);
+            $fac_row[] = $manage_ctrl;
             $facilities[] = $fac_row;
-            unset($fac_row);
         }
         unset($result_array);
 
