@@ -1,6 +1,7 @@
 <html>
 
     <head>
+        <link rel="shortcut icon" href="favicon.ico">
         <title>iBeaGuide - 數位導覽內容管理系統</title>
         <!-- Latest compiled and minified CSS -->
         <link rel="stylesheet" href="/iBeaGuide/assets/Bootstrap/css/bootstrap.min.css" />
@@ -46,7 +47,10 @@
     <body>
         <div id="wrap">
             <div class="header">
-                <span><a href="/iBeaGuide/">iBeaGuide - 數位導覽內容管理系統</a></span>
+                <span>
+                    <a href="/iBeaGuide/">
+                        <img src="/iBeaGuide/assets/logo.png" alt="iBeaGuide" height="40" width="40" style="vertical-align: sub" /> iBeaGuide - 數位導覽內容管理系統</a>
+                </span>
             </div>
             <div id="system-message-block">
                 <div id="system-message"></div>

@@ -189,7 +189,7 @@ class Ibeacons extends CI_Controller
             }
             if (!$ibeacon_obj->update()) {
                 $error_msg = $this->error_message->get_error_message('update_error');
-                log_message('debug', $error_msg);
+                log_message('error', $error_msg);
                 echo $error_msg;
             }
             unset($ibeacon_obj);

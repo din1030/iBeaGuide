@@ -112,7 +112,7 @@ class Facilities extends CI_Controller
                 // If create data fail
                 if (!isset($fac_obj)) {
                     $error_msg = $this->error_message->get_error_message('create_error');
-                    log_message('debug', $error_msg);
+                    log_message('error', $error_msg);
                     echo $error_msg;
                 } else {
                     // set upload config
@@ -166,7 +166,7 @@ class Facilities extends CI_Controller
             // If DB update failed, then no need to upload files.
             if (!$fac_obj->update()) {
                 $error_msg = $this->error_message->get_error_message('update_error');
-                log_message('debug', $error_msg);
+                log_message('error', $error_msg);
                 echo $error_msg;
 
                 return;

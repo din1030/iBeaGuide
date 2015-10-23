@@ -99,10 +99,14 @@ class Items extends CI_Controller
         // $this->form_validation->set_rules('item_main_pic', '主要圖片', 'trim|required');
         // $this->form_validation->set_rules('item_audioguide', '導覽語音', 'trim|required');
         $this->form_validation->set_rules('item_description', '展品詳細解說', 'trim|required');
-        $this->form_validation->set_rules('basic_field_name[]', '自訂基本欄位名稱', 'trim|required');
-        $this->form_validation->set_rules('basic_field_value[]', '自訂基本欄位內容', 'trim|required');
-        $this->form_validation->set_rules('detail_field_name[]', '自訂詳細欄位名稱', 'trim|required');
-        $this->form_validation->set_rules('detail_field_value[]', '自訂詳細欄位內容', 'trim|required');
+        if ($this->input->post('basic_field_name') != null) {
+            $this->form_validation->set_rules('basic_field_name[]', '自訂基本欄位名稱', 'trim|required');
+            $this->form_validation->set_rules('basic_field_value[]', '自訂基本欄位內容', 'trim|required');
+        }
+        if ($this->input->post('detail_field_name') != null) {
+            $this->form_validation->set_rules('detail_field_name[]', '自訂詳細欄位名稱', 'trim|required');
+            $this->form_validation->set_rules('detail_field_value[]', '自訂詳細欄位內容', 'trim|required');
+        }
         // $this->form_validation->set_rules('item_more_pics', '其他圖片', 'trim|required');
 
         if ($this->form_validation->run() == false) {
@@ -162,7 +166,7 @@ class Items extends CI_Controller
                     $basic_field_name = $this->input->post('basic_field_name');
                     $basic_field_value = $this->input->post('basic_field_value');
                     if (!empty($basic_field_name) && !empty($basic_field_value) && count($basic_field_name) == count($basic_field_value)) {
-                        for ($i = 0; $i < count($basic_field_name); $i++) {
+                        for ($i = 0; $i < count($basic_field_name); ++$i) {
                             $basic_field_data[] = array(
                                 'item_id' => $item_obj->id,
                                 'field_name' => $basic_field_name[$i],
@@ -175,7 +179,7 @@ class Items extends CI_Controller
                     $detail_field_name = $this->input->post('detail_field_name');
                     $detail_field_value = $this->input->post('detail_field_value');
                     if (!empty($detail_field_name) && !empty($detail_field_value) && count($detail_field_name) == count($detail_field_value)) {
-                        for ($i = 0; $i < count($detail_field_name); $i++) {
+                        for ($i = 0; $i < count($detail_field_name); ++$i) {
                             $detail_field_data[] = array(
                                 'item_id' => $item_obj->id,
                                 'field_name' => $detail_field_name[$i],
@@ -246,8 +250,162 @@ class Items extends CI_Controller
                         unset($more_upload_results);
                     }
                 }
-                unset($item_obj);
             }
+            unset($item_obj);
+        }
+
+        return;
+    }
+
+    public function edit_item_action()
+    {
+        $this->form_validation->set_rules('item_title', '展品名稱', 'trim|required');
+        $this->form_validation->set_rules('item_creator', '展品作者', 'trim|required');
+        $this->form_validation->set_rules('item_brief', '展品簡介', 'trim|required');
+        // $this->form_validation->set_rules('item_main_pic', '主要圖片', 'trim|required');
+        // $this->form_validation->set_rules('item_audioguide', '導覽語音', 'trim|required');
+        $this->form_validation->set_rules('item_description', '展品詳細解說', 'trim|required');
+        if ($this->input->post('basic_field_name') != null) {
+            $this->form_validation->set_rules('basic_field_name[]', '自訂基本欄位名稱', 'trim|required');
+            $this->form_validation->set_rules('basic_field_value[]', '自訂基本欄位內容', 'trim|required');
+        }
+        if ($this->input->post('detail_field_name') != null) {
+            $this->form_validation->set_rules('detail_field_name[]', '自訂詳細欄位名稱', 'trim|required');
+            $this->form_validation->set_rules('detail_field_value[]', '自訂詳細欄位內容', 'trim|required');
+        }
+        // $this->form_validation->set_rules('item_more_pics', '其他圖片', 'trim|required');
+
+        if ($this->form_validation->run() == false) {
+            echo validation_errors();
+        } else {
+            $item_obj = $this->Item->find($this->input->post('item_id'));
+            $item_obj->title = $this->input->post('item_title');
+            $item_obj->subtitle = $this->input->post('item_subtitle');
+            $item_obj->creator = $this->input->post('item_creator');
+            $item_obj->brief = $this->input->post('item_brief');
+            $item_obj->description = $this->input->post('item_description');
+            // $item_obj->main_pic = $this->input->post('item_main_pic');
+            $item_obj->push_content = $this->input->post('item_push');
+            $item_obj->ibeacon_id = $this->input->post('item_ibeacon');
+            $item_obj->exh_id = $this->input->post('item_exh');
+            $item_obj->section_id = $this->input->post('item_section');
+            $item_obj->ibeacon_id = $this->input->post('item_ibeacon');
+
+            if ($item_obj->exh_id == 0) {
+                $item_obj->exh_id = null;
+                $item_obj->section_id = null;
+            }
+            if ($item_obj->section_id == 0) {
+                $item_obj->section_id = null;
+            }
+            if ($item_obj->ibeacon_id == 0) {
+                $item_obj->ibeacon_id = null;
+            }
+
+            // If DB update failed, then no need to update ohther info.
+            if (!$item_obj->update()) {
+                $error_msg = $this->error_message->get_error_message('update_error');
+                log_message('error', $error_msg);
+                echo $error_msg;
+
+                return;
+            } else {
+                // if item info added successfully, then insert custom fields
+                $basic_field_name = $this->input->post('basic_field_name');
+                $basic_field_value = $this->input->post('basic_field_value');
+                if (!empty($basic_field_name)
+                 && !empty($basic_field_value)
+                 && count($basic_field_name) == count($basic_field_value)) {
+                    for ($i = 0; $i < count($basic_field_name); ++$i) {
+                        $basic_field_data[] = array(
+                            'item_id' => $item_obj->id,
+                            'field_name' => $basic_field_name[$i],
+                            'field_value' => $basic_field_value[$i],
+                            'type' => 'basic',
+                            'created' => null,
+                        );
+                    }
+
+                    foreach ($basic_field_data as $basic_field) {
+                        if (!$this->Custom_field->create($basic_field)) {
+                            $error_msg = $this->error_message->get_error_message('custom_field_error');
+                            log_message('error', $error_msg);
+                            echo $error_msg;
+
+                            return;
+                        }
+                    }
+                }
+                $detail_field_name = $this->input->post('detail_field_name');
+                $detail_field_value = $this->input->post('detail_field_value');
+                if (!empty($detail_field_name)
+                 && !empty($detail_field_value)
+                 && count($detail_field_name) == count($detail_field_value)) {
+                    for ($i = 0; $i < count($detail_field_name); ++$i) {
+                        $detail_field_data[] = array(
+                            'item_id' => $item_obj->id,
+                            'field_name' => $detail_field_name[$i],
+                            'field_value' => $detail_field_value[$i],
+                            'type' => 'detail',
+                            'created' => null,
+                        );
+                    }
+                    foreach ($detail_field_data as $detail_field) {
+                        if (!$this->Custom_field->create($detail_field)) {
+                            $error_msg = $this->error_message->get_error_message('custom_field_error');
+                            log_message('error', $error_msg);
+                            echo $error_msg;
+
+                            return;
+                        }
+                    }
+                }
+                unset($basic_field_data);
+                unset($detail_field_data);
+
+                // set upload config
+                $config['allowed_types'] = 'gif|jpg|png';
+                $config['max_size'] = '2048'; // 2MB
+                $this->upload->initialize($config);
+
+                // Edit action allows user not to upload files.
+                // But if there are files, upload them.
+                if (!empty($_FILES['item_main_pic'])) {
+                    $main_upload_results = $this->upload->do_multiple_upload('item_main_pic', 'item_main', $item_obj->id);
+                    if (!$main_upload_results) {
+                        $this->upload->display_errors('', '<br>');
+                    } else {
+                        foreach ($main_upload_results as $result) {
+                            if (isset($result['error'])) {
+                                // if error is set, print why  upload failed.
+                            log_message('error', $result['name'].' upload failed.');
+                                echo $result['name'].' '.$result['error'];
+                            } else {
+                                log_message('debug', $result['name'].' uploaded.');
+                            }
+                        }
+                        unset($main_upload_results);
+                    }
+                }
+                if (!empty($_FILES['item_more_pics'])) {
+                    $more_upload_results = $this->upload->do_multiple_upload('item_more_pics', 'item_more', $item_obj->id);
+                    if (!$more_upload_results) {
+                        $this->upload->display_errors('', '<br>');
+                    } else {
+                        foreach ($more_upload_results as $result) {
+                            if (isset($result['error'])) {
+                                // if error is set, print why  upload failed.
+                                log_message('error', $result['name'].' upload failed.');
+                                echo $result['name'].' '.$result['error'];
+                            } else {
+                                log_message('debug', $result['name'].' uploaded.');
+                            }
+                        }
+                        unset($more_upload_results);
+                    }
+                }
+            }
+            unset($item_obj);
         }
 
         return;
@@ -257,7 +415,40 @@ class Items extends CI_Controller
     {
         $item_obj = $this->Item->find($_POST['item_id']);
         $item_obj->delete();
-        echo $this->table->generate($this->get_item_list());
+        if (!$field_obj->delete()) {
+            $error_msg = $this->error_message->get_error_message('delete_error');
+            log_message('error', $error_msg);
+            echo $error_msg;
+        } else {
+            echo $this->table->generate($this->get_item_list());
+        }
+    }
+
+    /*** Custom field functions ***/
+    public function update_field_action()
+    {
+        $field_obj = $this->Custom_field->find($_POST['field_id']);
+        $field_obj->field_name = $_POST['field_name'];
+        $field_obj->field_value = $_POST['field_value'];
+        if (!$field_obj->update()) {
+            $error_msg = $this->error_message->get_error_message('update_error');
+            log_message('error', $error_msg);
+            echo $error_msg;
+
+            return;
+        }
+    }
+
+    public function delete_field_action()
+    {
+        $field_obj = $this->Custom_field->find($_POST['field_id']);
+        if (!$field_obj->delete()) {
+            $error_msg = $this->error_message->get_error_message('delete_error');
+            log_message('error', $error_msg);
+            echo $error_msg;
+
+            return;
+        }
     }
 }
 

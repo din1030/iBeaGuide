@@ -7,7 +7,7 @@
         <div id="form_alert" class="alert alert-danger" role="alert" style="display: none"></div>
         <form id="item_edit_form" class="form-horizontal" action="/iBeaGuide/items/edit_item_action" method="post" enctype="multipart/form-data">
             <fieldset id="item_basic_info">
-
+                <input id="item_id" type="hidden" name="item_id" value="<?= $item->id ?>">
                 <div class="col-md-12">
                     <legend>展品基本資訊
                         <span style="font-size:15px; color:#AAA;">顯示於展品導覽預設頁面</span>
@@ -65,7 +65,7 @@
                 <div class="form-group">
                     <label class="col-md-2 control-label" for="item_main_pic">主要圖片</label>
                     <div class="col-md-8">
-                        <input id="item_main_pic" name="item_main_pic[]" class="input-file" type="file" accept="image/*" required="">
+                        <input id="item_main_pic" name="item_main_pic[]" class="input-file" type="file" accept="image/*">
                         <p class="help-block">（檔案大小請勿超過 2 MB）</p>
                     </div>
                 </div>
@@ -83,7 +83,7 @@
                 <div id="ib_select_block" class="form-group">
                     <label class="col-md-2 control-label" for="exh_ibeacon">連結iBeacon</label>
                     <div class="col-md-8">
-                        <?= form_dropdown('item_ibeacon', $ibeacons, $item->ibeacon_id , "id='item_ibeacon' class='form-control'") ?>
+                        <?= form_dropdown('item_ibeacon', $ibeacons, $item->ibeacon_id, "id='item_ibeacon' class='form-control'") ?>
                     </div>
                 </div>
                 <!-- Textarea -->
@@ -97,22 +97,36 @@
                 <!-- Show customed basic fields  -->
                 <?php
                     if (!empty($basic_fields)) {
-                        for ($i = 0; $i < count($basic_fields); $i++) { ?>
-                            <div class="well margin-top-30 custom-basic-field">
-                                <div class="form-group">
-                                    <label class="col-md-2 control-label" for="basic_field_name">自訂欄位名稱</label>
-                                    <div class="col-md-3">
-                                        <input id="basic_field_name" name="basic_field_name" type="text" placeholder="請輸入欄位名稱" class="form-control input-md" data-item-id="<?= $basic_fields[$i]->id ?>" value="<?= $basic_fields[$i]->field_name ?>">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-md-2 control-label" for="basic_field_value">欄位內容</label>
-                                    <div class="col-md-8">
-                                        <textarea class="form-control" id="basic_field_value" name="basic_field_value" data-item-id="<?= $basic_fields[$i]->id ?>"><?= $basic_fields[$i]->field_value ?></textarea>
-                                    </div>
-                                </div>
+                        for ($i = 0; $i < count($basic_fields); ++$i) {
+                            ?>
+                    <div class="well margin-top-30 custom-basic-field">
+                        <div id="field_alert" class="alert alert-danger" role="alert" style="display: none"></div>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label" for="existing_field_name">自訂欄位名稱</label>
+                            <div class="col-md-3">
+                                <input id="existing_field_name" name="existing_field_name" type="text" placeholder="請輸入欄位名稱" class="form-control input-md" data-field-id="<?= $basic_fields[$i]->id ?>" value="<?= $basic_fields[$i]->field_name ?>" readonly>
                             </div>
+                            <div class="col-md-5" >
+                                <p id="field-help-block" class="help-block text-right" style="display: none">（既有自訂欄位送出即直接更新，不需送出展品表單）</p>
+                            </div>
+                            <div class="col-md-2 text-right">
+                                <button id="edit-field-btn" type="button" name="edit_field_btn" class="btn btn-primary edit-field-btn"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>
+                                <button id="del-field-btn" type="button" name="del_field_btn" class="btn btn-danger del-field-btn" data-field-id="<?= $basic_fields[$i]->id ?>"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label" for="existing_field_value">欄位內容</label>
+                            <div class="col-md-8">
+                                <textarea class="form-control" id="existing_field_value" name="existing_field_value" data-field-id="<?= $basic_fields[$i]->id ?>" readonly><?= $basic_fields[$i]->field_value ?></textarea>
+                            </div>
+                            <div id="field-btn-group" class="col-md-2 text-right" style="display: none">
+                                <button id="submit-field-btn" type="button" name="submit_field_btn" class="btn btn-primary submit-field-btn" data-field-id="<?= $basic_fields[$i]->id ?>">送出</button>
+                                <button id="cancel-field-btn" type="button" name="cancel_field_btn" class="btn btn-default cancel-field-btn">取消</button>
+                            </div>
+                        </div>
+                    </div>
                     <?php
+
                         }
                     }
                 ?>
@@ -154,25 +168,38 @@
                 <div class="form-group">
                     <label class="col-md-2 control-label" for="item_more_pics">其他圖片</label>
                     <div class="col-md-8">
-                        <input id="item_more_pics" name="item_more_pics[]" class="input-file" type="file" multiple="true" accept="image/*" required="">
+                        <input id="item_more_pics" name="item_more_pics[]" class="input-file" type="file" multiple="true" accept="image/*">
                         <p class="help-block">（檔案大小請勿超過 2 MB，至多五張）</p>
                     </div>
                 </div>
                 <!-- Show customed basic fields  -->
                 <?php
                     if (!empty($detail_fields)) {
-                        for ($i = 0; $i < count($detail_fields); $i++) { ?>
+                        for ($i = 0; $i < count($detail_fields); ++$i) {
+                            ?>
                             <div class="well margin-top-30 custom-detail-field">
+                                <div id="field_alert" class="alert alert-danger" role="alert" style="display: none"></div>
                                 <div class="form-group">
-                                    <label class="col-md-2 control-label" for="detail_field_name">自訂欄位名稱</label>
+                                    <label class="col-md-2 control-label" for="existing_field_name">自訂欄位名稱</label>
                                     <div class="col-md-3">
-                                        <input id="detail_field_name" name="detail_field_name" type="text" placeholder="請輸入欄位名稱" class="form-control input-md" data-item-id="<?= $detail_fields[$i]->id ?>" value="<?= $detail_fields[$i]->field_name ?>">
+                                        <input id="existing_field_name" name="existing_field_name" type="text" placeholder="請輸入欄位名稱" class="form-control input-md" data-field-id="<?= $detail_fields[$i]->id ?>" value="<?= $detail_fields[$i]->field_name ?>" readonly>
+                                    </div>
+                                    <div class="col-md-5" >
+                                        <p id="field-help-block" class="help-block text-right" style="display: none">（既有自訂欄位送出即直接更新，不需送出展品表單）</p>
+                                    </div>
+                                    <div class="col-md-2 text-right">
+                                        <button id="edit-field-btn" type="button" name="edit_field_btn" class="btn btn-primary edit-field-btn"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>
+                                        <button id="del-field-btn" type="button" name="del_field_btn" class="btn btn-danger del-field-btn" data-field-id="<?= $basic_fields[$i]->id ?>"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-md-2 control-label" for="detail_field_value">欄位內容</label>
+                                    <label class="col-md-2 control-label" for="existing_field_value">欄位內容</label>
                                     <div class="col-md-8">
-                                        <textarea class="form-control" id="detail_field_value" name="detail_field_value" data-item-id="<?= $detail_fields[$i]->id ?>"><?= $detail_fields[$i]->field_value ?></textarea>
+                                        <textarea class="form-control" id="existing_field_value" name="existing_field_value" data-field-id="<?= $detail_fields[$i]->id ?>" readonly><?= $detail_fields[$i]->field_value ?></textarea>
+                                    </div>
+                                    <div id="field-btn-group" class="col-md-2 text-right" style="display: none">
+                                        <button id="submit-field-btn" type="button" name="submit_field_btn" class="btn btn-primary submit-field-btn" data-field-id="<?= $basic_fields[$i]->id ?>">送出</button>
+                                        <button id="cancel-field-btn" type="button" name="cancel_field_btn" class="btn btn-default cancel-field-btn">取消</button>
                                     </div>
                                 </div>
                             </div>
@@ -233,10 +260,12 @@
                 var count = $('.custom-basic-field').length;
                 var index = count + 1;
                 var custom_field_block =
-                    "<div class='well margin-top-30 custom-basic-field'><div class='form-group'><label class='col-md-2 control-label' for='basic_field_name_" + index +
-                    "'>自訂欄位名稱</label><div class='col-md-3'><input id='basic_field_name_" + index + "' name='basic_field_name_" + index +
-                    "' type='text' placeholder='請輸入欄位名稱' class='form-control input-md'></div></div><div class='form-group'><label class='col-md-2 control-label' for='basic_field_value_" + index +
-                    "'>欄位內容</label><div class='col-md-8'><textarea class='form-control' id='basic_field_value_" + index + "' name='basic_field_value_" + index + "'></textarea></div></div></div>";
+                    "<div class='well margin-top-30 custom-basic-field'>" +
+                    "<button type='button' class='close custom-filed-close' aria-label='Close'><span aria-hidden='true'>" + "&times" + ";</span></button>" +
+                    "<div class='form-group'><label class='col-md-2 control-label' for='basic_field_name'>自訂欄位名稱</label>" +
+                    "<div class='col-md-3'><input id='basic_field_name' name='basic_field_name[]' type='text' placeholder='請輸入欄位名稱' class='form-control input-md' required=''></div></div>" +
+                    "<div class='form-group'><label class='col-md-2 control-label' for='basic_field_value'>欄位內容</label>" +
+                    "<div class='col-md-8'><textarea class='form-control' id='basic_field_value' name='basic_field_value[]' required=''></textarea></div></div></div>";
                 if (count < 3) {
                     $('#note_for_basic_fields').show();
                     return custom_field_block;
@@ -255,10 +284,13 @@
             $('#item_detail_info').append(function(n) {
                 var count = $('.custom-detail-field').length;
                 var index = count + 1;
-                var custom_field_block = "<div class='well margin-top-30 custom-detail-field'><div class='form-group'><label class='col-md-2 control-label' for='detail_field_name_" + index +
-                    "'>自訂欄位名稱</label><div class='col-md-3'><input id='detail_field_name_" + index + "' name='detail_field_name_" + index +
-                    "' type='text' placeholder='請輸入欄位名稱' class='form-control input-md'></div></div><div class='form-group'><label class='col-md-2 control-label' for='detail_field_value_" + index +
-                    "'>欄位內容</label><div class='col-md-8'><textarea class='form-control' id='detail_field_value_" + index + "' name='detail_field_value_" + index + "' ></textarea></div></div></div>";
+                var custom_field_block =
+                    "<div class='well margin-top-30 custom-detail-field'>" +
+                    "<button type='button' class='close' aria-label='Close'><span aria-hidden='true'>" + "&times" + ";</span></button>" +
+                    "<div class='form-group'><label class='col-md-2 control-label' for='detail_field_name'>自訂欄位名稱</label>" +
+                    "<div class='col-md-3'><input id='detail_field_name' name='detail_field_name[]' type='text' placeholder='請輸入欄位名稱' class='form-control input-md' required=''></div></div>" +
+                    "<div class='form-group'><label class='col-md-2 control-label' for='detail_field_value'>欄位內容</label>" +
+                    "<div class='col-md-8'><textarea class='form-control' id='detail_field_value' name='detail_field_value[]' required=''></textarea></div></div></div>";
                 if (count < 3) {
                     $('#note_for_detail_fields').show();
                     return custom_field_block;
@@ -328,6 +360,104 @@
                     $('#system-message').fadeOut();
                 }
             }
+        });
+        $(document.body).off('click.edit_field', '.edit-field-btn');
+        $(document.body).on('click.edit_field', '.edit-field-btn', function() {
+            var this_field_name = $(this).parent().parent().find('#existing_field_name');
+            var this_field_value = $(this).parent().parent().parent().find('#existing_field_value');
+            $(this).prop('disabled', true);
+            this_field_name.prop('readonly', false);
+            this_field_value.prop('readonly', false);
+            $(this).parent().parent().find('#field-help-block').show();
+            $(this).parent().parent().parent().find('#field-btn-group').show();
+        });
+        $(document.body).off('click.delete_field', '.del-field-btn');
+        $(document.body).on('click.delete_field', '.del-field-btn', function() {
+            var this_field_id = $(this).attr('data-field-id');
+            var this_field_title = $(this).parent().parent().find('#existing_field_name').val();
+            BootstrapDialog.show({
+                title: '注意！',
+                message: '是否確認刪除「' + this_field_title + '」欄位資訊？',
+                buttons: [{
+                    label: '取消',
+                    action: function(dialogRef) {
+                        dialogRef.close();
+                    }
+                },
+                {
+                    label: '刪除',
+                    cssClass: 'btn-danger',
+                    action: function(dialogRef) {
+                        $.ajax({
+                            url: '/iBeaGuide/items/delete_field_action',
+                            type: "POST",
+                            //cache: false,
+                            data: {
+                                field_id: this_field_id
+                            },
+                            dataType: "html",
+                            beforeSend: function(xhr) {
+                                dialogRef.close();
+                                $('#system-message').html('處理中...');
+                                $('#system-message').show();
+                            },
+                            success: function() {
+                                $(this).parent().parent().parent().remove();
+                                $('#system-message').html('完成');
+                                $('#system-message').fadeOut();
+                            }
+                        });
+                    }
+                }]
+            });
+        });
+        $(document.body).off('click.submit_field', '.submit-field-btn');
+        $(document.body).on('click.submit_field', '.submit-field-btn', function() {
+            var this_field_id = $(this).attr('data-field-id');
+            var this_field_name = $(this).parent().parent().parent().find('#existing_field_name');
+            var this_field_value = $(this).parent().parent().parent().find('#existing_field_value');
+            var this_btn_group = $(this).parent();
+            $.ajax({
+                url: '/iBeaGuide/items/update_field_action',
+                type: "POST",
+                //cache: false,
+                data: {
+                    field_id: this_field_id,
+                    field_name: this_field_name.val(),
+                    field_value: this_field_value.val()
+                },
+                dataType: "html",
+                beforeSend: function(xhr) {
+                    $('#system-message').html('處理中...');
+                    $('#system-message').show();
+                },
+                success: function(error) {
+                    if (error) {
+                        $('#field_alert').html(error);
+                        $('#field_alert').show();
+                        $('#system-message').fadeOut();
+                    } else {
+                        $('#form_alert').hide();
+                        $('#form_alert').empty();
+                        $('#system-message').html('完成');
+                        $('#system-message').fadeOut();
+                        this_field_name.prop('readonly', true);
+                        this_field_value.prop('readonly', true);
+                        this_btn_group.hide();
+                    }
+                }
+            });
+
+        });
+        $(document.body).off('click.cancel_field', '.cancel-field-btn');
+        $(document.body).on('click.cancel_field', '.cancel-field-btn', function() {
+            var this_field_name = $(this).parent().parent().parent().find('#existing_field_name');
+            var this_field_value = $(this).parent().parent().parent().find('#existing_field_value');
+            $(this).parent().parent().parent().find('#edit-field-btn').prop('disabled', false);
+            this_field_name.prop('readonly', true);
+            this_field_value.prop('readonly', true);
+            $(this).parent().parent().parent().find('#field-help-block').hide();
+            $(this).parent().hide();
         });
         $(document.body).off('click.item_cancel', '#item-cancel-btn');
         $(document.body).on('click.item_cancel', '#item-cancel-btn', function() {

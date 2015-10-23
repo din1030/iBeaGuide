@@ -122,7 +122,7 @@ class Exhibitions extends CI_Controller
                 // If create data fail
                 if (!isset($exh_obj)) {
                     $error_msg = $this->error_message->get_error_message('create_error');
-                    log_message('debug', $error_msg);
+                    log_message('error', $error_msg);
                     echo $error_msg;
                 } else {
                     // set upload config
@@ -184,7 +184,7 @@ class Exhibitions extends CI_Controller
             // If DB update failed, then no need to upload files.
             if (!$exh_obj->update()) {
                 $error_msg = $this->error_message->get_error_message('update_error');
-                log_message('debug', $error_msg);
+                log_message('error', $error_msg);
                 echo $error_msg;
 
                 return;
@@ -330,7 +330,7 @@ class Exhibitions extends CI_Controller
                 // If create data fail
                 if (!isset($sec_obj)) {
                     $error_msg = $this->error_message->get_error_message('create_error');
-                    log_message('debug', $error_msg);
+                    log_message('error', $error_msg);
                     echo $error_msg;
                 } else {
                     // set upload config
@@ -374,7 +374,7 @@ class Exhibitions extends CI_Controller
             // If DB update failed, then no need to upload files.
             if (!$sec_obj->update()) {
                 $error_msg = $this->error_message->get_error_message('update_error');
-                log_message('debug', $error_msg);
+                log_message('error', $error_msg);
                 echo $error_msg;
 
                 return;
