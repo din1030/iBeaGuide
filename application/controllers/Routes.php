@@ -43,9 +43,10 @@ class Routes extends CI_Controller
 
     public function get_route_add_form()
     {
+        // $this->load->model('Exhibition');
+        // $data['exhibitions'] = $this->Exhibition->prepare_for_dropdwon();
         $this->load->model('Exhibition');
-        $data['exhibitions'] = $this->Exhibition->prepare_for_dropdwon();;
-
+        $data['exhibitions'] = $this->Exhibition->find($_GET['exh_id']);
         $this->load->view('route/route_add_form', $data);
     }
 
@@ -55,7 +56,9 @@ class Routes extends CI_Controller
         $data['route'] = $this->Route->find($route_id);
 
         $this->load->model('Exhibition');
-        $data['exhibitions'] = $this->Exhibition->prepare_for_dropdwon();;
+        $route_exh = $this->Exhibition->find($data['route']->exh_id);
+        $data['route']->exh_title = $route_exh->title;
+        // $data['exhibitions'] = $this->Exhibition->prepare_for_dropdwon();;
 
         $this->load->view('route/route_edit_form', $data);
     }

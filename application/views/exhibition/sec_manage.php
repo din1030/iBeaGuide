@@ -1,18 +1,24 @@
-<legend>
-    「<?= $exhibition->title ?>」：展區管理
-    <button id="add_section_btn" type="button" class="btn btn-primary btn-xs pull-right" data-toggle="modal" data-exh-id="<?= $exhibition->id ?>">新增展區</button>
-</legend>
-<div id="sec_list_block">
-<?= $this->table->generate($sections); ?>
-</div>
-<?php $this->table->clear(); ?>
 
+<?php
+    if (!empty($exhibition)) {
+    ?>  <legend>
+            「<?= $exhibition->title ?>」：展區管理
+            <button id="add_section_btn" type="button" class="btn btn-primary btn-xs pull-right" data-toggle="modal" data-exh-id="<?= $exhibition->id ?>">新增展區</button>
+        </legend>
+        <div id="sec_list_block">
+            <?= $this->table->generate($sections); ?>
+        </div>
+    <?php } else {
+        echo "未輸入展覽編號或展覽編號不存在";
+    }
+    $this->table->clear();
+?>
 <script>
     $(document.body).off('click.add_section', '#add_section_btn');
     $(document.body).on('click.add_section', '#add_section_btn', function() {
 
         $.ajax({
-            url: 'get_section_add_modal_form',
+            url: '/iBeaGuide/exhibitions/get_section_add_modal_form',
             type: "GET",
             data: {
                 exh_id: $(this).attr('data-exh-id')
@@ -35,7 +41,7 @@
     $(document.body).on('click.edit_section', '.edit-section-btn', function() {
 
         $.ajax({
-            url: 'get_section_edit_modal_form',
+            url: '/iBeaGuide/exhibitions/get_section_edit_modal_form',
             type: "GET",
             data: {
                 sec_id: $(this).attr('data-sec-id')

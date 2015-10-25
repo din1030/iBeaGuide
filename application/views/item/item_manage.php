@@ -64,7 +64,8 @@
                 action: function(dialogRef){
                     dialogRef.close();
                 }
-            }, {
+            },
+            {
                 label: '刪除',
                 cssClass: 'btn-danger',
                 action: function(dialogRef) {

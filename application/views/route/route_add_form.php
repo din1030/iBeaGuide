@@ -5,7 +5,7 @@
     </div>
     <div class="panel-body">
         <div id="form_alert" class="alert alert-danger" role="alert" style="display: none"></div>
-        <form id="route_add_form" class="form-horizontal" action="exhibitions/add_route_action" method="post">
+        <form id="route_add_form" class="form-horizontal" action="/iBeaGuide/exhibitions/add_route_action" method="post">
             <fieldset>
 
                 <!-- Text input-->
@@ -13,7 +13,6 @@
                     <label class="col-md-2 control-label" for="route_title">路線標題</label>
                     <div class="col-md-8">
                         <input id="route_title" name="route_title" type="text" placeholder="" class="form-control input-md" required="">
-
                     </div>
                 </div>
 
@@ -21,7 +20,9 @@
                 <div class="form-group">
                     <label class="col-md-2 control-label" for="route_exh">所屬展覽</label>
                     <div class="col-md-8">
-                        <?= form_dropdown('route_exh', $exhibitions, '', "id='route_exh' class='form-control'") ?>
+                        <input id="route_exh" type="hidden" name="route_exh" value="<?= $exhibitions->id ?>">
+                        <input id="route_exh_title" type="text" name="route_exh_title" class="form-control input-md" value="<?= $exhibitions->title ?>" disabled="">
+                        <!-- < form_dropdown('route_exh', $exhibitions, '', "id='route_exh' class='form-control'") ?> -->
                     </div>
                 </div>
 
@@ -87,9 +88,9 @@
 
                 <!-- Button Group -->
                 <div class="form-group text-center">
-                    <button id="preview" name="preview" class="btn btn-default">預覽</button>
-                    <button id="submit" name="submit" class="btn btn-primary">送出路線資訊</button>
-                    <button id="cancel" name="cancel" class="btn btn-default">取消</button>
+                    <button id="preview" type="button" name="preview" class="btn btn-default">預覽</button>
+                    <button id="submit" type="submit" name="submit" class="btn btn-primary">送出路線資訊</button>
+                    <button id="route-cancel-btn" type="button" name="route-cancel-btn" class="btn btn-default">取消</button>
                 </div>
 
             </fieldset>
@@ -113,9 +114,17 @@
         $('#route_main_pic').fileinput({
             language: 'zh-TW',
             showUpload: false,
+            minFileCount: 1,
             maxFileCount: 1,
             allowedFileTypes: ["image"],
             previewFileType: 'image'
+        });
+        $(document.body).off('click.route_cancel', '#route-cancel-btn');
+        $(document.body).on('click.route_cancel', '#route-cancel-btn', function() {
+            $('#route_form_block').empty();
+            $.scrollTo($('#add-route-btn'), 500, {
+                offset: -10
+            });
         });
     });
 </script>

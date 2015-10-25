@@ -416,11 +416,12 @@ class Items extends CI_Controller
         $item_obj = $this->Item->find($_POST['item_id']);
         $custom_fields = $this->Custom_field->find_all_by_item_id($_POST['item_id']);
         if (count($custom_fields) > 0) {
-            foreach ($custom_fields as $field) {
-                if(!$field->delete()) {
+            foreach ($custom_fields as $field_obj) {
+                if(!$field_obj->delete()) {
                     $error_msg = $this->error_message->get_error_message('delete_error');
                     log_message('error', $error_msg.'（Custom Fields）');
                     echo $error_msg;
+                    return;
                 }
             }
         }
@@ -428,9 +429,10 @@ class Items extends CI_Controller
             $error_msg = $this->error_message->get_error_message('delete_error');
             log_message('error', $error_msg.'（展品）');
             echo $error_msg;
-        } else {
-            echo $this->table->generate($this->get_item_list());
+            return;
         }
+        echo $this->table->generate($this->get_item_list());
+
     }
 
     /*** Custom field functions ***/

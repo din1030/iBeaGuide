@@ -55,6 +55,13 @@ class Exhibitions extends CI_Controller
         echo $this->table->generate($this->get_exh_list());
     }
 
+    public function print_exh_menu()
+    {
+        $menu = $this->Exhibition->prepare_for_dropdwon();
+        unset($menu[0]);
+        echo form_dropdown('exh_menu', $menu, '', "id='exh_menu' class='form-control'");
+    }
+
     public function get_exh_add_form()
     {
         $this->load->model('Ibeacon');
@@ -101,7 +108,7 @@ class Exhibitions extends CI_Controller
                 'web_link' => $this->input->post('exh_web_link'),
                 // 'main_pic' => $this->input->post('exh_main_pic'),
                 'push_content' => $this->input->post('exh_push'),
-                'created' => NULL,
+                'created' => null,
             );
 
             if ($this->input->post('exh_ibeacon') != 0) {
@@ -225,14 +232,18 @@ class Exhibitions extends CI_Controller
         if (isset($exh_sec_array)) {
             foreach ($exh_sec_array as $sec_obj) {
                 if (!$sec_obj->delete()) {
-                    echo $this->error_message->get_error_message('delete_error');
+                    $error_msg = $this->error_message->get_error_message('delete_error');
+                    log_message('error', $error_msg.'（展區）');
+                    echo $error_msg;
 
                     return;
                 }
             }
         }
         if (!$exh_obj->delete()) {
-            echo $this->error_message->get_error_message('delete_error');
+            $error_msg = $this->error_message->get_error_message('delete_error');
+            log_message('error', $error_msg.'（展覽）');
+            echo $error_msg;
 
             return;
         }
@@ -241,15 +252,15 @@ class Exhibitions extends CI_Controller
 
     public function sections()
     {
-        $exh_id = $_GET['exh_id'];
-        if (!isset($exh_id)) {
-            redirect('exhibitions');
+        if (!isset($_GET['exh_id'])) {
+            $data['exhibition'] = null;
+        } else {
+            $exh_id = $_GET['exh_id'];
+            $data['exhibition'] = $this->Exhibition->find($exh_id);
+            $data['sections'] = $this->get_sec_list($exh_id);
         }
-        $data['exhibition'] = $this->Exhibition->find($exh_id);
-
         $this->load->view('header');
         $this->load->view('breadcrumb');
-        $data['sections'] = $this->get_sec_list($exh_id);
         $this->load->view('exhibition/sec_manage', $data);
         $this->load->view('footer');
     }
