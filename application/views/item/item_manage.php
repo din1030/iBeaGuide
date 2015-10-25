@@ -58,7 +58,7 @@
         var this_item_title = $(this).parent().parent().children('td').eq(1).html();
         BootstrapDialog.show({
             title: '注意！',
-            message: '是否確認刪除「' + this_item_title + '」資訊？',
+            message: '是否確認刪除「' + this_item_title + '」展品資訊？',
             buttons: [{
                 label: '取消',
                 action: function(dialogRef){
@@ -84,6 +84,7 @@
                         success: function(html_block) {
                             $('#item_list_block').html(html_block);
                             // $.scrollTo($('#add_item_btn'), 500, {offset: -10});
+                            $('#item_form_block').empty();
                             $('#system-message').html('完成');
                             $('#system-message').fadeOut();
                             $('[data-toggle="table"]').bootstrapTable();

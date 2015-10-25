@@ -323,7 +323,7 @@
         $('#item_audioguide').fileinput({
             language: 'zh-TW',
             showUpload: false,
-            minFileCount: 1,
+            // minFileCount: 1,
             maxFileCount: 1,
             allowedFileTypes: ["audio"],
             previewFileType: 'audio'
@@ -375,6 +375,7 @@
         $(document.body).on('click.delete_field', '.del-field-btn', function() {
             var this_field_id = $(this).attr('data-field-id');
             var this_field_title = $(this).parent().parent().find('#existing_field_name').val();
+            var this_field_block = $(this).parent().parent().parent();
             BootstrapDialog.show({
                 title: '注意！',
                 message: '是否確認刪除「' + this_field_title + '」欄位資訊？',
@@ -402,7 +403,7 @@
                                 $('#system-message').show();
                             },
                             success: function() {
-                                $(this).parent().parent().parent().remove();
+                                this_field_block.remove();
                                 $('#system-message').html('完成');
                                 $('#system-message').fadeOut();
                             }

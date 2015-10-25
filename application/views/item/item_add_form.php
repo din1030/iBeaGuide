@@ -259,7 +259,7 @@
         $('#item_audioguide').fileinput({
             language: 'zh-TW',
             showUpload: false,
-            minFileCount: 1,
+            // minFileCount: 1,
             maxFileCount: 1,
             allowedFileTypes: ["audio"],
             previewFileType: 'audio'

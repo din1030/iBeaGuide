@@ -140,14 +140,14 @@ class Items extends CI_Controller
             // If no selected files, terminating add action
             if (empty($_FILES['item_main_pic'])) {
                 $error_msg = $this->error_message->get_error_message('no_main_pic_error');
-                log_message('error', $error_msg);
+                log_message('error', $error_msg.'（展品主要圖片）');
                 echo $error_msg;
 
                 return;
             }
             if (empty($_FILES['item_more_pics'])) {
                 $error_msg = $this->error_message->get_error_message('no_more_pics_error');
-                log_message('error', $error_msg);
+                log_message('error', $error_msg.'（展品更多圖片）');
                 echo $error_msg;
 
                 return;
@@ -158,7 +158,7 @@ class Items extends CI_Controller
                 // If create data failed
                 if (!isset($item_obj)) {
                     $error_msg = $this->error_message->get_error_message('create_error');
-                    log_message('error', $error_msg);
+                    log_message('error', $error_msg.'（展品）');
                     echo $error_msg;
 
                     return;
@@ -194,7 +194,7 @@ class Items extends CI_Controller
                     foreach ($basic_field_data as $basic_field) {
                         if (!$this->Custom_field->create($basic_field)) {
                             $error_msg = $this->error_message->get_error_message('custom_field_error');
-                            log_message('error', $error_msg);
+                            log_message('error', $error_msg.'（Custom Fields）');
                             echo $error_msg;
 
                             return;
@@ -203,7 +203,7 @@ class Items extends CI_Controller
                     foreach ($detail_field_data as $detail_field) {
                         if (!$this->Custom_field->create($detail_field)) {
                             $error_msg = $this->error_message->get_error_message('custom_field_error');
-                            log_message('error', $error_msg);
+                            log_message('error', $error_msg.'（Custom Fields）');
                             echo $error_msg;
 
                             return;
@@ -305,7 +305,7 @@ class Items extends CI_Controller
             // If DB update failed, then no need to update ohther info.
             if (!$item_obj->update()) {
                 $error_msg = $this->error_message->get_error_message('update_error');
-                log_message('error', $error_msg);
+                log_message('error', $error_msg.'（展品）');
                 echo $error_msg;
 
                 return;
@@ -329,7 +329,7 @@ class Items extends CI_Controller
                     foreach ($basic_field_data as $basic_field) {
                         if (!$this->Custom_field->create($basic_field)) {
                             $error_msg = $this->error_message->get_error_message('custom_field_error');
-                            log_message('error', $error_msg);
+                            log_message('error', $error_msg.'（Custom Fields）');
                             echo $error_msg;
 
                             return;
@@ -353,7 +353,7 @@ class Items extends CI_Controller
                     foreach ($detail_field_data as $detail_field) {
                         if (!$this->Custom_field->create($detail_field)) {
                             $error_msg = $this->error_message->get_error_message('custom_field_error');
-                            log_message('error', $error_msg);
+                            log_message('error', $error_msg.'（Custom Fields）');
                             echo $error_msg;
 
                             return;
@@ -414,10 +414,19 @@ class Items extends CI_Controller
     public function delete_item_action()
     {
         $item_obj = $this->Item->find($_POST['item_id']);
-        $item_obj->delete();
-        if (!$field_obj->delete()) {
+        $custom_fields = $this->Custom_field->find_all_by_item_id($_POST['item_id']);
+        if (count($custom_fields) > 0) {
+            foreach ($custom_fields as $field) {
+                if(!$field->delete()) {
+                    $error_msg = $this->error_message->get_error_message('delete_error');
+                    log_message('error', $error_msg.'（Custom Fields）');
+                    echo $error_msg;
+                }
+            }
+        }
+        if (!$item_obj->delete()) {
             $error_msg = $this->error_message->get_error_message('delete_error');
-            log_message('error', $error_msg);
+            log_message('error', $error_msg.'（展品）');
             echo $error_msg;
         } else {
             echo $this->table->generate($this->get_item_list());
@@ -432,7 +441,7 @@ class Items extends CI_Controller
         $field_obj->field_value = $_POST['field_value'];
         if (!$field_obj->update()) {
             $error_msg = $this->error_message->get_error_message('update_error');
-            log_message('error', $error_msg);
+            log_message('error', $error_msg.'（Custom Fields）');
             echo $error_msg;
 
             return;
@@ -444,7 +453,7 @@ class Items extends CI_Controller
         $field_obj = $this->Custom_field->find($_POST['field_id']);
         if (!$field_obj->delete()) {
             $error_msg = $this->error_message->get_error_message('delete_error');
-            log_message('error', $error_msg);
+            log_message('error', $error_msg.'（Custom Fields）');
             echo $error_msg;
 
             return;
