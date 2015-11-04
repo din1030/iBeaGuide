@@ -1,4 +1,5 @@
 <?php
+
  if (!defined('BASEPATH')) {
      exit('No direct script access allowed');
  }
@@ -84,7 +85,7 @@ class ActiveRecord extends CI_Model
         if (stristr($method, 'left_join_on_')) {
             return $this->_left_join_on(str_replace('left_join_on_', '', $method), $args);
         }
-
+        
         if (!isset($args)) {
             eval('return $this->'.$method.';');
         }
@@ -593,7 +594,22 @@ class ActiveRecord extends CI_Model
         $this->db->from($this->_table);
         $this->db->join('exhibitions', 'exhibitions.id = '.$this->_table.'.exh_id', 'LEFT');
         $this->db->where('exhibitions.curator_id', $this->config->item('login_user_id'));
-        $this->db->or_where($this->_table.".exh_id", NULL);
+        $this->db->or_where($this->_table.'.exh_id', null);
+        $query = $this->db->get();
+
+        return $query;
+    }
+
+    public function select_where($where_condition)
+    {
+        $this->db->from($this->_table);
+        if (is_array($where_condition)) {
+            foreach ($where_condition as $key => $value) {
+                $this->db->where($key, $value);
+            }
+        } else {
+            $this->db->where('id', $where_condition);
+        }
         $query = $this->db->get();
 
         return $query;

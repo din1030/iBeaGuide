@@ -40,7 +40,7 @@ class Ibeacons extends CI_Controller
                     $linked_obj = $this->Exhibition->find($ibeacon_row['link_obj_id']);
                     break;
                 case 'item':
-                $ibeacon_row['link_type'] = '展品';
+                    $ibeacon_row['link_type'] = '展品';
                     $this->load->model('Item');
                     $linked_obj = $this->Item->find($ibeacon_row['link_obj_id']);
                     break;
