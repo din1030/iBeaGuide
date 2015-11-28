@@ -21,28 +21,31 @@ class App extends CI_Controller {
         $this->load->model('Ibeacon');
         $query = $this->Ibeacon->select_where($conditions);
         if ($query->num_rows() >0 ) {
-            
+
             $ibeacon_result = $query->result_array();
             $ibeacon_info = $ibeacon_result[0];
-            switch ($ibeacon_info['link_type']) {
+			$linked_obj = array();
+			switch ($ibeacon_info['link_type']) {
                 case 'exh':
-                $this->load->model('Exhibition');
-                $linked_obj = $this->Exhibition->select_where($ibeacon_info['link_obj_id']);
-                break;
+					$linked_obj[0] = $ibeacon_info['link_type'];
+	                $this->load->model('Exhibition');
+	                $linked_obj[1] = $this->Exhibition->select_where($ibeacon_info['link_obj_id']);
+	                break;
                 case 'item':
-                $this->load->model('Item');
-                $linked_obj = $this->Item->select_where($ibeacon_info['link_obj_id']);
-                break;
+					$linked_obj[0] = $ibeacon_info['link_type'];
+	                $this->load->model('Item');
+	                $linked_obj[1] = $this->Item->select_where($ibeacon_info['link_obj_id']);
+	                break;
                 case 'fac':
-                $this->load->model('Facility');
-                $linked_obj = $this->Facility->select_where($ibeacon_info['link_obj_id']);
-                break;
-
+					$linked_obj[0] = $ibeacon_info['link_type'];
+	                $this->load->model('Facility');
+	                $linked_obj[1] = $this->Facility->select_where($ibeacon_info['link_obj_id']);
+	                break;
                 default:
-                return;
+                	return;
             }
-            $linked_obj_info = $linked_obj->result_array();
-            echo json_encode($linked_obj_info[0]);
+            $linked_obj[1] = $linked_obj[1]->result_array();
+            echo json_encode($linked_obj);
         }
     }
 

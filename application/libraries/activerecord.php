@@ -1,9 +1,7 @@
 <?php
-
- if (!defined('BASEPATH')) {
+if (!defined('BASEPATH')) {
      exit('No direct script access allowed');
- }
-
+}
 /*
  * You can't load the Model class using the autoload file, so we have to
  * include it here for the ActiveRecord class to inherit from

@@ -9,4 +9,5 @@ application/logs/*
 !application/logs/.htaccess
 
 user_uploads/*
+
 application/config/database.php
