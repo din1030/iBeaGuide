@@ -127,8 +127,8 @@ class Items extends CI_Controller
             if ($this->input->post('item_exh') != 0) {
                 $data['exh_id'] = $this->input->post('item_exh');
             }
-            if ($this->input->post('item_section') != 0) {
-                $data['section_id'] = $this->input->post('item_section');
+            if ($this->input->post('item_sec') != 0) {
+                $data['sec_id'] = $this->input->post('item_sec');
             }
             // if ($this->input->post('item_subtitle') !== null) {
             // 	$data['subtitle'] = $this->input->post('item_subtitle');
@@ -288,15 +288,15 @@ class Items extends CI_Controller
             $item_obj->push_content = $this->input->post('item_push');
             $item_obj->ibeacon_id = $this->input->post('item_ibeacon');
             $item_obj->exh_id = $this->input->post('item_exh');
-            $item_obj->section_id = $this->input->post('item_section');
+            $item_obj->sec_id = $this->input->post('item_sec');
             $item_obj->ibeacon_id = $this->input->post('item_ibeacon');
 
             if ($item_obj->exh_id == 0) {
                 $item_obj->exh_id = null;
-                $item_obj->section_id = null;
+                $item_obj->sec_id = null;
             }
-            if ($item_obj->section_id == 0) {
-                $item_obj->section_id = null;
+            if ($item_obj->sec_id == 0) {
+                $item_obj->sec_id = null;
             }
             if ($item_obj->ibeacon_id == 0) {
                 $item_obj->ibeacon_id = null;
