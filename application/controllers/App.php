@@ -24,30 +24,36 @@ class App extends CI_Controller {
 
             $ibeacon_result = $query->result_array();
             $ibeacon_info = $ibeacon_result[0];
-			$linked_obj = array();
-			switch ($ibeacon_info['link_type']) {
+            $linked_obj = array();
+            switch ($ibeacon_info['link_type']) {
                 case 'exh':
-					$linked_obj['type'] = $ibeacon_info['link_type'];
-	                $this->load->model('Exhibition');
-	                $linked_obj['data'] = $this->Exhibition->select_where($ibeacon_info['link_obj_id']);
-	                break;
+                    $linked_obj['type'] = $ibeacon_info['link_type'];
+                    $this->load->model('Exhibition');
+                    $obj_query = $this->Exhibition->select_where($ibeacon_info['link_obj_id']);
+                    break;
                 case 'item':
-					$linked_obj['type'] = $ibeacon_info['link_type'];
-	                $this->load->model('Item');
-	                $linked_obj['data'] = $this->Item->select_where($ibeacon_info['link_obj_id']);
-	                break;
+                    $linked_obj['type'] = $ibeacon_info['link_type'];
+                    $this->load->model('Item');
+                    $obj_query = $this->Item->select_where($ibeacon_info['link_obj_id']);
+                    $obj_row = $obj_query->row();
+                    if (isset($obj_row->sec_id) && $obj_row->sec_id > 0) {
+                        $this->load->model('Section');
+                        $sec_query = $this->Section->select_where($obj_row->sec_id);
+                        $sec_info = $sec_query->result_array();
+                        $linked_obj['sec_info'] = $sec_info[0];
+                    }
+                    break;
                 case 'fac':
-					$linked_obj['type'] = $ibeacon_info['link_type'];
-	                $this->load->model('Facility');
-	                $linked_obj['data'] = $this->Facility->select_where($ibeacon_info['link_obj_id']);
-	                break;
+                    $linked_obj['type'] = $ibeacon_info['link_type'];
+                    $this->load->model('Facility');
+                    $obj_query = $this->Facility->select_where($ibeacon_info['link_obj_id']);
+                    break;
                 default:
-                	return;
+                    return;
             }
-            $linked_obj['data'] = $linked_obj['data']->result_array();
+            $linked_obj['data'] = $obj_query->result_array();
             $linked_obj['data'] = $linked_obj['data'][0];
             echo json_encode($linked_obj);
         }
     }
-
 }
