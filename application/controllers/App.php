@@ -70,8 +70,19 @@ class App extends CI_Controller {
                     $linked_obj['data']['detail_field'] = $cfd_query->result_array();
                 }
             }
-            
+
             echo json_encode($linked_obj);
         }
+    }
+
+    public function post_comment_action()
+    {
+        // receive the POST data 
+        $data = json_decode(file_get_contents("php://input"), true);
+        $data['created'] = NULL; // for db data created time
+
+        $this->load->model('Comment');
+        $comment_obj = $this->Comment->create($data);
+
     }
 }
