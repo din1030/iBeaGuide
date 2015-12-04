@@ -47,7 +47,8 @@ class MY_Upload extends CI_Upload
         $this->_CI->upload->set_upload_path($upload_path);
 
         // define fine name based on upload type
-        $file_name_str = 'User_'.$this->_CI->config->item('login_user_id').'_'; // User_1_
+        // $file_name_str = 'User_'.$this->_CI->config->item('login_user_id').'_'; // User_1_
+        $file_name_str = '';
         switch ($pic_type) {
             case 'exh':
                 $file_name_str = $file_name_str.'exh_'.$id_no;
@@ -89,7 +90,7 @@ class MY_Upload extends CI_Upload
                 $this->error_msg = array();
             } else {
                 $result[$i]['name'] = $_FILES[$i]['name'];
-                if (!$this->_create_thumbnail($upload_path.'/'.$this->file_name, false, $thumbMarker = '', 800, 600)) {
+                if (!$this->_create_thumbnail($upload_path.'/'.$this->file_name, false, $thumbMarker = '', 400, 300)) {
                     $result[$i]['error'] = $this->_CI->display_errors('', '<br>');
                     $this->error_msg = array();
                 }
@@ -103,7 +104,6 @@ class MY_Upload extends CI_Upload
     public function _create_thumbnail($fileName, $isThumb, $thumbMarker = '', $width, $height)
     {
         //settings
-        $this->_CI->load->library('image_lib');
         $config['image_library'] = 'gd2';
         $config['source_image'] = $fileName;
         $config['create_thumb'] = $isThumb;
@@ -125,6 +125,11 @@ class MY_Upload extends CI_Upload
             log_message('error', $this->_CI->image_lib->display_errors());
 
             return false;
+        }
+
+        $ext = pathinfo($fileName, PATHINFO_EXTENSION);
+        if ($ext != 'jpg') {
+            $this->_CI->image_lib->convert('jpg',true);
         }
 
         return true;
