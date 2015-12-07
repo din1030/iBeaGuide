@@ -555,13 +555,18 @@ class ActiveRecord extends CI_Model
     }
 
     /**
-     * left_join_on_tablename($this.col, $where_clause(), $append_query_string);.
+     * left_join_on_tablename($this.col,$join_cols_array(), $where_array(), $append_query_string);.
      */
     public function _left_join_on($join_table, $query)
     {
+        $select_join_col= '';
+        foreach ($query[1] as $join_col) {
+           $select_join_col .= $join_table.'.'.$join_col.', ';
+        }
+
         $query_string = '
 			SELECT
-				'.$this->_table.'.*
+				'.$select_join_col.$this->_table.'.*
 			FROM
 				'.$this->_table.'
 			LEFT JOIN
@@ -569,19 +574,20 @@ class ActiveRecord extends CI_Model
 			ON
 				'.$this->_table.'.'.$query[0].' = '.$join_table.'.id';
 
-        if (isset($query[1])) {
+        if (isset($query[2])) {
             $query_string .= ' WHERE';
-        }
-        foreach ($query[1] as $key => $value) {
-            $query_string .= ' '.$this->_table.'.'.$key.$value;
+            foreach ($query[2] as $key => $value) {
+                $query_string .= ' '.$this->_table.'.'.$key.' = \''.$value.'\' AND';
+            }
         }
 
-        if (isset($query[2])) {
-            $query_string .= ' '.$query[2];
+        $query_string .= ' 1 = 1';
+
+        if (isset($query[3])) {
+            $query_string .= ' '.$query[3];
         }
 
         $query = $this->db->query($query_string);
-        log_message('debug', 'Facilities Controller Initialized 4');
 
         return $query;
     }

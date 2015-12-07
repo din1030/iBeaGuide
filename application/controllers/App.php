@@ -75,6 +75,23 @@ class App extends CI_Controller {
         }
     }
 
+    public function get_comment_data($type = 'exh', $obj_id = 0)
+    {
+        $this->load->model('Comment');
+        $comment_data = $this->Comment->join_user($type, $obj_id);
+
+        echo json_encode($comment_data);
+    }
+
+    public function get_exh_routes($exh_id)
+    {
+        $this->load->model('Route');
+        $query = $this->Route->select_where(array('exh_id' => $exh_id));
+        $routes = $query->result_array();
+
+        echo json_encode($routes); 
+    }
+
     public function post_comment_action()
     {
         // receive the POST data 
@@ -85,4 +102,6 @@ class App extends CI_Controller {
         $comment_obj = $this->Comment->create($data);
 
     }
+
+
 }
