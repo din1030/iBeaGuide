@@ -50,16 +50,17 @@ class App extends CI_Controller {
             $linked_obj_array = $obj_query->result_array();
             $linked_obj['data'] = $linked_obj_array[0];
 
-            // appemd sec info
-            if (isset($linked_obj['data']['sec_id']) && $linked_obj['data']['sec_id'] > 0) {
-                $this->load->model('Section');
-                $sec_query = $this->Section->select_where($linked_obj['data']['sec_id']);
-                $sec_info = $sec_query->result_array();
-                $linked_obj['data']['sec_info'] = $sec_info[0];
-            }
 
-            // append custom field info
-            if ($linked_obj['type'] == 'item') {
+
+            // append info
+            if ($linked_obj['type'] == 'exh') {
+
+                // append route info
+                $linked_obj['data']['routes'] = $this->get_exh_routes($linked_obj['data']['id']);
+
+            } else if ($linked_obj['type'] == 'item') {
+                
+                // append custom fields
                 $this->load->model('Custom_field');
                 $cfb_query = $this->Custom_field->select_where(array('item_id' => $linked_obj['data']['id'], 'type' => 'basic'));
                 if ($cfb_query->num_rows() > 0) {
@@ -69,6 +70,15 @@ class App extends CI_Controller {
                 if ($cfd_query->num_rows() > 0) {
                     $linked_obj['data']['detail_field'] = $cfd_query->result_array();
                 }
+
+                // append sec info
+                if (isset($linked_obj['data']['sec_id']) && $linked_obj['data']['sec_id'] > 0) {
+                    $this->load->model('Section');
+                    $sec_query = $this->Section->select_where($linked_obj['data']['sec_id']);
+                    $sec_info = $sec_query->result_array();
+                    $linked_obj['data']['sec_info'] = $sec_info[0];
+                }
+            
             }
 
             echo json_encode($linked_obj);
@@ -89,7 +99,7 @@ class App extends CI_Controller {
         $query = $this->Route->select_where(array('exh_id' => $exh_id));
         $routes = $query->result_array();
 
-        echo json_encode($routes); 
+        return $routes; 
     }
 
     public function post_comment_action()
