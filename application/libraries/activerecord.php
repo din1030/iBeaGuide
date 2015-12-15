@@ -83,7 +83,7 @@ class ActiveRecord extends CI_Model
         if (stristr($method, 'left_join_on_')) {
             return $this->_left_join_on(str_replace('left_join_on_', '', $method), $args);
         }
-        
+
         if (!isset($args)) {
             eval('return $this->'.$method.';');
         }
