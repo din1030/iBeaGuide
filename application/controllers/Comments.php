@@ -20,12 +20,13 @@ class Comments extends CI_Controller {
 
 	public function get_exh_list()
     {
+		$this->load->model('Exhibition');
         $query = $this->Exhibition->prepare_for_table_by_curator_id($this->config->item('login_user_id'), 'id, title, venue, CONCAT(start_date, \' - \', end_date)');
         $result_array = $query->result_array();
         $exhibitions = array();
         foreach ($result_array as $exh_row) {
 			$manage_ctrl = "<a href='/iBeaGuide/comments/exh/".$exh_row['id']."' class='btn btn-default'>展覽留言管理</a>&nbsp;";
-            $manage_ctrl = "<a href='/iBeaGuide/comments/exh/".$exh_row['id']."' class='btn btn-default'>展品留言管理</a>&nbsp;";
+            $manage_ctrl = "<a href='/iBeaGuide/comments/exh/".$exh_row['id']."/items' class='btn btn-default'>展品留言管理</a>&nbsp;";
             $exh_row[] = $manage_ctrl;
             $exhibitions[] = $exh_row;
         }
