@@ -1,13 +1,13 @@
 <legend>
-    留言管理
+    <?= $title ?>
 </legend>
-<div id="exh_list_block">
-    <?= $this->table->generate($exhibitions); ?>
+<div id="comment_list_block">
+    <?= $this->table->generate($comments); ?>
 </div>
 <?php $this->table->clear(); ?>
 
 <script type="text/javascript">
-    $(document).ready(function() {
+    $('#comment_list_block').ready(function() {
 
         $('div.sortable.both:last').removeClass('th-inner sortable both').css('padding','8px');
 

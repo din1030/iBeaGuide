@@ -15,12 +15,12 @@ class Exhibitions extends CI_Controller
     {
         $this->load->view('header');
         $this->load->view('breadcrumb');
-        $data['exhibitions'] = $this->get_exh_list();
+        $data['exhibitions'] = $this->_get_exh_list();
         $this->load->view('exhibition/exh_manage', $data);
         $this->load->view('footer');
     }
 
-    public function get_exh_list()
+    function _get_exh_list()
     {
         $query = $this->Exhibition->prepare_for_table_by_curator_id($this->config->item('login_user_id'), 'id, title, venue, start_date, end_date, ibeacon_id');
         $result_array = $query->result_array();

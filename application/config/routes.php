@@ -40,8 +40,10 @@
 
 $route['default_controller'] = 'pages';
 
-//$route['(:any)/(:any)/([1-9][0-9]*$)'] = 'pages/$1/$2/$3';
-// $route['(:any)/(:any)'] = '$1/$2';
+// route get comment page
+$route['comments/exh/([1-9][0-9]*$)'] = 'comments/exh_comment_list/$1';
+$route['comments/item/([1-9][0-9]*$)'] = 'comments/item_comment_list/$1';
+
 $route['test/(:any)'] = 'pages/view/$1';
 
 $route['404_override'] = '';

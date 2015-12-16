@@ -94,7 +94,8 @@
                 <?php
                 break;
 
-            case 'comments/exh':
+            case (preg_match('/get_exh_comment_list\/[1-9][0-9]*$/', uri_string()) ? true : false):
+            case (preg_match('/comments\/exh\/[1-9][0-9]*$/', uri_string()) ? true : false):
                 ?>
                 <li>
                     <a href="<?php echo base_url(); ?>comments">留言管理</a>
@@ -105,7 +106,7 @@
                 <?php
                 break;
 
-            case 'comments/item':
+            case (preg_match('/comments\/exh\/([1-9][0-9]*$)\/items/', uri_string()) ? true : false):
                 ?>
                 <li>
                     <a href="<?php echo base_url(); ?>comments">留言管理</a>

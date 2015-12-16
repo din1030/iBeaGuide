@@ -8,87 +8,91 @@
 <?php $this->table->clear(); ?>
 
 <script type="text/javascript">
-    $(document.body).off('click.add_ibeacon', '#add_ibeacon_btn');
-    $(document.body).on('click.add_ibeacon', '#add_ibeacon_btn', function() {
+    $(document).ready(function() {
 
-        $.ajax({
-            url: '/iBeaGuide/ibeacons/get_ibeacon_add_modal_form',
-            type: "GET",
-            dataType: "html",
-            beforeSend: function(xhr) {
-                $('#system-message').html('處理中...');
-                $('#system-message').show();
-            },
-            success: function(html_block) {
-                $('#iBeaGuide-modal-block').html(html_block);
-                $('#iBeaGuide-modal').modal('show');
-                $('#system-message').html('完成');
-                $('#system-message').fadeOut();
-            }
-        });
+        $('div.sortable.both:last').removeClass('th-inner sortable both').css('padding','8px');
 
-    });
+        $(document.body).off('click.add_ibeacon', '#add_ibeacon_btn');
+        $(document.body).on('click.add_ibeacon', '#add_ibeacon_btn', function() {
 
-    $(document.body).off('click.edit_ibeacon', '.edit-ibeacon-btn');
-    $(document.body).on('click.edit_ibeacon', '.edit-ibeacon-btn', function() {
-        var this_ibeacon_id = $(this).attr('data-ibeacon-id');
-        $.ajax({
-            url: '/iBeaGuide/ibeacons/get_ibeacon_edit_modal_form/' + this_ibeacon_id,
-            type: "GET",
-            dataType: "html",
-            beforeSend: function(xhr) {
-                $('#system-message').html('處理中...');
-                $('#system-message').show();
-            },
-            success: function(html_block) {
-                $('#iBeaGuide-modal-block').html(html_block);
-                $('#iBeaGuide-modal').modal('show');
-                $('#system-message').html('完成');
-                $('#system-message').fadeOut();
-            }
-        });
-
-    });
-
-    $(document.body).off('click.delete_ibeacon', '.del-ibeacon-btn');
-    $(document.body).on('click.delete_ibeacon', '.del-ibeacon-btn', function() {
-        var this_ibeacon_id = $(this).attr('data-ibeacon-id');
-        var this_ibeacon_title = $(this).parent().parent().children('td').eq(1).html();
-        BootstrapDialog.show({
-            title: '注意！',
-            message: '是否刪除此iBeacon（'+ this_ibeacon_title +'）？',
-            buttons: [{
-                label: '取消',
-                action: function(dialogRef){
-                    dialogRef.close();
+            $.ajax({
+                url: '/iBeaGuide/ibeacons/get_ibeacon_add_modal_form',
+                type: "GET",
+                dataType: "html",
+                beforeSend: function(xhr) {
+                    $('#system-message').html('處理中...');
+                    $('#system-message').show();
+                },
+                success: function(html_block) {
+                    $('#iBeaGuide-modal-block').html(html_block);
+                    $('#iBeaGuide-modal').modal('show');
+                    $('#system-message').html('完成');
+                    $('#system-message').fadeOut();
                 }
-            }, {
-                label: '刪除',
-                cssClass: 'btn-danger',
-                action: function(dialogRef) {
-                    $.ajax({
-                        url: '/iBeaGuide/ibeacons/delete_ibeacon_action',
-                        type: "POST",
-                        //cache: false,
-                        data: {
-                            ibeacon_id: this_ibeacon_id
-                        },
-                        dataType: "html",
-                        beforeSend: function(xhr) {
-                            dialogRef.close();
-                            $('#system-message').html('處理中...');
-                            $('#system-message').show();
-                        },
-                        success: function(html_block) {
-                            $('#ibeacon_list_block').html(html_block);
-                            // $.scrollTo($('#add_sec_btn'), 500, {offset: -10});
-                            $('#system-message').html('完成');
-                            $('#system-message').fadeOut();
-                            $('[data-toggle="table"]').bootstrapTable();
-                        }
-                    });
-                }
-            }]
+            });
         });
+
+        $(document.body).off('click.edit_ibeacon', '.edit-ibeacon-btn');
+        $(document.body).on('click.edit_ibeacon', '.edit-ibeacon-btn', function() {
+            var this_ibeacon_id = $(this).attr('data-ibeacon-id');
+            $.ajax({
+                url: '/iBeaGuide/ibeacons/get_ibeacon_edit_modal_form/' + this_ibeacon_id,
+                type: "GET",
+                dataType: "html",
+                beforeSend: function(xhr) {
+                    $('#system-message').html('處理中...');
+                    $('#system-message').show();
+                },
+                success: function(html_block) {
+                    $('#iBeaGuide-modal-block').html(html_block);
+                    $('#iBeaGuide-modal').modal('show');
+                    $('#system-message').html('完成');
+                    $('#system-message').fadeOut();
+                }
+            });
+        });
+
+        $(document.body).off('click.delete_ibeacon', '.del-ibeacon-btn');
+        $(document.body).on('click.delete_ibeacon', '.del-ibeacon-btn', function() {
+            var this_ibeacon_id = $(this).attr('data-ibeacon-id');
+            var this_ibeacon_title = $(this).parent().parent().children('td').eq(1).html();
+            BootstrapDialog.show({
+                title: '注意！',
+                message: '是否刪除此iBeacon（'+ this_ibeacon_title +'）？',
+                buttons: [{
+                    label: '取消',
+                    action: function(dialogRef){
+                        dialogRef.close();
+                    }
+                }, {
+                    label: '刪除',
+                    cssClass: 'btn-danger',
+                    action: function(dialogRef) {
+                        $.ajax({
+                            url: '/iBeaGuide/ibeacons/delete_ibeacon_action',
+                            type: "POST",
+                            //cache: false,
+                            data: {
+                                ibeacon_id: this_ibeacon_id
+                            },
+                            dataType: "html",
+                            beforeSend: function(xhr) {
+                                dialogRef.close();
+                                $('#system-message').html('處理中...');
+                                $('#system-message').show();
+                            },
+                            success: function(html_block) {
+                                $('#ibeacon_list_block').html(html_block);
+                                // $.scrollTo($('#add_sec_btn'), 500, {offset: -10});
+                                $('#system-message').html('完成');
+                                $('#system-message').fadeOut();
+                                $('[data-toggle="table"]').bootstrapTable();
+                            }
+                        });
+                    }
+                }]
+            });
+        });
+
     });
 </script>

@@ -546,7 +546,7 @@ class ActiveRecord extends CI_Model
         if (!isset($query[3])) {
             $this->db->from($this->_table);
         } else {
-            $this->db->from($this->_table.' '.$query[2]);
+            $this->db->from($this->_table.' '.$query[3]);
         }
 
         $query = $this->db->get();

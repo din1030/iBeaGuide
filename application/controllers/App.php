@@ -59,7 +59,7 @@ class App extends CI_Controller {
                 $linked_obj['data']['routes'] = $this->get_exh_routes($linked_obj['data']['id']);
 
             } else if ($linked_obj['type'] == 'item') {
-                
+
                 // append custom fields
                 $this->load->model('Custom_field');
                 $cfb_query = $this->Custom_field->select_where(array('item_id' => $linked_obj['data']['id'], 'type' => 'basic'));
@@ -78,7 +78,7 @@ class App extends CI_Controller {
                     $sec_info = $sec_query->result_array();
                     $linked_obj['data']['sec_info'] = $sec_info[0];
                 }
-            
+
             }
 
             echo json_encode($linked_obj);
@@ -99,12 +99,12 @@ class App extends CI_Controller {
         $query = $this->Route->select_where(array('exh_id' => $exh_id));
         $routes = $query->result_array();
 
-        return $routes; 
+        return $routes;
     }
 
     public function post_comment_action()
     {
-        // receive the POST data 
+        // receive the POST data
         $data = json_decode(file_get_contents("php://input"), true);
         $data['created'] = NULL; // for db data created time
 
@@ -113,5 +113,18 @@ class App extends CI_Controller {
 
     }
 
+	public function post_user_action()
+    {
+        // receive the POST data
+        $data = json_decode(file_get_contents("php://input"), true);
+		$data['created'] = NULL; // for db data created time
+
+		$this->load->model('User');
+		// user data already in DB
+		if ($this->User->find($data['fb_id'])) return false;
+
+        $user_obj = $this->User->create($data);
+
+    }
 
 }
