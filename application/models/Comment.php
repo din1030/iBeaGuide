@@ -30,7 +30,7 @@ class Comment extends ActiveRecord {
     public function get_item_comment_data($exh_id, $item_id = '')
     {
         $query_string = 'SELECT c.id, i.title, u.first_name, c.rate, c.content, c.created FROM comments c RIGHT JOIN users u ON c.user_id = u.id RIGHT JOIN items i ON c.obj_id = i.id WHERE c.type =  \'item\' and i.exh_id = '.$exh_id;
-        if (!empty($item_id)) {
+        if (!empty($item_id) || $item_id == 'all') {
             $query_string .= ' and i.id = '.$item_id;
         }
         $query = $this->db->query($query_string);

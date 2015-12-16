@@ -99,17 +99,17 @@ class Comments extends CI_Controller
     }
 
     // directly call by URL 特定展品
-    public function item_comment_list($item_id = '')
+    public function item_comment_list($exh_id)
     {
         $this->load->view('header');
-        $this->get_items_comment_list_in_exh($exh_id);
+        $this->get_item_comment_list($exh_id);
         $this->load->view('footer');
     }
 
     // pjax 抓第一筆展品
     public function get_item_comment_list($exh_id)
     {
-        $this->output->set_header('X-PJAX-URL:'.base_url().'comments/exh/'.$exh_id.'/all', false);
+        $this->output->set_header('X-PJAX-URL:'.base_url().'comments/exh/'.$exh_id.'/all_item', false);
 
         if (!isset($exh_id)) {
             echo '請輸入展覽編號！';
