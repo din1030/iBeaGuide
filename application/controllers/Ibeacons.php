@@ -82,16 +82,13 @@ class Ibeacons extends CI_Controller
     public function get_ibeacon_add_modal_form()
     {
         $data['type'] = $this->type_array;
-
         $this->load->view('ibeacon/ibeacon_add_modal_form', $data);
     }
 
     public function get_ibeacon_edit_modal_form($ibeacon_id)
     {
         $data['ibeacon'] = $this->Ibeacon->find($ibeacon_id);
-
         $data['type'] = $this->type_array;
-
         $data['linked_obj'] = $this->get_obj_menu($data['ibeacon']->link_type);
         $this->load->view('ibeacon/ibeacon_edit_modal_form', $data);
     }

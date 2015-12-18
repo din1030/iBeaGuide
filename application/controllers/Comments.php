@@ -82,9 +82,10 @@ class Comments extends CI_Controller
         $comments = array();
 
         foreach ($result_array as $comment_row) {
-            $manage_ctrl = "<button id='reply-comment-btn_".$comment_row['id']."' type='button' class='btn btn-primary reply-comment-btn' data-toggle='modal' data-exh-id='".$comment_row['id']."'>回覆</button>&nbsp;";
-            $manage_ctrl .= "<button id='del-comment-btn_".$comment_row['id']."' type='button' class='btn btn-danger del-comment-btn' data-toggle='modal' data-exh-id='".$comment_row['id']."'>刪除</button>";
+            $manage_ctrl = "<button id='user-info-btn-".$comment_row['id']."' type='button' class='btn btn-primary user-info-btn' data-toggle='modal' data-user-id='".$comment_row['user_id']."'>使用者資料</button>&nbsp;";
+            $manage_ctrl .= "<button id='del-comment-btn-".$comment_row['id']."' type='button' class='btn btn-danger del-comment-btn' data-toggle='modal' data-comment-id='".$comment_row['id']."'>刪除</button>";
             $comment_row[] = $manage_ctrl;
+            unset($comment_row['user_id']);
             $comments[] = $comment_row;
         }
         unset($result_array);
@@ -137,8 +138,8 @@ class Comments extends CI_Controller
         $comments = array();
 
         foreach ($result_array as $comment_row) {
-            $manage_ctrl = "<button id='reply-comment-btn_".$comment_row['id']."' type='button' class='btn btn-primary reply-comment-btn' data-toggle='modal' data-exh-id='".$comment_row['id']."'>回覆</button>&nbsp;";
-            $manage_ctrl .= "<button id='del-comment-btn_".$comment_row['id']."' type='button' class='btn btn-danger del-comment-btn' data-toggle='modal' data-exh-id='".$comment_row['id']."'>刪除</button>";
+            $manage_ctrl = "<button id='user-info-btn-".$comment_row['id']."' type='button' class='btn btn-primary user-info-btn' data-toggle='modal' data-user-id='".$comment_row['user_id']."'>使用者資料</button>&nbsp;";
+            $manage_ctrl .= "<button id='del-comment-btn-".$comment_row['id']."' type='button' class='btn btn-danger del-comment-btn' data-toggle='modal' data-comment-id='".$comment_row['id']."'>刪除</button>";
             $comment_row[] = $manage_ctrl;
             $comments[] = $comment_row;
         }
@@ -152,6 +153,34 @@ class Comments extends CI_Controller
 
         return $comments;
     }
+
+    public function get_user_info_modal_form($user_id)
+    {
+        $this->load->model('User');
+        $data['user'] = $this->User->find($user_id);
+        $this->load->view('comment/comment_user_info_modal_form', $data);
+    }
+
+    // public function reply_via_email_action($value='')
+    // {
+    //     // admin user data
+    //     $this->load->model('User');
+    //     $current_user_obj = $this->User->find($this->config->item('login_user_id'));
+    //     $visitor_user_obj = $this->User->find($this->config->item('login_user_id'));
+    //
+    //     $this->load->library('email');
+    //
+    //     $this->email->from($current_user_obj->email, $current_user_obj->name);
+    //     $this->email->to('someone@example.com');
+    //     $this->email->cc('another@another-example.com');
+    //     $this->email->bcc('them@their-example.com');
+    //
+    //     $this->email->subject('Email Test');
+    //     $this->email->message('Testing the email class.');
+    //
+    //     $this->email->send();
+    // }
+
 }
 
 /* End of file Comments.php */
