@@ -80,7 +80,6 @@ class Facilities extends CI_Controller
     public function add_facility_action()
     {
         $this->form_validation->set_rules('fac_title', '名稱', 'trim|required');
-        // $this->form_validation->set_rules('fac_description', '說明', 'trim|required');
         $this->form_validation->set_rules('fac_push', '推播文字', 'trim|required');
 
         if ($this->form_validation->run() == false) {
@@ -91,7 +90,6 @@ class Facilities extends CI_Controller
                 'exh_id' => $this->input->post('fac_exh'),
                 'title' => $this->input->post('fac_title'),
                 'description' => $this->input->post('fac_description'),
-                // 'main_pic' => $this->input->post('fac_main_pic'),
                 'push_content' => $this->input->post('fac_push'),
                 'created' => NULL,
             );
@@ -99,41 +97,12 @@ class Facilities extends CI_Controller
             if ($this->input->post('fac_ibeacon') != 0) {
                 $data['ibeacon_id'] = $this->input->post('fac_ibeacon');
             }
-            // If no selected files, terminating add action
-            if (empty($_FILES['fac_main_pic'])) {
-                $error_msg = $this->error_message->get_error_message('no_main_pic_error');
+
+            if(!$this->Facility->create($data)) {
+                $error_msg = $this->error_message->get_error_message('create_error');
                 log_message('error', $error_msg);
                 echo $error_msg;
-
-                return;
-            } else {
-                $fac_obj = $this->Facility->create($data);
-                unset($data);
-                // If create data fail
-                if (!isset($fac_obj)) {
-                    $error_msg = $this->error_message->get_error_message('create_error');
-                    log_message('error', $error_msg);
-                    echo $error_msg;
-                } else {
-                    // set upload config
-                    $config['allowed_types'] = 'gif|jpg|png';
-                    $config['max_size'] = '2048'; // 2MB
-                    $this->upload->initialize($config);
-
-                    $upload_results = $this->upload->do_multiple_upload('fac_main_pic', 'fac', $fac_obj->id);
-                    foreach ($upload_results as $result) {
-                        if (isset($result['error'])) {
-                            // if error is set, print why  upload failed.
-                            log_message('error', $result['name'].' upload failed.');
-                            echo $result['name'].' '.$result['error'];
-                        } else {
-                            log_message('debug', $result['name'].' uploaded.');
-                        }
-                    }
-                    unset($upload_results);
-                }
             }
-            unset($fac_obj);
         }
 
         return;
@@ -142,7 +111,6 @@ class Facilities extends CI_Controller
     public function edit_facility_action()
     {
         $this->form_validation->set_rules('fac_title', '名稱', 'trim|required');
-        // $this->form_validation->set_rules('fac_description', '說明', 'trim|required');
         $this->form_validation->set_rules('fac_push', '推播文字', 'trim|required');
 
         if ($this->form_validation->run() == false) {
@@ -153,9 +121,7 @@ class Facilities extends CI_Controller
             $fac_obj->exh_id = $this->input->post('fac_exh');
             $fac_obj->title = $this->input->post('fac_title');
             $fac_obj->description = $this->input->post('fac_description');
-            // $fac_obj->main_pic = $this->input->post('fac_main_pic');
             $fac_obj->push_content = $this->input->post('fac_push');
-            // $fac_obj->ibeacon_id = $this->input->post('fac_ibeacon');
 
             if ($this->input->post('fac_ibeacon') == 0) {
                 $fac_obj->ibeacon_id = null;
@@ -170,27 +136,6 @@ class Facilities extends CI_Controller
                 echo $error_msg;
 
                 return;
-            } else {
-                // Edit action allows user not to upload files.
-                // But if there are files, upload them.
-                if (!empty($_FILES['fac_main_pic'])) {
-                    // set upload config
-                    $config['allowed_types'] = 'gif|jpg|png';
-                    $config['max_size'] = '100000';
-                    $this->upload->initialize($config);
-
-                    $upload_results = $this->upload->do_multiple_upload('fac_main_pic', 'fac', $this->input->post('fac_id'));
-                    foreach ($upload_results as $result) {
-                        if (isset($result['error'])) {
-                            // if error is set, print why  upload failed.
-                            log_message('error', $result['name'].' upload failed.');
-                            echo $result['name'].' '.$result['error'];
-                        } else {
-                            log_message('debug', $result['name'].' uploaded.');
-                        }
-                    }
-                    unset($upload_results);
-                }
             }
             unset($fac_obj);
         }

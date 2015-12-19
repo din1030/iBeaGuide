@@ -70,15 +70,15 @@ class MY_Upload extends CI_Upload
                 $file_name_str = $file_name_str.'item_'.$id_no;
                 break;
 
-            case 'route':
-                $file_name_str = $file_name_str.'exh_'.$id_no.'_route_'.$id_no2;
+            case 'topic':
+                $file_name_str = $file_name_str.'exh_'.$id_no.'_topic_'.$id_no2;
                 break;
 
             default:
                 break;
         }
 
-        // upload files and create thumbnails. if error occured, display it. 
+        // upload files and create thumbnails. if error occured, display it.
         for ($i = 0; $i < $file_count; ++$i) {
             $this->_file_name_override = $file_name_str;
             if ($file_count > 1) {

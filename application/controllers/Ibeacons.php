@@ -142,21 +142,23 @@ class Ibeacons extends CI_Controller
                 'minor' => $this->input->post('ibeacon_minor'),
                 'created' => null,
             );
+
             if (!empty($this->input->post('ibeacon_link_type'))
              && !empty($this->input->post('ibeacon_link_obj'))) {
                 $data['link_type'] = $this->input->post('ibeacon_link_type');
                 $data['link_obj_id'] = $this->input->post('ibeacon_link_obj');
             }
+            
             if (!$this->Ibeacon->create($data)) {
                 $error_msg = $this->error_message->get_error_message('create_error');
                 log_message('error', $error_msg);
                 echo $error_msg;
-
-                return;
             }
         }
+
         return;
     }
+
     public function edit_ibeacon_action()
     {
         $this->form_validation->set_rules('ibeacon_title', '名稱', 'trim|required');

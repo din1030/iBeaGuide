@@ -67,21 +67,10 @@
                 <?php
                 break;
 
-            case 'routes':
+            case 'topics':
                 ?>
                 <li>
-                    路線管理
-                </li>
-                <?php
-                break;
-
-            case 'routes/add':
-                ?>
-                <li>
-                    <a href="<?php echo base_url(); ?>routes">路線管理</a>
-                </li>
-                <li>
-                    新增路線
+                    精選主題管理
                 </li>
                 <?php
                 break;

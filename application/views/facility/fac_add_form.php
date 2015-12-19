@@ -23,23 +23,6 @@
                     </div>
                 </div>
 
-                <!-- Textarea -->
-                <div class="form-group">
-                    <label class="col-md-2 control-label" for="fac_description">設施說明</label>
-                    <div class="col-md-8">
-                        <textarea class="form-control" id="fac_description" name="fac_description"></textarea>
-                    </div>
-                </div>
-
-                <!-- File Button -->
-                <div class="form-group">
-                    <label class="col-md-2 control-label" for="fac_main_pic">主要圖片</label>
-                    <div class="col-md-8">
-                        <input id="fac_main_pic" name="fac_main_pic[]" class="input-file" type="file" multiple="true" accept="image/*">
-                        <p class="help-block">（檔案大小請勿超過 2 MB）</p>
-                    </div>
-                </div>
-
                 <!-- Select Basic -->
                 <div class="form-group">
                     <label class="col-md-2 control-label" for="fac_ibeacon">連結 iBeacon</label>
@@ -70,14 +53,7 @@
 </div>
 <script type="text/javascript">
     $('#fac_add_form').ready(function() {
-        $('#fac_main_pic').fileinput({
-            language: 'zh-TW',
-            showUpload: false,
-            maxFileCount: 3,
-            allowedFileTypes: ["image"],
-            previewFileType: 'image',
-            uploadAsync: false
-        });
+
         $('form').ajaxForm({
             beforeSend: function(xhr) {
                 $('#system-message').html('處理中...');
@@ -111,6 +87,7 @@
                 }
             }
         });
+
         $(document.body).off('click.fac_cancel', '#fac_cancel_btn');
         $(document.body).on('click.fac_cancel', '#fac_cancel_btn', function() {
             $('#fac_form_block').empty();
@@ -118,5 +95,6 @@
                 offset: -10
             });
         });
+        
     });
 </script>

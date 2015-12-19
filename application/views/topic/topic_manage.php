@@ -1,10 +1,10 @@
 <legend>
-    路線管理
-    <button id="add-route-btn" type="button" class="btn btn-primary btn-xs pull-right" data-toggle="modal">新增路線</button>
+    主題精選管理
+    <button id="add-topic-btn" type="button" class="btn btn-primary btn-xs pull-right" data-toggle="modal">新增路線</button>
 </legend>
-<div id="route_form_block"></div>
-<div id="route_list_block">
-    <?= $this->table->generate($routes); ?>
+<div id="topic_form_block"></div>
+<div id="topic_list_block">
+    <?= $this->table->generate($topics); ?>
 </div>
 <?php $this->table->clear(); ?>
 <script type="text/javascript">
@@ -12,14 +12,14 @@
 
         $('div.sortable.both:last').removeClass('th-inner sortable both').css('padding','8px');
 
-        $("#route_list").bootstrapTable({
+        $("#topic_list").bootstrapTable({
             sortName: "1"
         });
 
-        $(document.body).off('click.add_route_form', '#add-route-btn');
-        $(document.body).on('click.add_route_form', '#add-route-btn', function() {
+        $(document.body).off('click.add_topic_form', '#add-topic-btn');
+        $(document.body).on('click.add_topic_form', '#add-topic-btn', function() {
             BootstrapDialog.show({
-                title: '請選擇新增路線所屬之展覽',
+                title: '請選擇新增主題所屬之展覽',
                 message: function(dialog) {
                     var $message = $('<div></div>');
                     var pageToLoad = dialog.getData('pageToLoad');
@@ -42,7 +42,7 @@
                     action: function(dialogRef) {
                         dialogRef.close();
                         $.ajax({
-                            url: '/iBeaGuide/routes/get_route_add_form',
+                            url: '/iBeaGuide/topics/get_topic_add_form',
                             type: "GET",
                             //cache: false,
                             data: {
@@ -54,7 +54,7 @@
                                 $('#system-message').show();
                             },
                             success: function(html_block) {
-                                $('#route_form_block').html(html_block);
+                                $('#topic_form_block').html(html_block);
                                 $('#system-message').html('完成');
                                 $('#system-message').fadeOut();
                             }
@@ -64,14 +64,14 @@
             });
         });
 
-        $(document.body).off('click.edit_route_form', '.edit-route-btn');
-        $(document.body).on('click.edit_route_form', '.edit-route-btn', function() {
+        $(document.body).off('click.edit_topic_form', '.edit-topic-btn');
+        $(document.body).on('click.edit_topic_form', '.edit-topic-btn', function() {
             $.ajax({
-                url: '/iBeaGuide/routes/get_route_edit_form',
+                url: '/iBeaGuide/topics/get_topic_edit_form',
                 type: "GET",
                 //cache: false,
                 data: {
-                    route_id: $(this).attr('data-route-id')
+                    topic_id: $(this).attr('data-topic-id')
                 },
                 dataType: "html",
                 beforeSend: function(xhr) {
@@ -79,20 +79,20 @@
                     $('#system-message').show();
                 },
                 success: function(html_block) {
-                    $('#route_form_block').html(html_block);
+                    $('#topic_form_block').html(html_block);
                     $('#system-message').html('完成');
                     $('#system-message').fadeOut();
-                    $.scrollTo($('#add-route-btn'), 500, {offset: -10});
+                    $.scrollTo($('#add-topic-btn'), 500, {offset: -10});
                 }
             });
         });
-        $(document.body).off('click.delete_route', '.del-route-btn');
-        $(document.body).on('click.delete_route', '.del-route-btn', function() {
-            var this_route_id = $(this).attr('data-route-id');
-            var this_route_title = $(this).parent().parent().children('td').eq(1).html();
+        $(document.body).off('click.delete_topic', '.del-topic-btn');
+        $(document.body).on('click.delete_topic', '.del-topic-btn', function() {
+            var this_topic_id = $(this).attr('data-topic-id');
+            var this_topic_title = $(this).parent().parent().children('td').eq(1).html();
             BootstrapDialog.show({
                 title: '注意！',
-                message: '是否刪除「' + this_route_title + '」路線？',
+                message: '是否刪除「' + this_topic_title + '」主題？',
                 buttons: [{
                     label: '取消',
                     action: function(dialogRef){
@@ -103,11 +103,11 @@
                     cssClass: 'btn-danger',
                     action: function(dialogRef) {
                         $.ajax({
-                            url: '/iBeaGuide/routes/delete_route_action',
+                            url: '/iBeaGuide/topics/delete_topic_action',
                             type: "POST",
                             //cache: false,
                             data: {
-                                route_id: this_route_id
+                                topic_id: this_topic_id
                             },
                             dataType: "html",
                             beforeSend: function(xhr) {
@@ -116,7 +116,7 @@
                                 $('#system-message').show();
                             },
                             success: function(html_block) {
-                                $('#route_list_block').html(html_block);
+                                $('#topic_list_block').html(html_block);
                                 // $.scrollTo($('#add_sec_btn'), 500, {offset: -10});
                                 $('#system-message').html('完成');
                                 $('#system-message').fadeOut();

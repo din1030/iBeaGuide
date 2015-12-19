@@ -1,6 +1,6 @@
 <?php  if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-class Route extends ActiveRecord {
+class Topic extends ActiveRecord {
 
     function __construct()
     {
@@ -11,12 +11,12 @@ class Route extends ActiveRecord {
     }
     public function prepare_for_table($value='')
     {
-        $this->db->select('routes.id, routes.title as route_title, exhibitions.title as exh_title, COUNT(*) AS item_nums');
-        $this->db->from('routes');
-        $this->db->join('exhibitions', 'routes.exh_id = exhibitions.id');
-        $this->db->join('routes_items', 'routes_items.r_id = routes.id');
+        $this->db->select('topics.id, topics.title as topic_title, exhibitions.title as exh_title, COUNT(*) AS item_nums');
+        $this->db->from('topics');
+        $this->db->join('exhibitions', 'topics.exh_id = exhibitions.id');
+        $this->db->join('topic_items', 'topic_items.t_id = topics.id');
         $this->db->where('curator_id', $this->config->item('login_user_id'));
-        $this->db->group_by('r_id');
+        $this->db->group_by('t_id');
         $query = $this->db->get();
         return $query;
     }
