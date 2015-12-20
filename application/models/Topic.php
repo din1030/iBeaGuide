@@ -9,6 +9,7 @@ class Topic extends ActiveRecord {
         $this->_table = $this->_class_name . 's';
         $this->_columns = $this->discover_table_columns();
     }
+
     public function prepare_for_table($value='')
     {
         $this->db->select('topics.id, topics.title as topic_title, exhibitions.title as exh_title, COUNT(*) AS item_nums');
@@ -19,6 +20,18 @@ class Topic extends ActiveRecord {
         $this->db->group_by('t_id');
         $query = $this->db->get();
         return $query;
+    }
+
+    public function save_topic_items($topic_id, $items_array)
+    {
+        foreach ($items_array as $item_id) {
+            $data = array(
+                't_id' => $topic_id,
+                'item_id' => $item_id,
+                'created' => NULL,
+            );
+            $this->db->insert("topic_items", $data);
+        }
     }
 }
 

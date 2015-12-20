@@ -52,7 +52,7 @@ class Exhibitions extends CI_Controller
 
     public function print_exh_list()
     {
-        echo $this->table->generate($this->get_exh_list());
+        echo $this->table->generate($this->_get_exh_list());
     }
 
     public function print_exh_menu()
@@ -138,18 +138,22 @@ class Exhibitions extends CI_Controller
                     $this->upload->initialize($config);
 
                     $upload_results = $this->upload->do_multiple_upload('exh_main_pic', 'exh', $exh_obj->id);
+                    $has_error = false;
                     foreach ($upload_results as $result) {
                         if (isset($result['error'])) {
                             // if error is set, print why  upload failed.
+                            $has_error = true;
                             log_message('error', $result['name'].' upload failed.');
                             echo $result['name'].' '.$result['error'];
                         } else {
                             log_message('debug', $result['name'].' uploaded.');
                         }
                     }
-                    unset($upload_results);
+                    if($has_error) {
+                        $exh_obj->delete();
+                    }
+                    unset($exh_obj);
                 }
-                unset($exh_obj);
             }
         }
 
@@ -257,7 +261,7 @@ class Exhibitions extends CI_Controller
         } else {
             $exh_id = $_GET['exh_id'];
             $data['exhibition'] = $this->Exhibition->find($exh_id);
-            $data['sections'] = $this->get_sec_list($exh_id);
+            $data['sections'] = $this->_get_sec_list($exh_id);
         }
         $this->load->view('header');
         $this->load->view('breadcrumb');
@@ -265,7 +269,7 @@ class Exhibitions extends CI_Controller
         $this->load->view('footer');
     }
 
-    public function get_sec_list($exh_id)
+    function _get_sec_list($exh_id)
     {
         $query = $this->Section->prepare_for_table_by_exh_id($exh_id, 'id, title, description');
         $result_array = $query->result_array();
@@ -290,7 +294,7 @@ class Exhibitions extends CI_Controller
 
     public function print_sec_list($exh_id)
     {
-        echo $this->table->generate($this->get_sec_list($exh_id));
+        echo $this->table->generate($this->_get_sec_list($exh_id));
     }
 
     public function get_section_add_modal_form()
@@ -350,14 +354,20 @@ class Exhibitions extends CI_Controller
                     $this->upload->initialize($config);
 
                     $upload_results = $this->upload->do_multiple_upload('sec_main_pic', 'sec', $sec_obj->id, $sec_obj->id);
+                    $has_error = false;
                     foreach ($upload_results as $result) {
                         if (isset($result['error'])) {
                             // if error is set, print why  upload failed.
+                            $has_error = true;
                             log_message('error', $result['name'].' upload failed.');
                             echo $result['name'].' '.$result['error'];
+
                         } else {
                             log_message('debug', $result['name'].' uploaded.');
                         }
+                    }
+                    if($has_error) {
+                        $sec_obj->delete();
                     }
                     unset($upload_results);
                 }
@@ -398,7 +408,6 @@ class Exhibitions extends CI_Controller
                     $config['allowed_types'] = 'gif|jpg|png';
                     $config['max_size'] = '2048'; // 2MB
                     $this->upload->initialize($config);
-                    log_message('debug', $sec_obj->exh_id.'-'.$sec_obj->id);
 
                     $upload_results = $this->upload->do_multiple_upload('sec_main_pic', 'sec', $sec_obj->exh_id, $sec_obj->id);
                     foreach ($upload_results as $result) {

@@ -209,9 +209,10 @@ class Items extends CI_Controller
                             return;
                         }
                     }
-
                     unset($basic_field_data);
                     unset($detail_field_data);
+
+                    /*** if create fields fail! delete exist fields and item_obj  ***/
 
                     // set upload config
                     $config['allowed_types'] = 'gif|jpg|png';
@@ -219,13 +220,16 @@ class Items extends CI_Controller
                     $this->upload->initialize($config);
                     // upload item main pic
                     $main_upload_results = $this->upload->do_multiple_upload('item_main_pic', 'item_main', $item_obj->id);
+                    $has_error = false;
                     if (!$main_upload_results) {
                         $this->upload->display_errors('', '<br>');
+                        $has_error = true;
                     } else {
                         foreach ($main_upload_results as $result) {
                             if (isset($result['error'])) {
                                 // if error is set, print why  upload failed.
-                            log_message('error', $result['name'].' upload failed.');
+                                $has_error = true;
+                                log_message('error', $result['name'].' upload failed.');
                                 echo $result['name'].' '.$result['error'];
                             } else {
                                 log_message('debug', $result['name'].' uploaded.');
@@ -237,10 +241,12 @@ class Items extends CI_Controller
                     $more_upload_results = $this->upload->do_multiple_upload('item_more_pics', 'item_more', $item_obj->id);
                     if (!$more_upload_results) {
                         $this->upload->display_errors('', '<br>');
+                        $has_error = true;
                     } else {
                         foreach ($more_upload_results as $result) {
                             if (isset($result['error'])) {
                                 // if error is set, print why  upload failed.
+                                $has_error = true;
                                 log_message('error', $result['name'].' upload failed.');
                                 echo $result['name'].' '.$result['error'];
                             } else {
@@ -248,6 +254,10 @@ class Items extends CI_Controller
                             }
                         }
                         unset($more_upload_results);
+                    }
+                    if($has_error) {
+                        $item_obj->delete();
+                        // delete related fields
                     }
                 }
             }

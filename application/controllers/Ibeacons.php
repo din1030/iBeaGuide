@@ -21,13 +21,13 @@ class Ibeacons extends CI_Controller
         $this->load->view('header');
         $this->load->view('breadcrumb');
 
-        $data['ibeacons'] = $this->get_ibeacon_list();
+        $data['ibeacons'] = $this->_get_ibeacon_list();
         $this->load->view('ibeacon/ibeacon_manage', $data);
 
         $this->load->view('footer');
     }
 
-    public function get_ibeacon_list()
+    function _get_ibeacon_list()
     {
         $query = $this->Ibeacon->prepare_for_table_by_owner_id($this->config->item('login_user_id'), 'ibeacons.id, ibeacons.title, ibeacons.uuid, ibeacons.major, ibeacons.minor, ibeacons.link_type, ibeacons.link_obj_id');
         $result_array = $query->result_array();
@@ -76,7 +76,7 @@ class Ibeacons extends CI_Controller
 
     public function print_ibeacon_list()
     {
-        echo $this->table->generate($this->get_ibeacon_list());
+        echo $this->table->generate($this->_get_ibeacon_list());
     }
 
     public function get_ibeacon_add_modal_form()
@@ -148,7 +148,7 @@ class Ibeacons extends CI_Controller
                 $data['link_type'] = $this->input->post('ibeacon_link_type');
                 $data['link_obj_id'] = $this->input->post('ibeacon_link_obj');
             }
-            
+
             if (!$this->Ibeacon->create($data)) {
                 $error_msg = $this->error_message->get_error_message('create_error');
                 log_message('error', $error_msg);

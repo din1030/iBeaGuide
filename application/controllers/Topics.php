@@ -75,6 +75,7 @@ class Topics extends CI_Controller
     {
         $this->form_validation->set_rules('topic_title', '名稱', 'trim|required');
         $this->form_validation->set_rules('topic_description', '說明', 'trim|required');
+        $this->form_validation->set_rules('items[]', '展品', 'required');
 
         if ($this->form_validation->run() == false) {
             echo validation_errors();
@@ -104,18 +105,76 @@ class Topics extends CI_Controller
                     log_message('error', $error_msg);
                     echo $error_msg;
                 } else {
+
+                    $this->Topic->save_topic_items($topic_obj->id, $this->input->post('items[]'));
+
                     // set upload config
                     $config['allowed_types'] = 'gif|jpg|png';
                     $config['max_size'] = '2048'; // 2MB
                     $this->upload->initialize($config);
 
-                    $upload_results = $this->upload->do_multiple_upload('topic_main_pic', 'topic', $topic_obj->id);
+                    $upload_results = $this->upload->do_multiple_upload('topic_main_pic', 'topic', $topic_obj->exh_id, $topic_obj->id);
+                    $has_error = false;
+                    foreach ($upload_results as $result) {
+                        if (isset($result['error'])) {
+                            // if error is set, print why  upload failed.
+                            $has_error = true;
+                            log_message('error', $result['name'].' upload failed.');
+                            echo $result['name'].' '.$result['error'];
+
+                        } else {
+                            log_message('debug', $result['name'].' uploaded.');
+                        }
+                    }
+                    if($has_error) {
+                        $topic_obj->delete();
+                    }
+                    unset($upload_results);
+                }
+            }
+            unset($topic_obj);
+        }
+
+        return;
+    }
+
+    public function edit_topic_action()
+    {
+        $this->form_validation->set_rules('topic_title', '名稱', 'trim|required');
+        $this->form_validation->set_rules('topic_description', '說明', 'trim|required');
+
+        if ($this->form_validation->run() == false) {
+            echo validation_errors();
+        } else {
+            $topic_obj = $this->Topic->find($this->input->post('topic_id'));
+            $topic_obj->exh_id = $this->input->post('topic_exh');
+            $topic_obj->title = $this->input->post('topic_title');
+            $topic_obj->description = $this->input->post('topic_description');
+                // 'main_pic' => $this->input->post('topic_main_pic')
+
+            // If DB update failed, then no need to upload files.
+            if (!$topic_obj->update()) {
+                $error_msg = $this->error_message->get_error_message('update_error');
+                log_message('error', $error_msg);
+                echo $error_msg;
+
+                return;
+            } else {
+
+                // If no selected files, terminating add action
+                if (!empty($_FILES['topic_main_pic'])) {
+
+                    // set upload config
+                    $config['allowed_types'] = 'gif|jpg|png';
+                    $config['max_size'] = '2048'; // 2MB
+                    $this->upload->initialize($config);
+
+                    $upload_results = $this->upload->do_multiple_upload('topic_main_pic', 'topic', $topic_obj->exh_id, $topic_obj->id);
                     foreach ($upload_results as $result) {
                         if (isset($result['error'])) {
                             // if error is set, print why  upload failed.
                             log_message('error', $result['name'].' upload failed.');
                             echo $result['name'].' '.$result['error'];
-                            $topic_obj->delete();
                         } else {
                             log_message('debug', $result['name'].' uploaded.');
                         }

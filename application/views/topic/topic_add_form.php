@@ -94,29 +94,16 @@
 </div>
 <script type="text/javascript">
     $('#topic_add_form').ready(function() {
+
         $("#items_list, #in_topic_list").sortable({
             connectWith: ".connectedSortable",
             cursor: "move",
             receive: function(event, ui) {
                 var this_item_id = $(ui.item).attr('data-item-id');
                 if($(event.target).is("#in_topic_list")) {
-                    $.ajax({
-                        url: '/iBeaGuide/topics/add_/' + comment_user_id,
-                        type: "GET",
-                        dataType: "html",
-                        beforeSend: function(xhr) {
-                            $('#system-message').html('處理中...');
-                            $('#system-message').show();
-                        },
-                        success: function(html_block) {
-                            $('#iBeaGuide-modal-block').html(html_block);
-                            $('#iBeaGuide-modal').modal('show');
-                            $('#system-message').html('完成');
-                            $('#system-message').fadeOut();
-                        }
-                    });
+                    $(ui.item).append("<input type='hidden' name='items[]' value='"+ this_item_id +"' />")
                 } else if ($(event.target).is("#items_list")) {
-
+                    $(ui.item).children("input").remove();
                 }
             }
         }).disableSelection();
@@ -151,26 +138,23 @@
                 } else {
                     $('#form_alert').hide();
                     $('#form_alert').empty();
+
                     $.ajax({
                         url: '/iBeaGuide/topics/print_topic_list',
                         type: "GET",
                         dataType: 'html',
                         success: function(html_block) {
                             $('#topic_list_block').html(html_block);
-                            $('#iBeaGuide-modal-block').empty();
-                            $('#iBeaGuide-modal').modal('hide');
+                            $('#topic_form_block').empty();
                             $('[data-toggle="table"]').bootstrapTable();
                             $('#system-message').html('完成');
                             $('#system-message').fadeOut();
-                            $.scrollTo($('#add-topic-btn'), 500, {
-                                offset: -10
-                            });
+                            $.scrollTo($('#add-topic-btn'), 500, {offset: -10});
                         }
                     });
-                    $('#system-message').html('完成');
-                    $('#system-message').fadeOut();
                 }
             }
         });
+
     });
 </script>
