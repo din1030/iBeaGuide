@@ -56,7 +56,7 @@ class App extends CI_Controller {
             if ($linked_obj['type'] == 'exh') {
 
                 // append route info
-                $linked_obj['data']['routes'] = $this->get_exh_routes($linked_obj['data']['id']);
+                $linked_obj['data']['topics'] = $this->get_exh_topics($linked_obj['data']['id']);
 
             } else if ($linked_obj['type'] == 'item') {
 
@@ -93,13 +93,13 @@ class App extends CI_Controller {
         echo json_encode($comment_data);
     }
 
-    public function get_exh_routes($exh_id)
+    public function get_exh_topics($exh_id)
     {
-        $this->load->model('Route');
+        $this->load->model('Topic');
         $query = $this->Route->select_where(array('exh_id' => $exh_id));
         $routes = $query->result_array();
 
-        return $routes;
+        return $topics;
     }
 
     public function post_comment_action()

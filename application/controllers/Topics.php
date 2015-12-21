@@ -20,7 +20,7 @@ class Topics extends CI_Controller
 
     public function get_topic_list()
     {
-        $query = $this->Topic->prepare_for_table();
+        $query = $this->Topic->prepare_for_topic_table();
         $result_array = $query->result_array();
         $topics = array();
         foreach ($result_array as $topic_row) {
@@ -48,25 +48,29 @@ class Topics extends CI_Controller
 
     public function get_topic_add_form()
     {
-        // $this->load->model('Exhibition');
-        // $data['exhibitions'] = $this->Exhibition->prepare_for_dropdwon();
         $this->load->model('Exhibition');
         $data['exhibitions'] = $this->Exhibition->find($_GET['exh_id']);
+
         $this->load->model('Item');
-        $query = $this->Item->prepare_for_table_by_exh_id($_GET['exh_id'], 'id, title', array('owner_id' => $this->config->item('login_user_id'), 'ibeacon_id <>' => '' ) );
+        $query = $this->Item->prepare_for_table_by_exh_id($_GET['exh_id'], 'id, title', array('owner_id' => $this->config->item('login_user_id'), 'ibeacon_id <>' => ''));
         $data['linked_items'] = $query->result_array();
+
         $this->load->view('topic/topic_add_form', $data);
     }
 
-    public function get_topic_edit_form()
+    public function get_topic_edit_form($topic_id)
     {
-        $topic_id = $_GET['topic_id'];
         $data['topic'] = $this->Topic->find($topic_id);
 
         $this->load->model('Exhibition');
         $topic_exh = $this->Exhibition->find($data['topic']->exh_id);
         $data['topic']->exh_title = $topic_exh->title;
-        // $data['exhibitions'] = $this->Exhibition->prepare_for_dropdwon();;
+
+        $not_in_query = $this->Topic->not_in_topic_items($data['topic']->exh_id, $topic_id);
+        $data['not_in_topic_items'] = $not_in_query->result_array();
+
+        $in_query = $this->Topic->in_topic_items($topic_id);
+        $data['in_topic_items'] = $in_query->result_array();
 
         $this->load->view('topic/topic_edit_form', $data);
     }
@@ -81,10 +85,11 @@ class Topics extends CI_Controller
             echo validation_errors();
         } else {
             $data = array(
+                'curator_id' => $this->config->item('login_user_id'),
                 'exh_id' => $this->input->post('topic_exh'),
                 'title' => $this->input->post('topic_title'),
                 'description' => $this->input->post('topic_description'),
-                'created' => NULL,
+                'created' => null,
                 // 'main_pic' => $this->input->post('topic_main_pic')
             );
 
@@ -96,7 +101,6 @@ class Topics extends CI_Controller
 
                 return;
             } else {
-
                 $topic_obj = $this->Topic->create($data);
                 unset($data);
                 // If create data fail
@@ -105,7 +109,6 @@ class Topics extends CI_Controller
                     log_message('error', $error_msg);
                     echo $error_msg;
                 } else {
-
                     $this->Topic->save_topic_items($topic_obj->id, $this->input->post('items[]'));
 
                     // set upload config
@@ -121,12 +124,11 @@ class Topics extends CI_Controller
                             $has_error = true;
                             log_message('error', $result['name'].' upload failed.');
                             echo $result['name'].' '.$result['error'];
-
                         } else {
                             log_message('debug', $result['name'].' uploaded.');
                         }
                     }
-                    if($has_error) {
+                    if ($has_error) {
                         $topic_obj->delete();
                     }
                     unset($upload_results);
@@ -188,6 +190,37 @@ class Topics extends CI_Controller
         return;
     }
 
+    public function delete_topic_action()
+    {
+        if (empty($_POST['topic_id'])) {
+            return false;
+        }
+        $query = $this->Topic->in_topic_items($_POST['topic_id']);
+        if ($query->num_rows() > 0) {
+            foreach ($query->result_array() as $topic_item) {
+                if (!$this->Topic->remove_topic_item($_POST['topic_id'] ,$topic_item['item_id'])) {
+                    return false;
+                }
+            }
+        }
+        $this->print_topic_list();
+    }
+
+    public function add_topic_item_action()
+    {
+        if (empty($_POST['exh_id']) || empty($_POST['item_id'])) {
+            return false;
+        }
+        return $this->Topic->save_topic_items($_POST['exh_id'], array($_POST['item_id']));
+    }
+
+    public function delete_topic_item_action()
+    {
+        if (empty($_POST['topic_id']) || empty($_POST['item_id'])) {
+            return false;
+        }
+        return $this->Topic->remove_topic_item($_POST['topic_id'], $_POST['item_id']);
+    }
 }
 
 /* End of file Topics.php */

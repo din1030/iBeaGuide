@@ -27,7 +27,7 @@ class Comments extends CI_Controller
         foreach ($result_array as $exh_row) {
             $manage_ctrl = "<a data-pjax href='/iBeaGuide/comments/get_exh_comment_list/".$exh_row['id']."' class='btn btn-primary'>展覽留言管理</a>&nbsp;";
             $manage_ctrl .= "<a data-pjax href='/iBeaGuide/comments/get_item_comment_list/".$exh_row['id']."' class='btn btn-primary'>展品留言管理</a>&nbsp;";
-            $manage_ctrl .= "<a href='/iBeaGuide/comments/exh/".$exh_row['id']."/items' class='btn btn-danger'>關閉留言功能</a>&nbsp;";
+            // $manage_ctrl .= "<a href='/iBeaGuide/comments/exh/".$exh_row['id']."/items' class='btn btn-danger'>關閉留言功能</a>&nbsp;";
             $exh_row[] = $manage_ctrl;
             $exhibitions[] = $exh_row;
         }

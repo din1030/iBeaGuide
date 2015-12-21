@@ -46,11 +46,15 @@
                 <div class="col-md-5">
                     <legend>已連結iBeacon展品</legend>
                     <div class="well clearfix">
-                        <ul id="items_list" class="connectedSortable">
+                        <ul id="items_list" class="connectedSortable text-center">
                             <?php
+                            if (empty($linked_items)) {
+                                echo "此展覽尚未有連結 iBeacon 之展品，請先至「iBeacon 管理」設定。";
+                            } else {
                                 foreach ($linked_items as $item) {
                                     echo "<li class='ui-state-default' data-item-id='".$item['id']."' >".$item['title']."</li>";
                                 }
+                            }
                             ?>
                         </ul>
                     </div>
@@ -75,7 +79,7 @@
                 <div class="col-md-5">
                     <legend>精選主題展品</legend>
                     <div class="well clearfix">
-                        <ul id="in_topic_list" class="connectedSortable">
+                        <ul id="in_topic_list" class="connectedSortable text-center">
                         </ul>
                     </div>
                 </div>
@@ -98,6 +102,16 @@
         $("#items_list, #in_topic_list").sortable({
             connectWith: ".connectedSortable",
             cursor: "move",
+            start: function (event, ui) {
+                if($(ui.item).is("#in_topic_list li")) {
+                    $("#items_list").css('border', '2px dashed lightsteelblue').css('padding', '10px');
+                } else {
+                    $("#in_topic_list").css('border', '2px dashed lightsteelblue').css('padding', '10px');
+                }
+            },
+            stop: function (event, ui) {
+                $("#items_list, #in_topic_list").css('border', '');
+            },
             receive: function(event, ui) {
                 var this_item_id = $(ui.item).attr('data-item-id');
                 if($(event.target).is("#in_topic_list")) {

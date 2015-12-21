@@ -67,12 +67,8 @@
         $(document.body).off('click.edit_topic_form', '.edit-topic-btn');
         $(document.body).on('click.edit_topic_form', '.edit-topic-btn', function() {
             $.ajax({
-                url: '/iBeaGuide/topics/get_topic_edit_form',
+                url: '/iBeaGuide/topics/get_topic_edit_form/' + $(this).attr('data-topic-id'),
                 type: "GET",
-                //cache: false,
-                data: {
-                    topic_id: $(this).attr('data-topic-id')
-                },
                 dataType: "html",
                 beforeSend: function(xhr) {
                     $('#system-message').html('處理中...');
@@ -116,6 +112,11 @@
                                 $('#system-message').show();
                             },
                             success: function(html_block) {
+                                if (!html_block) {
+                                    $('#system-message').html('資料處理異常，請重新操作');
+                                    $('#system-message').delay(2000).fadeOut(500);
+                                    return;
+                                }
                                 $('#topic_list_block').html(html_block);
                                 // $.scrollTo($('#add_sec_btn'), 500, {offset: -10});
                                 $('#system-message').html('完成');

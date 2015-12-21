@@ -147,7 +147,7 @@ class Facilities extends CI_Controller
     {
         $fac_obj = $this->Facility->find($_POST['fac_id']);
         $fac_obj->delete();
-        echo $this->table->generate($this->get_fac_list());
+        $this->print_fac_list();
     }
 }
 
