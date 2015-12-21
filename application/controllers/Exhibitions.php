@@ -22,17 +22,18 @@ class Exhibitions extends CI_Controller
 
     function _get_exh_list()
     {
-        $query = $this->Exhibition->prepare_for_table_by_curator_id($this->config->item('login_user_id'), 'id, title, venue, start_date, end_date, ibeacon_id');
+        // $query = $this->Exhibition->prepare_for_table_by_curator_id($this->config->item('login_user_id'), 'id, title, venue, start_date, end_date, ibeacon_id');
+        $query = $this->Exhibition->prepare_for_table_by_curator_id($this->config->item('login_user_id'), 'id, title, venue, start_date, end_date');
         $result_array = $query->result_array();
         $exhibitions = array();
 
         foreach ($result_array as $exh_row) {
-            if (empty($exh_row['ibeacon_id'])) {
-                $exh_row['ibeacon_id'] = '＝未連結＝';
-            } else {
-                $exh_ibeacon = $this->Ibeacon->find($exh_row['ibeacon_id']);
-                $exh_row['ibeacon_id'] = $exh_ibeacon->title;
-            }
+            // if (empty($exh_row['ibeacon_id'])) {
+            //     $exh_row['ibeacon_id'] = '＝未連結＝';
+            // } else {
+            //     $exh_ibeacon = $this->Ibeacon->find($exh_row['ibeacon_id']);
+            //     $exh_row['ibeacon_id'] = $exh_ibeacon->title;
+            // }
             $manage_ctrl = "<a href='/iBeaGuide/exhibitions/sections?exh_id=".$exh_row['id']."' class='btn btn-default'>展區管理</a>&nbsp;";
             $manage_ctrl .= "<button id='edit-exh-btn_".$exh_row['id']."' type='button' class='btn btn-primary edit-exh-btn' data-toggle='modal' data-exh-id='".$exh_row['id']."'>編輯</button>&nbsp;";
             $manage_ctrl .= "<button id='del-exh-btn_".$exh_row['id']."' type='button' class='btn btn-danger del-exh-btn' data-toggle='modal' data-exh-id='".$exh_row['id']."'>刪除</button>";
@@ -42,7 +43,8 @@ class Exhibitions extends CI_Controller
         unset($result_array);
 
         $this->table->clear();
-        $this->table->set_heading(array('ID', '展覽名稱', '展場', '開始日期', '結束日期', '連結iBeacon', '管理'));
+        // $this->table->set_heading(array('ID', '展覽名稱', '展場', '開始日期', '結束日期', '連結iBeacon', '管理'));
+        $this->table->set_heading(array('ID', '展覽名稱', '展場', '開始日期', '結束日期', '管理'));
         $tmpl = array('table_open' => '<table id="exh_list" data-toggle="table" data-striped="true">',
                       'heading_cell_start' => '<th data-sortable="true">', );
         $this->table->set_template($tmpl);
@@ -111,9 +113,9 @@ class Exhibitions extends CI_Controller
                 'created' => null,
             );
 
-            if ($this->input->post('exh_ibeacon') != 0) {
-                $data['ibeacon_id'] = $this->input->post('exh_ibeacon');
-            }
+            // if ($this->input->post('exh_ibeacon') != 0) {
+            //     $data['ibeacon_id'] = $this->input->post('exh_ibeacon');
+            // }
 
             // If no selected files, terminating add action
             if (empty($_FILES['exh_main_pic'])) {
@@ -127,11 +129,26 @@ class Exhibitions extends CI_Controller
                 unset($data);
 
                 // If create data fail
-                if (!isset($exh_obj)) {
+                if (!$exh_obj) {
                     $error_msg = $this->error_message->get_error_message('create_error');
                     log_message('error', $error_msg);
                     echo $error_msg;
                 } else {
+
+                    // if ($exh_obj->ibeacon_id) {
+                    //     $ibeacon_obj = $this->Ibeacon->find($exh_obj->ibeacon_id);
+                    //     $ibeacon_obj->link_type = 'exh';
+                    //     $ibeacon_obj->link_obj_id = $exh_obj->id;
+                    //     $ibeacon_obj->updated = NULL;
+                    //
+                    //     if (!$ibeacon_obj->update()) {
+                    //         $error_msg = $this->error_message->get_error_message('update_error');
+                    //         log_message('error', $error_msg."(iBeacon)");
+                    //         echo $error_msg;
+                    //
+                    //         return;
+                    //     }
+                    // }
                     // set upload config
                     $config['allowed_types'] = 'gif|jpg|png';
                     $config['max_size'] = '2048'; // 2MB
@@ -186,11 +203,11 @@ class Exhibitions extends CI_Controller
             // $exh_obj->main_pic = $this->input->post('exh_main_pic');
             $exh_obj->push_content = $this->input->post('exh_push');
 
-            if ($this->input->post('exh_ibeacon') != 0) {
-                $exh_obj->ibeacon_id = $this->input->post('exh_ibeacon');
-            } else {
-                $exh_obj->ibeacon_id = null;
-            }
+            // if ($this->input->post('exh_ibeacon') != 0) {
+            //     $exh_obj->ibeacon_id = $this->input->post('exh_ibeacon');
+            // } else {
+            //     $exh_obj->ibeacon_id = null;
+            // }
 
             // If DB update failed, then no need to upload files.
             if (!$exh_obj->update()) {
@@ -200,6 +217,22 @@ class Exhibitions extends CI_Controller
 
                 return;
             } else {
+
+                // if ($this->input->post('exh_ibeacon') != 0) {
+                //     $ibeacon_obj = $this->Ibeacon->find($this->input->post('exh_ibeacon'));
+                //     $ibeacon_obj->link_type = 'exh';
+                //     $ibeacon_obj->link_obj_id = $exh_obj->id;
+                //     $ibeacon_obj->updated = NULL;
+                //
+                //     if (!$ibeacon_obj->update()) {
+                //         $error_msg = $this->error_message->get_error_message('update_error');
+                //         log_message('error', $error_msg."(iBeacon)");
+                //         echo $error_msg;
+                //
+                //         return;
+                //     }
+                // }
+
                 // Edit action allows user not to upload files.
                 // But if there are files, upload them.
                 if (!empty($_FILES['exh_main_pic'])) {

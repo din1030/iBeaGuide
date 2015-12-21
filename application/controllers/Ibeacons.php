@@ -149,11 +149,37 @@ class Ibeacons extends CI_Controller
                 $data['link_obj_id'] = $this->input->post('ibeacon_link_obj');
             }
 
-            if (!$this->Ibeacon->create($data)) {
+            $ibeacon_obj = $this->Ibeacon->create($data);
+            if (!$ibeacon_obj) {
                 $error_msg = $this->error_message->get_error_message('create_error');
                 log_message('error', $error_msg);
                 echo $error_msg;
+
+                // return;
             }
+
+            // switch ($this->input->post('ibeacon_link_type')) {
+            //     case 'exh':
+            //         $this->load->model('Exhibition');
+            //         $linked_obj = $this->Exhibition->find($data['link_obj_id']);
+            //         $linked_obj->ibeacon_id = $ibeacon_obj->id;
+            //         $linked_obj->update();
+            //         break;
+            //     case 'item':
+            //         $this->load->model('Item');
+            //         $linked_obj = $this->Item->find($data['link_obj_id']);
+            //         $linked_obj->ibeacon_id = $ibeacon_obj->id;
+            //         $linked_obj->update();
+            //         break;
+            //     case 'fac':
+            //         $this->load->model('Facility');
+            //         $linked_obj = $this->Facility->find($data['link_obj_id']);
+            //         $linked_obj->ibeacon_id = $ibeacon_obj->id;
+            //         $linked_obj->update();
+            //         break;
+            //     default:
+            //         break;
+            // }
         }
 
         return;
@@ -184,13 +210,39 @@ class Ibeacons extends CI_Controller
                  $ibeacon_obj->link_obj_id = $this->input->post('ibeacon_link_obj');
             } else {
                 $ibeacon_obj->link_type = 'none';
-                $ibeacon_obj->link_obj_id = null;
+                $ibeacon_obj->link_obj_id = NULL;
             }
+
             if (!$ibeacon_obj->update()) {
                 $error_msg = $this->error_message->get_error_message('update_error');
                 log_message('error', $error_msg);
                 echo $error_msg;
+
+                // return;
             }
+
+            // switch ($this->input->post('ibeacon_link_type')) {
+            //     case 'exh':
+            //         $this->load->model('Exhibition');
+            //         $linked_obj = $this->Exhibition->find($data['link_obj_id']);
+            //         $linked_obj->ibeacon_id = $ibeacon_obj->id;
+            //         $linked_obj->update();
+            //         break;
+            //     case 'item':
+            //         $this->load->model('Item');
+            //         $linked_obj = $this->Item->find($data['link_obj_id']);
+            //         $linked_obj->ibeacon_id = $ibeacon_obj->id;
+            //         $linked_obj->update();
+            //         break;
+            //     case 'fac':
+            //         $this->load->model('Facility');
+            //         $linked_obj = $this->Facility->find($data['link_obj_id']);
+            //         $linked_obj->ibeacon_id = $ibeacon_obj->id;
+            //         $linked_obj->update();
+            //         break;
+            //     default:
+            //         break;
+            // }
             unset($ibeacon_obj);
         }
 

@@ -22,16 +22,17 @@ class Items extends CI_Controller
 
     public function get_item_list()
     {
-        $query = $this->Item->join_exh_title('items.id, items.title as item_title, exhibitions.title as exh_title, items.ibeacon_id');
+        // $query = $this->Item->join_exh_title('items.id, items.title as item_title, exhibitions.title as exh_title, items.ibeacon_id');
+        $query = $this->Item->join_exh_title('items.id, items.title as item_title, exhibitions.title as exh_title');
         $result_array = $query->result_array();
         $items = array();
         foreach ($result_array as $item_row) {
-            if (empty($item_row['ibeacon_id'])) {
-                $item_row['ibeacon_id'] = '＝未連結＝';
-            } else {
-                $item_ibeacon = $this->Ibeacon->find($item_row['ibeacon_id']);
-                $item_row['ibeacon_id'] = $item_ibeacon->title;
-            }
+            // if (empty($item_row['ibeacon_id'])) {
+            //     $item_row['ibeacon_id'] = '＝未連結＝';
+            // } else {
+            //     $item_ibeacon = $this->Ibeacon->find($item_row['ibeacon_id']);
+            //     $item_row['ibeacon_id'] = $item_ibeacon->title;
+            // }
             if (empty($item_row['exh_title'])) {
                 $item_row['exh_title'] = '＝尚未加入展覽＝';
             }
@@ -43,7 +44,8 @@ class Items extends CI_Controller
         unset($result_array);
 
         $this->table->clear();
-        $this->table->set_heading(array('ID', '展品名稱', '所屬展覽', '連結iBeacon', '管理'));
+        // $this->table->set_heading(array('ID', '展品名稱', '所屬展覽', '連結iBeacon', '管理'));
+        $this->table->set_heading(array('ID', '展品名稱', '所屬展覽', '管理'));
         $tmpl = array('table_open' => '<table id="item_list" data-toggle="table" data-striped="true">',
                     'heading_cell_start' => '<th data-sortable="true">', );
         $this->table->set_template($tmpl);
@@ -121,7 +123,7 @@ class Items extends CI_Controller
                 'description' => $this->input->post('item_description'),
                 'main_pic' => $this->input->post('item_main_pic'),
                 'push_content' => $this->input->post('item_push'),
-                'ibeacon_id' => $this->input->post('item_ibeacon'),
+                // 'ibeacon_id' => $this->input->post('item_ibeacon'),
                 'created' => null,
             );
             if ($this->input->post('item_exh') != 0) {
@@ -132,10 +134,10 @@ class Items extends CI_Controller
             }
             // if ($this->input->post('item_subtitle') !== null) {
             // 	$data['subtitle'] = $this->input->post('item_subtitle');
+            // // }
+            // if ($this->input->post('item_ibeacon') != 0) {
+            //     $data['ibeacon_id'] = $this->input->post('item_ibeacon');
             // }
-            if ($this->input->post('item_ibeacon') != 0) {
-                $data['ibeacon_id'] = $this->input->post('item_ibeacon');
-            }
 
             // If no selected files, terminating add action
             if (empty($_FILES['item_main_pic'])) {
@@ -299,7 +301,7 @@ class Items extends CI_Controller
             $item_obj->ibeacon_id = $this->input->post('item_ibeacon');
             $item_obj->exh_id = $this->input->post('item_exh');
             $item_obj->sec_id = $this->input->post('item_sec');
-            $item_obj->ibeacon_id = $this->input->post('item_ibeacon');
+            // $item_obj->ibeacon_id = $this->input->post('item_ibeacon');
 
             if ($item_obj->exh_id == 0) {
                 $item_obj->exh_id = null;
@@ -308,9 +310,9 @@ class Items extends CI_Controller
             if ($item_obj->sec_id == 0) {
                 $item_obj->sec_id = null;
             }
-            if ($item_obj->ibeacon_id == 0) {
-                $item_obj->ibeacon_id = null;
-            }
+            // if ($item_obj->ibeacon_id == 0) {
+            //     $item_obj->ibeacon_id = null;
+            // }
 
             // If DB update failed, then no need to update ohther info.
             if (!$item_obj->update()) {
