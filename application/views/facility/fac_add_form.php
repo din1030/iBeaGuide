@@ -24,12 +24,12 @@
                 </div>
 
                 <!-- Select Basic -->
-                <div class="form-group">
+                <!-- <div class="form-group">
                     <label class="col-md-2 control-label" for="fac_ibeacon">連結 iBeacon</label>
                     <div class="col-md-8">
                         <?= form_dropdown('fac_ibeacon', $ibeacons, '', "id='fac_ibeacon' class='form-control'") ?>
                     </div>
-                </div>
+                </div> -->
 
                 <!-- Textarea -->
                 <div class="form-group">
@@ -95,6 +95,6 @@
                 offset: -10
             });
         });
-        
+
     });
 </script>

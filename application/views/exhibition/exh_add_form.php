@@ -118,12 +118,12 @@
                     </div>
 
                     <!-- Select Basic -->
-                    <div class="form-group">
+                    <!-- <div class="form-group">
                         <label class="col-md-2 control-label" for="exh_ibeacon">連結 iBeacon</label>
                         <div class="col-md-8">
                             <?= form_dropdown('exh_ibeacon', $ibeacons, '', "id='exh_ibeacon' class='form-control'") ?>
                         </div>
-                    </div>
+                    </div> -->
 
                     <div class="form-group">
                         <label class="col-md-2 control-label"></label>

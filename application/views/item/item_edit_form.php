@@ -80,12 +80,13 @@
                 </div>
 
                 <!-- Select Basic -->
-                <div id="ib_select_block" class="form-group">
+                <!-- <div id="ib_select_block" class="form-group">
                     <label class="col-md-2 control-label" for="exh_ibeacon">連結iBeacon</label>
                     <div class="col-md-8">
                         <?= form_dropdown('item_ibeacon', $ibeacons, $item->ibeacon_id, "id='item_ibeacon' class='form-control'") ?>
                     </div>
-                </div>
+                </div> -->
+                
                 <!-- Textarea -->
                 <div class="form-group">
                     <label class="col-md-2 control-label" for="item_push">推播文字</label>

@@ -26,12 +26,12 @@
                 </div>
 
                 <!-- Select Basic -->
-                <div class="form-group">
+                <!-- <div class="form-group">
                     <label class="col-md-2 control-label" for="item_ibeacon">連結 iBeacon</label>
                     <div class="col-md-8">
                         <?= form_dropdown('fac_ibeacon', $ibeacons, $facility->ibeacon_id, "id='fac_ibeacon' class='form-control'") ?>
                     </div>
-                </div>
+                </div> -->
 
                 <!-- Textarea -->
                 <div class="form-group">
