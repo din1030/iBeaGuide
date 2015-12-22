@@ -86,7 +86,7 @@
                         <?= form_dropdown('item_ibeacon', $ibeacons, $item->ibeacon_id, "id='item_ibeacon' class='form-control'") ?>
                     </div>
                 </div> -->
-                
+
                 <!-- Textarea -->
                 <div class="form-group">
                     <label class="col-md-2 control-label" for="item_push">推播文字</label>
@@ -227,7 +227,7 @@
             </div>
 
             <div class="form-group text-center col-md-12 margin-top-30">
-                <button type="button" id="preview" name="preview" class="btn btn-default">預覽</button>
+                <button type="button" id="preview" name="preview" class="btn btn-default" disabled="">預覽</button>
                 <button type="submit" id="submit" name="submit" class="btn btn-primary">送出展品資訊</button>
                 <button type="button" id="item-cancel-btn" name="item-cancel-btn" class="btn btn-default">取消</button>
             </div>
@@ -350,6 +350,7 @@
                             $('#item_list_block').html(html_block);
                             $('#item_form_block').empty();
                             $('[data-toggle="table"]').bootstrapTable();
+                            $('div.sortable.both:last').removeClass('th-inner sortable both').css('padding', '8px');
                             $('#system-message').html('完成');
                             $('#system-message').fadeOut();
                             $.scrollTo($('#add-item-btn'), 500, {

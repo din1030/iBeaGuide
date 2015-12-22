@@ -87,6 +87,7 @@
                                 $('#system-message').html('完成');
                                 $('#system-message').fadeOut();
                                 $('[data-toggle="table"]').bootstrapTable();
+                                $('div.sortable.both:last').removeClass('th-inner sortable both').css('padding', '8px');
                             }
                         });
                     }

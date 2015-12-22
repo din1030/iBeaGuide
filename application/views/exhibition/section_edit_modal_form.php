@@ -86,6 +86,7 @@
                         success: function(html_block) {
                             $('#sec_list_block').html(html_block);
                             $('[data-toggle="table"]').bootstrapTable();
+                            $('div.sortable.both:last').removeClass('th-inner sortable both').css('padding', '8px');
                             $('#system-message').html('完成');
                             $('#system-message').fadeOut();
                             $.scrollTo($('#add-sec-btn'), 500, {

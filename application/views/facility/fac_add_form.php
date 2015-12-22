@@ -42,7 +42,7 @@
 
                 <!-- Button Group -->
                 <div class="form-group text-center">
-                    <button type="button" id="fac_preview_btn" name="fac_preview_btn" class="btn btn-default">預覽</button>
+                    <button type="button" id="fac_preview_btn" name="fac_preview_btn" class="btn btn-default" disabled="">預覽</button>
                     <button type="submit" id="fac_submit_btn" name="fac_submit_btn" class="btn btn-primary">送出設施資訊</button>
                     <button type="button" id="fac_cancel_btn" name="fac_cancel_btn" class="btn btn-default">取消</button>
                 </div>
@@ -75,6 +75,7 @@
                             $('#fac_list_block').html(html_block);
                             $('#fac_form_block').empty();
                             $('[data-toggle="table"]').bootstrapTable();
+                            $('div.sortable.both:last').removeClass('th-inner sortable both').css('padding', '8px');
                             $('#system-message').html('完成');
                             $('#system-message').fadeOut();
                             $.scrollTo($('#add-fac-btn'), 500, {

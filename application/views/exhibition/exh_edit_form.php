@@ -38,18 +38,19 @@
                         <label class="col-md-2 control-label" for="exh_start_date">開展日期</label>
                         <div class="col-md-8">
                             <div class="input-group date" id="exh_start_date_picker">
-                                <input id="exh_start_date" name="exh_start_date" type="text" class="form-control" required="" value="<?= $exhibition->start_date ?>" />
+                                <input id="exh_start_date" name="exh_start_date" type="text" class="form-control" required="" value="<?= $exhibition->start_date ?>">
                                 <span class="input-group-addon">
                                     <span class="glyphicon glyphicon-calendar"></span>
                                 </span>
                             </div>
                         </div>
                     </div>
+
                     <div class="form-group">
                         <label class="col-md-2 control-label" for="exh_end_date">閉展日期</label>
                         <div class="col-md-8">
                             <div class="input-group date" id="exh_end_date_picker">
-                                <input id="exh_end_date" name="exh_end_date" type="text" class="form-control" required="" value="<?= $exhibition->end_date ?>" />
+                                <input id="exh_end_date" name="exh_end_date" type="text" class="form-control" required="" value="<?= $exhibition->end_date ?>">
                                 <span class="input-group-addon">
                                     <span class="glyphicon glyphicon-calendar"></span>
                                 </span>
@@ -60,9 +61,9 @@
                         <label class="col-md-2 control-label" for="exh_daily_open_time">每日開展時間</label>
                         <div class="col-md-8">
                             <div class='input-group date' id='exh_daily_open_time_picker'>
-                                <input id="exh_daily_open_time" name="exh_daily_open_time" type="text" class="form-control" required="" value="<?= $exhibition->daily_open_time ?>" />
+                                <input id="exh_daily_open_time" name="exh_daily_open_time" type="text" class="form-control" required="" value="<?= $exhibition->daily_open_time ?>">
                                 <span class="input-group-addon">
-                                    <span class="glyphicon glyphicon-calendar"></span>
+                                    <span class="glyphicon glyphicon-time"></span>
                                 </span>
                             </div>
                         </div>
@@ -71,9 +72,9 @@
                         <label class="col-md-2 control-label" for="exh_daily_close_time">每日閉展時間</label>
                         <div class="col-md-8">
                             <div class="input-group date" id="exh_daily_close_time_picker">
-                                <input id="exh_daily_close_time" name="exh_daily_close_time" type="text" class="form-control" required="" value="<?= $exhibition->daily_close_time ?>" />
+                                <input id="exh_daily_close_time" name="exh_daily_close_time" type="text" class="form-control" required="" value="<?= $exhibition->daily_close_time ?>">
                                 <span class="input-group-addon">
-                                    <span class="glyphicon glyphicon-calendar"></span>
+                                    <span class="glyphicon glyphicon-time"></span>
                                 </span>
                             </div>
                         </div>
@@ -136,7 +137,7 @@
 
                     <!-- Button Group -->
                     <div class="form-group text-center">
-                        <button type="button" id="preview" name="preview" class="btn btn-default">預覽</button>
+                        <button type="button" id="preview" name="preview" class="btn btn-default" disabled="">預覽</button>
                         <button type="submit" id="submit" name="submit" class="btn btn-primary">送出展覽資訊</button>
                         <button type="button" id="exh-cancel-btn" name="exh-cancel-btn" class="btn btn-default">取消</button>
                     </div>
@@ -166,10 +167,10 @@
                 defaultDate: moment("<?= $exhibition->end_date ?>")
             });
             $("#exh_start_date_picker").on("dp.change", function(e) {
-                $('#exh_end_date').data("DateTimePicker").minDate(e.date);
+                $('#exh_end_date_picker').data("DateTimePicker").minDate(e.date);
             });
             $("#exh_end_date_picker").on("dp.change", function(e) {
-                $('#exh_start_date').data("DateTimePicker").maxDate(e.date);
+                $('#exh_start_date_picker').data("DateTimePicker").maxDate(e.date);
             });
             $('#exh_daily_open_time_picker').datetimepicker({
                 format: 'HH:mm',
@@ -215,6 +216,7 @@
                                 $('#exh_list_block').html(html_block);
                                 $('#exh_form_block').empty();
                                 $('[data-toggle="table"]').bootstrapTable();
+                                $('div.sortable.both:last').removeClass('th-inner sortable both').css('padding', '8px');
                                 $('#system-message').html('完成');
                                 $('#system-message').fadeOut();
                                 $.scrollTo($('#add-exh-btn'), 500, {

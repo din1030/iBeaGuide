@@ -12,7 +12,7 @@
     $(document).ready(function() {
 
         $('div.sortable.both:last').removeClass('th-inner sortable both').css('padding','8px');
-        
+
         $(document.body).off('click.add_item_form', '#add-item-btn');
         $(document.body).on('click.add_item_form', '#add-item-btn', function() {
             $.ajax({
@@ -93,6 +93,7 @@
                                 $('#system-message').html('完成');
                                 $('#system-message').fadeOut();
                                 $('[data-toggle="table"]').bootstrapTable();
+                                $('div.sortable.both:last').removeClass('th-inner sortable both').css('padding', '8px');
                             }
                         });
                     }
