@@ -55,7 +55,7 @@ class App extends CI_Controller {
             // append info
             if ($linked_obj['type'] == 'exh') {
 
-                // append route info
+                // append topic info
                 $linked_obj['data']['topics'] = $this->get_exh_topics($linked_obj['data']['id']);
 
             } else if ($linked_obj['type'] == 'item') {
@@ -96,8 +96,8 @@ class App extends CI_Controller {
     public function get_exh_topics($exh_id)
     {
         $this->load->model('Topic');
-        $query = $this->Route->select_where(array('exh_id' => $exh_id));
-        $routes = $query->result_array();
+        $query = $this->Topic->select_where(array('exh_id' => $exh_id));
+        $topics = $query->result_array();
 
         return $topics;
     }
