@@ -102,6 +102,18 @@ class App extends CI_Controller {
         return $topics;
     }
 
+	public function get_in_topic_items($topic_id)
+    {
+        $this->load->model('Topic');
+        $query = $this->Topic->in_topic_items($topic_id);
+        $topics = $query->result_array();
+		$ids = array_map(function($topic) {
+			return $topic['item_id'];
+		}, $topics);
+
+        echo json_encode($ids);
+    }
+
     public function post_comment_action()
     {
         // receive the POST data
