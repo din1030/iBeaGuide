@@ -149,7 +149,7 @@ class Topics extends CI_Controller
             echo validation_errors();
         } else {
             $topic_obj = $this->Topic->find($this->input->post('topic_id'));
-            $topic_obj->exh_id = $this->input->post('topic_exh');
+            $topic_obj->exh_id = $this->input->post('topic_exh_id');
             $topic_obj->title = $this->input->post('topic_title');
             $topic_obj->description = $this->input->post('topic_description');
                 // 'main_pic' => $this->input->post('topic_main_pic')

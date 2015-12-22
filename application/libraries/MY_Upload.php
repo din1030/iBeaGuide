@@ -24,7 +24,8 @@ class MY_Upload extends CI_Upload
 
         // change format for $_FILES and make index of input files numeric
         $file_count = count($_FILES[$field]['name']);
-        for ($i = 0; $i < $file_count; ++$i) {
+        log_message('error', "file_count = ".count($_FILES[$field]['name']));
+        for ($i = 0; $i < $file_count; $i++) {
             if ($_FILES[$field]['size'][$i]) {
                 $_FILES[$i] =
                     array(
@@ -46,43 +47,46 @@ class MY_Upload extends CI_Upload
         }
         $this->_CI->upload->set_upload_path($upload_path);
 
-        // define fine name based on upload type
+        // define file name based on upload type
         // $file_name_str = 'User_'.$this->_CI->config->item('login_user_id').'_'; // User_1_
         $file_name_str = '';
         switch ($pic_type) {
             case 'exh':
-                $file_name_str = $file_name_str.'exh_'.$id_no;
+                $file_name_str = 'exh_'.$id_no;
                 break;
 
             case 'sec':
-                $file_name_str = $file_name_str.'exh_'.$id_no.'_sec_'.$id_no2;
+                $file_name_str = 'exh_'.$id_no.'_sec_'.$id_no2;
                 break;
 
             case 'fac':
-                $file_name_str = $file_name_str.'fac_'.$id_no;
+                $file_name_str = 'fac_'.$id_no;
                 break;
 
             case 'item_main':
-                $file_name_str = $file_name_str.'item_'.$id_no.'_main';
+                $file_name_str = 'item_'.$id_no.'_main';
                 break;
 
             case 'item_more':
-                $file_name_str = $file_name_str.'item_'.$id_no;
+                $file_name_str = 'item_'.$id_no;
                 break;
 
             case 'topic':
-                $file_name_str = $file_name_str.'exh_'.$id_no.'_topic_'.$id_no2;
+                $file_name_str = 'exh_'.$id_no.'_topic_'.$id_no2;
                 break;
 
             default:
+                $file_name_str = 'error_filename';
                 break;
         }
 
-        // upload files and create thumbnails. if error occured, display it.
-        for ($i = 0; $i < $file_count; ++$i) {
+        // upload files and create thumbnails. if error occured, display error messages.
+        for ($i = 0; $i < $file_count; $i++) {
             $this->_file_name_override = $file_name_str;
-            if ($file_count > 1) {
-                $this->_file_name_override = $file_name_str.'_'.$i;
+            // item_more should be numbered
+            if ($pic_type == 'item_more') {
+                $this->_file_name_override = $file_name_str.'_'.($i+1);
+                log_message('debug', $this->_file_name_override);
             }
             if (!$this->do_upload($i)) {
                 $result[$i]['name'] = $_FILES[$i]['name'];
@@ -90,7 +94,7 @@ class MY_Upload extends CI_Upload
                 $this->error_msg = array();
             } else {
                 $result[$i]['name'] = $_FILES[$i]['name'];
-                if (!$this->_create_thumbnail($upload_path.'/'.$this->file_name, false, $thumbMarker = '', 400, 300)) {
+                if (!$this->create_thumbnail($upload_path.'/'.$this->file_name, false, $thumbMarker = '', 400, 300)) {
                     $result[$i]['error'] = $this->_CI->display_errors('', '<br>');
                     $this->error_msg = array();
                 }
@@ -101,7 +105,7 @@ class MY_Upload extends CI_Upload
         return $result;
     }
 
-    public function _create_thumbnail($fileName, $isThumb, $thumbMarker = '', $width, $height)
+    public function create_thumbnail($fileName, $isThumb, $thumbMarker = '', $width, $height)
     {
         //settings
         $config['image_library'] = 'gd2';
@@ -129,7 +133,7 @@ class MY_Upload extends CI_Upload
 
         $ext = pathinfo($fileName, PATHINFO_EXTENSION);
         if ($ext != 'jpg') {
-            $this->_CI->image_lib->convert('jpg',true);
+            $this->_CI->image_lib->convert('jpg', true);
         }
 
         return true;

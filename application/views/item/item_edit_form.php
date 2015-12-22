@@ -23,9 +23,10 @@
                 </div>
 
                 <!-- Select Basic -->
-                <div id="item_sec_block" class="form-group" style="display:none;">
+                <div id="item_sec_block" class="form-group" style="">
                     <label class="col-md-2 control-label" for="item_section">展區</label>
                     <div class="col-md-8">
+                        <?= form_dropdown('item_sec', $sections, (!empty($item->sec_id)) ? $item->sec_id : '' , "id='item_sec' class='form-control' data-exh-id='".$item->exh_id."'"); ?>
                     </div>
                 </div>
 
@@ -66,7 +67,7 @@
                     <label class="col-md-2 control-label" for="item_main_pic">主要圖片</label>
                     <div class="col-md-8">
                         <input id="item_main_pic" name="item_main_pic[]" class="input-file" type="file" accept="image/*">
-                        <p class="help-block">（檔案大小請勿超過 2 MB）</p>
+                        <p class="help-block">（請選擇一張展品主要圖片，檔案大小勿超過 2 MB）</p>
                     </div>
                 </div>
 
@@ -170,7 +171,7 @@
                     <label class="col-md-2 control-label" for="item_more_pics">其他圖片</label>
                     <div class="col-md-8">
                         <input id="item_more_pics" name="item_more_pics[]" class="input-file" type="file" multiple="true" accept="image/*">
-                        <p class="help-block">（檔案大小請勿超過 2 MB，至多五張）</p>
+                        <p class="help-block">（可上傳一至五張圖片，單檔大小勿超過 2 MB）</p>
                     </div>
                 </div>
                 <!-- Show customed basic fields  -->
@@ -240,20 +241,22 @@
         $(document.body).off('change.item_exh', '#item_exh');
         $(document.body).on('change.item_exh', '#item_exh', function() {
             var exh_selected = $('#item_exh').val();
-            $.ajax({
-                url: '/iBeaGuide/items/print_exh_sec_menu/' + exh_selected,
-                type: "GET",
-                dataType: 'html',
-                success: function(html_block) {
-                    if (html_block) {
+            if (exh_selected == "0") {
+                $('#item_sec_block').hide();
+            } else {
+                $.ajax({
+                    url: '/iBeaGuide/items/print_exh_sec_menu/' + exh_selected,
+                    type: "GET",
+                    dataType: 'html',
+                    success: function(html_block) {
                         $('#item_sec_block > div').html(html_block);
+                        if (exh_selected == "<?= $item->exh_id ?>") {
+                            $('#item_sec').val("<?= $item->sec_id ?>");
+                        }
                         $('#item_sec_block').show();
-                    } else {
-                        $('#item_sec_block > div').empty();
-                        $('#item_sec_block').hide();
                     }
-                }
-            });
+                });
+            }
         });
         $(document.body).off('click.add_basic_col', '#add-basic-btn');
         $(document.body).on('click.add_basic_col', '#add-basic-btn', function() {
@@ -287,7 +290,7 @@
                 var index = count + 1;
                 var custom_field_block =
                     "<div class='well margin-top-30 custom-detail-field'>" +
-                    "<button type='button' class='close' aria-label='Close'><span aria-hidden='true'>" + "&times" + ";</span></button>" +
+                    "<button type='button' class='close custom-filed-close' aria-label='Close'><span aria-hidden='true'>" + "&times" + ";</span></button>" +
                     "<div class='form-group'><label class='col-md-2 control-label' for='detail_field_name'>自訂欄位名稱</label>" +
                     "<div class='col-md-3'><input id='detail_field_name' name='detail_field_name[]' type='text' placeholder='請輸入欄位名稱' class='form-control input-md' required=''></div></div>" +
                     "<div class='form-group'><label class='col-md-2 control-label' for='detail_field_value'>欄位內容</label>" +
@@ -306,6 +309,9 @@
             });
         });
         $('#item_main_pic').fileinput({
+            initialPreview: [
+                "<img src='user_uploads/user_1/item_<?= $item->id ?>_main.jpg' class='file-preview-image' alt='item_main_pic'>"
+            ],
             language: 'zh-TW',
             showUpload: false,
             minFileCount: 1,
@@ -314,7 +320,20 @@
             previewFileType: 'image'
         });
         $('#item_more_pics').fileinput({
+            initialPreview: [
+                <?php
+                    $pre_arr = array();
+                    for ($i = 1; $i <= 5; $i++) {
+                        $filename = "user_uploads/user_1/item_".$item->id."_".$i.".jpg";
+                        if (is_file($filename)) {
+                            $pre_arr[] = "\"<img src='".$filename."' class='file-preview-image' alt='item_more_pics'>\"";
+                        }
+                    }
+                    echo implode(",", $pre_arr);
+                ?>
+            ],
             language: 'zh-TW',
+            // overwriteInitial: false,
             showUpload: false,
             minFileCount: 1,
             maxFileCount: 5,

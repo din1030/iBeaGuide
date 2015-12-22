@@ -74,11 +74,15 @@ class Items extends CI_Controller
         $data['item'] = $this->Item->find($item_id);
         $data['basic_fields'] = $this->Custom_field->find_all_by_item_id($item_id, array('type' => 'basic'));
         $data['detail_fields'] = $this->Custom_field->find_all_by_item_id($item_id, array('type' => 'detail'));
+
         $this->load->model('Exhibition');
         $data['exhibitions'] = $this->Exhibition->prepare_for_dropdwon();
 
-        $this->load->model('Ibeacon');
-        $data['ibeacons'] = $this->Ibeacon->prepare_for_dropdwon();
+        $this->load->model('Section');
+        $data['sections'] = $this->Section->get_exh_sec($data['item']->exh_id);
+
+        // $this->load->model('Ibeacon');
+        // $data['ibeacons'] = $this->Ibeacon->prepare_for_dropdwon();
 
         $this->load->view('item/item_edit_form', $data);
     }
@@ -87,10 +91,9 @@ class Items extends CI_Controller
     {
         $this->load->model('Section');
         $sections = $this->Section->get_exh_sec($exh_id);
-        if ($sections) {
-            echo form_dropdown('item_sec', $sections, '', "id='item_sec' class='form-control' data-exh-id='".$exh_id."'");
-            unset($sections);
-        }
+        echo form_dropdown('item_sec', $sections, '', "id='item_sec' class='form-control' data-exh-id='".$exh_id."'");
+        unset($sections);
+
     }
 
     public function add_item_action()
@@ -165,6 +168,10 @@ class Items extends CI_Controller
 
                     return;
                 } else {
+
+                    $basic_field_data = array();
+                    $detail_field_data = array();
+
                     $basic_field_name = $this->input->post('basic_field_name');
                     $basic_field_value = $this->input->post('basic_field_value');
                     if (!empty($basic_field_name) && !empty($basic_field_value) && count($basic_field_name) == count($basic_field_value)) {
@@ -229,7 +236,7 @@ class Items extends CI_Controller
                     } else {
                         foreach ($main_upload_results as $result) {
                             if (isset($result['error'])) {
-                                // if error is set, print why  upload failed.
+                                // if error is set, print why upload failed.
                                 $has_error = true;
                                 log_message('error', $result['name'].' upload failed.');
                                 echo $result['name'].' '.$result['error'];
@@ -257,9 +264,27 @@ class Items extends CI_Controller
                         }
                         unset($more_upload_results);
                     }
+                    // if error occured, delete field created before and delete item itself
                     if($has_error) {
-                        $item_obj->delete();
-                        // delete related fields
+                        $custom_fields = $this->Custom_field->find_all_by_item_id($item_obj->id);
+                        if (count($custom_fields) > 0) {
+                            foreach ($custom_fields as $field_obj) {
+                                if(!$field_obj->delete()) {
+                                    $error_msg = $this->error_message->get_error_message('delete_error');
+                                    log_message('error', $error_msg.'（Custom Fields）');
+                                    echo $error_msg;
+
+                                    return;
+                                }
+                            }
+                        }
+                        if (!$item_obj->delete()) {
+                            $error_msg = $this->error_message->get_error_message('delete_error');
+                            log_message('error', $error_msg.'（展品）');
+                            echo $error_msg;
+
+                            return;
+                        }
                     }
                 }
             }
@@ -443,7 +468,7 @@ class Items extends CI_Controller
             echo $error_msg;
             return;
         }
-        echo $this->table->generate($this->get_item_list());
+        $this->print_item_list();
 
     }
 

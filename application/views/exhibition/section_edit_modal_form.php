@@ -58,6 +58,9 @@
 <script type="text/javascript">
     $('#section_edit_form').ready(function() {
         $('#sec_main_pic').fileinput({
+            initialPreview: [
+                "<img src='user_uploads/user_1/exh_<?= $sec->exh_id ?>_sec_<?= $sec->id ?>.jpg' class='file-preview-image' alt='sec_main_pic'>"
+            ],
             language: 'zh-TW',
             showUpload: false,
             maxFileCount: 3,

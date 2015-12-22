@@ -3,7 +3,7 @@
 
     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-center">
         <div class="active-exh-img-block">
-            <img class="" src="<?php echo $exhibitions[0]['main_pic']; ?>">
+            <img class="img-thumbnail" src="<?php echo $exhibitions[0]['main_pic']; ?>">
         </div>
         <h4>
             <?= $exhibitions[0]['title']; ?>
@@ -11,7 +11,7 @@
     </div>
     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-center">
         <div class="active-exh-img-block">
-            <img class="" src="<?php echo $exhibitions[1]['main_pic']; ?>">
+            <img class="img-thumbnail" src="<?php echo $exhibitions[1]['main_pic']; ?>">
         </div>
         <h4>
             <?= $exhibitions[1]['title']; ?>
@@ -19,7 +19,7 @@
     </div>
     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-center">
         <div class="active-exh-img-block">
-            <img class="" src="<?php echo $exhibitions[2]['main_pic']; ?>">
+            <img class="img-thumbnail" src="<?php echo $exhibitions[2]['main_pic']; ?>">
         </div>
         <h4>
             <?= $exhibitions[2]['title']; ?>

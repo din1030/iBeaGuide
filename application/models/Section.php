@@ -16,11 +16,11 @@ class Section extends ActiveRecord
 
     public function get_exh_sec($exh_id)
     {
+        $sections = array();
         $query = $this->Section->prepare_for_table_by_exh_id($exh_id, 'id, title');
-        // var_dump($query);
         if ($query->num_rows() > 0) {
+
             $result_array = $query->result_array();
-            $sections = array();
             $sections[0] = '＝暫不加入展區＝';
 
             foreach ($result_array as $sec_row) {
@@ -28,9 +28,10 @@ class Section extends ActiveRecord
             }
             unset($result_array);
 
-            return $sections;
-        } else {
-            return false;
+        } else if ($query->num_rows() == 0) {
+            $sections[0] = '＝展覽未設定展區＝';
         }
+
+        return $sections;
     }
 }

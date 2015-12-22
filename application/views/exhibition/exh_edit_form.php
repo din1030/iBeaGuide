@@ -188,9 +188,12 @@
                 $('#exh_daily_open_time_picker').data("DateTimePicker").maxDate(e.date);
             });
             $('#exh_main_pic').fileinput({
+                initialPreview: [
+                    "<img src='user_uploads/user_1/exh_<?= $exhibition->id ?>.jpg' class='file-preview-image' alt='exh_main_pic'>"
+                ],
                 language: 'zh-TW',
                 showUpload: false,
-                // minFileCount: 1, 編輯可不上傳檔案
+                minFileCount: 1,
                 maxFileCount: 1,
                 allowedFileTypes: ["image"],
                 previewFileType: 'image'
@@ -228,6 +231,13 @@
                         $('#system-message').fadeOut();
                     }
                 }
+            });
+            
+            $(document.body).off('click.close_field_block', '.custom-filed-close');
+            $(document.body).on('click.close_field_block', '.custom-filed-close', function() {
+                $(this).parent().fadeOut(300,  function() {
+                    $(this).remove();
+                });
             });
 
             $(document.body).off('click.exh_cancel', '#exh-cancel-btn');

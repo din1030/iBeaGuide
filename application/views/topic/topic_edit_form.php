@@ -7,6 +7,7 @@
         <div id="form_alert" class="alert alert-danger" role="alert" style="display: none"></div>
         <form id="topic_edit_form" class="form-horizontal" action="/iBeaGuide/topics/edit_topic_action" method="post">
             <input id="topic_id" type="hidden" name="topic_id" class="form-control input-md" value="<?= $topic->id ?>">
+            <input id="topic_exh_id" type="hidden" name="topic_exh_id" class="form-control input-md" value="<?= $topic->exh_id ?>">
             <fieldset>
 
                 <!-- Text input-->
@@ -153,6 +154,9 @@
         }).disableSelection();
 
         $('#topic_main_pic').fileinput({
+            initialPreview: [
+                "<img src='user_uploads/user_1/exh_<?= $topic->exh_id ?>_topic_<?= $topic->id ?>.jpg' class='file-preview-image' alt='topic_main_pic'>"
+            ],
             language: 'zh-TW',
             showUpload: false,
             maxFileCount: 1,

@@ -215,7 +215,7 @@
                 var index = count + 1;
                 var custom_field_block =
                     "<div class='well margin-top-30 custom-detail-field'>" +
-                    "<button type='button' class='close' aria-label='Close'><span aria-hidden='true'>" + "&times" + ";</span></button>" +
+                    "<button type='button' class='close custom-filed-close' aria-label='Close'><span aria-hidden='true'>" + "&times" + ";</span></button>" +
                     "<div class='form-group'><label class='col-md-2 control-label' for='detail_field_name'>自訂欄位名稱</label>" +
                     "<div class='col-md-3'><input id='detail_field_name' name='detail_field_name[]' type='text' placeholder='請輸入欄位名稱' class='form-control input-md' required=''></div></div>" +
                     "<div class='form-group'><label class='col-md-2 control-label' for='detail_field_value'>欄位內容</label>" +
