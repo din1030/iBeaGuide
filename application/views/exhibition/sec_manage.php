@@ -16,7 +16,7 @@
 <script type="text/javascript">
     $(document).ready(function() {
 
-        $('div.sortable.both:last').removeClass('th-inner sortable both').css('padding','8px');
+        $('div.sortable.both:last').removeClass('th-inner sortable both').css('padding', '8px');
 
         $(document.body).off('click.add_section', '#add_section_btn');
         $(document.body).on('click.add_section', '#add_section_btn', function() {

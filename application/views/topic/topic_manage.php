@@ -10,7 +10,7 @@
 <script type="text/javascript">
     $(document).ready(function() {
 
-        $('div.sortable.both:last').removeClass('th-inner sortable both').css('padding','8px');
+        $('div.sortable.both:last').removeClass('th-inner sortable both').css('padding', '8px');
 
         $("#topic_list").bootstrapTable({
             sortName: "1"

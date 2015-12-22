@@ -11,7 +11,7 @@
 <script type="text/javascript">
     $(document).ready(function() {
 
-        $('div.sortable.both:last').removeClass('th-inner sortable both').css('padding','8px');
+        $('div.sortable.both:last').removeClass('th-inner sortable both').css('padding', '8px');
 
         $(document.body).off('click.add_item_form', '#add-item-btn');
         $(document.body).on('click.add_item_form', '#add-item-btn', function() {

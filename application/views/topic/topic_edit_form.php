@@ -167,5 +167,38 @@
                 offset: -10
             });
         });
+
+        $('#topic_edit_form').ajaxForm({
+            beforeSend: function(xhr) {
+                $('#system-message').html('處理中...');
+                $('#system-message').show();
+            },
+            success: function(error) {
+                if (error) {
+                    $('#form_alert').html(error);
+                    $('#form_alert').show();
+                    $('#system-message').fadeOut();
+                } else {
+                    $('#form_alert').hide();
+                    $('#form_alert').empty();
+
+                    $.ajax({
+                        url: '/iBeaGuide/topics/print_topic_list',
+                        type: "GET",
+                        dataType: 'html',
+                        success: function(html_block) {
+                            $('#topic_list_block').html(html_block);
+                            $('#topic_form_block').empty();
+                            $('[data-toggle="table"]').bootstrapTable();
+                            $('div.sortable.both:last').removeClass('th-inner sortable both').css('padding', '8px');
+                            $('#system-message').html('完成');
+                            $('#system-message').fadeOut();
+                            $.scrollTo($('#add-topic-btn'), 500, {offset: -10});
+                        }
+                    });
+                }
+            }
+        });
+
     });
 </script>
