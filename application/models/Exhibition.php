@@ -42,7 +42,7 @@ class Exhibition extends ActiveRecord
         $query = $this->db->get($this->_table, 3, 0);
         $exhibitions = $query->result_array();
         $this->load->helper('directory');
-        $filename_prefix = 'user_uploads/User_'.$this->config->item('login_user_id').'/User_'.$this->config->item('login_user_id').'_exh_';
+        $filename_prefix = 'user_uploads/User_'.$this->config->item('login_user_id').'/exh_';
         // $filename_dir = 'user_uploads/User_'.$this->config->item('login_user_id').'/';
         // 'User_'.$this->config->item('login_user_id').'_exh_';
 
