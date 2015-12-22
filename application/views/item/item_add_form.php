@@ -52,6 +52,14 @@
                     </div>
                 </div>
 
+                <!-- Text input-->
+                <div class="form-group">
+                    <label class="col-md-2 control-label" for="item_work_time">創作時間</label>
+                    <div class="col-md-8">
+                        <input id="item_work_time" name="item_work_time" type="text" placeholder="" class="form-control input-md" required="">
+                    </div>
+                </div>
+
                 <!-- Textarea -->
                 <div class="form-group">
                     <label class="col-md-2 control-label" for="item_brief">展品簡介</label>
@@ -233,6 +241,7 @@
             //     offset: -10
             // });
         });
+        
         $(document.body).off('click.close_field_block', '.custom-filed-close');
         $(document.body).on('click.close_field_block', '.custom-filed-close', function() {
             $(this).parent().fadeOut(300,  function() {

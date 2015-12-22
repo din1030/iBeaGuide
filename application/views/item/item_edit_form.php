@@ -54,6 +54,14 @@
                     </div>
                 </div>
 
+                <!-- Text input-->
+                <div class="form-group">
+                    <label class="col-md-2 control-label" for="item_work_time">創作時間</label>
+                    <div class="col-md-8">
+                        <input id="item_work_time" name="item_work_time" type="text" placeholder="" class="form-control input-md" required="" value="<?= $item->work_time; ?>">
+                    </div>
+                </div>
+
                 <!-- Textarea -->
                 <div class="form-group">
                     <label class="col-md-2 control-label" for="item_brief">展品簡介</label>
@@ -191,7 +199,7 @@
                                     </div>
                                     <div class="col-md-2 text-right">
                                         <button id="edit-field-btn" type="button" name="edit_field_btn" class="btn btn-primary edit-field-btn"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>
-                                        <button id="del-field-btn" type="button" name="del_field_btn" class="btn btn-danger del-field-btn" data-field-id="<?= $basic_fields[$i]->id ?>"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+                                        <button id="del-field-btn" type="button" name="del_field_btn" class="btn btn-danger del-field-btn" data-field-id="<?= $detail_fields[$i]->id ?>"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -200,7 +208,7 @@
                                         <textarea class="form-control" id="existing_field_value" name="existing_field_value" data-field-id="<?= $detail_fields[$i]->id ?>" readonly><?= $detail_fields[$i]->field_value ?></textarea>
                                     </div>
                                     <div id="field-btn-group" class="col-md-2 text-right" style="display: none">
-                                        <button id="submit-field-btn" type="button" name="submit_field_btn" class="btn btn-primary submit-field-btn" data-field-id="<?= $basic_fields[$i]->id ?>">送出</button>
+                                        <button id="submit-field-btn" type="button" name="submit_field_btn" class="btn btn-primary submit-field-btn" data-field-id="<?= $detail_fields[$i]->id ?>">送出</button>
                                         <button id="cancel-field-btn" type="button" name="cancel_field_btn" class="btn btn-default cancel-field-btn">取消</button>
                                     </div>
                                 </div>
@@ -258,6 +266,7 @@
                 });
             }
         });
+
         $(document.body).off('click.add_basic_col', '#add-basic-btn');
         $(document.body).on('click.add_basic_col', '#add-basic-btn', function() {
             $('#item_basic_info').append(function() {
@@ -283,6 +292,7 @@
                 offset: -10
             });
         });
+
         $(document.body).off('click.add_detail_col', '#add-detail-btn');
         $(document.body).on('click.add_detail_col', '#add-detail-btn', function() {
             $('#item_detail_info').append(function(n) {
@@ -382,6 +392,7 @@
                 }
             }
         });
+
         $(document.body).off('click.edit_field', '.edit-field-btn');
         $(document.body).on('click.edit_field', '.edit-field-btn', function() {
             var this_field_name = $(this).parent().parent().find('#existing_field_name');
@@ -392,6 +403,7 @@
             $(this).parent().parent().find('#field-help-block').show();
             $(this).parent().parent().parent().find('#field-btn-group').show();
         });
+
         $(document.body).off('click.delete_field', '.del-field-btn');
         $(document.body).on('click.delete_field', '.del-field-btn', function() {
             var this_field_id = $(this).attr('data-field-id');
@@ -433,6 +445,7 @@
                 }]
             });
         });
+
         $(document.body).off('click.submit_field', '.submit-field-btn');
         $(document.body).on('click.submit_field', '.submit-field-btn', function() {
             var this_field_id = $(this).attr('data-field-id');
@@ -471,6 +484,14 @@
             });
 
         });
+
+        $(document.body).off('click.close_field_block', '.custom-filed-close');
+        $(document.body).on('click.close_field_block', '.custom-filed-close', function() {
+            $(this).parent().fadeOut(300,  function() {
+                $(this).remove();
+            });
+        });
+
         $(document.body).off('click.cancel_field', '.cancel-field-btn');
         $(document.body).on('click.cancel_field', '.cancel-field-btn', function() {
             var this_field_name = $(this).parent().parent().parent().find('#existing_field_name');
@@ -481,6 +502,7 @@
             $(this).parent().parent().parent().find('#field-help-block').hide();
             $(this).parent().hide();
         });
+
         $(document.body).off('click.item_cancel', '#item-cancel-btn');
         $(document.body).on('click.item_cancel', '#item-cancel-btn', function() {
             $('#item_form_block').empty();

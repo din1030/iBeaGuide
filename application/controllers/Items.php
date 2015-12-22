@@ -100,6 +100,7 @@ class Items extends CI_Controller
     {
         $this->form_validation->set_rules('item_title', '展品名稱', 'trim|required');
         $this->form_validation->set_rules('item_creator', '展品作者', 'trim|required');
+        $this->form_validation->set_rules('item_work_time', '創作時間', 'trim|required');
         $this->form_validation->set_rules('item_brief', '展品簡介', 'trim|required');
         // $this->form_validation->set_rules('item_main_pic', '主要圖片', 'trim|required');
         // $this->form_validation->set_rules('item_audioguide', '導覽語音', 'trim|required');
@@ -122,6 +123,7 @@ class Items extends CI_Controller
                 'title' => $this->input->post('item_title'),
                 'subtitle' => $this->input->post('item_subtitle'),
                 'creator' => $this->input->post('item_creator'),
+                'work_time' => $this->input->post('item_work_time'),
                 'brief' => $this->input->post('item_brief'),
                 'description' => $this->input->post('item_description'),
                 'main_pic' => $this->input->post('item_main_pic'),
@@ -298,6 +300,7 @@ class Items extends CI_Controller
     {
         $this->form_validation->set_rules('item_title', '展品名稱', 'trim|required');
         $this->form_validation->set_rules('item_creator', '展品作者', 'trim|required');
+        $this->form_validation->set_rules('item_work_time', '創作時間', 'trim|required');
         $this->form_validation->set_rules('item_brief', '展品簡介', 'trim|required');
         // $this->form_validation->set_rules('item_main_pic', '主要圖片', 'trim|required');
         // $this->form_validation->set_rules('item_audioguide', '導覽語音', 'trim|required');
@@ -319,6 +322,7 @@ class Items extends CI_Controller
             $item_obj->title = $this->input->post('item_title');
             $item_obj->subtitle = $this->input->post('item_subtitle');
             $item_obj->creator = $this->input->post('item_creator');
+            $item_obj->work_time = $this->input->post('item_work_time');
             $item_obj->brief = $this->input->post('item_brief');
             $item_obj->description = $this->input->post('item_description');
             // $item_obj->main_pic = $this->input->post('item_main_pic');
