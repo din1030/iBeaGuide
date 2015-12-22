@@ -52,7 +52,7 @@ class Topics extends CI_Controller
         $data['exhibitions'] = $this->Exhibition->find($_GET['exh_id']);
 
         $this->load->model('Item');
-        $query = $this->Item->prepare_for_table_by_exh_id($_GET['exh_id'], 'id, title', array('owner_id' => $this->config->item('login_user_id'), 'ibeacon_id <>' => ''));
+        $query = $this->Item->linked_item_in_exh($data['exhibitions']->id);
         $data['linked_items'] = $query->result_array();
 
         $this->load->view('topic/topic_add_form', $data);

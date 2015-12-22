@@ -31,4 +31,12 @@ class Item extends ActiveRecord
 
         return $items;
     }
+
+    public function linked_item_in_exh($exh_id)
+    {
+        $query_str = "SELECT i.id, i.title FROM `items` i JOIN ibeacons b ON i.id = b.link_obj_id WHERE b.link_type = 'item' AND i.exh_id = ".$exh_id;
+        $query = $this->db->query($query_str);
+
+        return $query;
+    }
 }
