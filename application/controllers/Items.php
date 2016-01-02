@@ -407,7 +407,7 @@ class Items extends CI_Controller
 
                 // set upload config
                 $config['allowed_types'] = 'gif|jpg|png';
-                $config['max_size'] = '2048'; // 2MB
+                // $config['max_size'] = '2048'; // 2MB
                 $this->upload->initialize($config);
 
                 // Edit action allows user not to upload files.

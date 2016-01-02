@@ -73,7 +73,7 @@
                     <label class="col-md-2 control-label" for="item_main_pic">主要圖片</label>
                     <div class="col-md-8">
                         <input id="item_main_pic" name="item_main_pic[]" class="input-file" type="file" accept="image/*" required="">
-                        <p class="help-block">（檔案大小請勿超過 2 MB）</p>
+                        <p class="help-block">（建議檔案大小請勿超過 3 MB，檔案越大系統處理時間越長）</p>
                     </div>
                 </div>
 
@@ -82,7 +82,7 @@
                     <label class="col-md-2 control-label" for="item_audioguide">導覽語音</label>
                     <div class="col-md-8">
                         <input id="item_audioguide" name="item_audioguide" class="input-file" type="file" accept=".mp3">
-                        <p class="help-block">（檔案大小請勿超過 5 MB）</p>
+                        <p class="help-block">（建議檔案大小請勿超過 5 MB，且時間為 40 秒內。）</p>
                     </div>
                 </div>
 
@@ -141,7 +141,7 @@
                     <label class="col-md-2 control-label" for="item_more_pics">其他圖片</label>
                     <div class="col-md-8">
                         <input id="item_more_pics" name="item_more_pics[]" class="input-file" type="file" multiple="true" accept="image/*" required="">
-                        <p class="help-block">（檔案大小請勿超過 2 MB，至多五張）</p>
+                        <p class="help-block">（可上傳一至五張圖片，建議檔案大小請勿超過 3 MB，檔案越大系統處理時間越長）</p>
                     </div>
                 </div>
             </fieldset>
@@ -241,7 +241,7 @@
             //     offset: -10
             // });
         });
-        
+
         $(document.body).off('click.close_field_block', '.custom-filed-close');
         $(document.body).on('click.close_field_block', '.custom-filed-close', function() {
             $(this).parent().fadeOut(300,  function() {

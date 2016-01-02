@@ -84,7 +84,7 @@
                     <label class="col-md-2 control-label" for="item_audioguide">導覽語音</label>
                     <div class="col-md-8">
                         <input id="item_audioguide" name="item_audioguide" class="input-file" type="file" accept=".mp3">
-                        <p class="help-block">（檔案大小請勿超過 5 MB）</p>
+                        <p class="help-block">（建議檔案大小請勿超過 3 MB，檔案越大系統處理時間越長）</p>
                     </div>
                 </div>
 
@@ -179,7 +179,7 @@
                     <label class="col-md-2 control-label" for="item_more_pics">其他圖片</label>
                     <div class="col-md-8">
                         <input id="item_more_pics" name="item_more_pics[]" class="input-file" type="file" multiple="true" accept="image/*">
-                        <p class="help-block">（可上傳一至五張圖片，單檔大小勿超過 2 MB）</p>
+                        <p class="help-block">（可上傳一至五張圖片，建議檔案大小請勿超過 3 MB，檔案越大系統處理時間越長）</p>
                     </div>
                 </div>
                 <!-- Show customed basic fields  -->
