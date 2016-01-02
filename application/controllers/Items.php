@@ -227,7 +227,8 @@ class Items extends CI_Controller
 
                     // set upload config
                     $config['allowed_types'] = 'gif|jpg|png';
-                    $config['max_size'] = '2048'; // 2MB
+                    // max file size
+                    // $config['max_size'] = '2048'; // 2MB
                     $this->upload->initialize($config);
                     // upload item main pic
                     $main_upload_results = $this->upload->do_multiple_upload('item_main_pic', 'item_main', $item_obj->id);

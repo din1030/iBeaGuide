@@ -11,3 +11,5 @@ application/logs/*
 user_uploads/*
 
 application/config/database.php
+
+*.sql
