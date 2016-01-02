@@ -44,6 +44,7 @@ class MY_Image_lib extends CI_Image_lib
     */
     function convert($type = 'jpg', $delete_orig = FALSE)
     {
+        ini_set('memory_limit', '256M');
         $this->full_dst_path = $this->dest_folder . pathinfo($this->source_image, PATHINFO_FILENAME) . '.' . $type;
 
         if (!($src_img = $this->image_create_gd()))
@@ -83,6 +84,7 @@ class MY_Image_lib extends CI_Image_lib
         {
             if (!$this->image_save_gd($dst_img))
             {
+                ini_set('memory_limit', '128M');
                 return FALSE;
             }
         }
@@ -92,6 +94,7 @@ class MY_Image_lib extends CI_Image_lib
 
         @chmod($this->full_dst_path, DIR_WRITE_MODE);
 
+        ini_set('memory_limit', '128M');
         return TRUE;
     }
 }
