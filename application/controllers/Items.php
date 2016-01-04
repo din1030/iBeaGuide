@@ -15,12 +15,12 @@ class Items extends CI_Controller
     {
         $this->load->view('header');
         $this->load->view('breadcrumb');
-        $data['items'] = $this->get_item_list();
+        $data['items'] = $this->_get_item_list();
         $this->load->view('item/item_manage', $data);
         $this->load->view('footer');
     }
 
-    public function get_item_list()
+    function _get_item_list()
     {
         // $query = $this->Item->join_exh_title('items.id, items.title as item_title, exhibitions.title as exh_title, items.ibeacon_id');
         $query = $this->Item->join_exh_title('items.id, items.title as item_title, exhibitions.title as exh_title');
@@ -55,7 +55,7 @@ class Items extends CI_Controller
 
     public function print_item_list()
     {
-        echo $this->table->generate($this->get_item_list());
+        echo $this->table->generate($this->_get_item_list());
     }
 
     public function get_item_add_form()

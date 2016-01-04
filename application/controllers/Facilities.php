@@ -14,12 +14,12 @@ class Facilities extends CI_Controller
     {
         $this->load->view('header');
         $this->load->view('breadcrumb');
-        $data['facilities'] = $this->get_fac_list();
+        $data['facilities'] = $this->_get_fac_list();
         $this->load->view('facility/fac_manage', $data);
         $this->load->view('footer');
     }
 
-    public function get_fac_list()
+    function _get_fac_list()
     {
         // $query = $this->Facility->join_exh_title('facilities.id, facilities.title as fac_title, exhibitions.title as exh_title, facilities.ibeacon_id');
         $query = $this->Facility->join_exh_title('facilities.id, facilities.title as fac_title, exhibitions.title as exh_title');
@@ -51,7 +51,7 @@ class Facilities extends CI_Controller
 
     public function print_fac_list()
     {
-        echo $this->table->generate($this->get_fac_list());
+        echo $this->table->generate($this->_get_fac_list());
     }
 
     public function get_fac_add_form()

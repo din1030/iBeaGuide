@@ -102,6 +102,15 @@ class App extends CI_Controller {
         return $topics;
     }
 
+	public function get_ibeacons()
+	{
+		$this->load->model('Ibeacon');
+		$query = $this->Ibeacon->select_where(array('owner_id' => $this->config->item('login_user_id')));
+		$ibeacons = $query->result_array();
+
+		return $ibeacons;
+	}
+
 	public function get_in_topic_items($topic_id)
     {
         $this->load->model('Topic');

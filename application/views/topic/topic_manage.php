@@ -1,6 +1,6 @@
 <legend>
     主題精選管理
-    <button id="add-topic-btn" type="button" class="btn btn-primary btn-xs pull-right" data-toggle="modal">新增路線</button>
+    <button id="add-topic-btn" type="button" class="btn btn-primary btn-xs pull-right" data-toggle="modal">新增主題</button>
 </legend>
 <div id="topic_form_block"></div>
 <div id="topic_list_block">

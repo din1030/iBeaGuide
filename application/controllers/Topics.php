@@ -13,12 +13,12 @@ class Topics extends CI_Controller
     {
         $this->load->view('header');
         $this->load->view('breadcrumb');
-        $data['topics'] = $this->get_topic_list();
+        $data['topics'] = $this->_get_topic_list();
         $this->load->view('topic/topic_manage', $data);
         $this->load->view('footer');
     }
 
-    public function get_topic_list()
+    function _get_topic_list()
     {
         $query = $this->Topic->prepare_for_topic_table();
         $result_array = $query->result_array();
@@ -43,7 +43,7 @@ class Topics extends CI_Controller
 
     public function print_topic_list()
     {
-        echo $this->table->generate($this->get_topic_list());
+        echo $this->table->generate($this->_get_topic_list());
     }
 
     public function get_topic_add_form()
