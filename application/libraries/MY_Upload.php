@@ -13,7 +13,7 @@ class MY_Upload extends CI_Upload
         log_message('debug', 'MY_Upload Class Initialized');
     }
 
-    public function do_multiple_upload($field, $pic_type, $id_no, $id_no2 = '')
+    public function do_multiple_upload($field, $pic_type, $id_no)
     {
         // Is $_FILES[$field] set? If not, no reason to continue.
         if (!isset($_FILES[$field])) {
@@ -56,7 +56,7 @@ class MY_Upload extends CI_Upload
                 break;
 
             case 'sec':
-                $file_name_str = 'exh_'.$id_no.'_sec_'.$id_no2;
+                $file_name_str = 'sec_'.$id_no;
                 break;
 
             case 'fac':
@@ -72,7 +72,7 @@ class MY_Upload extends CI_Upload
                 break;
 
             case 'topic':
-                $file_name_str = 'exh_'.$id_no.'_topic_'.$id_no2;
+                $file_name_str = 'topic_'.$id_no;
                 break;
 
             default:

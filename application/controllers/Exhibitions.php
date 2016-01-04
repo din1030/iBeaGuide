@@ -241,7 +241,7 @@ class Exhibitions extends CI_Controller
                     $config['max_size'] = '2048'; // 2MB
                     $this->upload->initialize($config);
 
-                    $upload_results = $this->upload->do_multiple_upload('exh_main_pic', 'exh', $this->input->post('exh_id'), '');
+                    $upload_results = $this->upload->do_multiple_upload('exh_main_pic', 'exh', $this->input->post('exh_id'));
                     foreach ($upload_results as $result) {
                         if (isset($result['error'])) {
                             // if error is set, print why upload failed.
@@ -386,7 +386,7 @@ class Exhibitions extends CI_Controller
                     $config['max_size'] = '2048'; // 2MB
                     $this->upload->initialize($config);
 
-                    $upload_results = $this->upload->do_multiple_upload('sec_main_pic', 'sec', $sec_obj->id, $sec_obj->id);
+                    $upload_results = $this->upload->do_multiple_upload('sec_main_pic', 'sec', $sec_obj->id);
                     $has_error = false;
                     foreach ($upload_results as $result) {
                         if (isset($result['error'])) {
@@ -442,7 +442,7 @@ class Exhibitions extends CI_Controller
                     $config['max_size'] = '2048'; // 2MB
                     $this->upload->initialize($config);
 
-                    $upload_results = $this->upload->do_multiple_upload('sec_main_pic', 'sec', $sec_obj->exh_id, $sec_obj->id);
+                    $upload_results = $this->upload->do_multiple_upload('sec_main_pic', 'sec', $sec_obj->id);
                     foreach ($upload_results as $result) {
                         if (isset($result['error'])) {
                             // if error is set, print why upload failed.

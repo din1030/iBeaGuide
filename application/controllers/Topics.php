@@ -116,7 +116,7 @@ class Topics extends CI_Controller
                     $config['max_size'] = '2048'; // 2MB
                     $this->upload->initialize($config);
 
-                    $upload_results = $this->upload->do_multiple_upload('topic_main_pic', 'topic', $topic_obj->exh_id, $topic_obj->id);
+                    $upload_results = $this->upload->do_multiple_upload('topic_main_pic', 'topic', $topic_obj->id);
                     $has_error = false;
                     foreach ($upload_results as $result) {
                         if (isset($result['error'])) {
@@ -171,7 +171,7 @@ class Topics extends CI_Controller
                     $config['max_size'] = '2048'; // 2MB
                     $this->upload->initialize($config);
 
-                    $upload_results = $this->upload->do_multiple_upload('topic_main_pic', 'topic', $topic_obj->exh_id, $topic_obj->id);
+                    $upload_results = $this->upload->do_multiple_upload('topic_main_pic', 'topic', $topic_obj->id);
                     foreach ($upload_results as $result) {
                         if (isset($result['error'])) {
                             // if error is set, print why  upload failed.
