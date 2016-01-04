@@ -108,7 +108,7 @@ class App extends CI_Controller {
 		$query = $this->Ibeacon->select_where(array('owner_id' => $this->config->item('login_user_id')));
 		$ibeacons = $query->result_array();
 
-		return $ibeacons;
+		echo json_encode($ibeacons);
 	}
 
 	public function get_in_topic_items($topic_id)
