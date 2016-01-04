@@ -39,11 +39,13 @@ class Ibeacons extends CI_Controller
                     $this->load->model('Exhibition');
                     $linked_obj = $this->Exhibition->find($ibeacon_row['link_obj_id']);
                     break;
+
                 case 'item':
                     $ibeacon_row['link_type'] = '展品';
                     $this->load->model('Item');
                     $linked_obj = $this->Item->find($ibeacon_row['link_obj_id']);
                     break;
+
                 case 'fac':
                     $ibeacon_row['link_type'] = '設施';
                     $this->load->model('Facility');
@@ -52,6 +54,7 @@ class Ibeacons extends CI_Controller
 
                 default:
                     $ibeacon_row['link_type'] = '＝未連結＝';
+                    $linked_obj = new stdClass();
                     $linked_obj->title = '-';
                     break;
             }
