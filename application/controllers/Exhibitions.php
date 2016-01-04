@@ -284,7 +284,7 @@ class Exhibitions extends CI_Controller
 
             return;
         }
-        echo $this->table->generate($this->get_exh_list());
+        echo $this->table->generate($this->_get_exh_list());
     }
 
     public function sections()
