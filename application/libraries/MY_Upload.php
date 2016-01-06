@@ -90,7 +90,7 @@ class MY_Upload extends CI_Upload
             }
             if (!$this->do_upload($i)) {
                 $result[$i]['name'] = $_FILES[$i]['name'];
-                $result[$i]['error'] = $this->display_errors('', '<br>');
+                $result[$i]['error'] = $this->_CI->display_errors('', '<br>');
                 $this->error_msg = array();
             } else {
                 $result[$i]['name'] = $_FILES[$i]['name'];
