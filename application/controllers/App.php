@@ -44,6 +44,10 @@ class App extends CI_Controller {
                     $obj_query = $this->Facility->select_where($ibeacon_info['link_obj_id']);
                     break;
 
+				case 'exit':
+					$linked_obj['type'] = $ibeacon_info['link_type'];
+					break;
+					
                 default:
                     return;
             }

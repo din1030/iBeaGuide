@@ -52,6 +52,12 @@ class Ibeacons extends CI_Controller
                     $linked_obj = $this->Facility->find($ibeacon_row['link_obj_id']);
                     break;
 
+                case 'exit':
+                    $ibeacon_row['link_type'] = '展覽出口';
+                    $this->load->model('Exhibition');
+                    $linked_obj = $this->Exhibition->find($ibeacon_row['link_obj_id']);
+                    break;
+
                 default:
                     $ibeacon_row['link_type'] = '＝未連結＝';
                     $linked_obj = new stdClass();
