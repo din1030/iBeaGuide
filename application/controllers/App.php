@@ -46,8 +46,10 @@ class App extends CI_Controller {
 
 				case 'exit':
 					$linked_obj['type'] = $ibeacon_info['link_type'];
+                    $this->load->model('Exhibition');
+                    $obj_query = $this->Exhibition->select_where($ibeacon_info['link_obj_id']);
 					break;
-					
+
                 default:
                     return;
             }
