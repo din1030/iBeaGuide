@@ -34,7 +34,7 @@
                             <label class="col-md-2 control-label" for="sec_main_pic">主要圖片</label>
                             <div class="col-md-10">
                                 <input id="sec_main_pic" name="sec_main_pic[]" class="input-file" type="file" accept="image/*" required="">
-                                <p class="help-block">（檔案大小請勿超過 2 MB）</p>
+                                <p class="help-block">（建議檔案大小請勿超過 3 MB，檔案越大系統處理時間越長）</p>
                             </div>
                         </div>
                     </div>

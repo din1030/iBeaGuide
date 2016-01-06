@@ -101,7 +101,7 @@
                         <!-- File Upload -->
                         <div class="col-md-8">
                             <input id="exh_main_pic" name="exh_main_pic[]" class="input-file" type="file" accept="image/*">
-                            <p class="help-block">（檔案大小請勿超過 2 MB）</p>
+                            <p class="help-block">（建議檔案大小請勿超過 3 MB，檔案越大系統處理時間越長）</p>
                         </div>
                     </div>
 
@@ -232,7 +232,7 @@
                     }
                 }
             });
-            
+
             $(document.body).off('click.close_field_block', '.custom-filed-close');
             $(document.body).on('click.close_field_block', '.custom-filed-close', function() {
                 $(this).parent().fadeOut(300,  function() {

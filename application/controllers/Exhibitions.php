@@ -151,7 +151,7 @@ class Exhibitions extends CI_Controller
                     // }
                     // set upload config
                     $config['allowed_types'] = 'gif|jpg|png';
-                    $config['max_size'] = '2048'; // 2MB
+                    // $config['max_size'] = '2048'; // 2MB
                     $this->upload->initialize($config);
 
                     $upload_results = $this->upload->do_multiple_upload('exh_main_pic', 'exh', $exh_obj->id);
@@ -238,7 +238,7 @@ class Exhibitions extends CI_Controller
                 if (!empty($_FILES['exh_main_pic'])) {
                     // set upload config
                     $config['allowed_types'] = 'gif|jpg|png';
-                    $config['max_size'] = '2048'; // 2MB
+                    // $config['max_size'] = '2048'; // 2MB
                     $this->upload->initialize($config);
 
                     $upload_results = $this->upload->do_multiple_upload('exh_main_pic', 'exh', $this->input->post('exh_id'));
@@ -383,7 +383,7 @@ class Exhibitions extends CI_Controller
                 } else {
                     // set upload config
                     $config['allowed_types'] = 'gif|jpg|png';
-                    $config['max_size'] = '2048'; // 2MB
+                    // $config['max_size'] = '2048'; // 2MB
                     $this->upload->initialize($config);
 
                     $upload_results = $this->upload->do_multiple_upload('sec_main_pic', 'sec', $sec_obj->id);
@@ -439,7 +439,7 @@ class Exhibitions extends CI_Controller
 
                     // set upload config
                     $config['allowed_types'] = 'gif|jpg|png';
-                    $config['max_size'] = '2048'; // 2MB
+                    // $config['max_size'] = '2048'; // 2MB
                     $this->upload->initialize($config);
 
                     $upload_results = $this->upload->do_multiple_upload('sec_main_pic', 'sec', $sec_obj->id);
