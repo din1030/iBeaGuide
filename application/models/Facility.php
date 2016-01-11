@@ -11,7 +11,7 @@ class Facility extends ActiveRecord
         $this->_class_name = strtolower(get_class($this));
         $this->_table = 'facilities';
         $this->_columns = $this->discover_table_columns();
-        log_message('debug', 'Facility Model Initialized');
+        log_message('info', 'Facility Model Initialized');
     }
 
     public function prepare_for_dropdwon()

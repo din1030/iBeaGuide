@@ -12,6 +12,6 @@ class Custom_field extends ActiveRecord
         $this->_class_name = strtolower(get_class($this));
         $this->_table = $this->_class_name.'s';
         $this->_columns = $this->discover_table_columns();
-        log_message('debug', 'Custom_field Model Initialized');
+        log_message('info', 'Custom_field Model Initialized');
     }
 }

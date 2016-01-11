@@ -8,6 +8,7 @@ class Comment extends ActiveRecord {
         $this->_class_name = strtolower(get_class($this));
         $this->_table = $this->_class_name . 's';
         $this->_columns = $this->discover_table_columns();
+        log_message('info', 'Comment Model Initialized');
     }
 
     public function join_user($type = 'exh', $obj_id = 0)

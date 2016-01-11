@@ -11,7 +11,7 @@ class Section extends ActiveRecord
         $this->_class_name = strtolower(get_class($this));
         $this->_table = $this->_class_name.'s';
         $this->_columns = $this->discover_table_columns();
-        log_message('debug', 'Section Model Initialized');
+        log_message('info', 'Section Model Initialized');
     }
 
     public function get_exh_sec($exh_id)
