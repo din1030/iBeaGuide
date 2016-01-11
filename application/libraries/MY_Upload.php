@@ -90,16 +90,16 @@ class MY_Upload extends CI_Upload
             }
             if (!$this->do_upload($i)) {
                 $result[$i]['name'] = $_FILES[$i]['name'];
-                $result[$i]['error'] = $this->_CI->display_errors('', '<br>');
+                $result[$i]['error'] = $this->display_errors('', '<br>');
                 $this->error_msg = array();
             } else {
                 $result[$i]['name'] = $_FILES[$i]['name'];
                 if (!$this->create_thumbnail($upload_path.'/'.$this->file_name, false, $thumbMarker = '', 2000, 1500)) {
-                    $result[$i]['error'] = $this->_CI->display_errors('', '<br>');
+                    $result[$i]['error'] = $this->display_errors('', '<br>');
                     $this->error_msg = array();
                 }
-                if (!$this->create_thumbnail($upload_path.'/'.$this->file_name, true, '_thumb', 800, 600)) {
-                    $result[$i]['error'] = $this->_CI->display_errors('', '<br>');
+                if (!$this->create_thumbnail($upload_path.'/'.pathinfo($this->file_name,PATHINFO_FILENAME).'.jpg', true, '_thumb', 800, 600)) {
+                    $result[$i]['error'] = $this->display_errors('', '<br>');
                     $this->error_msg = array();
                 }
                 unset($_FILES[$i]);

@@ -108,7 +108,7 @@
                         <!-- Textarea -->
                         <label class="col-md-2 control-label" for="exh_push">推播文字</label>
                         <div class="col-md-8">
-                            <textarea class="form-control" id="exh_push" name="exh_push" disabled></textarea>
+                            <textarea class="form-control" id="exh_push" name="exh_push" readonly></textarea>
                             <p class="help-block">（推播文字將顯示於使用者手機推播通知）</p>
                             <div class="checkbox">
                                 <label>
@@ -155,7 +155,7 @@
             });
 
             $('#customize_push').change(function() {
-                $('#exh_push').prop('disabled', !$('#exh_push').prop('disabled'));
+                $('#exh_push').prop('disabled', !$('#exh_push').prop('readonly'));
             });
 
             $('#exh_start_date_picker').datetimepicker({
