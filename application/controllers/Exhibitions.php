@@ -5,9 +5,9 @@ class Exhibitions extends CI_Controller
     public function __construct()
     {
         parent::__construct();
-        $this->load->model('Exhibition');
-        $this->load->model('Section');
-        $this->load->model('Ibeacon');
+        // $this->load->model('Exhibition');
+        // $this->load->model('Section');
+        // $this->load->model('Ibeacon');
         log_message('debug', 'Exhibitions Controller Initialized');
     }
 
@@ -66,7 +66,7 @@ class Exhibitions extends CI_Controller
 
     public function get_exh_add_form()
     {
-        $this->load->model('Ibeacon');
+        // $this->load->model('Ibeacon');
         $data['ibeacons'] = $this->Ibeacon->prepare_for_dropdwon();
 
         $this->load->view('exhibition/exh_add_form', $data);
@@ -74,7 +74,7 @@ class Exhibitions extends CI_Controller
 
     public function get_exh_edit_form()
     {
-        $this->load->model('Ibeacon');
+        // $this->load->model('Ibeacon');
         $data['ibeacons'] = $this->Ibeacon->prepare_for_dropdwon();
 
         $exh_id = $_GET['exh_id'];
@@ -277,7 +277,7 @@ class Exhibitions extends CI_Controller
                 }
             }
         }
-        $this->load->model('Facility');
+        // $this->load->model('Facility');
         $fac_result = $this->Facility->find_all_by_exh_id($_POST['exh_id']);
         foreach ($fac_result as $fac) {
             $fac->exh_id = NULL;
@@ -354,7 +354,7 @@ class Exhibitions extends CI_Controller
         $sec_id = $_GET['sec_id'];
         $data['sec'] = $this->Section->find($sec_id);
 
-        $this->load->model('Exhibition');
+        // $this->load->model('Exhibition');
         $data['exhibitions'] = $this->Exhibition->prepare_for_dropdwon();
 
         $this->load->view('exhibition/section_edit_modal_form', $data);

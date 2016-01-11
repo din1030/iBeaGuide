@@ -5,8 +5,8 @@ class Comments extends CI_Controller
     public function __construct()
     {
         parent::__construct();
-        $this->load->model('Comment');
-        $this->load->model('Exhibition');
+        // $this->load->model('Comment');
+        // $this->load->model('Exhibition');
         log_message('debug', 'Comments Controller Initialized');
     }
 
@@ -156,30 +156,10 @@ class Comments extends CI_Controller
 
     public function get_user_info_modal_form($user_id)
     {
-        $this->load->model('User');
+        // $this->load->model('User');
         $data['user'] = $this->User->find($user_id);
         $this->load->view('comment/comment_user_info_modal_form', $data);
     }
-
-    // public function reply_via_email_action($value='')
-    // {
-    //     // admin user data
-    //     $this->load->model('User');
-    //     $current_user_obj = $this->User->find($this->config->item('login_user_id'));
-    //     $visitor_user_obj = $this->User->find($this->config->item('login_user_id'));
-    //
-    //     $this->load->library('email');
-    //
-    //     $this->email->from($current_user_obj->email, $current_user_obj->name);
-    //     $this->email->to('someone@example.com');
-    //     $this->email->cc('another@another-example.com');
-    //     $this->email->bcc('them@their-example.com');
-    //
-    //     $this->email->subject('Email Test');
-    //     $this->email->message('Testing the email class.');
-    //
-    //     $this->email->send();
-    // }
 
 }
 

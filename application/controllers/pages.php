@@ -4,7 +4,7 @@ class Pages extends CI_Controller
 {
     public function index()
     {
-        $this->load->model('Exhibition');
+        // $this->load->model('Exhibition');
         $data['exhibitions'] = $this->Exhibition->get_latest_exh();
 
         $this->load->view('header');

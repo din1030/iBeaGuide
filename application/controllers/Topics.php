@@ -5,7 +5,7 @@ class Topics extends CI_Controller
     public function __construct()
     {
         parent::__construct();
-        $this->load->model('Topic');
+        // $this->load->model('Topic');
         log_message('debug', 'Topics Controller Initialized');
     }
 
@@ -48,10 +48,10 @@ class Topics extends CI_Controller
 
     public function get_topic_add_form()
     {
-        $this->load->model('Exhibition');
+        // $this->load->model('Exhibition');
         $data['exhibitions'] = $this->Exhibition->find($_GET['exh_id']);
 
-        $this->load->model('Item');
+        // $this->load->model('Item');
         $query = $this->Item->linked_item_in_exh($data['exhibitions']->id);
         $data['linked_items'] = $query->result_array();
 
@@ -62,7 +62,7 @@ class Topics extends CI_Controller
     {
         $data['topic'] = $this->Topic->find($topic_id);
 
-        $this->load->model('Exhibition');
+        // $this->load->model('Exhibition');
         $topic_exh = $this->Exhibition->find($data['topic']->exh_id);
         $data['topic']->exh_title = $topic_exh->title;
 
