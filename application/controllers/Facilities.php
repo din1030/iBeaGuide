@@ -5,8 +5,8 @@ class Facilities extends CI_Controller
     public function __construct()
     {
         parent::__construct();
-        $this->load->model('Facility');
-        $this->load->model('Ibeacon');
+        // $this->load->model('Facility');
+        // $this->load->model('Ibeacon');
         log_message('debug', 'Facilities Controller Initialized');
     }
 
@@ -56,10 +56,10 @@ class Facilities extends CI_Controller
 
     public function get_fac_add_form()
     {
-        $this->load->model('Exhibition');
+        // $this->load->model('Exhibition');
         $data['exhibitions'] = $this->Exhibition->prepare_for_dropdwon();
 
-        $this->load->model('Ibeacon');
+        // $this->load->model('Ibeacon');
         $data['ibeacons'] = $this->Ibeacon->prepare_for_dropdwon();
 
         $this->load->view('facility/fac_add_form', $data);
@@ -70,10 +70,10 @@ class Facilities extends CI_Controller
         $fac_id = $_GET['fac_id'];
         $data['facility'] = $this->Facility->find($fac_id);
 
-        $this->load->model('Exhibition');
+        // $this->load->model('Exhibition');
         $data['exhibitions'] = $this->Exhibition->prepare_for_dropdwon();
 
-        $this->load->model('Ibeacon');
+        // $this->load->model('Ibeacon');
         $data['ibeacons'] = $this->Ibeacon->prepare_for_dropdwon();
 
         $this->load->view('facility/fac_edit_form', $data);

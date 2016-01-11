@@ -117,7 +117,7 @@ $autoload['language'] = array();
 |
 */
 
-$autoload['model'] = array();
+$autoload['model'] = array('Exhibition', 'Section', 'Item', 'Topic', 'Facility', 'Comment', 'User', 'Ibeacon', 'Custom_field');
 
 
 /* End of file autoload.php */

@@ -277,6 +277,19 @@ class Exhibitions extends CI_Controller
                 }
             }
         }
+        $this->load->model('Facility');
+        $fac_result = $this->Facility->find_all_by_exh_id($_POST['exh_id']);
+        foreach ($fac_result as $fac) {
+            $fac->exh_id = NULL;
+            $fac->update();
+        }
+        $item_result = $this->Item->find_all_by_exh_id($_POST['exh_id']);
+        foreach ($item_result as $item) {
+            $item->exh_id = NULL;
+            $item->update();
+        }
+        unset($fac_result);
+        unset($item_result);
         if (!$exh_obj->delete()) {
             $error_msg = $this->error_message->get_error_message('delete_error');
             log_message('error', $error_msg.'（展覽）');
@@ -465,7 +478,7 @@ class Exhibitions extends CI_Controller
     {
         $sec_obj = $this->Section->find($_POST['sec_id']);
         $sec_obj->delete();
-        echo $this->table->generate($this->get_sec_list($_POST['exh_id']));
+        $this->print_sec_list($_POST['exh_id']);
     }
 }
 

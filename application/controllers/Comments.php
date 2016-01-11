@@ -146,7 +146,7 @@ class Comments extends CI_Controller
         unset($result_array);
 
         $this->table->clear();
-        $this->table->set_heading(array('ID', '展品名稱', '使用者', '評分', '留言內容', '留言時間', '管理'));
+        $this->table->set_heading(array('ID', '使用者 ID', '展品名稱', '使用者','評分', '留言內容', '留言時間', '管理'));
         $tmpl = array('table_open' => '<table id="exh_list" data-toggle="table" data-striped="true">',
                       'heading_cell_start' => '<th data-sortable="true">', );
         $this->table->set_template($tmpl);

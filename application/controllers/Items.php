@@ -5,9 +5,9 @@ class Items extends CI_Controller
     public function __construct()
     {
         parent::__construct();
-        $this->load->model('Item');
-        $this->load->model('Ibeacon');
-        $this->load->model('Custom_field');
+        // $this->load->model('Item');
+        // $this->load->model('Ibeacon');
+        // $this->load->model('Custom_field');
         log_message('debug', 'Items Controller Initialized');
     }
 
@@ -60,10 +60,10 @@ class Items extends CI_Controller
 
     public function get_item_add_form()
     {
-        $this->load->model('Exhibition');
+        // $this->load->model('Exhibition');
         $data['exhibitions'] = $this->Exhibition->prepare_for_dropdwon();
 
-        $this->load->model('Ibeacon');
+        // $this->load->model('Ibeacon');
         $data['ibeacons'] = $this->Ibeacon->prepare_for_dropdwon();
 
         $this->load->view('item/item_add_form', $data);
@@ -75,10 +75,10 @@ class Items extends CI_Controller
         $data['basic_fields'] = $this->Custom_field->find_all_by_item_id($item_id, array('type' => 'basic'));
         $data['detail_fields'] = $this->Custom_field->find_all_by_item_id($item_id, array('type' => 'detail'));
 
-        $this->load->model('Exhibition');
+        // $this->load->model('Exhibition');
         $data['exhibitions'] = $this->Exhibition->prepare_for_dropdwon();
 
-        $this->load->model('Section');
+        // $this->load->model('Section');
         $data['sections'] = $this->Section->get_exh_sec($data['item']->exh_id);
 
         // $this->load->model('Ibeacon');
@@ -89,7 +89,7 @@ class Items extends CI_Controller
 
     public function print_exh_sec_menu($exh_id)
     {
-        $this->load->model('Section');
+        // $this->load->model('Section');
         $sections = $this->Section->get_exh_sec($exh_id);
         echo form_dropdown('item_sec', $sections, '', "id='item_sec' class='form-control' data-exh-id='".$exh_id."'");
         unset($sections);

@@ -12,7 +12,7 @@ class Ibeacons extends CI_Controller
     public function __construct()
     {
         parent::__construct();
-        $this->load->model('Ibeacon');
+        // $this->load->model('Ibeacon');
         log_message('debug', 'Ibeacons Controller Initialized');
     }
 
@@ -36,25 +36,25 @@ class Ibeacons extends CI_Controller
             switch ($ibeacon_row['link_type']) {
                 case 'exh':
                     $ibeacon_row['link_type'] = '展覽';
-                    $this->load->model('Exhibition');
+                    // $this->load->model('Exhibition');
                     $linked_obj = $this->Exhibition->find($ibeacon_row['link_obj_id']);
                     break;
 
                 case 'item':
                     $ibeacon_row['link_type'] = '展品';
-                    $this->load->model('Item');
+                    // $this->load->model('Item');
                     $linked_obj = $this->Item->find($ibeacon_row['link_obj_id']);
                     break;
 
                 case 'fac':
                     $ibeacon_row['link_type'] = '設施';
-                    $this->load->model('Facility');
+                    // $this->load->model('Facility');
                     $linked_obj = $this->Facility->find($ibeacon_row['link_obj_id']);
                     break;
 
                 case 'exit':
                     $ibeacon_row['link_type'] = '展覽出口';
-                    $this->load->model('Exhibition');
+                    // $this->load->model('Exhibition');
                     $linked_obj = $this->Exhibition->find($ibeacon_row['link_obj_id']);
                     break;
 
@@ -106,15 +106,15 @@ class Ibeacons extends CI_Controller
     {
         switch ($link_type) {
             case 'exh':
-            $this->load->model('Exhibition');
+            // $this->load->model('Exhibition');
             $menu = $this->Exhibition->prepare_for_dropdwon();
                 break;
             case 'item':
-            $this->load->model('Item');
+            // $this->load->model('Item');
             $menu = $this->Item->prepare_for_dropdwon();
                 break;
             case 'fac':
-            $this->load->model('Facility');
+            // $this->load->model('Facility');
             $menu = $this->Facility->prepare_for_dropdwon();
                 break;
             default:
@@ -262,7 +262,7 @@ class Ibeacons extends CI_Controller
     {
         $ibeacon_obj = $this->Ibeacon->find($_POST['ibeacon_id']);
         $ibeacon_obj->delete();
-        echo $this->table->generate($this->get_ibeacon_list());
+        $this->print_ibeacon_list();
     }
 }
 

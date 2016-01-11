@@ -147,11 +147,17 @@ class App extends CI_Controller {
 		$data['created'] = NULL; // for db data created time
 
 		$this->load->model('User');
+
 		// user data already in DB
-		if ($this->User->find($data['fb_id'])) return false;
-
-        $user_obj = $this->User->create($data);
-
+        $result = $this->User->find_by_fb_id($data['fb_id']);
+		if (!empty($result))  { 
+            // return 'Existing User: '.$result[0]->id.' '.$result[0]->fb_id;
+            echo $result->id;
+        } else {
+            $user_obj = $this->User->create($data);
+            echo $user_obj->id;
+            return $user_obj->id;
+        }
     }
 
 }
