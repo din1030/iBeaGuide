@@ -150,7 +150,7 @@
 
             $('#exh_title').on("change keyup click", function() {
                 if (!$('#customize_push').prop("checked")) {
-                    $('#exh_push').val("歡迎參觀「" + $('#exh_title').val() + "」！");
+                    $('#exh_push').html("歡迎參觀「" + $('#exh_title').val() + "」！");
                 }
             });
 
