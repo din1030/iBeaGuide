@@ -208,10 +208,10 @@ class Topics extends CI_Controller
 
     public function add_topic_item_action()
     {
-        if (empty($_POST['exh_id']) || empty($_POST['item_id'])) {
+        if (empty($_POST['topic_id']) || empty($_POST['item_id'])) {
             return false;
         }
-        return $this->Topic->save_topic_items($_POST['exh_id'], array($_POST['item_id']));
+        return $this->Topic->save_topic_items($_POST['topic_id'], array($_POST['item_id']));
     }
 
     public function delete_topic_item_action()

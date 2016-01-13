@@ -98,10 +98,10 @@ class MY_Upload extends CI_Upload
                     $result[$i]['error'] = $this->display_errors('', '<br>');
                     $this->error_msg = array();
                 }
-                if (!$this->create_thumbnail($upload_path.'/'.pathinfo($this->file_name,PATHINFO_FILENAME).'.jpg', true, '_thumb', 800, 600)) {
-                    $result[$i]['error'] = $this->display_errors('', '<br>');
-                    $this->error_msg = array();
-                }
+                // if (!$this->create_thumbnail($upload_path.'/'.pathinfo($this->file_name,PATHINFO_FILENAME).'.jpg', true, '_thumb', 800, 600)) {
+                //     $result[$i]['error'] = $this->display_errors('', '<br>');
+                //     $this->error_msg = array();
+                // }
                 unset($_FILES[$i]);
             }
         }

@@ -288,6 +288,10 @@ class Exhibitions extends CI_Controller
             $item->exh_id = NULL;
             $item->update();
         }
+        $topic_result = $this->Topic->find_all_by_exh_id($_POST['exh_id']);
+        foreach ($item_result as $item) {
+            $item->delete();
+        }
         unset($fac_result);
         unset($item_result);
         if (!$exh_obj->delete()) {

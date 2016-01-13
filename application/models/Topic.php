@@ -13,12 +13,12 @@ class Topic extends ActiveRecord {
 
     public function prepare_for_topic_table()
     {
-        $this->db->select('topics.id, topics.title as topic_title, exhibitions.title as exh_title, COUNT(*) AS item_nums');
+        $this->db->select('topics.id, topics.title as topic_title, exhibitions.title as exh_title, COUNT(topic_items.id) AS item_nums');
         $this->db->from('topics');
         $this->db->join('exhibitions', 'topics.exh_id = exhibitions.id');
-        $this->db->join('topic_items', 'topic_items.t_id = topics.id');
+        $this->db->join('topic_items', 'topic_items.t_id = topics.id', 'left');
         $this->db->where('topics.curator_id', $this->config->item('login_user_id'));
-        $this->db->group_by('t_id');
+        $this->db->group_by('topics.id');
         $this->db->order_by('exh_title', 'ASC');
         $query = $this->db->get();
         return $query;
@@ -27,6 +27,7 @@ class Topic extends ActiveRecord {
     public function save_topic_items($topic_id, $items_array)
     {
         if (empty($items_array)) {
+            echo "未選擇展品物件";
             return false;
         }
 
@@ -37,6 +38,7 @@ class Topic extends ActiveRecord {
                 'created' => NULL,
             );
             if(!$this->db->insert("topic_items", $data)) {
+                echo("資料儲存失敗！");
                 return false;
             }
         }

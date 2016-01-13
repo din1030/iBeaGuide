@@ -64,7 +64,7 @@
             var this_exh_title = $(this).parent().parent().children('td').eq(1).html();
             BootstrapDialog.show({
                 title: '注意！',
-                message: '刪除展覽資訊會將所屬展區一併刪除，是否確認刪除「' + this_exh_title + '」展覽資訊？',
+                message: '刪除展覽資訊會將所屬展區及精選主題一併刪除，是否確認刪除「' + this_exh_title + '」展覽資訊？',
                 buttons: [{
                     label: '取消',
                     action: function(dialogRef){

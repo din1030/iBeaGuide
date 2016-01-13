@@ -140,7 +140,7 @@
                         $('#system-message').show();
                     },
                     success: function(result) {
-                        if (!result) {
+                        if (result) {
                             $('#system-message').html('資料處理異常，請重新操作');
                             $('#system-message').delay(2000).fadeOut(500);
                             return;
