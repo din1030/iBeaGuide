@@ -11,6 +11,7 @@ class Pages extends CI_Controller
         $this->load->view('home', $data);
         $this->load->view('footer');
     }
+    
     public function view($page = 'home')
     {
         if (!file_exists('application/views/'.$page.'.php')) {
