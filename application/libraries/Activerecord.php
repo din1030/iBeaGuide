@@ -520,6 +520,7 @@ class ActiveRecord extends CI_Model
         );
         eval('$this->'.$plural.' = $query->result();');
     }
+    
     /**
      * prepare_for_table_by_fieldname(, $select_string, $where_array,).
      */
