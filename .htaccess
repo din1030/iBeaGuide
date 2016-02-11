@@ -1,4 +1,6 @@
-RewriteEngine On
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^(.*)$ index.php/$1 [L]
+RewriteEngine on
+RewriteBase /iBeaGuide
+RewriteCond %{REQUEST_URI} ^.*(.css|.js|.gif|.png|.jpg|.jpeg)
+RewriteRule ^(.*)$ $1 [L]
+RewriteCond $1 !^(index\.php|robots\.txt|user_uploads|$)
+RewriteRule ^(.*)$ index.php/$1 [L,QSA]
