@@ -54,12 +54,12 @@ $autoload['packages'] = array();
 
 $autoload['libraries'] =
     array(
-        'activerecord',
+        'Activerecord',
         'database',
         'form_validation',
         'table',
         'upload',
-        'error_message'
+        'Error_Message'
     );
 
 
