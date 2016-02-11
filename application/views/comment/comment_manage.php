@@ -10,7 +10,7 @@
     $(document).ready(function() {
 
         $('div.sortable.both:last').removeClass('th-inner sortable both').css('padding','8px');
-
+        $.pjax.defaults.timeout = 5000
         $(document).pjax('a[data-pjax]', '#pjax-container');
         $(document).on('pjax:complete', function() {
             $('[data-toggle="table"]').bootstrapTable();
