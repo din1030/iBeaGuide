@@ -152,8 +152,8 @@ class Ibeacons extends CI_Controller
                 'created' => null,
             );
 
-            if (!empty($this->input->post('ibeacon_link_type'))
-             && !empty($this->input->post('ibeacon_link_obj'))) {
+            if ($this->input->post('ibeacon_link_type')
+             && $this->input->post('ibeacon_link_obj')) {
                 $data['link_type'] = $this->input->post('ibeacon_link_type');
                 $data['link_obj_id'] = $this->input->post('ibeacon_link_obj');
             }
@@ -213,8 +213,8 @@ class Ibeacons extends CI_Controller
             $ibeacon_obj->minor = $this->input->post('ibeacon_minor');
             // not select type or obj
             if ($this->input->post('ibeacon_link_type') != 'none'
-             && !empty($this->input->post('ibeacon_link_type'))
-             && !empty($this->input->post('ibeacon_link_obj'))) {
+             && $this->input->post('ibeacon_link_type')
+             && $this->input->post('ibeacon_link_obj')) {
                  $ibeacon_obj->link_type = $this->input->post('ibeacon_link_type');
                  $ibeacon_obj->link_obj_id = $this->input->post('ibeacon_link_obj');
             } else {
