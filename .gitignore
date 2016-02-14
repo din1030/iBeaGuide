@@ -1,4 +1,5 @@
 .DS_Store
+.htaccess
 
 application/cache/*
 !application/cache/index.html
@@ -13,3 +14,4 @@ user_uploads/*
 application/config/database.php
 
 *.sql
+
