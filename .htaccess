@@ -1,3 +1,4 @@
+DirectoryIndex index.php
 RewriteEngine on
 RewriteBase /iBeaGuide
 RewriteCond %{REQUEST_URI} ^.*(.css|.js|.gif|.png|.jpg|.jpeg|.ttf)
