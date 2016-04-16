@@ -113,6 +113,7 @@ class CI_Log {
 	 */
 	public function __construct()
 	{
+		date_default_timezone_set("Asia/Taipei");
 		$config =& get_config();
 
 		$this->_log_path = ($config['log_path'] !== '') ? $config['log_path'] : APPPATH.'logs/';
